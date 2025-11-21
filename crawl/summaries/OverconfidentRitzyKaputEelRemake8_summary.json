@@ -1,0 +1,807 @@
+{
+    "_id": "OverconfidentRitzyKaputEelRemake8",
+    "gameSetting": {
+        "avalonSH": null,
+        "rebalance6p": false,
+        "rebalance7p": false,
+        "rebalance9p": false,
+        "casualGame": false,
+        "practiceGame": false,
+        "unlistedGame": false,
+        "noTopdecking": 0
+    },
+    "customGameSettings": {
+        "deckState": {
+            "lib": 6,
+            "fas": 11
+        },
+        "trackState": {
+            "lib": 0,
+            "fas": 0
+        },
+        "powers": [
+            null,
+            "investigate",
+            "election",
+            "bullet",
+            "bullet"
+        ],
+        "enabled": false,
+        "hitlerZone": 3,
+        "vetoZone": 5,
+        "fascistCount": 2,
+        "hitKnowsFas": false
+    },
+    "date": "2024-07-29T16:52:38.161Z",
+    "players": [
+        {
+            "_id": "66a7cb6133c0c540e37f249d",
+            "username": "MommyOrDaddy",
+            "role": "liberal",
+            "icon": 2
+        },
+        {
+            "_id": "66a7cb6133c0c540e37f249c",
+            "username": "ImThatGuyPal",
+            "role": "liberal",
+            "icon": 1
+        },
+        {
+            "_id": "66a7cb6133c0c540e37f249b",
+            "username": "gekke",
+            "role": "fascist",
+            "icon": 19
+        },
+        {
+            "_id": "66a7cb6133c0c540e37f249a",
+            "username": "MaxOnMobile",
+            "role": "liberal",
+            "icon": 0
+        },
+        {
+            "_id": "66a7cb6133c0c540e37f2499",
+            "username": "mollybird123",
+            "role": "liberal",
+            "icon": 3
+        },
+        {
+            "_id": "66a7cb6133c0c540e37f2498",
+            "username": "Gamethrower",
+            "role": "hitler",
+            "icon": 6
+        },
+        {
+            "_id": "66a7cb6133c0c540e37f2497",
+            "username": "jscarny5",
+            "role": "fascist",
+            "icon": 18
+        }
+    ],
+    "libElo": {
+        "overall": 1869.4824513743574,
+        "season": 1820.1292614470594
+    },
+    "fasElo": {
+        "overall": 1814.6629280408306,
+        "season": 1747.956081562106
+    },
+    "logs": [
+        {
+            "votes": [
+                true,
+                false,
+                false,
+                true,
+                false,
+                false,
+                true
+            ],
+            "presidentHand": [],
+            "chancellorHand": [],
+            "presidentClaim": [],
+            "chancellorClaim": [],
+            "policyPeek": [],
+            "policyPeekClaim": [],
+            "deckState": [
+                "fascist",
+                "fascist",
+                "liberal",
+                "fascist",
+                "liberal",
+                "liberal",
+                "fascist",
+                "fascist",
+                "fascist",
+                "liberal",
+                "fascist",
+                "liberal",
+                "fascist",
+                "fascist",
+                "fascist",
+                "liberal",
+                "fascist"
+            ],
+            "_id": "66a7cb6133c0c540e37f24af",
+            "presidentId": 0,
+            "chancellorId": 3,
+            "gameStateScore": -0.22914741966315785
+        },
+        {
+            "votes": [
+                true,
+                true,
+                false,
+                false,
+                true,
+                false,
+                false
+            ],
+            "presidentHand": [],
+            "chancellorHand": [],
+            "presidentClaim": [],
+            "chancellorClaim": [],
+            "policyPeek": [],
+            "policyPeekClaim": [],
+            "deckState": [
+                "fascist",
+                "fascist",
+                "liberal",
+                "fascist",
+                "liberal",
+                "liberal",
+                "fascist",
+                "fascist",
+                "fascist",
+                "liberal",
+                "fascist",
+                "liberal",
+                "fascist",
+                "fascist",
+                "fascist",
+                "liberal",
+                "fascist"
+            ],
+            "_id": "66a7cb6133c0c540e37f24ae",
+            "presidentId": 1,
+            "chancellorId": 4,
+            "gameStateScore": -0.2540645039409985
+        },
+        {
+            "votes": [
+                true,
+                true,
+                true,
+                true,
+                true,
+                true,
+                true
+            ],
+            "presidentHand": [
+                "fascist",
+                "fascist",
+                "liberal"
+            ],
+            "chancellorHand": [
+                "fascist",
+                "liberal"
+            ],
+            "presidentClaim": [
+                "fascist",
+                "fascist",
+                "liberal"
+            ],
+            "chancellorClaim": [
+                "fascist",
+                "liberal"
+            ],
+            "policyPeek": [],
+            "policyPeekClaim": [],
+            "deckState": [
+                "fascist",
+                "fascist",
+                "liberal",
+                "fascist",
+                "liberal",
+                "liberal",
+                "fascist",
+                "fascist",
+                "fascist",
+                "liberal",
+                "fascist",
+                "liberal",
+                "fascist",
+                "fascist",
+                "fascist",
+                "liberal",
+                "fascist"
+            ],
+            "_id": "66a7cb6133c0c540e37f24ad",
+            "presidentId": 2,
+            "chancellorId": 4,
+            "enactedPolicy": "liberal",
+            "gameStateScore": -0.2739830484688652
+        },
+        {
+            "votes": [
+                false,
+                false,
+                false,
+                true,
+                false,
+                false,
+                false
+            ],
+            "presidentHand": [],
+            "chancellorHand": [],
+            "presidentClaim": [],
+            "chancellorClaim": [],
+            "policyPeek": [],
+            "policyPeekClaim": [],
+            "deckState": [
+                "fascist",
+                "liberal",
+                "liberal",
+                "fascist",
+                "fascist",
+                "fascist",
+                "liberal",
+                "fascist",
+                "liberal",
+                "fascist",
+                "fascist",
+                "fascist",
+                "liberal",
+                "fascist"
+            ],
+            "_id": "66a7cb6133c0c540e37f24ac",
+            "presidentId": 3,
+            "chancellorId": 0,
+            "gameStateScore": 0.10501839700235671
+        },
+        {
+            "votes": [
+                true,
+                true,
+                true,
+                true,
+                true,
+                false,
+                true
+            ],
+            "presidentHand": [
+                "fascist",
+                "liberal",
+                "liberal"
+            ],
+            "chancellorHand": [
+                "liberal",
+                "liberal"
+            ],
+            "presidentClaim": [
+                "fascist",
+                "liberal",
+                "liberal"
+            ],
+            "chancellorClaim": [
+                "liberal",
+                "liberal"
+            ],
+            "policyPeek": [],
+            "policyPeekClaim": [],
+            "deckState": [
+                "fascist",
+                "liberal",
+                "liberal",
+                "fascist",
+                "fascist",
+                "fascist",
+                "liberal",
+                "fascist",
+                "liberal",
+                "fascist",
+                "fascist",
+                "fascist",
+                "liberal",
+                "fascist"
+            ],
+            "_id": "66a7cb6133c0c540e37f24ab",
+            "presidentId": 4,
+            "chancellorId": 6,
+            "enactedPolicy": "liberal",
+            "gameStateScore": 0.11873472072447973
+        },
+        {
+            "votes": [
+                false,
+                false,
+                false,
+                false,
+                false,
+                true,
+                false
+            ],
+            "presidentHand": [],
+            "chancellorHand": [],
+            "presidentClaim": [],
+            "chancellorClaim": [],
+            "policyPeek": [],
+            "policyPeekClaim": [],
+            "deckState": [
+                "fascist",
+                "fascist",
+                "fascist",
+                "liberal",
+                "fascist",
+                "liberal",
+                "fascist",
+                "fascist",
+                "fascist",
+                "liberal",
+                "fascist"
+            ],
+            "_id": "66a7cb6133c0c540e37f24aa",
+            "presidentId": 5,
+            "chancellorId": 2,
+            "gameStateScore": 0.33284455877250557
+        },
+        {
+            "votes": [
+                true,
+                false,
+                true,
+                false,
+                true,
+                false,
+                true
+            ],
+            "presidentHand": [
+                "fascist",
+                "fascist",
+                "fascist"
+            ],
+            "chancellorHand": [
+                "fascist",
+                "fascist"
+            ],
+            "presidentClaim": [
+                "liberal",
+                "liberal",
+                "liberal"
+            ],
+            "chancellorClaim": [
+                "fascist",
+                "fascist"
+            ],
+            "policyPeek": [],
+            "policyPeekClaim": [],
+            "deckState": [
+                "fascist",
+                "fascist",
+                "fascist",
+                "liberal",
+                "fascist",
+                "liberal",
+                "fascist",
+                "fascist",
+                "fascist",
+                "liberal",
+                "fascist"
+            ],
+            "_id": "66a7cb6133c0c540e37f24a9",
+            "presidentId": 6,
+            "chancellorId": 2,
+            "enactedPolicy": "fascist",
+            "gameStateScore": 0.3538155922017485
+        },
+        {
+            "votes": [
+                true,
+                false,
+                false,
+                false,
+                false,
+                false,
+                false
+            ],
+            "presidentHand": [],
+            "chancellorHand": [],
+            "presidentClaim": [],
+            "chancellorClaim": [],
+            "policyPeek": [],
+            "policyPeekClaim": [],
+            "deckState": [
+                "liberal",
+                "fascist",
+                "liberal",
+                "fascist",
+                "fascist",
+                "fascist",
+                "liberal",
+                "fascist"
+            ],
+            "_id": "66a7cb6133c0c540e37f24a8",
+            "presidentId": 0,
+            "chancellorId": 4,
+            "gameStateScore": 0.2679360863498093
+        },
+        {
+            "votes": [
+                true,
+                true,
+                false,
+                false,
+                false,
+                false,
+                true
+            ],
+            "presidentHand": [],
+            "chancellorHand": [],
+            "presidentClaim": [],
+            "chancellorClaim": [],
+            "policyPeek": [],
+            "policyPeekClaim": [],
+            "deckState": [
+                "liberal",
+                "fascist",
+                "liberal",
+                "fascist",
+                "fascist",
+                "fascist",
+                "liberal",
+                "fascist"
+            ],
+            "_id": "66a7cb6133c0c540e37f24a7",
+            "presidentId": 1,
+            "chancellorId": 3,
+            "gameStateScore": 0.27973122620918484
+        },
+        {
+            "votes": [
+                true,
+                true,
+                true,
+                true,
+                true,
+                true,
+                true
+            ],
+            "presidentHand": [
+                "liberal",
+                "fascist",
+                "liberal"
+            ],
+            "chancellorHand": [
+                "liberal",
+                "fascist"
+            ],
+            "presidentClaim": [
+                "fascist",
+                "liberal",
+                "liberal"
+            ],
+            "chancellorClaim": [
+                "fascist",
+                "liberal"
+            ],
+            "policyPeek": [],
+            "policyPeekClaim": [],
+            "deckState": [
+                "liberal",
+                "fascist",
+                "liberal",
+                "fascist",
+                "fascist",
+                "fascist",
+                "liberal",
+                "fascist"
+            ],
+            "_id": "66a7cb6133c0c540e37f24a6",
+            "presidentId": 2,
+            "chancellorId": 4,
+            "enactedPolicy": "liberal",
+            "gameStateScore": 0.290963008114179
+        },
+        {
+            "votes": [
+                false,
+                true,
+                false,
+                true,
+                false,
+                false,
+                false
+            ],
+            "presidentHand": [],
+            "chancellorHand": [],
+            "presidentClaim": [],
+            "chancellorClaim": [],
+            "policyPeek": [],
+            "policyPeekClaim": [],
+            "deckState": [
+                "fascist",
+                "fascist",
+                "fascist",
+                "liberal",
+                "fascist"
+            ],
+            "_id": "66a7cb6133c0c540e37f24a5",
+            "presidentId": 3,
+            "chancellorId": 1,
+            "gameStateScore": 0.4895733465277507
+        },
+        {
+            "votes": [
+                true,
+                false,
+                true,
+                false,
+                true,
+                false,
+                true
+            ],
+            "presidentHand": [
+                "fascist",
+                "fascist",
+                "fascist"
+            ],
+            "chancellorHand": [
+                "fascist",
+                "fascist"
+            ],
+            "presidentClaim": [],
+            "chancellorClaim": [
+                "fascist",
+                "liberal"
+            ],
+            "policyPeek": [],
+            "policyPeekClaim": [],
+            "deckState": [
+                "fascist",
+                "fascist",
+                "fascist",
+                "liberal",
+                "fascist"
+            ],
+            "_id": "66a7cb6133c0c540e37f24a4",
+            "presidentId": 4,
+            "chancellorId": 5,
+            "enactedPolicy": "fascist",
+            "investigationId": 3,
+            "investigatorId": 4,
+            "investigationClaim": "liberal",
+            "gameStateScore": 0.5066539300416958
+        },
+        {
+            "votes": [
+                false,
+                false,
+                false,
+                false,
+                true,
+                true,
+                false
+            ],
+            "presidentHand": [],
+            "chancellorHand": [],
+            "presidentClaim": [],
+            "chancellorClaim": [],
+            "policyPeek": [],
+            "policyPeekClaim": [],
+            "deckState": [
+                "fascist",
+                "fascist",
+                "liberal",
+                "liberal",
+                "fascist",
+                "fascist",
+                "fascist",
+                "fascist",
+                "fascist",
+                "liberal",
+                "fascist",
+                "fascist"
+            ],
+            "_id": "66a7cb6133c0c540e37f24a3",
+            "presidentId": 5,
+            "chancellorId": 0,
+            "gameStateScore": 0.09765544704138548
+        },
+        {
+            "votes": [
+                false,
+                false,
+                false,
+                false,
+                false,
+                false,
+                true
+            ],
+            "presidentHand": [],
+            "chancellorHand": [],
+            "presidentClaim": [],
+            "chancellorClaim": [],
+            "policyPeek": [],
+            "policyPeekClaim": [],
+            "deckState": [
+                "fascist",
+                "fascist",
+                "liberal",
+                "liberal",
+                "fascist",
+                "fascist",
+                "fascist",
+                "fascist",
+                "fascist",
+                "liberal",
+                "fascist",
+                "fascist"
+            ],
+            "_id": "66a7cb6133c0c540e37f24a2",
+            "presidentId": 6,
+            "chancellorId": 1,
+            "gameStateScore": 0.10119368671153729
+        },
+        {
+            "votes": [
+                true,
+                true,
+                true,
+                true,
+                true,
+                true,
+                true
+            ],
+            "presidentHand": [
+                "fascist",
+                "fascist",
+                "liberal"
+            ],
+            "chancellorHand": [
+                "fascist",
+                "liberal"
+            ],
+            "presidentClaim": [
+                "fascist",
+                "fascist",
+                "liberal"
+            ],
+            "chancellorClaim": [
+                "fascist",
+                "liberal"
+            ],
+            "policyPeek": [],
+            "policyPeekClaim": [],
+            "deckState": [
+                "fascist",
+                "fascist",
+                "liberal",
+                "liberal",
+                "fascist",
+                "fascist",
+                "fascist",
+                "fascist",
+                "fascist",
+                "liberal",
+                "fascist",
+                "fascist"
+            ],
+            "_id": "66a7cb6133c0c540e37f24a1",
+            "presidentId": 0,
+            "chancellorId": 1,
+            "enactedPolicy": "liberal",
+            "gameStateScore": 0.45317160334785145
+        },
+        {
+            "votes": [
+                true,
+                true,
+                false,
+                true,
+                false,
+                false,
+                false
+            ],
+            "presidentHand": [],
+            "chancellorHand": [],
+            "presidentClaim": [],
+            "chancellorClaim": [],
+            "policyPeek": [],
+            "policyPeekClaim": [],
+            "deckState": [
+                "liberal",
+                "fascist",
+                "fascist",
+                "fascist",
+                "fascist",
+                "fascist",
+                "liberal",
+                "fascist",
+                "fascist"
+            ],
+            "_id": "66a7cb6133c0c540e37f24a0",
+            "presidentId": 1,
+            "chancellorId": 3,
+            "gameStateScore": 0.568454395076461
+        },
+        {
+            "votes": [
+                false,
+                false,
+                true,
+                false,
+                false,
+                false,
+                false
+            ],
+            "presidentHand": [],
+            "chancellorHand": [],
+            "presidentClaim": [],
+            "chancellorClaim": [],
+            "policyPeek": [],
+            "policyPeekClaim": [],
+            "deckState": [
+                "liberal",
+                "fascist",
+                "fascist",
+                "fascist",
+                "fascist",
+                "fascist",
+                "liberal",
+                "fascist",
+                "fascist"
+            ],
+            "_id": "66a7cb6133c0c540e37f249f",
+            "presidentId": 2,
+            "chancellorId": 3,
+            "gameStateScore": 0.2524677022004251
+        },
+        {
+            "votes": [
+                true,
+                true,
+                true,
+                true,
+                true,
+                true,
+                true
+            ],
+            "presidentHand": [
+                "liberal",
+                "fascist",
+                "fascist"
+            ],
+            "chancellorHand": [
+                "liberal",
+                "fascist"
+            ],
+            "presidentClaim": [
+                "fascist",
+                "fascist",
+                "liberal"
+            ],
+            "chancellorClaim": [
+                "fascist",
+                "liberal"
+            ],
+            "policyPeek": [],
+            "policyPeekClaim": [],
+            "deckState": [
+                "liberal",
+                "fascist",
+                "fascist",
+                "fascist",
+                "fascist",
+                "fascist",
+                "liberal",
+                "fascist",
+                "fascist"
+            ],
+            "_id": "66a7cb6133c0c540e37f249e",
+            "presidentId": 3,
+            "chancellorId": 4,
+            "enactedPolicy": "liberal",
+            "gameStateScore": 0.5688172309246341
+        }
+    ],
+    "__v": 0
+}

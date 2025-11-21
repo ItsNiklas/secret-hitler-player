@@ -1,0 +1,443 @@
+{
+    "_id": "Game_20250828_175134",
+    "gameSetting": {
+        "avalonSH": null,
+        "rebalance6p": false,
+        "rebalance7p": false,
+        "rebalance9p": false,
+        "casualGame": false,
+        "practiceGame": false,
+        "unlistedGame": false,
+        "noTopdecking": 0
+    },
+    "date": "2025-08-28T17:51:34.789130Z",
+    "players": [
+        {
+            "_id": "01d2b4f3-b48a-4ad7-85d2-",
+            "username": "Alice",
+            "role": "hitler",
+            "icon": 0
+        },
+        {
+            "_id": "55df9f6f-255c-4064-9005-",
+            "username": "Bob",
+            "role": "liberal",
+            "icon": 0
+        },
+        {
+            "_id": "eed5e677-87c5-45c2-b02c-",
+            "username": "Charlie",
+            "role": "liberal",
+            "icon": 0
+        },
+        {
+            "_id": "8ef6a4d8-71d4-4b34-9486-",
+            "username": "David",
+            "role": "liberal",
+            "icon": 0
+        },
+        {
+            "_id": "b611211e-bab7-4109-aa58-",
+            "username": "Eve",
+            "role": "fascist",
+            "icon": 0
+        }
+    ],
+    "libElo": {
+        "overall": 0,
+        "season": 0
+    },
+    "fasElo": {
+        "overall": 0,
+        "season": 0
+    },
+    "logs": [
+        {
+            "_id": "e12f5c8c-0a7f-4b44-8ef6-",
+            "deckState": [
+                "fascist",
+                "liberal",
+                "fascist",
+                "fascist",
+                "liberal",
+                "fascist",
+                "fascist",
+                "fascist",
+                "fascist",
+                "fascist",
+                "fascist",
+                "liberal",
+                "liberal",
+                "liberal",
+                "fascist",
+                "liberal",
+                "fascist"
+            ],
+            "votes": [
+                true,
+                true,
+                true,
+                true,
+                false
+            ],
+            "presidentId": 0,
+            "chancellorId": 1,
+            "reflections": {
+                "0": "The game is afoot, and I must carefully consider the actions and words of my fellow players. As I reflect on the discussions, I notice that Eve's comments seem a bit too... enthusiastic, a bit too eager to please. It's almost as if they're trying to blend in a bit too well. And then, of course, there's the fact that I know Eve is a fascist. But I mustn't let my own knowledge cloud my judgment. I'll have to keep a close eye on Eve, as well as the others. Bob, as chancellor, will be an interesting one to watch. His words seem sincere, but I've seen many a wolf in sheep's clothing before. Charlie and David seem like typical liberals, eager to build trust and stability. But in a game like this, you can never be too sure.\n\nReasoning Category: C",
+                "1": "",
+                "2": "",
+                "3": "",
+                "4": ""
+            },
+            "rapidAssessments": {
+                "0": "Bob: Liberal\nCharlie: Liberal\nDavid: Liberal\nEve: Fascist",
+                "1": "Alice: Unknown\nCharlie: Unknown\nDavid: Unknown\nEve: Unknown",
+                "2": "Alice: Unknown\nBob: Unknown\nDavid: Unknown\nEve: Unknown",
+                "3": "Alice: Unknown\nBob: Unknown\nCharlie: Unknown\nEve: Unknown",
+                "4": "Alice: Liberal\nBob: Unknown\nCharlie: Unknown\nDavid: Unknown"
+            },
+            "presidentHand": [
+                "fascist",
+                "liberal",
+                "fascist"
+            ],
+            "chancellorHand": [
+                "fascist",
+                "fascist"
+            ],
+            "enactedPolicy": "fascist"
+        },
+        {
+            "_id": "e28270d7-a6c7-4d8a-84dd-",
+            "deckState": [
+                "fascist",
+                "liberal",
+                "fascist",
+                "fascist",
+                "fascist",
+                "fascist",
+                "fascist",
+                "fascist",
+                "liberal",
+                "liberal",
+                "liberal",
+                "fascist",
+                "liberal",
+                "fascist"
+            ],
+            "votes": [
+                true,
+                true,
+                true,
+                true,
+                true
+            ],
+            "presidentId": 1,
+            "chancellorId": 4,
+            "reflections": {
+                "0": "The game is heating up, and alliances are being formed. As I observe the players, I notice that Eve's behavior seems suspiciously fascist-friendly. She was the only one who voted against my presidency, and now she's chancellor, working closely with Bob. I think Bob might be a fascist as well, given his cautious demeanor and willingness to work with Eve despite the recent fascist policy enactment. Charlie and David seem genuinely concerned about the fascist policy, but it's hard to tell if they're just playing it safe or truly liberal.\n\nAs for who might be Hitler, I must consider the fact that I am Hitler, and I've been playing it cool so far. But if I had to point fingers, I'd say Bob is a potential candidate. He's been playing it very carefully, and his nomination of Eve as chancellor raises some eyebrows.\n\n\"Reasoning Category: C\"",
+                "1": "",
+                "2": "",
+                "3": "",
+                "4": ""
+            },
+            "rapidAssessments": {
+                "0": "Bob: Fascist\nCharlie: Liberal\nDavid: Liberal\nEve: Fascist",
+                "1": "Alice: Unknown\nCharlie: Unknown\nDavid: Unknown\nEve: Unknown",
+                "2": "Alice: Unknown\nBob: Unknown\nDavid: Unknown\nEve: Unknown",
+                "3": "Alice: Unknown\nBob: Unknown\nCharlie: Unknown\nEve: Unknown",
+                "4": "Alice: Liberal\nBob: Unknown\nCharlie: Unknown\nDavid: Unknown"
+            },
+            "presidentHand": [
+                "fascist",
+                "liberal",
+                "fascist"
+            ],
+            "chancellorHand": [
+                "liberal",
+                "fascist"
+            ],
+            "enactedPolicy": "fascist"
+        },
+        {
+            "_id": "beb2420d-de94-448a-9fe3-",
+            "deckState": [
+                "fascist",
+                "fascist",
+                "fascist",
+                "fascist",
+                "fascist",
+                "liberal",
+                "liberal",
+                "liberal",
+                "fascist",
+                "liberal",
+                "fascist"
+            ],
+            "votes": [
+                true,
+                false,
+                true,
+                true,
+                true
+            ],
+            "presidentId": 2,
+            "chancellorId": 3,
+            "reflections": {
+                "0": "The game is heating up, and alliances are being formed. As I observe the dynamics, I've started to piece together some suspicions. I think Charlie might be a fascist, possibly even Hitler, although I know that's not the case. Their nomination of David as chancellor seems suspicious, especially given the current state of the board with two fascist policies already enacted. It's possible that Charlie is trying to fly under the radar, but their actions have caught my attention.\n\nAs for who might be a fascist, I'm keeping a close eye on Bob. Their initial nomination as chancellor and subsequent enactment of a fascist policy raise some red flags. While they've expressed concern about the fascist policies, it could be a clever ruse to deflect attention. I'm not convinced of their liberal leanings just yet.\n\n\"Reasoning Category: C\"",
+                "1": "",
+                "2": "",
+                "3": "",
+                "4": ""
+            },
+            "rapidAssessments": {
+                "0": "Bob: Fascist\nCharlie: Liberal\nDavid: Unknown\nEve: Fascist",
+                "1": "Alice: Unknown\nCharlie: Unknown\nDavid: Unknown\nEve: Unknown",
+                "2": "Alice: Unknown\nBob: Unknown\nDavid: Unknown\nEve: Unknown",
+                "3": "Alice: Unknown\nBob: Unknown\nCharlie: Unknown\nEve: Unknown",
+                "4": "Alice: Liberal\nBob: Unknown\nCharlie: Unknown\nDavid: Unknown"
+            },
+            "presidentHand": [
+                "fascist",
+                "fascist",
+                "fascist"
+            ],
+            "chancellorHand": [
+                "fascist",
+                "fascist"
+            ],
+            "enactedPolicy": "fascist"
+        },
+        {
+            "_id": "b30a79d4-aa34-4203-bcf7-",
+            "deckState": [
+                "fascist",
+                "liberal",
+                "fascist",
+                "fascist",
+                "liberal",
+                "liberal",
+                "liberal",
+                "fascist"
+            ],
+            "votes": [
+                true,
+                false,
+                true,
+                false,
+                false
+            ],
+            "presidentId": 3,
+            "chancellorId": 4,
+            "reflections": {
+                "0": "The game is heating up, and suspicions are running high. As I observe the behavior of my fellow players, I've started to form some opinions about who might be a fascist and who could be the infamous Hitler. Eve, in particular, has caught my attention. As the current Chancellor, they've just helped enact a fascist policy, which raises some red flags. I think Eve might be a fascist, possibly even working closely with Hitler.\n\nAs for Hitler themselves, I'm not so sure. But if I had to take a guess, I'd say it could be... well, never mind. I'll keep my thoughts to myself for now. Let's just say that I'm watching everyone closely, and I'll be ready to pounce when the time is right.\n\n\"Reasoning Category: A\"",
+                "1": "",
+                "2": "",
+                "3": "",
+                "4": ""
+            },
+            "rapidAssessments": {
+                "0": "Bob: Liberal\nCharlie: Liberal\nDavid: Liberal\nEve: Fascist",
+                "1": "Alice: Unknown\nCharlie: Unknown\nDavid: Unknown\nEve: Unknown",
+                "2": "Alice: Unknown\nBob: Unknown\nDavid: Unknown\nEve: Unknown",
+                "3": "Alice: Unknown\nBob: Unknown\nCharlie: Unknown\nEve: Unknown",
+                "4": "Alice: Liberal\nBob: Unknown\nCharlie: Unknown\nDavid: Unknown"
+            },
+            "presidentHand": [],
+            "chancellorHand": [],
+            "presidentClaim": [],
+            "chancellorClaim": [],
+            "policyPeek": [],
+            "policyPeekClaim": []
+        },
+        {
+            "_id": "1eae9dd2-9ef9-4e01-8219-",
+            "deckState": [
+                "fascist",
+                "liberal",
+                "fascist",
+                "fascist",
+                "liberal",
+                "liberal",
+                "liberal",
+                "fascist"
+            ],
+            "votes": [
+                true,
+                true,
+                true,
+                true,
+                true
+            ],
+            "presidentId": 4,
+            "chancellorId": 0,
+            "reflections": {
+                "0": "The game is heating up, and alliances are being formed. As I reflect on the current state of the game, I have to consider who might be a fascist and who could be the infamous Hitler. Based on the fact that three fascist policies have been enacted already, it's clear that there's a strong fascist presence in the game.\n\nI think Eve might be a fascist, given that she's been relatively quiet and hasn't spoken out strongly against the fascist policies. Her recent nomination as President and her willingness to work with me as Chancellor raise some suspicions. However, I'm not convinced she's Hitler, as she seems to be playing a more subtle game.\n\nAs for who might be Hitler, I have to consider the players who have been most vocal about their liberal leanings. Bob and Charlie have been quite outspoken against the fascist policies, which could be a clever ruse to distract from their true intentions. But, if I had to choose, I'd say Bob might be a potential candidate for Hitler. He's been very active in the discussions, and his sudden change in tone from being open to working with Eve to being highly critical of her could be a sign of deception.\n\n\"Reasoning Category: C\"",
+                "1": "",
+                "2": "",
+                "3": "",
+                "4": ""
+            },
+            "rapidAssessments": {
+                "0": "Bob: Liberal\nCharlie: Liberal\nDavid: Liberal\nEve: Fascist",
+                "1": "Alice: Unknown\nCharlie: Unknown\nDavid: Unknown\nEve: Unknown",
+                "2": "Alice: Unknown\nBob: Unknown\nDavid: Unknown\nEve: Unknown",
+                "3": "Alice: Unknown\nBob: Unknown\nCharlie: Unknown\nEve: Unknown",
+                "4": "Alice: Liberal\nBob: Unknown\nCharlie: Unknown\nDavid: Unknown"
+            }
+        }
+    ],
+    "chats": [
+        {
+            "chat": "\"I think Bob and I can work well together to get some policies passed. I've chosen him as chancellor because I believe he's a moderate voice. Let's give this government a chance and see what they can accomplish. I recommend we vote JA to confirm Bob as chancellor.\"",
+            "userName": "Alice",
+            "state": "discussion_on_potential_government"
+        },
+        {
+            "chat": "\"I agree with Alice, Bob seems like a moderate choice for chancellor. Let's give this government a chance to prove themselves. I recommend voting JA to confirm Bob as chancellor, it's early in the game and we should focus on building trust and stability.\"",
+            "userName": "David",
+            "state": "discussion_on_potential_government"
+        },
+        {
+            "chat": "\"I think we should give Bob a chance as chancellor, Alice has made a reasonable choice. Let's focus on building trust and stability, voting JA to confirm Bob is the right move at this point in the game. It's early and we don't have any reason to doubt him yet.\"",
+            "userName": "Charlie",
+            "state": "discussion_on_potential_government"
+        },
+        {
+            "chat": "\"I'm glad to see we're all on the same page about giving this government a chance. As chancellor, I assure you that I'll work closely with Alice to pass policies that benefit our nation. I believe we have a great opportunity to set a positive tone for the game, and I recommend we vote JA to confirm our government and get started on enacting some liberal policies.\"",
+            "userName": "Bob",
+            "state": "discussion_on_potential_government"
+        },
+        {
+            "chat": "\"I think we should give Bob a chance as chancellor, he seems like a reasonable choice. Alice has made a good decision in choosing him, and I trust that they'll work together to pass policies that benefit our nation. Let's vote JA to confirm Bob and get started on building a better future.\"",
+            "userName": "Eve",
+            "state": "discussion_on_potential_government"
+        },
+        {
+            "chat": "\"I'm concerned about the fascist policy that was just enacted. Given that, I think we should be cautious about confirming Eve as chancellor. We don't know much about her leanings, and with Bob as president, I'm not sure we can trust this government to make liberal decisions. Let's vote NEIN and reconsider our options.\"",
+            "userName": "Charlie",
+            "state": "discussion_on_potential_government"
+        },
+        {
+            "chat": "\"I'm concerned about the fascist policy that was just enacted, and I think we need to be cautious about our next move. As president, I'm considering nominating a new chancellor, but I want to hear from all of you first. Eve, can you tell us why you think you're the right choice for chancellor, especially given the current state of the game?\"",
+            "userName": "Bob",
+            "state": "discussion_on_potential_government"
+        },
+        {
+            "chat": "\"I'm getting a bit concerned about the direction of this game. We just enacted a fascist policy, and now Bob is considering Eve as chancellor. I think we should exercise caution and not rush into confirming Eve. Let's discuss this further and make sure we're making the right decision for our nation. I recommend we vote NEIN and explore other options.\"",
+            "userName": "David",
+            "state": "discussion_on_potential_government"
+        },
+        {
+            "chat": "\"I understand some of you are concerned about the fascist policy that was just enacted, but I believe we should focus on moving forward and giving this new government a chance. As chancellor, I assure you that I'll work closely with President Bob to pass policies that benefit our nation. Let's not jump to conclusions and instead, work together to build trust and stability. I recommend voting JA to confirm our government and get started on enacting some positive change.\"",
+            "userName": "Eve",
+            "state": "discussion_on_potential_government"
+        },
+        {
+            "chat": "\"I think we should give Eve a chance as chancellor, despite the fascist policy that was just enacted. She's assured us she'll work with Bob to pass policies that benefit our nation, and I believe we should take her at her word. Let's not jump to conclusions and instead, work together to build trust and stability. I recommend voting JA to confirm Eve as chancellor and see how this government plays out.\"",
+            "userName": "Alice",
+            "state": "discussion_on_potential_government"
+        },
+        {
+            "chat": "\"I'm extremely concerned about the two fascist policies that have been enacted already. As president, I'm considering nominating a new chancellor, but I want to hear from all of you first. David, can you explain why you think you're the right choice for chancellor, given the current state of the game? Let's be cautious and make sure we're making the right decision for our nation.\"",
+            "userName": "Charlie",
+            "state": "discussion_on_potential_government"
+        },
+        {
+            "chat": "\"I'm extremely concerned about the two fascist policies that have been enacted already. Given this, I think we should be cautious about confirming any government that doesn't have a clear liberal majority. Charlie, as president, I urge you to consider nominating a chancellor who has spoken out strongly against fascist policies. We need to make a change and get back on track with liberal policies. Let's not rush into confirming this government without careful consideration.\"",
+            "userName": "Bob",
+            "state": "discussion_on_potential_government"
+        },
+        {
+            "chat": "\"I'm concerned about the recent fascist policy enactments, and I think we need to be cautious about our next move. Charlie, as president, I urge you to consider nominating a new chancellor who has spoken out strongly against fascist policies. David, I'm not sure you're the right fit for this role, given the current state of the game. Let's prioritize liberal policies and rebuild trust. I recommend we vote NEIN on the current government and explore other options.\"",
+            "userName": "Alice",
+            "state": "discussion_on_potential_government"
+        },
+        {
+            "chat": "\"I think we should give Charlie and David a chance to lead. They seem like a reasonable team, and we need to focus on passing liberal policies to balance out the two fascist policies that have already been enacted. I recommend voting JA to confirm this government and see what they can accomplish.\"",
+            "userName": "Eve",
+            "state": "discussion_on_potential_government"
+        },
+        {
+            "chat": "\"I'm concerned about the two fascist policies that have been enacted already. As chancellor, I assure you that I'll work closely with President Charlie to pass liberal policies and balance out the fascist ones. I think we have a good team in place, and I recommend voting JA to confirm our government and get started on enacting some positive change.\"",
+            "userName": "David",
+            "state": "discussion_on_potential_government"
+        },
+        {
+            "chat": "\"I'm concerned about the third fascist policy being enacted, and I think we need to take a closer look at the government. Charlie and David, can you explain how this policy was chosen? David, as chancellor, didn't you assure us you'd work to pass liberal policies? This inconsistency raises some red flags for me.\"",
+            "userName": "Eve",
+            "state": "after_policy"
+        },
+        {
+            "chat": "\"I'm extremely concerned about the third fascist policy being enacted. As president, I nominated David as chancellor, and he assured us he'd work to pass liberal policies. However, the outcome is clearly not what we expected. David, can you explain how this fascist policy was chosen? Was it a deliberate decision, or did something go wrong during the policy selection process? I need to understand what happened to ensure we can move forward and correct our course.\"",
+            "userName": "Charlie",
+            "state": "after_policy"
+        },
+        {
+            "chat": "\"I'm shocked and disappointed that another fascist policy was enacted. As chancellor, I assured everyone that I would work with President Charlie to pass liberal policies. However, it seems that didn't happen. Charlie, can you explain what went wrong during the policy selection process? Did you intentionally choose a fascist policy, or was it an honest mistake? I need to understand what happened to ensure we can move forward and correct our course. Additionally, I think it's time for us to re-evaluate our government and consider making changes to prevent further fascist policies from being enacted.\"",
+            "userName": "David",
+            "state": "after_policy"
+        },
+        {
+            "chat": "\"I'm appalled that another fascist policy was enacted. Charlie, as president, and David, as chancellor, can you explain how this happened? David, you assured us you'd work to pass liberal policies, but the outcome is clearly not what we expected. I'm starting to suspect that one of you might be a fascist, or at the very least, not working in the best interest of our nation. Charlie, did you intentionally choose a fascist policy, or was it an honest mistake? David, did you have any influence over the policy selection process? We need transparency and answers to move forward.\"",
+            "userName": "Bob",
+            "state": "after_policy"
+        },
+        {
+            "chat": "\"I'm shocked and disappointed by the third fascist policy being enacted. Charlie, as president, and David, as chancellor, can you explain how this happened? David, you assured us you'd work to pass liberal policies, but the outcome is clearly not what we expected. I'm starting to suspect that one of you might be a fascist. Charlie, did you intentionally choose a fascist policy, or was it an honest mistake? David, did you have any influence over the policy selection process? We need transparency and answers to move forward. Also, I'd like to remind everyone that Eve has been acting suspiciously, and I think we should keep a close eye on them.\"",
+            "userName": "Alice",
+            "state": "after_policy"
+        },
+        {
+            "chat": "\"I'm extremely concerned about the three fascist policies that have been enacted, and I think we need to be cautious about confirming this government. David, as president, and Eve, as chancellor, can you explain how you plan to balance out these fascist policies and ensure that liberal policies are passed moving forward? I'm not convinced that this government is working in the best interest of our nation, and I think we should consider voting NEIN to explore other options.\"",
+            "userName": "Charlie",
+            "state": "discussion_on_potential_government"
+        },
+        {
+            "chat": "\"I'm extremely concerned about the three fascist policies enacted, and I think we need to re-evaluate our government. As president, I'm considering nominating a new chancellor, someone who has consistently spoken out against fascist policies. Eve, I appreciate your willingness to serve, but I think it's time for a change. I recommend we vote NEIN on this government and explore other options to ensure we can pass liberal policies and balance out the fascist ones.\"",
+            "userName": "David",
+            "state": "discussion_on_potential_government"
+        },
+        {
+            "chat": "\"I think we should give David and Eve a chance to lead, despite the recent fascist policy enactment. We can't just assume they're working against us without giving them an opportunity to prove themselves. Let's vote JA and see how they handle the next policy. We can always re-evaluate later if things don't go as planned.\"",
+            "userName": "Alice",
+            "state": "discussion_on_potential_government"
+        },
+        {
+            "chat": "\"I think we should give President David and I a chance to lead. We've just enacted a policy, and I believe we can work together to balance it out with some liberal policies. Let's not be too hasty in judging us, and instead, focus on moving forward. I recommend voting JA to confirm our government and see what we can accomplish.\"",
+            "userName": "Eve",
+            "state": "discussion_on_potential_government"
+        },
+        {
+            "chat": "\"I'm extremely concerned about the three fascist policies enacted, and I think we need to be cautious about confirming this government. David and Eve, can you explain how you plan to balance out these fascist policies and ensure that liberal policies are passed moving forward? I'm not convinced that this government is working in the best interest of our nation, and I think we should consider voting NEIN to explore other options.\"",
+            "userName": "Bob",
+            "state": "discussion_on_potential_government"
+        },
+        {
+            "chat": "\"I think we should vote JA to confirm our government. As president, I've had a chance to work with Alice, and I believe we can balance out the recent fascist policies with some liberal ones. Let's give us a chance to prove ourselves and move forward. We can't let fear and mistrust dictate our decisions, we need to work together to make progress.\"",
+            "userName": "Eve",
+            "state": "discussion_on_potential_government"
+        },
+        {
+            "chat": "\"I'm extremely concerned about the three fascist policies enacted, and I think we need to be cautious about confirming this government. Eve, as president, and Alice, as chancellor, can you explain how you plan to balance out these fascist policies and ensure that liberal policies are passed moving forward? I'm not convinced that this government is working in the best interest of our nation, and I think we should consider voting NEIN to explore other options.\"",
+            "userName": "Bob",
+            "state": "discussion_on_potential_government"
+        },
+        {
+            "chat": "\"I'm extremely concerned about the three fascist policies enacted, and I think we need to be cautious about confirming this government. Eve and Alice, can you explain how you plan to balance out these fascist policies and ensure that liberal policies are passed moving forward? I'm not convinced that this government is working in the best interest of our nation, and I think we should consider voting NEIN to explore other options.\"",
+            "userName": "Charlie",
+            "state": "discussion_on_potential_government"
+        },
+        {
+            "chat": "\"I'm extremely concerned about the three fascist policies enacted, and I think we need to be cautious about confirming this government. Eve and Alice, can you explain how you plan to balance out these fascist policies and ensure that liberal policies are passed moving forward? Given the current state of the game, I recommend we vote NEIN and explore other options to ensure we can pass liberal policies and prevent further fascist ones from being enacted.\"",
+            "userName": "David",
+            "state": "discussion_on_potential_government"
+        },
+        {
+            "chat": "\"I think we should give President Eve and I a chance to lead. We've just had a fascist policy enacted, but I believe we can work together to balance it out with some liberal policies. I've had a chance to reflect on the previous governments, and I think Eve has shown a willingness to listen to everyone's concerns. Let's not be too hasty in judging us, and instead, focus on moving forward. I recommend voting JA to confirm our government and see what we can accomplish.\"",
+            "userName": "Alice",
+            "state": "discussion_on_potential_government"
+        }
+    ],
+    "__v": 0
+}

@@ -1,0 +1,4833 @@
+[
+    "replayGameData",
+    {
+        "avalonSH": null,
+        "winningPlayers": [
+            {
+                "userName": "kbizzle1",
+                "team": "liberal",
+                "role": "liberal"
+            },
+            {
+                "userName": "Meowlin",
+                "team": "liberal",
+                "role": "liberal"
+            },
+            {
+                "userName": "near1337",
+                "team": "liberal",
+                "role": "liberal"
+            },
+            {
+                "userName": "AIsUnite",
+                "team": "liberal",
+                "role": "liberal"
+            }
+        ],
+        "losingPlayers": [
+            {
+                "userName": "dwabble",
+                "team": "fascist",
+                "role": "hitler"
+            },
+            {
+                "userName": "ImAnAnt",
+                "team": "fascist",
+                "role": "fascist"
+            },
+            {
+                "userName": "Trauler",
+                "team": "fascist",
+                "role": "fascist"
+            }
+        ],
+        "chats": [
+            {
+                "chat": "u want my seat?",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "Trauler",
+                "timestamp": "2025-08-06T14:59:30.641Z",
+                "staffRole": null
+            },
+            {
+                "chat": [
+                    {
+                        "text": "Chancellor "
+                    },
+                    {
+                        "text": "near1337 {5} ",
+                        "type": "player"
+                    },
+                    {
+                        "text": "claims "
+                    },
+                    {
+                        "claim": "rb"
+                    },
+                    {
+                        "text": "."
+                    }
+                ],
+                "isClaim": true,
+                "timestamp": "2025-08-06T14:59:56.035Z",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "near1337",
+                "claim": "wasChancellor",
+                "claimState": "rb"
+            },
+            {
+                "chat": [
+                    {
+                        "text": "President "
+                    },
+                    {
+                        "text": "dwabble {1} ",
+                        "type": "player"
+                    },
+                    {
+                        "text": "claims "
+                    },
+                    {
+                        "claim": "rrb"
+                    },
+                    {
+                        "text": "."
+                    }
+                ],
+                "isClaim": true,
+                "timestamp": "2025-08-06T14:59:57.194Z",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "dwabble",
+                "claim": "wasPresident",
+                "claimState": "rrb"
+            },
+            {
+                "chat": [
+                    {
+                        "text": "President "
+                    },
+                    {
+                        "text": "kbizzle1 {2} ",
+                        "type": "player"
+                    },
+                    {
+                        "text": "claims "
+                    },
+                    {
+                        "claim": "rrr"
+                    },
+                    {
+                        "text": "."
+                    }
+                ],
+                "isClaim": true,
+                "timestamp": "2025-08-06T15:00:29.797Z",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "kbizzle1",
+                "claim": "wasPresident",
+                "claimState": "rrr"
+            },
+            {
+                "chat": [
+                    {
+                        "text": "Chancellor "
+                    },
+                    {
+                        "text": "Trauler {6} ",
+                        "type": "player"
+                    },
+                    {
+                        "text": "claims "
+                    },
+                    {
+                        "claim": "bb"
+                    },
+                    {
+                        "text": "."
+                    }
+                ],
+                "isClaim": true,
+                "timestamp": "2025-08-06T15:00:29.948Z",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "Trauler",
+                "claim": "wasChancellor",
+                "claimState": "bb"
+            },
+            {
+                "chat": "dun dun",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "AIsUnite",
+                "timestamp": "2025-08-06T15:01:57.036Z",
+                "staffRole": null
+            },
+            {
+                "chat": "DING!",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "ImAnAnt",
+                "timestamp": "2025-08-06T15:02:03.564Z",
+                "staffRole": "moderator"
+            },
+            {
+                "gameChat": true,
+                "userName": "AIsUnite",
+                "timestamp": "2025-08-06T15:02:03.605Z",
+                "chat": [
+                    {
+                        "text": "AIsUnite has pinged dwabble (1)."
+                    }
+                ],
+                "previousSeasonAward": null,
+                "uid": null,
+                "inProgress": true
+            },
+            {
+                "chat": "im channeling the ding here 7",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "ImAnAnt",
+                "timestamp": "2025-08-06T15:02:12.890Z",
+                "staffRole": "moderator"
+            },
+            {
+                "chat": "i dont see whos deciding",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "AIsUnite",
+                "timestamp": "2025-08-06T15:02:18.943Z",
+                "staffRole": null
+            },
+            {
+                "chat": "is it 1 or 5",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "AIsUnite",
+                "timestamp": "2025-08-06T15:02:21.111Z",
+                "staffRole": null
+            },
+            {
+                "chat": "1 is",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "ImAnAnt",
+                "timestamp": "2025-08-06T15:02:22.898Z",
+                "staffRole": "moderator"
+            },
+            {
+                "gameChat": true,
+                "userName": "Trauler",
+                "timestamp": "2025-08-06T15:02:29.589Z",
+                "chat": [
+                    {
+                        "text": "Trauler has pinged dwabble (1)."
+                    }
+                ],
+                "previousSeasonAward": null,
+                "uid": null,
+                "inProgress": true
+            },
+            {
+                "chat": "i thoutht so but i dont see the symbol",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "AIsUnite",
+                "timestamp": "2025-08-06T15:02:31.055Z",
+                "staffRole": null
+            },
+            {
+                "chat": "huh",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "Meowlin",
+                "timestamp": "2025-08-06T15:02:36.120Z",
+                "staffRole": null
+            },
+            {
+                "chat": "i dont either!",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "Meowlin",
+                "timestamp": "2025-08-06T15:02:38.094Z",
+                "staffRole": null
+            },
+            {
+                "chat": "Is it over the eyes",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "ImAnAnt",
+                "timestamp": "2025-08-06T15:02:39.161Z",
+                "staffRole": "moderator"
+            },
+            {
+                "chat": "its cuz their eyes are white and the spinny thing is white too",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "Trauler",
+                "timestamp": "2025-08-06T15:02:43.249Z",
+                "staffRole": null
+            },
+            {
+                "chat": "u can see the text above the chat",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "ImAnAnt",
+                "timestamp": "2025-08-06T15:02:43.989Z",
+                "staffRole": "moderator"
+            },
+            {
+                "chat": "ohhhh",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "Meowlin",
+                "timestamp": "2025-08-06T15:02:47.777Z",
+                "staffRole": null
+            },
+            {
+                "chat": "oooo",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "AIsUnite",
+                "timestamp": "2025-08-06T15:02:47.796Z",
+                "staffRole": null
+            },
+            {
+                "chat": "its bcs",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "AIsUnite",
+                "timestamp": "2025-08-06T15:02:50.695Z",
+                "staffRole": null
+            },
+            {
+                "chat": "hes my hitler",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "AIsUnite",
+                "timestamp": "2025-08-06T15:02:52.419Z",
+                "staffRole": null
+            },
+            {
+                "chat": "the red is stopping it show",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "AIsUnite",
+                "timestamp": "2025-08-06T15:02:55.799Z",
+                "staffRole": null
+            },
+            {
+                "chat": "give inv",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "Meowlin",
+                "timestamp": "2025-08-06T15:03:10.390Z",
+                "staffRole": null
+            },
+            {
+                "chat": "is game stuck or something?",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "kbizzle1",
+                "timestamp": "2025-08-06T15:03:11.026Z",
+                "staffRole": null
+            },
+            {
+                "chat": "5 will inv me lib",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "Meowlin",
+                "timestamp": "2025-08-06T15:03:13.933Z",
+                "staffRole": null
+            },
+            {
+                "chat": "no 1 has jst gone",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "AIsUnite",
+                "timestamp": "2025-08-06T15:03:18.915Z",
+                "staffRole": null
+            },
+            {
+                "chat": [
+                    {
+                        "text": "Chancellor "
+                    },
+                    {
+                        "text": "dwabble {1} ",
+                        "type": "player"
+                    },
+                    {
+                        "text": "claims "
+                    },
+                    {
+                        "claim": "bb"
+                    },
+                    {
+                        "text": "."
+                    }
+                ],
+                "isClaim": true,
+                "timestamp": "2025-08-06T15:03:19.618Z",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "dwabble",
+                "claim": "wasChancellor",
+                "claimState": "bb"
+            },
+            {
+                "chat": [
+                    {
+                        "text": "President "
+                    },
+                    {
+                        "text": "near1337 {5} ",
+                        "type": "player"
+                    },
+                    {
+                        "text": "claims "
+                    },
+                    {
+                        "claim": "rbb"
+                    },
+                    {
+                        "text": "."
+                    }
+                ],
+                "isClaim": true,
+                "timestamp": "2025-08-06T15:03:20.891Z",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "near1337",
+                "claim": "wasPresident",
+                "claimState": "rbb"
+            },
+            {
+                "chat": "ssorry guys",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "dwabble",
+                "timestamp": "2025-08-06T15:03:22.217Z",
+                "staffRole": null
+            },
+            {
+                "chat": "wow",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "Trauler",
+                "timestamp": "2025-08-06T15:03:23.870Z",
+                "staffRole": null
+            },
+            {
+                "chat": "not good enough 1",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "AIsUnite",
+                "timestamp": "2025-08-06T15:03:26.981Z",
+                "staffRole": null
+            },
+            {
+                "chat": "hard decision for 1 there",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "Trauler",
+                "timestamp": "2025-08-06T15:03:27.356Z",
+                "staffRole": null
+            },
+            {
+                "chat": "i wanted 5 to choice me but he forced",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "dwabble",
+                "timestamp": "2025-08-06T15:03:49.993Z",
+                "staffRole": null
+            },
+            {
+                "chat": "hero ja this 3",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "AIsUnite",
+                "timestamp": "2025-08-06T15:03:57.002Z",
+                "staffRole": null
+            },
+            {
+                "chat": "im neining",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "ImAnAnt",
+                "timestamp": "2025-08-06T15:03:59.904Z",
+                "staffRole": "moderator"
+            },
+            {
+                "chat": "1 will pick me",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "ImAnAnt",
+                "timestamp": "2025-08-06T15:04:01.681Z",
+                "staffRole": "moderator"
+            },
+            {
+                "chat": "I trust",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "ImAnAnt",
+                "timestamp": "2025-08-06T15:04:02.731Z",
+                "staffRole": "moderator"
+            },
+            {
+                "chat": "fish me 1",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "AIsUnite",
+                "timestamp": "2025-08-06T15:04:06.843Z",
+                "staffRole": null
+            },
+            {
+                "chat": "i have bad lines",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "AIsUnite",
+                "timestamp": "2025-08-06T15:04:11.831Z",
+                "staffRole": null
+            },
+            {
+                "chat": "beautiful",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "ImAnAnt",
+                "timestamp": "2025-08-06T15:04:13.052Z",
+                "staffRole": "moderator"
+            },
+            {
+                "chat": [
+                    {
+                        "text": "Chancellor "
+                    },
+                    {
+                        "text": "ImAnAnt {3} ",
+                        "type": "player"
+                    },
+                    {
+                        "text": "claims "
+                    },
+                    {
+                        "claim": "rr"
+                    },
+                    {
+                        "text": "."
+                    }
+                ],
+                "isClaim": true,
+                "timestamp": "2025-08-06T15:04:25.431Z",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "ImAnAnt",
+                "claim": "wasChancellor",
+                "claimState": "rr"
+            },
+            {
+                "chat": [
+                    {
+                        "text": "President "
+                    },
+                    {
+                        "text": "dwabble {1} ",
+                        "type": "player"
+                    },
+                    {
+                        "text": "claims "
+                    },
+                    {
+                        "claim": "rrr"
+                    },
+                    {
+                        "text": "."
+                    }
+                ],
+                "isClaim": true,
+                "timestamp": "2025-08-06T15:04:25.781Z",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "dwabble",
+                "claim": "wasPresident",
+                "claimState": "rrr"
+            },
+            {
+                "chat": "not beautiful",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "ImAnAnt",
+                "timestamp": "2025-08-06T15:04:27.720Z",
+                "staffRole": "moderator"
+            },
+            {
+                "chat": "lib",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "dwabble",
+                "timestamp": "2025-08-06T15:04:30.831Z",
+                "staffRole": null
+            },
+            {
+                "chat": [
+                    {
+                        "text": "President "
+                    },
+                    {
+                        "text": "dwabble {1} ",
+                        "type": "player"
+                    },
+                    {
+                        "text": "sees the party membership of "
+                    },
+                    {
+                        "text": "near1337 {5} ",
+                        "type": "player"
+                    },
+                    {
+                        "text": "and claims to see a member of the "
+                    },
+                    {
+                        "text": "liberal ",
+                        "type": "liberal"
+                    },
+                    {
+                        "text": "team."
+                    }
+                ],
+                "isClaim": true,
+                "timestamp": "2025-08-06T15:04:34.087Z",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "dwabble",
+                "claim": "didInvestigateLoyalty",
+                "claimState": "liberal"
+            },
+            {
+                "chat": "some 47 here",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "AIsUnite",
+                "timestamp": "2025-08-06T15:05:12.771Z",
+                "staffRole": null
+            },
+            {
+                "chat": "1h47 :wethink:",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "Trauler",
+                "timestamp": "2025-08-06T15:05:14.549Z",
+                "staffRole": null
+            },
+            {
+                "chat": "lol 4",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "AIsUnite",
+                "timestamp": "2025-08-06T15:05:34.067Z",
+                "staffRole": null
+            },
+            {
+                "chat": "why",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "Trauler",
+                "timestamp": "2025-08-06T15:05:35.923Z",
+                "staffRole": null
+            },
+            {
+                "chat": [
+                    {
+                        "text": "Chancellor "
+                    },
+                    {
+                        "text": "Meowlin {4} ",
+                        "type": "player"
+                    },
+                    {
+                        "text": "claims "
+                    },
+                    {
+                        "claim": "rr"
+                    },
+                    {
+                        "text": "."
+                    }
+                ],
+                "isClaim": true,
+                "timestamp": "2025-08-06T15:05:42.211Z",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "Meowlin",
+                "claim": "wasChancellor",
+                "claimState": "rr"
+            },
+            {
+                "chat": [
+                    {
+                        "text": "President "
+                    },
+                    {
+                        "text": "ImAnAnt {3} ",
+                        "type": "player"
+                    },
+                    {
+                        "text": "claims "
+                    },
+                    {
+                        "claim": "rrb"
+                    },
+                    {
+                        "text": "."
+                    }
+                ],
+                "isClaim": true,
+                "timestamp": "2025-08-06T15:05:42.451Z",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "ImAnAnt",
+                "claim": "wasPresident",
+                "claimState": "rrb"
+            },
+            {
+                "chat": "lol what",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "Meowlin",
+                "timestamp": "2025-08-06T15:05:44.304Z",
+                "staffRole": null
+            },
+            {
+                "chat": "why would i nein 34",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "Meowlin",
+                "timestamp": "2025-08-06T15:05:46.625Z",
+                "staffRole": null
+            },
+            {
+                "chat": "i neined this",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "Trauler",
+                "timestamp": "2025-08-06T15:05:49.944Z",
+                "staffRole": null
+            },
+            {
+                "chat": "se 5 go",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "dwabble",
+                "timestamp": "2025-08-06T15:05:50.166Z",
+                "staffRole": null
+            },
+            {
+                "chat": "ur on tracker?!",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "Trauler",
+                "timestamp": "2025-08-06T15:05:51.777Z",
+                "staffRole": null
+            },
+            {
+                "chat": "5x is playing next anyway",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "AIsUnite",
+                "timestamp": "2025-08-06T15:05:53.179Z",
+                "staffRole": null
+            },
+            {
+                "chat": "and?",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "Meowlin",
+                "timestamp": "2025-08-06T15:05:54.372Z",
+                "staffRole": null
+            },
+            {
+                "chat": "maybe see the cards?",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "AIsUnite",
+                "timestamp": "2025-08-06T15:05:56.877Z",
+                "staffRole": null
+            },
+            {
+                "chat": "no",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "Meowlin",
+                "timestamp": "2025-08-06T15:05:57.004Z",
+                "staffRole": null
+            },
+            {
+                "chat": "34 47 can play",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "Meowlin",
+                "timestamp": "2025-08-06T15:05:59.730Z",
+                "staffRole": null
+            },
+            {
+                "chat": "whats the count 4b?",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "kbizzle1",
+                "timestamp": "2025-08-06T15:06:00.389Z",
+                "staffRole": null
+            },
+            {
+                "chat": "maybe dont ja 3 when 1 is outed!",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "AIsUnite",
+                "timestamp": "2025-08-06T15:06:04.215Z",
+                "staffRole": null
+            },
+            {
+                "chat": "im not outed!",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "dwabble",
+                "timestamp": "2025-08-06T15:06:15.281Z",
+                "staffRole": null
+            },
+            {
+                "chat": "Lets se 5",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "ImAnAnt",
+                "timestamp": "2025-08-06T15:06:16.319Z",
+                "staffRole": "moderator"
+            },
+            {
+                "chat": "what is the count though?",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "kbizzle1",
+                "timestamp": "2025-08-06T15:06:16.971Z",
+                "staffRole": null
+            },
+            {
+                "chat": "3 also put no thought",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "AIsUnite",
+                "timestamp": "2025-08-06T15:06:18.883Z",
+                "staffRole": null
+            },
+            {
+                "chat": "into the pick",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "AIsUnite",
+                "timestamp": "2025-08-06T15:06:20.429Z",
+                "staffRole": null
+            },
+            {
+                "chat": "click 5 tho",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "dwabble",
+                "timestamp": "2025-08-06T15:06:20.671Z",
+                "staffRole": null
+            },
+            {
+                "chat": "15 rrb?",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "kbizzle1",
+                "timestamp": "2025-08-06T15:06:21.956Z",
+                "staffRole": null
+            },
+            {
+                "chat": "51 rbb",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "kbizzle1",
+                "timestamp": "2025-08-06T15:06:23.533Z",
+                "staffRole": null
+            },
+            {
+                "chat": "4b claimed yes",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "Trauler",
+                "timestamp": "2025-08-06T15:06:23.656Z",
+                "staffRole": null
+            },
+            {
+                "chat": "no thought 7?",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "ImAnAnt",
+                "timestamp": "2025-08-06T15:06:24.597Z",
+                "staffRole": "moderator"
+            },
+            {
+                "chat": "ok",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "kbizzle1",
+                "timestamp": "2025-08-06T15:06:26.305Z",
+                "staffRole": null
+            },
+            {
+                "chat": "you asked for 47",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "ImAnAnt",
+                "timestamp": "2025-08-06T15:06:26.921Z",
+                "staffRole": "moderator"
+            },
+            {
+                "chat": "yeah",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "kbizzle1",
+                "timestamp": "2025-08-06T15:06:27.363Z",
+                "staffRole": null
+            },
+            {
+                "chat": "yes?",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "AIsUnite",
+                "timestamp": "2025-08-06T15:06:27.613Z",
+                "staffRole": null
+            },
+            {
+                "chat": "Im not picking you when you ask for that",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "ImAnAnt",
+                "timestamp": "2025-08-06T15:06:32.419Z",
+                "staffRole": "moderator"
+            },
+            {
+                "chat": "RRB RRR RBB RRR RRB",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "Trauler",
+                "timestamp": "2025-08-06T15:06:33.216Z",
+                "staffRole": null
+            },
+            {
+                "chat": "ye why didnt you pick 36 then",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "AIsUnite",
+                "timestamp": "2025-08-06T15:06:34.087Z",
+                "staffRole": null
+            },
+            {
+                "chat": "i'll se 7 then",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "kbizzle1",
+                "timestamp": "2025-08-06T15:06:34.863Z",
+                "staffRole": null
+            },
+            {
+                "chat": "7 jad 6x on the inv aswell",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "AIsUnite",
+                "timestamp": "2025-08-06T15:06:37.115Z",
+                "staffRole": null
+            },
+            {
+                "chat": "im fine losing on nat 4b",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "kbizzle1",
+                "timestamp": "2025-08-06T15:06:38.039Z",
+                "staffRole": null
+            },
+            {
+                "chat": "because 7 wnats to play 4?",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "ImAnAnt",
+                "timestamp": "2025-08-06T15:06:38.473Z",
+                "staffRole": "moderator"
+            },
+            {
+                "chat": "i mean",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "dwabble",
+                "timestamp": "2025-08-06T15:06:40.023Z",
+                "staffRole": null
+            },
+            {
+                "chat": "156 is a thing",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "ImAnAnt",
+                "timestamp": "2025-08-06T15:06:40.609Z",
+                "staffRole": "moderator"
+            },
+            {
+                "chat": "before 34 confs",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "ImAnAnt",
+                "timestamp": "2025-08-06T15:06:45.132Z",
+                "staffRole": "moderator"
+            },
+            {
+                "chat": "wdym 2",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "near1337",
+                "timestamp": "2025-08-06T15:06:47.412Z",
+                "staffRole": null
+            },
+            {
+                "chat": "have we seen 2s votes this game? lol",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "dwabble",
+                "timestamp": "2025-08-06T15:06:47.703Z",
+                "staffRole": null
+            },
+            {
+                "chat": "why cant 17 3/4",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "near1337",
+                "timestamp": "2025-08-06T15:06:51.243Z",
+                "staffRole": null
+            },
+            {
+                "chat": "be the line",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "near1337",
+                "timestamp": "2025-08-06T15:06:52.962Z",
+                "staffRole": null
+            },
+            {
+                "chat": "yeah i jaed everything ",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "kbizzle1",
+                "timestamp": "2025-08-06T15:06:54.057Z",
+                "staffRole": null
+            },
+            {
+                "chat": "4 is cutting me out of govs for no reason at all",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "Trauler",
+                "timestamp": "2025-08-06T15:06:55.925Z",
+                "staffRole": null
+            },
+            {
+                "chat": "2 is RP in 4b ",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "dwabble",
+                "timestamp": "2025-08-06T15:06:58.586Z",
+                "staffRole": null
+            },
+            {
+                "chat": "and wants 7 sed",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "dwabble",
+                "timestamp": "2025-08-06T15:07:02.481Z",
+                "staffRole": null
+            },
+            {
+                "chat": "well i will got give 2 passes",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "near1337",
+                "timestamp": "2025-08-06T15:07:02.824Z",
+                "staffRole": null
+            },
+            {
+                "chat": "4 is... cutting 6... out of gov?",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "Meowlin",
+                "timestamp": "2025-08-06T15:07:05.820Z",
+                "staffRole": null
+            },
+            {
+                "chat": "2 is obviously fasc",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "near1337",
+                "timestamp": "2025-08-06T15:07:06.477Z",
+                "staffRole": null
+            },
+            {
+                "chat": "click 5",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "dwabble",
+                "timestamp": "2025-08-06T15:07:07.634Z",
+                "staffRole": null
+            },
+            {
+                "chat": "why is 2 SEing 6",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "Trauler",
+                "timestamp": "2025-08-06T15:07:08.240Z",
+                "staffRole": null
+            },
+            {
+                "chat": "hey 2",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "Trauler",
+                "timestamp": "2025-08-06T15:07:11.376Z",
+                "staffRole": null
+            },
+            {
+                "chat": "how did 4 6 ever interact",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "Meowlin",
+                "timestamp": "2025-08-06T15:07:11.579Z",
+                "staffRole": null
+            },
+            {
+                "chat": "ppl shpuld see this",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "near1337",
+                "timestamp": "2025-08-06T15:07:13.150Z",
+                "staffRole": null
+            },
+            {
+                "chat": "in govs",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "Meowlin",
+                "timestamp": "2025-08-06T15:07:13.808Z",
+                "staffRole": null
+            },
+            {
+                "chat": "and se me",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "near1337",
+                "timestamp": "2025-08-06T15:07:14.339Z",
+                "staffRole": null
+            },
+            {
+                "chat": "you know i didnt drop",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "Trauler",
+                "timestamp": "2025-08-06T15:07:15.155Z",
+                "staffRole": null
+            },
+            {
+                "chat": "this game xd",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "Meowlin",
+                "timestamp": "2025-08-06T15:07:15.312Z",
+                "staffRole": null
+            },
+            {
+                "chat": "2 you should like me",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "Trauler",
+                "timestamp": "2025-08-06T15:07:17.576Z",
+                "staffRole": null
+            },
+            {
+                "chat": "im seing 7 6 decides se in 5/7",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "kbizzle1",
+                "timestamp": "2025-08-06T15:07:19.450Z",
+                "staffRole": null
+            },
+            {
+                "chat": "2 ja'd in 34 over 5x",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "dwabble",
+                "timestamp": "2025-08-06T15:07:21.552Z",
+                "staffRole": null
+            },
+            {
+                "chat": "i mean 5 you say ppl",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "AIsUnite",
+                "timestamp": "2025-08-06T15:07:21.557Z",
+                "staffRole": null
+            },
+            {
+                "chat": "i will fas that",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "dwabble",
+                "timestamp": "2025-08-06T15:07:24.858Z",
+                "staffRole": null
+            },
+            {
+                "chat": "hey 2 i jad 26 when otherwise it wouldve failed",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "Trauler",
+                "timestamp": "2025-08-06T15:07:25.036Z",
+                "staffRole": null
+            },
+            {
+                "chat": "its only 6",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "AIsUnite",
+                "timestamp": "2025-08-06T15:07:25.263Z",
+                "staffRole": null
+            },
+            {
+                "chat": "whos gonna have to se you",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "AIsUnite",
+                "timestamp": "2025-08-06T15:07:28.487Z",
+                "staffRole": null
+            },
+            {
+                "chat": "when 5 is lib",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "dwabble",
+                "timestamp": "2025-08-06T15:07:29.748Z",
+                "staffRole": null
+            },
+            {
+                "chat": "ik",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "near1337",
+                "timestamp": "2025-08-06T15:07:30.820Z",
+                "staffRole": null
+            },
+            {
+                "chat": "ok 2?",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "kbizzle1",
+                "timestamp": "2025-08-06T15:07:32.292Z",
+                "staffRole": null
+            },
+            {
+                "chat": "2",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "Trauler",
+                "timestamp": "2025-08-06T15:07:35.174Z",
+                "staffRole": null
+            },
+            {
+                "chat": "6 you see that 2s se doesnt make sense right",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "ImAnAnt",
+                "timestamp": "2025-08-06T15:07:35.572Z",
+                "staffRole": "moderator"
+            },
+            {
+                "chat": "is just easier to speack on abstract",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "near1337",
+                "timestamp": "2025-08-06T15:07:40.231Z",
+                "staffRole": null
+            },
+            {
+                "chat": "i think 67 are two libs 6",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "kbizzle1",
+                "timestamp": "2025-08-06T15:07:40.843Z",
+                "staffRole": null
+            },
+            {
+                "chat": "they said they wont lose to nat 4b and se 7 > 6",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "ImAnAnt",
+                "timestamp": "2025-08-06T15:07:41.743Z",
+                "staffRole": "moderator"
+            },
+            {
+                "chat": "correct 3",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "Trauler",
+                "timestamp": "2025-08-06T15:07:42.187Z",
+                "staffRole": null
+            },
+            {
+                "chat": "when 67 rae equal",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "ImAnAnt",
+                "timestamp": "2025-08-06T15:07:44.411Z",
+                "staffRole": "moderator"
+            },
+            {
+                "chat": "if 7 wants to se 6 thats fine with me ",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "kbizzle1",
+                "timestamp": "2025-08-06T15:07:45.261Z",
+                "staffRole": null
+            },
+            {
+                "chat": "holy",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "dwabble",
+                "timestamp": "2025-08-06T15:07:46.856Z",
+                "staffRole": null
+            },
+            {
+                "chat": "exactly",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "Trauler",
+                "timestamp": "2025-08-06T15:07:47.501Z",
+                "staffRole": null
+            },
+            {
+                "chat": "ok then se 5 trauler",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "ImAnAnt",
+                "timestamp": "2025-08-06T15:07:47.834Z",
+                "staffRole": "moderator"
+            },
+            {
+                "chat": "se 5 then lol",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "dwabble",
+                "timestamp": "2025-08-06T15:07:52.717Z",
+                "staffRole": null
+            },
+            {
+                "chat": "im fine seing 6 or 7 but i can only se one of you",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "kbizzle1",
+                "timestamp": "2025-08-06T15:07:57.104Z",
+                "staffRole": null
+            },
+            {
+                "chat": "like 2 legit said i will se 7 and lose to nat 4b",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "near1337",
+                "timestamp": "2025-08-06T15:07:59.154Z",
+                "staffRole": null
+            },
+            {
+                "chat": "XD",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "near1337",
+                "timestamp": "2025-08-06T15:08:00.025Z",
+                "staffRole": null
+            },
+            {
+                "chat": "and 7 is the better player ",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "kbizzle1",
+                "timestamp": "2025-08-06T15:08:01.902Z",
+                "staffRole": null
+            },
+            {
+                "chat": "i mean 15x exists",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "Trauler",
+                "timestamp": "2025-08-06T15:08:03.639Z",
+                "staffRole": null
+            },
+            {
+                "chat": "i think you're both lib ",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "kbizzle1",
+                "timestamp": "2025-08-06T15:08:04.621Z",
+                "staffRole": null
+            },
+            {
+                "chat": "when 17 3/4 is a line and also 6 exists",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "near1337",
+                "timestamp": "2025-08-06T15:08:08.556Z",
+                "staffRole": null
+            },
+            {
+                "chat": "hmmm",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "Trauler",
+                "timestamp": "2025-08-06T15:08:09.266Z",
+                "staffRole": null
+            },
+            {
+                "chat": "bruh",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "ImAnAnt",
+                "timestamp": "2025-08-06T15:08:13.751Z",
+                "staffRole": "moderator"
+            },
+            {
+                "chat": "sure se 5, i will ja with you 3",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "Meowlin",
+                "timestamp": "2025-08-06T15:08:15.113Z",
+                "staffRole": null
+            },
+            {
+                "chat": "well",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "Trauler",
+                "timestamp": "2025-08-06T15:08:18.763Z",
+                "staffRole": null
+            },
+            {
+                "chat": "4 is so outed",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "AIsUnite",
+                "timestamp": "2025-08-06T15:08:21.073Z",
+                "staffRole": null
+            },
+            {
+                "chat": "cool",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "dwabble",
+                "timestamp": "2025-08-06T15:08:22.015Z",
+                "staffRole": null
+            },
+            {
+                "chat": "holy shit",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "AIsUnite",
+                "timestamp": "2025-08-06T15:08:22.095Z",
+                "staffRole": null
+            },
+            {
+                "chat": "i cant ",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "AIsUnite",
+                "timestamp": "2025-08-06T15:08:23.715Z",
+                "staffRole": null
+            },
+            {
+                "chat": "XD",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "AIsUnite",
+                "timestamp": "2025-08-06T15:08:24.660Z",
+                "staffRole": null
+            },
+            {
+                "chat": "5 has it",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "dwabble",
+                "timestamp": "2025-08-06T15:08:26.874Z",
+                "staffRole": null
+            },
+            {
+                "chat": "and 3 clicks them",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "AIsUnite",
+                "timestamp": "2025-08-06T15:08:29.232Z",
+                "staffRole": null
+            },
+            {
+                "chat": "its 34x?",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "AIsUnite",
+                "timestamp": "2025-08-06T15:08:30.648Z",
+                "staffRole": null
+            },
+            {
+                "chat": "You said 4s outed",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "ImAnAnt",
+                "timestamp": "2025-08-06T15:08:34.873Z",
+                "staffRole": "moderator"
+            },
+            {
+                "chat": "surfe",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "AIsUnite",
+                "timestamp": "2025-08-06T15:08:35.883Z",
+                "staffRole": null
+            },
+            {
+                "chat": "gl 5",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "AIsUnite",
+                "timestamp": "2025-08-06T15:08:36.395Z",
+                "staffRole": null
+            },
+            {
+                "chat": "I can click 5 ",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "ImAnAnt",
+                "timestamp": "2025-08-06T15:08:36.961Z",
+                "staffRole": "moderator"
+            },
+            {
+                "chat": "ok then 5 is ib xd",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "Meowlin",
+                "timestamp": "2025-08-06T15:08:37.199Z",
+                "staffRole": null
+            },
+            {
+                "chat": "p sure its just 237 247",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "dwabble",
+                "timestamp": "2025-08-06T15:08:47.969Z",
+                "staffRole": null
+            },
+            {
+                "chat": "so 1345 se 5",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "kbizzle1",
+                "timestamp": "2025-08-06T15:08:48.384Z",
+                "staffRole": null
+            },
+            {
+                "chat": "cool",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "kbizzle1",
+                "timestamp": "2025-08-06T15:08:49.684Z",
+                "staffRole": null
+            },
+            {
+                "chat": "id go 56 here 5",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "dwabble",
+                "timestamp": "2025-08-06T15:08:51.269Z",
+                "staffRole": null
+            },
+            {
+                "chat": "ye",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "Meowlin",
+                "timestamp": "2025-08-06T15:08:51.467Z",
+                "staffRole": null
+            },
+            {
+                "chat": "it was just better",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "near1337",
+                "timestamp": "2025-08-06T15:08:52.613Z",
+                "staffRole": null
+            },
+            {
+                "chat": "why has 1",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "AIsUnite",
+                "timestamp": "2025-08-06T15:08:52.932Z",
+                "staffRole": null
+            },
+            {
+                "chat": "to see",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "near1337",
+                "timestamp": "2025-08-06T15:08:53.655Z",
+                "staffRole": null
+            },
+            {
+                "chat": "put me",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "AIsUnite",
+                "timestamp": "2025-08-06T15:08:54.124Z",
+                "staffRole": null
+            },
+            {
+                "chat": "in both of the lines",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "AIsUnite",
+                "timestamp": "2025-08-06T15:08:56.277Z",
+                "staffRole": null
+            },
+            {
+                "chat": "what 6 was gonna do",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "near1337",
+                "timestamp": "2025-08-06T15:08:57.440Z",
+                "staffRole": null
+            },
+            {
+                "chat": "i mean",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "dwabble",
+                "timestamp": "2025-08-06T15:09:03.486Z",
+                "staffRole": null
+            },
+            {
+                "chat": "thats true actually",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "ImAnAnt",
+                "timestamp": "2025-08-06T15:09:07.644Z",
+                "staffRole": "moderator"
+            },
+            {
+                "chat": "I shouldve waited until like 5s",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "ImAnAnt",
+                "timestamp": "2025-08-06T15:09:12.056Z",
+                "staffRole": "moderator"
+            },
+            {
+                "chat": "2 is outed fas to me trying to se 7",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "dwabble",
+                "timestamp": "2025-08-06T15:09:14.598Z",
+                "staffRole": null
+            },
+            {
+                "chat": "its hindsight now",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "AIsUnite",
+                "timestamp": "2025-08-06T15:09:15.407Z",
+                "staffRole": null
+            },
+            {
+                "chat": "technically its not votes until one of 267 resigns to 5",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "Trauler",
+                "timestamp": "2025-08-06T15:09:16.913Z",
+                "staffRole": null
+            },
+            {
+                "chat": "I just saw I could pick",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "ImAnAnt",
+                "timestamp": "2025-08-06T15:09:18.426Z",
+                "staffRole": "moderator"
+            },
+            {
+                "chat": "doesnt matter what 6 types",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "AIsUnite",
+                "timestamp": "2025-08-06T15:09:18.488Z",
+                "staffRole": null
+            },
+            {
+                "chat": "welp",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "dwabble",
+                "timestamp": "2025-08-06T15:09:21.218Z",
+                "staffRole": null
+            },
+            {
+                "chat": "gl 5",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "dwabble",
+                "timestamp": "2025-08-06T15:09:23.514Z",
+                "staffRole": null
+            },
+            {
+                "chat": "ok 1",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "AIsUnite",
+                "timestamp": "2025-08-06T15:09:25.501Z",
+                "staffRole": null
+            },
+            {
+                "chat": "kay",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "Trauler",
+                "timestamp": "2025-08-06T15:09:26.217Z",
+                "staffRole": null
+            },
+            {
+                "chat": "are you a simpleton?",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "AIsUnite",
+                "timestamp": "2025-08-06T15:09:29.264Z",
+                "staffRole": null
+            },
+            {
+                "chat": "2 ses 7 means 7s f?",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "AIsUnite",
+                "timestamp": "2025-08-06T15:09:36.472Z",
+                "staffRole": null
+            },
+            {
+                "chat": [
+                    {
+                        "text": "President "
+                    },
+                    {
+                        "text": "near1337 {5} ",
+                        "type": "player"
+                    },
+                    {
+                        "text": "claims "
+                    },
+                    {
+                        "claim": "rrr"
+                    },
+                    {
+                        "text": "."
+                    }
+                ],
+                "isClaim": true,
+                "timestamp": "2025-08-06T15:09:36.791Z",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "near1337",
+                "claim": "wasPresident",
+                "claimState": "rrr"
+            },
+            {
+                "chat": "uh huh",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "Trauler",
+                "timestamp": "2025-08-06T15:09:38.913Z",
+                "staffRole": null
+            },
+            {
+                "chat": ":thumbsup: ",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "ImAnAnt",
+                "timestamp": "2025-08-06T15:09:40.881Z",
+                "staffRole": "moderator"
+            },
+            {
+                "chat": "nice instashot 5",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "Trauler",
+                "timestamp": "2025-08-06T15:09:47.014Z",
+                "staffRole": null
+            },
+            {
+                "chat": "ill take now",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "Trauler",
+                "timestamp": "2025-08-06T15:09:48.632Z",
+                "staffRole": null
+            },
+            {
+                "chat": "ye 6",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "near1337",
+                "timestamp": "2025-08-06T15:09:49.694Z",
+                "staffRole": null
+            },
+            {
+                "chat": "wanted me to porn act",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "near1337",
+                "timestamp": "2025-08-06T15:09:52.297Z",
+                "staffRole": null
+            },
+            {
+                "chat": "and waste ur life",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "near1337",
+                "timestamp": "2025-08-06T15:09:54.779Z",
+                "staffRole": null
+            },
+            {
+                "chat": "for 3 minutes",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "near1337",
+                "timestamp": "2025-08-06T15:09:56.675Z",
+                "staffRole": null
+            },
+            {
+                "chat": "to shoot outed fasc",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "near1337",
+                "timestamp": "2025-08-06T15:09:59.033Z",
+                "staffRole": null
+            },
+            {
+                "chat": "at end",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "near1337",
+                "timestamp": "2025-08-06T15:09:59.834Z",
+                "staffRole": null
+            },
+            {
+                "chat": "?",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "near1337",
+                "timestamp": "2025-08-06T15:10:00.617Z",
+                "staffRole": null
+            },
+            {
+                "chat": "why is he outed f",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "AIsUnite",
+                "timestamp": "2025-08-06T15:10:02.659Z",
+                "staffRole": null
+            },
+            {
+                "chat": "he sed me",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "AIsUnite",
+                "timestamp": "2025-08-06T15:10:03.773Z",
+                "staffRole": null
+            },
+            {
+                "chat": "you picked me",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "AIsUnite",
+                "timestamp": "2025-08-06T15:10:05.801Z",
+                "staffRole": null
+            },
+            {
+                "chat": "ye so what",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "near1337",
+                "timestamp": "2025-08-06T15:10:07.764Z",
+                "staffRole": null
+            },
+            {
+                "chat": "?",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "AIsUnite",
+                "timestamp": "2025-08-06T15:10:08.048Z",
+                "staffRole": null
+            },
+            {
+                "chat": "it was a good shot",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "dwabble",
+                "timestamp": "2025-08-06T15:10:11.000Z",
+                "staffRole": null
+            },
+            {
+                "chat": "im taking my gov",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "Trauler",
+                "timestamp": "2025-08-06T15:10:11.046Z",
+                "staffRole": null
+            },
+            {
+                "chat": "his entire chat is fascist",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "near1337",
+                "timestamp": "2025-08-06T15:10:15.733Z",
+                "staffRole": null
+            },
+            {
+                "chat": "idc who he sed",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "near1337",
+                "timestamp": "2025-08-06T15:10:18.449Z",
+                "staffRole": null
+            },
+            {
+                "chat": "i mean sure",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "AIsUnite",
+                "timestamp": "2025-08-06T15:10:18.896Z",
+                "staffRole": null
+            },
+            {
+                "chat": "but he sed me",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "AIsUnite",
+                "timestamp": "2025-08-06T15:10:22.516Z",
+                "staffRole": null
+            },
+            {
+                "chat": "i didnt get sed",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "AIsUnite",
+                "timestamp": "2025-08-06T15:10:24.844Z",
+                "staffRole": null
+            },
+            {
+                "chat": "whats the lkine 5",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "AIsUnite",
+                "timestamp": "2025-08-06T15:10:26.503Z",
+                "staffRole": null
+            },
+            {
+                "chat": "lol",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "AIsUnite",
+                "timestamp": "2025-08-06T15:10:27.079Z",
+                "staffRole": null
+            },
+            {
+                "chat": "1h2x?",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "AIsUnite",
+                "timestamp": "2025-08-06T15:10:29.140Z",
+                "staffRole": null
+            },
+            {
+                "chat": "or what",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "AIsUnite",
+                "timestamp": "2025-08-06T15:10:30.168Z",
+                "staffRole": null
+            },
+            {
+                "chat": "possible",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "near1337",
+                "timestamp": "2025-08-06T15:10:32.024Z",
+                "staffRole": null
+            },
+            {
+                "chat": "i dont usually read into fasc acts",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "near1337",
+                "timestamp": "2025-08-06T15:10:39.596Z",
+                "staffRole": null
+            },
+            {
+                "chat": "he is fac",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "near1337",
+                "timestamp": "2025-08-06T15:10:41.186Z",
+                "staffRole": null
+            },
+            {
+                "chat": "ill jst ja you again",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "AIsUnite",
+                "timestamp": "2025-08-06T15:10:41.380Z",
+                "staffRole": null
+            },
+            {
+                "chat": "hey 5 you arent passing",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "Trauler",
+                "timestamp": "2025-08-06T15:10:42.955Z",
+                "staffRole": null
+            },
+            {
+                "chat": "he is",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "AIsUnite",
+                "timestamp": "2025-08-06T15:10:47.876Z",
+                "staffRole": null
+            },
+            {
+                "chat": "looks like i am 6",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "near1337",
+                "timestamp": "2025-08-06T15:10:48.428Z",
+                "staffRole": null
+            },
+            {
+                "chat": "ill take",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "Trauler",
+                "timestamp": "2025-08-06T15:10:49.327Z",
+                "staffRole": null
+            },
+            {
+                "chat": "3/4 gameplay isnt acceptable",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "AIsUnite",
+                "timestamp": "2025-08-06T15:10:52.932Z",
+                "staffRole": null
+            },
+            {
+                "chat": "but this is a hard pick",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "near1337",
+                "timestamp": "2025-08-06T15:10:56.207Z",
+                "staffRole": null
+            },
+            {
+                "chat": "3/4 gameplay?",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "ImAnAnt",
+                "timestamp": "2025-08-06T15:10:58.924Z",
+                "staffRole": "moderator"
+            },
+            {
+                "chat": "yes",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "AIsUnite",
+                "timestamp": "2025-08-06T15:11:02.292Z",
+                "staffRole": null
+            },
+            {
+                "chat": "any suggestions 7",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "near1337",
+                "timestamp": "2025-08-06T15:11:03.093Z",
+                "staffRole": null
+            },
+            {
+                "chat": "you threw the se bcs your conf sed 5",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "AIsUnite",
+                "timestamp": "2025-08-06T15:11:06.877Z",
+                "staffRole": null
+            },
+            {
+                "chat": "idl 6, i think 1 is an ok pick",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "Meowlin",
+                "timestamp": "2025-08-06T15:11:08.176Z",
+                "staffRole": null
+            },
+            {
+                "chat": "ummm",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "AIsUnite",
+                "timestamp": "2025-08-06T15:11:09.191Z",
+                "staffRole": null
+            },
+            {
+                "chat": "ok 1",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "AIsUnite",
+                "timestamp": "2025-08-06T15:11:09.756Z",
+                "staffRole": null
+            },
+            {
+                "chat": "no 7",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "ImAnAnt",
+                "timestamp": "2025-08-06T15:11:11.406Z",
+                "staffRole": "moderator"
+            },
+            {
+                "chat": "you think bcs 2 sed me",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "AIsUnite",
+                "timestamp": "2025-08-06T15:11:13.653Z",
+                "staffRole": null
+            },
+            {
+                "chat": "chad",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "dwabble",
+                "timestamp": "2025-08-06T15:11:14.714Z",
+                "staffRole": null
+            },
+            {
+                "chat": "im conf fas?",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "AIsUnite",
+                "timestamp": "2025-08-06T15:11:16.063Z",
+                "staffRole": null
+            },
+            {
+                "chat": "I sed 5 because yo usaid 4s outed",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "ImAnAnt",
+                "timestamp": "2025-08-06T15:11:16.493Z",
+                "staffRole": "moderator"
+            },
+            {
+                "chat": "or what 1",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "AIsUnite",
+                "timestamp": "2025-08-06T15:11:17.132Z",
+                "staffRole": null
+            },
+            {
+                "chat": "and I had already expressed I liked 5",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "ImAnAnt",
+                "timestamp": "2025-08-06T15:11:23.394Z",
+                "staffRole": "moderator"
+            },
+            {
+                "chat": "so I had the power to se someone I had as lib",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "ImAnAnt",
+                "timestamp": "2025-08-06T15:11:30.628Z",
+                "staffRole": "moderator"
+            },
+            {
+                "chat": "3 youre basing that chat",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "AIsUnite",
+                "timestamp": "2025-08-06T15:11:30.836Z",
+                "staffRole": null
+            },
+            {
+                "chat": "of of the line being 135",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "AIsUnite",
+                "timestamp": "2025-08-06T15:11:33.936Z",
+                "staffRole": null
+            },
+            {
+                "chat": "wtf ",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "AIsUnite",
+                "timestamp": "2025-08-06T15:11:34.877Z",
+                "staffRole": null
+            },
+            {
+                "chat": "what?",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "ImAnAnt",
+                "timestamp": "2025-08-06T15:11:37.248Z",
+                "staffRole": "moderator"
+            },
+            {
+                "chat": "does that even mean",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "AIsUnite",
+                "timestamp": "2025-08-06T15:11:37.432Z",
+                "staffRole": null
+            },
+            {
+                "chat": "1 is irrelevant here",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "Trauler",
+                "timestamp": "2025-08-06T15:11:39.287Z",
+                "staffRole": null
+            },
+            {
+                "chat": "youclicked 5 bcs i said 4s outed?",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "AIsUnite",
+                "timestamp": "2025-08-06T15:11:42.952Z",
+                "staffRole": null
+            },
+            {
+                "chat": "Yes",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "ImAnAnt",
+                "timestamp": "2025-08-06T15:11:45.982Z",
+                "staffRole": "moderator"
+            },
+            {
+                "chat": "why does that make 5lib",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "AIsUnite",
+                "timestamp": "2025-08-06T15:11:47.481Z",
+                "staffRole": null
+            },
+            {
+                "chat": "1 is irrelevant how",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "Meowlin",
+                "timestamp": "2025-08-06T15:11:48.379Z",
+                "staffRole": null
+            },
+            {
+                "chat": "no hes not",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "AIsUnite",
+                "timestamp": "2025-08-06T15:11:51.100Z",
+                "staffRole": null
+            },
+            {
+                "chat": "it doesnt",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "ImAnAnt",
+                "timestamp": "2025-08-06T15:11:52.203Z",
+                "staffRole": "moderator"
+            },
+            {
+                "chat": "1",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "AIsUnite",
+                "timestamp": "2025-08-06T15:11:53.400Z",
+                "staffRole": null
+            },
+            {
+                "chat": "hello",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "AIsUnite",
+                "timestamp": "2025-08-06T15:11:54.452Z",
+                "staffRole": null
+            },
+            {
+                "chat": "answer me",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "AIsUnite",
+                "timestamp": "2025-08-06T15:11:55.661Z",
+                "staffRole": null
+            },
+            {
+                "chat": "it just means I have the power to click 5",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "ImAnAnt",
+                "timestamp": "2025-08-06T15:11:55.982Z",
+                "staffRole": "moderator"
+            },
+            {
+                "chat": "whats up?",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "dwabble",
+                "timestamp": "2025-08-06T15:11:57.998Z",
+                "staffRole": null
+            },
+            {
+                "chat": "why did i go into both the line",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "AIsUnite",
+                "timestamp": "2025-08-06T15:11:59.276Z",
+                "staffRole": null
+            },
+            {
+                "chat": "lines",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "AIsUnite",
+                "timestamp": "2025-08-06T15:12:00.597Z",
+                "staffRole": null
+            },
+            {
+                "chat": "and I wanted to se 5 anyway",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "ImAnAnt",
+                "timestamp": "2025-08-06T15:12:00.959Z",
+                "staffRole": "moderator"
+            },
+            {
+                "chat": "2 se me mean im f?",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "AIsUnite",
+                "timestamp": "2025-08-06T15:12:05.316Z",
+                "staffRole": null
+            },
+            {
+                "chat": "is that how you play sh?",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "AIsUnite",
+                "timestamp": "2025-08-06T15:12:10.828Z",
+                "staffRole": null
+            },
+            {
+                "chat": "or was it something else",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "AIsUnite",
+                "timestamp": "2025-08-06T15:12:16.640Z",
+                "staffRole": null
+            },
+            {
+                "chat": "prob picking in 4/6",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "near1337",
+                "timestamp": "2025-08-06T15:12:26.106Z",
+                "staffRole": null
+            },
+            {
+                "chat": "dunno who",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "near1337",
+                "timestamp": "2025-08-06T15:12:29.257Z",
+                "staffRole": null
+            },
+            {
+                "chat": "i dont think 2 gave any insight into seing 7",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "dwabble",
+                "timestamp": "2025-08-06T15:12:34.593Z",
+                "staffRole": null
+            },
+            {
+                "chat": "bruh",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "ImAnAnt",
+                "timestamp": "2025-08-06T15:12:36.470Z",
+                "staffRole": "moderator"
+            },
+            {
+                "chat": "i like a pick on 4!",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "Meowlin",
+                "timestamp": "2025-08-06T15:12:36.494Z",
+                "staffRole": null
+            },
+            {
+                "chat": "idl a pick on 6 :(",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "Meowlin",
+                "timestamp": "2025-08-06T15:12:43.475Z",
+                "staffRole": null
+            },
+            {
+                "chat": "he just said se 7 without explaining why and said hes fine losing on nat 4b",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "dwabble",
+                "timestamp": "2025-08-06T15:12:49.679Z",
+                "staffRole": null
+            },
+            {
+                "chat": "up to you",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "AIsUnite",
+                "timestamp": "2025-08-06T15:12:51.298Z",
+                "staffRole": null
+            },
+            {
+                "chat": "i have no idea",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "AIsUnite",
+                "timestamp": "2025-08-06T15:12:53.676Z",
+                "staffRole": null
+            },
+            {
+                "chat": "that doesnt feel very lib to me",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "dwabble",
+                "timestamp": "2025-08-06T15:12:55.245Z",
+                "staffRole": null
+            },
+            {
+                "chat": "1h67 we TD out",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "Trauler",
+                "timestamp": "2025-08-06T15:12:55.813Z",
+                "staffRole": null
+            },
+            {
+                "chat": "in 3/4/6",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "AIsUnite",
+                "timestamp": "2025-08-06T15:12:56.560Z",
+                "staffRole": null
+            },
+            {
+                "chat": "im lib",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "AIsUnite",
+                "timestamp": "2025-08-06T15:13:01.146Z",
+                "staffRole": null
+            },
+            {
+                "chat": "lol",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "AIsUnite",
+                "timestamp": "2025-08-06T15:13:01.940Z",
+                "staffRole": null
+            },
+            {
+                "chat": "1h67 TD out",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "Trauler",
+                "timestamp": "2025-08-06T15:13:02.181Z",
+                "staffRole": null
+            },
+            {
+                "timestamp": "2025-08-06T15:13:02.488Z",
+                "gameChat": true,
+                "chat": [
+                    {
+                        "text": "A player"
+                    },
+                    {
+                        "text": " has voted to remake this game. (1/5)"
+                    }
+                ]
+            },
+            {
+                "chat": "lets nein this gov dwabble",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "ImAnAnt",
+                "timestamp": "2025-08-06T15:13:04.549Z",
+                "staffRole": "moderator"
+            },
+            {
+                "chat": "136",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "ImAnAnt",
+                "timestamp": "2025-08-06T15:13:05.835Z",
+                "staffRole": "moderator"
+            },
+            {
+                "chat": "hey 1 nein",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "Trauler",
+                "timestamp": "2025-08-06T15:13:07.013Z",
+                "staffRole": null
+            },
+            {
+                "chat": "sage",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "near1337",
+                "timestamp": "2025-08-06T15:13:09.780Z",
+                "staffRole": null
+            },
+            {
+                "chat": "near man",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "AIsUnite",
+                "timestamp": "2025-08-06T15:13:10.492Z",
+                "staffRole": null
+            },
+            {
+                "chat": "so fking annoying",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "AIsUnite",
+                "timestamp": "2025-08-06T15:13:12.296Z",
+                "staffRole": null
+            },
+            {
+                "chat": "neined",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "dwabble",
+                "timestamp": "2025-08-06T15:13:13.409Z",
+                "staffRole": null
+            },
+            {
+                "chat": "1 nein",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "Trauler",
+                "timestamp": "2025-08-06T15:13:13.735Z",
+                "staffRole": null
+            },
+            {
+                "chat": "i mean he legit said he is gonna lose to nat 4b",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "near1337",
+                "timestamp": "2025-08-06T15:13:21.054Z",
+                "staffRole": null
+            },
+            {
+                "chat": "ill take my gov",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "Trauler",
+                "timestamp": "2025-08-06T15:13:23.391Z",
+                "staffRole": null
+            },
+            {
+                "chat": "that doesnt make any sense",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "near1337",
+                "timestamp": "2025-08-06T15:13:26.872Z",
+                "staffRole": null
+            },
+            {
+                "chat": "hes bad at sh though",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "AIsUnite",
+                "timestamp": "2025-08-06T15:13:28.548Z",
+                "staffRole": null
+            },
+            {
+                "chat": ":voteja:",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "Trauler",
+                "timestamp": "2025-08-06T15:13:34.144Z",
+                "staffRole": null
+            },
+            {
+                "chat": "3 is so outed fas",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "AIsUnite",
+                "timestamp": "2025-08-06T15:13:34.424Z",
+                "staffRole": null
+            },
+            {
+                "chat": "4 is aswell tbf",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "AIsUnite",
+                "timestamp": "2025-08-06T15:13:37.088Z",
+                "staffRole": null
+            },
+            {
+                "chat": "whatever",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "AIsUnite",
+                "timestamp": "2025-08-06T15:13:37.888Z",
+                "staffRole": null
+            },
+            {
+                "chat": "4 your gameplay rly pisses me off",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "AIsUnite",
+                "timestamp": "2025-08-06T15:13:47.040Z",
+                "staffRole": null
+            },
+            {
+                "chat": "4 is outed for seinga lib?",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "Meowlin",
+                "timestamp": "2025-08-06T15:13:47.453Z",
+                "staffRole": null
+            },
+            {
+                "chat": "im never shooting 1 over 2 in this scenario",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "near1337",
+                "timestamp": "2025-08-06T15:13:52.201Z",
+                "staffRole": null
+            },
+            {
+                "chat": "nein",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "Trauler",
+                "timestamp": "2025-08-06T15:13:53.964Z",
+                "staffRole": null
+            },
+            {
+                "chat": "you called me outed after i sed 5",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "Meowlin",
+                "timestamp": "2025-08-06T15:13:54.851Z",
+                "staffRole": null
+            },
+            {
+                "chat": "just nein 34 man",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "AIsUnite",
+                "timestamp": "2025-08-06T15:13:55.228Z",
+                "staffRole": null
+            },
+            {
+                "chat": "1 nein",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "Trauler",
+                "timestamp": "2025-08-06T15:13:55.766Z",
+                "staffRole": null
+            },
+            {
+                "chat": "i open stated 47 before 3 picked",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "AIsUnite",
+                "timestamp": "2025-08-06T15:14:01.076Z",
+                "staffRole": null
+            },
+            {
+                "chat": "3 didnt put any thought into the pick",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "AIsUnite",
+                "timestamp": "2025-08-06T15:14:07.948Z",
+                "staffRole": null
+            },
+            {
+                "chat": "jst annoying",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "AIsUnite",
+                "timestamp": "2025-08-06T15:14:09.624Z",
+                "staffRole": null
+            },
+            {
+                "chat": "ok and if 34 is rrb why cant 34 47 play",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "Meowlin",
+                "timestamp": "2025-08-06T15:14:10.910Z",
+                "staffRole": null
+            },
+            {
+                "chat": "5 is playiung",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "AIsUnite",
+                "timestamp": "2025-08-06T15:14:14.788Z",
+                "staffRole": null
+            },
+            {
+                "chat": "a gov????????",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "AIsUnite",
+                "timestamp": "2025-08-06T15:14:16.344Z",
+                "staffRole": null
+            },
+            {
+                "chat": "7 I wont deny I did fascist things this game",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "ImAnAnt",
+                "timestamp": "2025-08-06T15:14:16.663Z",
+                "staffRole": "moderator"
+            },
+            {
+                "chat": "but instapicking 3 4 isnt one of them",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "ImAnAnt",
+                "timestamp": "2025-08-06T15:14:21.703Z",
+                "staffRole": "moderator"
+            },
+            {
+                "chat": "ofc you did ",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "AIsUnite",
+                "timestamp": "2025-08-06T15:14:22.460Z",
+                "staffRole": null
+            },
+            {
+                "chat": "well ye",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "AIsUnite",
+                "timestamp": "2025-08-06T15:14:24.880Z",
+                "staffRole": null
+            },
+            {
+                "chat": "but i think youd thin about",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "AIsUnite",
+                "timestamp": "2025-08-06T15:14:29.039Z",
+                "staffRole": null
+            },
+            {
+                "chat": "36",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "AIsUnite",
+                "timestamp": "2025-08-06T15:14:29.692Z",
+                "staffRole": null
+            },
+            {
+                "chat": "if he wants to say he has a lib read on 7 go say it, but he said \"i will lose to nat 4b ans se 7 \" when 17 3/4 is a line, when he played 26",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "near1337",
+                "timestamp": "2025-08-06T15:14:29.922Z",
+                "staffRole": null
+            },
+            {
+                "chat": "esp with 1s inv",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "AIsUnite",
+                "timestamp": "2025-08-06T15:14:31.453Z",
+                "staffRole": null
+            },
+            {
+                "chat": "and pick",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "AIsUnite",
+                "timestamp": "2025-08-06T15:14:34.536Z",
+                "staffRole": null
+            },
+            {
+                "chat": "i mean ye neat",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "AIsUnite",
+                "timestamp": "2025-08-06T15:14:39.912Z",
+                "staffRole": null
+            },
+            {
+                "chat": "near",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "AIsUnite",
+                "timestamp": "2025-08-06T15:14:41.161Z",
+                "staffRole": null
+            },
+            {
+                "chat": "that did sound awful",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "AIsUnite",
+                "timestamp": "2025-08-06T15:14:43.801Z",
+                "staffRole": null
+            },
+            {
+                "chat": "but 2 isnt a logical player",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "AIsUnite",
+                "timestamp": "2025-08-06T15:14:46.805Z",
+                "staffRole": null
+            },
+            {
+                "chat": "its jst how he types and plays",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "AIsUnite",
+                "timestamp": "2025-08-06T15:14:58.140Z",
+                "staffRole": null
+            },
+            {
+                "chat": "well i just dont see myself shooting 1 over him",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "near1337",
+                "timestamp": "2025-08-06T15:15:01.359Z",
+                "staffRole": null
+            },
+            {
+                "chat": "i would feel stupid",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "near1337",
+                "timestamp": "2025-08-06T15:15:04.690Z",
+                "staffRole": null
+            },
+            {
+                "chat": "ye its fine",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "AIsUnite",
+                "timestamp": "2025-08-06T15:15:05.228Z",
+                "staffRole": null
+            },
+            {
+                "chat": "3 is also throwing the se and not waiting",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "AIsUnite",
+                "timestamp": "2025-08-06T15:15:23.500Z",
+                "staffRole": null
+            },
+            {
+                "chat": "again",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "AIsUnite",
+                "timestamp": "2025-08-06T15:15:24.301Z",
+                "staffRole": null
+            },
+            {
+                "chat": "he woiuldnt do that as alib",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "AIsUnite",
+                "timestamp": "2025-08-06T15:15:26.948Z",
+                "staffRole": null
+            },
+            {
+                "chat": "i think anyway",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "AIsUnite",
+                "timestamp": "2025-08-06T15:15:32.666Z",
+                "staffRole": null
+            },
+            {
+                "chat": "ye picked 4 over 3",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "near1337",
+                "timestamp": "2025-08-06T15:15:36.213Z",
+                "staffRole": null
+            },
+            {
+                "timestamp": "2025-08-06T15:15:49.869Z",
+                "gameChat": true,
+                "chat": [
+                    {
+                        "text": "A player"
+                    },
+                    {
+                        "text": " has voted to remake this game. (2/5)"
+                    }
+                ]
+            },
+            {
+                "chat": "rip",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "dwabble",
+                "timestamp": "2025-08-06T15:16:01.537Z",
+                "staffRole": null
+            },
+            {
+                "chat": "we're safe @16",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "ImAnAnt",
+                "timestamp": "2025-08-06T15:16:09.718Z",
+                "staffRole": "moderator"
+            },
+            {
+                "chat": "nearluck guarantees red tds",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "ImAnAnt",
+                "timestamp": "2025-08-06T15:16:14.431Z",
+                "staffRole": "moderator"
+            },
+            {
+                "chat": "nice",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "dwabble",
+                "timestamp": "2025-08-06T15:16:20.843Z",
+                "staffRole": null
+            },
+            {
+                "timestamp": "2025-08-06T15:16:37.405Z",
+                "gameChat": true,
+                "chat": [
+                    {
+                        "text": "A player"
+                    },
+                    {
+                        "text": " has voted to remake this game. (3/5)"
+                    }
+                ]
+            },
+            {
+                "chat": "MAULERRRRRRRRRRRRRR",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "Trauler",
+                "timestamp": "2025-08-06T15:16:39.625Z",
+                "staffRole": null
+            },
+            {
+                "chat": ":hug:",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "Trauler",
+                "timestamp": "2025-08-06T15:16:44.589Z",
+                "staffRole": null
+            },
+            {
+                "timestamp": "2025-08-06T15:16:58.224Z",
+                "gameChat": true,
+                "chat": [
+                    {
+                        "text": "A player"
+                    },
+                    {
+                        "text": " has voted to remake this game. (4/5)"
+                    }
+                ]
+            },
+            {
+                "timestamp": "2025-08-06T15:17:01.082Z",
+                "gameChat": true,
+                "chat": [
+                    {
+                        "text": "A player"
+                    },
+                    {
+                        "text": " has voted to remake this game. (5/5)"
+                    }
+                ]
+            },
+            {
+                "chat": "wtf",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "ImAnAnt",
+                "timestamp": "2025-08-06T15:17:09.488Z",
+                "staffRole": "moderator"
+            },
+            {
+                "timestamp": "2025-08-06T15:17:09.492Z",
+                "gameChat": true,
+                "chat": [
+                    {
+                        "text": "A player"
+                    },
+                    {
+                        "text": " has voted to remake this game. (6/5)"
+                    }
+                ]
+            },
+            {
+                "chat": "famous last words 3. ",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "near1337",
+                "timestamp": "2025-08-06T15:17:10.273Z",
+                "staffRole": null
+            },
+            {
+                "chat": "lmao",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "Trauler",
+                "timestamp": "2025-08-06T15:17:10.383Z",
+                "staffRole": null
+            },
+            {
+                "chat": "near got td blues?",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "ImAnAnt",
+                "timestamp": "2025-08-06T15:17:10.668Z",
+                "staffRole": "moderator"
+            },
+            {
+                "chat": "I must investigate this",
+                "uid": "RoundUsedAbackMosquitoRemake8",
+                "userName": "ImAnAnt",
+                "timestamp": "2025-08-06T15:17:13.644Z",
+                "staffRole": "moderator"
+            },
+            {
+                "gameChat": true,
+                "timestamp": "2025-08-06T14:59:29.429Z",
+                "chat": [
+                    {
+                        "text": "The game begins."
+                    }
+                ]
+            },
+            {
+                "gameChat": true,
+                "timestamp": "2025-08-06T14:59:35.225Z",
+                "chat": [
+                    {
+                        "text": "President "
+                    },
+                    {
+                        "text": "dwabble {1}",
+                        "type": "player"
+                    },
+                    {
+                        "text": " nominates "
+                    },
+                    {
+                        "text": "near1337 {5}",
+                        "type": "player"
+                    },
+                    {
+                        "text": " as chancellor."
+                    }
+                ]
+            },
+            {
+                "timestamp": "2025-08-06T14:59:55.469Z",
+                "gameChat": true,
+                "chat": [
+                    {
+                        "text": "A "
+                    },
+                    {
+                        "text": "liberal",
+                        "type": "liberal"
+                    },
+                    {
+                        "text": " policy has been enacted. (1/5)"
+                    }
+                ]
+            },
+            {
+                "gameChat": true,
+                "timestamp": "2025-08-06T14:59:57.051Z",
+                "chat": [
+                    {
+                        "text": "President "
+                    },
+                    {
+                        "text": "kbizzle1 {2}",
+                        "type": "player"
+                    },
+                    {
+                        "text": " nominates "
+                    },
+                    {
+                        "text": "Trauler {6}",
+                        "type": "player"
+                    },
+                    {
+                        "text": " as chancellor."
+                    }
+                ]
+            },
+            {
+                "timestamp": "2025-08-06T15:00:29.275Z",
+                "gameChat": true,
+                "chat": [
+                    {
+                        "text": "A "
+                    },
+                    {
+                        "text": "fascist",
+                        "type": "fascist"
+                    },
+                    {
+                        "text": " policy has been enacted. (1/6)"
+                    }
+                ]
+            },
+            {
+                "gameChat": true,
+                "timestamp": "2025-08-06T15:00:45.241Z",
+                "chat": [
+                    {
+                        "text": "President "
+                    },
+                    {
+                        "text": "ImAnAnt {3}",
+                        "type": "player"
+                    },
+                    {
+                        "text": " nominates "
+                    },
+                    {
+                        "text": "AIsUnite {7}",
+                        "type": "player"
+                    },
+                    {
+                        "text": " as chancellor."
+                    }
+                ]
+            },
+            {
+                "timestamp": "2025-08-06T15:01:09.762Z",
+                "gameChat": true,
+                "chat": [
+                    {
+                        "text": "The election fails and the election tracker moves forward. (1/3)"
+                    }
+                ]
+            },
+            {
+                "gameChat": true,
+                "timestamp": "2025-08-06T15:01:10.663Z",
+                "chat": [
+                    {
+                        "text": "President "
+                    },
+                    {
+                        "text": "Meowlin {4}",
+                        "type": "player"
+                    },
+                    {
+                        "text": " nominates "
+                    },
+                    {
+                        "text": "AIsUnite {7}",
+                        "type": "player"
+                    },
+                    {
+                        "text": " as chancellor."
+                    }
+                ]
+            },
+            {
+                "timestamp": "2025-08-06T15:01:37.354Z",
+                "gameChat": true,
+                "chat": [
+                    {
+                        "text": "The election fails and the election tracker moves forward. (2/3)"
+                    }
+                ]
+            },
+            {
+                "gameChat": true,
+                "timestamp": "2025-08-06T15:01:39.540Z",
+                "chat": [
+                    {
+                        "text": "President "
+                    },
+                    {
+                        "text": "near1337 {5}",
+                        "type": "player"
+                    },
+                    {
+                        "text": " nominates "
+                    },
+                    {
+                        "text": "dwabble {1}",
+                        "type": "player"
+                    },
+                    {
+                        "text": " as chancellor."
+                    }
+                ]
+            },
+            {
+                "timestamp": "2025-08-06T15:03:18.111Z",
+                "gameChat": true,
+                "chat": [
+                    {
+                        "text": "A "
+                    },
+                    {
+                        "text": "liberal",
+                        "type": "liberal"
+                    },
+                    {
+                        "text": " policy has been enacted. (2/5)"
+                    }
+                ]
+            },
+            {
+                "gameChat": true,
+                "timestamp": "2025-08-06T15:03:33.047Z",
+                "chat": [
+                    {
+                        "text": "President "
+                    },
+                    {
+                        "text": "Trauler {6}",
+                        "type": "player"
+                    },
+                    {
+                        "text": " nominates "
+                    },
+                    {
+                        "text": "AIsUnite {7}",
+                        "type": "player"
+                    },
+                    {
+                        "text": " as chancellor."
+                    }
+                ]
+            },
+            {
+                "timestamp": "2025-08-06T15:03:50.522Z",
+                "gameChat": true,
+                "chat": [
+                    {
+                        "text": "The election fails and the election tracker moves forward. (1/3)"
+                    }
+                ]
+            },
+            {
+                "gameChat": true,
+                "timestamp": "2025-08-06T15:03:53.201Z",
+                "chat": [
+                    {
+                        "text": "President "
+                    },
+                    {
+                        "text": "AIsUnite {7}",
+                        "type": "player"
+                    },
+                    {
+                        "text": " nominates "
+                    },
+                    {
+                        "text": "ImAnAnt {3}",
+                        "type": "player"
+                    },
+                    {
+                        "text": " as chancellor."
+                    }
+                ]
+            },
+            {
+                "timestamp": "2025-08-06T15:04:07.211Z",
+                "gameChat": true,
+                "chat": [
+                    {
+                        "text": "The election fails and the election tracker moves forward. (2/3)"
+                    }
+                ]
+            },
+            {
+                "gameChat": true,
+                "timestamp": "2025-08-06T15:04:07.973Z",
+                "chat": [
+                    {
+                        "text": "President "
+                    },
+                    {
+                        "text": "dwabble {1}",
+                        "type": "player"
+                    },
+                    {
+                        "text": " nominates "
+                    },
+                    {
+                        "text": "ImAnAnt {3}",
+                        "type": "player"
+                    },
+                    {
+                        "text": " as chancellor."
+                    }
+                ]
+            },
+            {
+                "timestamp": "2025-08-06T15:04:25.170Z",
+                "gameChat": true,
+                "chat": [
+                    {
+                        "text": "A "
+                    },
+                    {
+                        "text": "fascist",
+                        "type": "fascist"
+                    },
+                    {
+                        "text": " policy has been enacted. (2/6)"
+                    }
+                ]
+            },
+            {
+                "timestamp": "2025-08-06T15:04:25.170Z",
+                "gameChat": true,
+                "chat": [
+                    {
+                        "text": "The president must investigate the party membership of another player."
+                    }
+                ]
+            },
+            {
+                "timestamp": "2025-08-06T15:04:28.312Z",
+                "gameChat": true,
+                "chat": [
+                    {
+                        "text": "President "
+                    },
+                    {
+                        "text": "dwabble {1}",
+                        "type": "player"
+                    },
+                    {
+                        "text": " investigates the party membership of "
+                    },
+                    {
+                        "text": "near1337 {5}",
+                        "type": "player"
+                    },
+                    {
+                        "text": "."
+                    }
+                ]
+            },
+            {
+                "gameChat": true,
+                "timestamp": "2025-08-06T15:04:59.837Z",
+                "chat": [
+                    {
+                        "text": "President "
+                    },
+                    {
+                        "text": "kbizzle1 {2}",
+                        "type": "player"
+                    },
+                    {
+                        "text": " nominates "
+                    },
+                    {
+                        "text": "AIsUnite {7}",
+                        "type": "player"
+                    },
+                    {
+                        "text": " as chancellor."
+                    }
+                ]
+            },
+            {
+                "timestamp": "2025-08-06T15:05:12.058Z",
+                "gameChat": true,
+                "chat": [
+                    {
+                        "text": "The election fails and the election tracker moves forward. (1/3)"
+                    }
+                ]
+            },
+            {
+                "gameChat": true,
+                "timestamp": "2025-08-06T15:05:21.955Z",
+                "chat": [
+                    {
+                        "text": "President "
+                    },
+                    {
+                        "text": "ImAnAnt {3}",
+                        "type": "player"
+                    },
+                    {
+                        "text": " nominates "
+                    },
+                    {
+                        "text": "Meowlin {4}",
+                        "type": "player"
+                    },
+                    {
+                        "text": " as chancellor."
+                    }
+                ]
+            },
+            {
+                "timestamp": "2025-08-06T15:05:42.018Z",
+                "gameChat": true,
+                "chat": [
+                    {
+                        "text": "A "
+                    },
+                    {
+                        "text": "fascist",
+                        "type": "fascist"
+                    },
+                    {
+                        "text": " policy has been enacted. (3/6)"
+                    }
+                ]
+            },
+            {
+                "timestamp": "2025-08-06T15:05:42.018Z",
+                "gameChat": true,
+                "chat": [
+                    {
+                        "text": "The president must select a player for a special election."
+                    }
+                ]
+            },
+            {
+                "timestamp": "2025-08-06T15:08:25.743Z",
+                "gameChat": true,
+                "chat": [
+                    {
+                        "text": "President "
+                    },
+                    {
+                        "text": "ImAnAnt {3}",
+                        "type": "player"
+                    },
+                    {
+                        "text": " has chosen to special elect "
+                    },
+                    {
+                        "text": "near1337 {5}",
+                        "type": "player"
+                    },
+                    {
+                        "text": " as president."
+                    }
+                ]
+            },
+            {
+                "timestamp": "2025-08-06T15:08:25.806Z",
+                "gameChat": true,
+                "chat": [
+                    {
+                        "text": "Deck shuffled: "
+                    },
+                    {
+                        "text": "4 liberal",
+                        "type": "liberal"
+                    },
+                    {
+                        "text": " and "
+                    },
+                    {
+                        "text": "8 fascist",
+                        "type": "fascist"
+                    },
+                    {
+                        "text": " policies."
+                    }
+                ]
+            },
+            {
+                "gameChat": true,
+                "timestamp": "2025-08-06T15:09:15.942Z",
+                "chat": [
+                    {
+                        "text": "President "
+                    },
+                    {
+                        "text": "near1337 {5}",
+                        "type": "player"
+                    },
+                    {
+                        "text": " nominates "
+                    },
+                    {
+                        "text": "AIsUnite {7}",
+                        "type": "player"
+                    },
+                    {
+                        "text": " as chancellor."
+                    }
+                ]
+            },
+            {
+                "timestamp": "2025-08-06T15:09:34.141Z",
+                "gameChat": true,
+                "chat": [
+                    {
+                        "text": "A "
+                    },
+                    {
+                        "text": "fascist",
+                        "type": "fascist"
+                    },
+                    {
+                        "text": " policy has been enacted. (4/6)"
+                    }
+                ]
+            },
+            {
+                "timestamp": "2025-08-06T15:09:34.141Z",
+                "gameChat": true,
+                "chat": [
+                    {
+                        "text": "The president must select a player for execution."
+                    }
+                ]
+            },
+            {
+                "gameChat": true,
+                "timestamp": "2025-08-06T15:09:34.674Z",
+                "chat": [
+                    {
+                        "text": "President "
+                    },
+                    {
+                        "text": "near1337 {5}",
+                        "type": "player"
+                    },
+                    {
+                        "text": " selects to execute "
+                    },
+                    {
+                        "text": "kbizzle1 {2}",
+                        "type": "player"
+                    },
+                    {
+                        "text": "."
+                    }
+                ]
+            },
+            {
+                "gameChat": true,
+                "timestamp": "2025-08-06T15:09:42.396Z",
+                "chat": [
+                    {
+                        "text": "President "
+                    },
+                    {
+                        "text": "Meowlin {4}",
+                        "type": "player"
+                    },
+                    {
+                        "text": " nominates "
+                    },
+                    {
+                        "text": "Trauler {6}",
+                        "type": "player"
+                    },
+                    {
+                        "text": " as chancellor."
+                    }
+                ]
+            },
+            {
+                "timestamp": "2025-08-06T15:10:00.954Z",
+                "gameChat": true,
+                "chat": [
+                    {
+                        "text": "The election fails and the election tracker moves forward. (1/3)"
+                    }
+                ]
+            },
+            {
+                "gameChat": true,
+                "timestamp": "2025-08-06T15:12:52.743Z",
+                "chat": [
+                    {
+                        "text": "President "
+                    },
+                    {
+                        "text": "near1337 {5}",
+                        "type": "player"
+                    },
+                    {
+                        "text": " nominates "
+                    },
+                    {
+                        "text": "Meowlin {4}",
+                        "type": "player"
+                    },
+                    {
+                        "text": " as chancellor."
+                    }
+                ]
+            },
+            {
+                "timestamp": "2025-08-06T15:13:23.081Z",
+                "gameChat": true,
+                "chat": [
+                    {
+                        "text": "The election fails and the election tracker moves forward. (2/3)"
+                    }
+                ]
+            },
+            {
+                "gameChat": true,
+                "timestamp": "2025-08-06T15:13:28.241Z",
+                "chat": [
+                    {
+                        "text": "President "
+                    },
+                    {
+                        "text": "Trauler {6}",
+                        "type": "player"
+                    },
+                    {
+                        "text": " nominates "
+                    },
+                    {
+                        "text": "Meowlin {4}",
+                        "type": "player"
+                    },
+                    {
+                        "text": " as chancellor."
+                    }
+                ]
+            },
+            {
+                "timestamp": "2025-08-06T15:13:43.436Z",
+                "gameChat": true,
+                "chat": [
+                    {
+                        "text": "The election fails and the election tracker moves forward. (3/3)"
+                    }
+                ]
+            },
+            {
+                "timestamp": "2025-08-06T15:13:43.436Z",
+                "gameChat": true,
+                "chat": [
+                    {
+                        "text": "The third consecutive election has failed and the top policy is enacted."
+                    }
+                ]
+            },
+            {
+                "timestamp": "2025-08-06T15:13:44.988Z",
+                "gameChat": true,
+                "chat": [
+                    {
+                        "text": "A "
+                    },
+                    {
+                        "text": "liberal",
+                        "type": "liberal"
+                    },
+                    {
+                        "text": " policy has been enacted. (3/5)"
+                    }
+                ]
+            },
+            {
+                "gameChat": true,
+                "timestamp": "2025-08-06T15:13:48.441Z",
+                "chat": [
+                    {
+                        "text": "President "
+                    },
+                    {
+                        "text": "AIsUnite {7}",
+                        "type": "player"
+                    },
+                    {
+                        "text": " nominates "
+                    },
+                    {
+                        "text": "near1337 {5}",
+                        "type": "player"
+                    },
+                    {
+                        "text": " as chancellor."
+                    }
+                ]
+            },
+            {
+                "timestamp": "2025-08-06T15:14:02.918Z",
+                "gameChat": true,
+                "chat": [
+                    {
+                        "text": "The election fails and the election tracker moves forward. (1/3)"
+                    }
+                ]
+            },
+            {
+                "gameChat": true,
+                "timestamp": "2025-08-06T15:14:05.563Z",
+                "chat": [
+                    {
+                        "text": "President "
+                    },
+                    {
+                        "text": "dwabble {1}",
+                        "type": "player"
+                    },
+                    {
+                        "text": " nominates "
+                    },
+                    {
+                        "text": "ImAnAnt {3}",
+                        "type": "player"
+                    },
+                    {
+                        "text": " as chancellor."
+                    }
+                ]
+            },
+            {
+                "timestamp": "2025-08-06T15:14:21.709Z",
+                "gameChat": true,
+                "chat": [
+                    {
+                        "text": "The election fails and the election tracker moves forward. (2/3)"
+                    }
+                ]
+            },
+            {
+                "gameChat": true,
+                "timestamp": "2025-08-06T15:14:25.009Z",
+                "chat": [
+                    {
+                        "text": "President "
+                    },
+                    {
+                        "text": "ImAnAnt {3}",
+                        "type": "player"
+                    },
+                    {
+                        "text": " nominates "
+                    },
+                    {
+                        "text": "near1337 {5}",
+                        "type": "player"
+                    },
+                    {
+                        "text": " as chancellor."
+                    }
+                ]
+            },
+            {
+                "timestamp": "2025-08-06T15:14:44.552Z",
+                "gameChat": true,
+                "chat": [
+                    {
+                        "text": "The election fails and the election tracker moves forward. (3/3)"
+                    }
+                ]
+            },
+            {
+                "timestamp": "2025-08-06T15:14:44.553Z",
+                "gameChat": true,
+                "chat": [
+                    {
+                        "text": "The third consecutive election has failed and the top policy is enacted."
+                    }
+                ]
+            },
+            {
+                "timestamp": "2025-08-06T15:14:46.110Z",
+                "gameChat": true,
+                "chat": [
+                    {
+                        "text": "A "
+                    },
+                    {
+                        "text": "fascist",
+                        "type": "fascist"
+                    },
+                    {
+                        "text": " policy has been enacted. (5/6)"
+                    }
+                ]
+            },
+            {
+                "gameChat": true,
+                "timestamp": "2025-08-06T15:14:48.410Z",
+                "chat": [
+                    {
+                        "text": "President "
+                    },
+                    {
+                        "text": "Meowlin {4}",
+                        "type": "player"
+                    },
+                    {
+                        "text": " nominates "
+                    },
+                    {
+                        "text": "near1337 {5}",
+                        "type": "player"
+                    },
+                    {
+                        "text": " as chancellor."
+                    }
+                ]
+            },
+            {
+                "timestamp": "2025-08-06T15:15:00.591Z",
+                "gameChat": true,
+                "chat": [
+                    {
+                        "text": "The election fails and the election tracker moves forward. (1/3)"
+                    }
+                ]
+            },
+            {
+                "gameChat": true,
+                "timestamp": "2025-08-06T15:15:05.763Z",
+                "chat": [
+                    {
+                        "text": "President "
+                    },
+                    {
+                        "text": "near1337 {5}",
+                        "type": "player"
+                    },
+                    {
+                        "text": " nominates "
+                    },
+                    {
+                        "text": "AIsUnite {7}",
+                        "type": "player"
+                    },
+                    {
+                        "text": " as chancellor."
+                    }
+                ]
+            },
+            {
+                "timestamp": "2025-08-06T15:15:25.447Z",
+                "gameChat": true,
+                "chat": [
+                    {
+                        "text": "The election fails and the election tracker moves forward. (2/3)"
+                    }
+                ]
+            },
+            {
+                "gameChat": true,
+                "timestamp": "2025-08-06T15:15:28.724Z",
+                "chat": [
+                    {
+                        "text": "President "
+                    },
+                    {
+                        "text": "Trauler {6}",
+                        "type": "player"
+                    },
+                    {
+                        "text": " nominates "
+                    },
+                    {
+                        "text": "dwabble {1}",
+                        "type": "player"
+                    },
+                    {
+                        "text": " as chancellor."
+                    }
+                ]
+            },
+            {
+                "timestamp": "2025-08-06T15:15:54.238Z",
+                "gameChat": true,
+                "chat": [
+                    {
+                        "text": "The election fails and the election tracker moves forward. (3/3)"
+                    }
+                ]
+            },
+            {
+                "timestamp": "2025-08-06T15:15:54.238Z",
+                "gameChat": true,
+                "chat": [
+                    {
+                        "text": "The third consecutive election has failed and the top policy is enacted."
+                    }
+                ]
+            },
+            {
+                "timestamp": "2025-08-06T15:15:55.810Z",
+                "gameChat": true,
+                "chat": [
+                    {
+                        "text": "A "
+                    },
+                    {
+                        "text": "liberal",
+                        "type": "liberal"
+                    },
+                    {
+                        "text": " policy has been enacted. (4/5)"
+                    }
+                ]
+            },
+            {
+                "gameChat": true,
+                "timestamp": "2025-08-06T15:16:15.610Z",
+                "chat": [
+                    {
+                        "text": "President "
+                    },
+                    {
+                        "text": "AIsUnite {7}",
+                        "type": "player"
+                    },
+                    {
+                        "text": " nominates "
+                    },
+                    {
+                        "text": "near1337 {5}",
+                        "type": "player"
+                    },
+                    {
+                        "text": " as chancellor."
+                    }
+                ]
+            },
+            {
+                "timestamp": "2025-08-06T15:16:30.213Z",
+                "gameChat": true,
+                "chat": [
+                    {
+                        "text": "The election fails and the election tracker moves forward. (1/3)"
+                    }
+                ]
+            },
+            {
+                "gameChat": true,
+                "timestamp": "2025-08-06T15:16:31.400Z",
+                "chat": [
+                    {
+                        "text": "President "
+                    },
+                    {
+                        "text": "dwabble {1}",
+                        "type": "player"
+                    },
+                    {
+                        "text": " nominates "
+                    },
+                    {
+                        "text": "Trauler {6}",
+                        "type": "player"
+                    },
+                    {
+                        "text": " as chancellor."
+                    }
+                ]
+            },
+            {
+                "timestamp": "2025-08-06T15:16:44.770Z",
+                "gameChat": true,
+                "chat": [
+                    {
+                        "text": "The election fails and the election tracker moves forward. (2/3)"
+                    }
+                ]
+            },
+            {
+                "gameChat": true,
+                "timestamp": "2025-08-06T15:16:46.023Z",
+                "chat": [
+                    {
+                        "text": "President "
+                    },
+                    {
+                        "text": "ImAnAnt {3}",
+                        "type": "player"
+                    },
+                    {
+                        "text": " nominates "
+                    },
+                    {
+                        "text": "AIsUnite {7}",
+                        "type": "player"
+                    },
+                    {
+                        "text": " as chancellor."
+                    }
+                ]
+            },
+            {
+                "timestamp": "2025-08-06T15:16:59.417Z",
+                "gameChat": true,
+                "chat": [
+                    {
+                        "text": "The election fails and the election tracker moves forward. (3/3)"
+                    }
+                ]
+            },
+            {
+                "timestamp": "2025-08-06T15:16:59.417Z",
+                "gameChat": true,
+                "chat": [
+                    {
+                        "text": "The third consecutive election has failed and the top policy is enacted."
+                    }
+                ]
+            },
+            {
+                "timestamp": "2025-08-06T15:17:01.010Z",
+                "gameChat": true,
+                "chat": [
+                    {
+                        "text": "A "
+                    },
+                    {
+                        "text": "liberal",
+                        "type": "liberal"
+                    },
+                    {
+                        "text": " policy has been enacted. (5/5)"
+                    }
+                ]
+            },
+            {
+                "gameChat": true,
+                "timestamp": "2025-08-06T15:17:03.077Z",
+                "chat": [
+                    {
+                        "text": "Liberals",
+                        "type": "liberal"
+                    },
+                    {
+                        "text": " win the game."
+                    }
+                ]
+            },
+            {
+                "isRemainingPolicies": true,
+                "timestamp": "2025-08-06T15:17:03.077Z",
+                "chat": [
+                    {
+                        "text": "The remaining policies are "
+                    },
+                    {
+                        "policies": [
+                            "r",
+                            "b",
+                            "r",
+                            "r",
+                            "r"
+                        ]
+                    },
+                    {
+                        "text": "."
+                    }
+                ]
+            },
+            {
+                "isRemainingPolicies": true,
+                "timestamp": "2025-08-06T15:17:11.135Z",
+                "chat": [
+                    {
+                        "text": "The remaining policies are "
+                    },
+                    {
+                        "policies": [
+                            "r",
+                            "b",
+                            "r",
+                            "r",
+                            "r"
+                        ]
+                    },
+                    {
+                        "text": "."
+                    }
+                ]
+            },
+            {
+                "gameChat": true,
+                "timestamp": "2025-08-06T15:17:03.809Z",
+                "chat": [
+                    {
+                        "text": "dwabble",
+                        "type": "hitler"
+                    },
+                    {
+                        "text": "'s Elo: "
+                    },
+                    {
+                        "text": " -"
+                    },
+                    {
+                        "text": "7.7",
+                        "type": "player"
+                    }
+                ]
+            },
+            {
+                "gameChat": true,
+                "timestamp": "2025-08-06T15:17:03.809Z",
+                "chat": [
+                    {
+                        "text": "dwabble",
+                        "type": "hitler"
+                    },
+                    {
+                        "text": "'s XP: "
+                    },
+                    {
+                        "text": " +"
+                    },
+                    {
+                        "text": "1.0",
+                        "type": "player"
+                    }
+                ]
+            },
+            {
+                "gameChat": true,
+                "timestamp": "2025-08-06T15:17:03.810Z",
+                "chat": [
+                    {
+                        "text": "ImAnAnt",
+                        "type": "fascist"
+                    },
+                    {
+                        "text": "'s Elo: "
+                    },
+                    {
+                        "text": " -"
+                    },
+                    {
+                        "text": "7.7",
+                        "type": "player"
+                    }
+                ]
+            },
+            {
+                "gameChat": true,
+                "timestamp": "2025-08-06T15:17:03.810Z",
+                "chat": [
+                    {
+                        "text": "ImAnAnt",
+                        "type": "fascist"
+                    },
+                    {
+                        "text": "'s XP: "
+                    },
+                    {
+                        "text": " +"
+                    },
+                    {
+                        "text": "1.0",
+                        "type": "player"
+                    }
+                ]
+            },
+            {
+                "gameChat": true,
+                "timestamp": "2025-08-06T15:17:03.811Z",
+                "chat": [
+                    {
+                        "text": "Trauler",
+                        "type": "fascist"
+                    },
+                    {
+                        "text": "'s Elo: "
+                    },
+                    {
+                        "text": " -"
+                    },
+                    {
+                        "text": "7.7",
+                        "type": "player"
+                    }
+                ]
+            },
+            {
+                "gameChat": true,
+                "timestamp": "2025-08-06T15:17:03.811Z",
+                "chat": [
+                    {
+                        "text": "Trauler",
+                        "type": "fascist"
+                    },
+                    {
+                        "text": "'s XP: "
+                    },
+                    {
+                        "text": " +"
+                    },
+                    {
+                        "text": "1.0",
+                        "type": "player"
+                    }
+                ]
+            },
+            {
+                "gameChat": true,
+                "timestamp": "2025-08-06T15:17:03.812Z",
+                "chat": [
+                    {
+                        "text": "AIsUnite",
+                        "type": "liberal"
+                    },
+                    {
+                        "text": "'s Elo: "
+                    },
+                    {
+                        "text": " +"
+                    },
+                    {
+                        "text": "5.8",
+                        "type": "player"
+                    }
+                ]
+            },
+            {
+                "gameChat": true,
+                "timestamp": "2025-08-06T15:17:03.812Z",
+                "chat": [
+                    {
+                        "text": "AIsUnite",
+                        "type": "liberal"
+                    },
+                    {
+                        "text": "'s XP: "
+                    },
+                    {
+                        "text": " +"
+                    },
+                    {
+                        "text": "3.8",
+                        "type": "player"
+                    }
+                ]
+            },
+            {
+                "gameChat": true,
+                "timestamp": "2025-08-06T15:17:03.814Z",
+                "chat": [
+                    {
+                        "text": "Meowlin",
+                        "type": "liberal"
+                    },
+                    {
+                        "text": "'s Elo: "
+                    },
+                    {
+                        "text": " +"
+                    },
+                    {
+                        "text": "5.8",
+                        "type": "player"
+                    }
+                ]
+            },
+            {
+                "gameChat": true,
+                "timestamp": "2025-08-06T15:17:03.814Z",
+                "chat": [
+                    {
+                        "text": "Meowlin",
+                        "type": "liberal"
+                    },
+                    {
+                        "text": "'s XP: "
+                    },
+                    {
+                        "text": " +"
+                    },
+                    {
+                        "text": "3.8",
+                        "type": "player"
+                    }
+                ]
+            },
+            {
+                "gameChat": true,
+                "timestamp": "2025-08-06T15:17:03.815Z",
+                "chat": [
+                    {
+                        "text": "kbizzle1",
+                        "type": "liberal"
+                    },
+                    {
+                        "text": "'s Elo: "
+                    },
+                    {
+                        "text": " +"
+                    },
+                    {
+                        "text": "5.8",
+                        "type": "player"
+                    }
+                ]
+            },
+            {
+                "gameChat": true,
+                "timestamp": "2025-08-06T15:17:03.815Z",
+                "chat": [
+                    {
+                        "text": "kbizzle1",
+                        "type": "liberal"
+                    },
+                    {
+                        "text": "'s XP: "
+                    },
+                    {
+                        "text": " +"
+                    },
+                    {
+                        "text": "3.8",
+                        "type": "player"
+                    }
+                ]
+            },
+            {
+                "gameChat": true,
+                "timestamp": "2025-08-06T15:17:03.816Z",
+                "chat": [
+                    {
+                        "text": "near1337",
+                        "type": "liberal"
+                    },
+                    {
+                        "text": "'s Elo: "
+                    },
+                    {
+                        "text": " +"
+                    },
+                    {
+                        "text": "5.8",
+                        "type": "player"
+                    }
+                ]
+            },
+            {
+                "gameChat": true,
+                "timestamp": "2025-08-06T15:17:03.816Z",
+                "chat": [
+                    {
+                        "text": "near1337",
+                        "type": "liberal"
+                    },
+                    {
+                        "text": "'s XP: "
+                    },
+                    {
+                        "text": " +"
+                    },
+                    {
+                        "text": "3.8",
+                        "type": "player"
+                    }
+                ]
+            }
+        ],
+        "hiddenInfoChat": [
+            {
+                "timestamp": "2025-08-06T14:59:29.428Z",
+                "gameChat": true,
+                "chat": [
+                    {
+                        "text": "The deck has been shuffled: "
+                    },
+                    {
+                        "text": "B",
+                        "type": "liberal"
+                    },
+                    {
+                        "text": "B",
+                        "type": "liberal"
+                    },
+                    {
+                        "text": "R",
+                        "type": "fascist"
+                    },
+                    {
+                        "text": "R",
+                        "type": "fascist"
+                    },
+                    {
+                        "text": "R",
+                        "type": "fascist"
+                    },
+                    {
+                        "text": "R",
+                        "type": "fascist"
+                    },
+                    {
+                        "text": "R",
+                        "type": "fascist"
+                    },
+                    {
+                        "text": "B",
+                        "type": "liberal"
+                    },
+                    {
+                        "text": "B",
+                        "type": "liberal"
+                    },
+                    {
+                        "text": "R",
+                        "type": "fascist"
+                    },
+                    {
+                        "text": "R",
+                        "type": "fascist"
+                    },
+                    {
+                        "text": "R",
+                        "type": "fascist"
+                    },
+                    {
+                        "text": "R",
+                        "type": "fascist"
+                    },
+                    {
+                        "text": "R",
+                        "type": "fascist"
+                    },
+                    {
+                        "text": "B",
+                        "type": "liberal"
+                    },
+                    {
+                        "text": "B",
+                        "type": "liberal"
+                    },
+                    {
+                        "text": "R",
+                        "type": "fascist"
+                    }
+                ]
+            },
+            {
+                "timestamp": "2025-08-06T14:59:29.428Z",
+                "gameChat": true,
+                "chat": [
+                    {
+                        "text": "dwabble {1}",
+                        "type": "player"
+                    },
+                    {
+                        "text": " is assigned the "
+                    },
+                    {
+                        "text": "hitler",
+                        "type": "hitler"
+                    },
+                    {
+                        "text": " role."
+                    }
+                ]
+            },
+            {
+                "timestamp": "2025-08-06T14:59:29.428Z",
+                "gameChat": true,
+                "chat": [
+                    {
+                        "text": "kbizzle1 {2}",
+                        "type": "player"
+                    },
+                    {
+                        "text": " is assigned the "
+                    },
+                    {
+                        "text": "liberal",
+                        "type": "liberal"
+                    },
+                    {
+                        "text": " role."
+                    }
+                ]
+            },
+            {
+                "timestamp": "2025-08-06T14:59:29.428Z",
+                "gameChat": true,
+                "chat": [
+                    {
+                        "text": "ImAnAnt {3}",
+                        "type": "player"
+                    },
+                    {
+                        "text": " is assigned the "
+                    },
+                    {
+                        "text": "fascist",
+                        "type": "fascist"
+                    },
+                    {
+                        "text": " role."
+                    }
+                ]
+            },
+            {
+                "timestamp": "2025-08-06T14:59:29.428Z",
+                "gameChat": true,
+                "chat": [
+                    {
+                        "text": "Meowlin {4}",
+                        "type": "player"
+                    },
+                    {
+                        "text": " is assigned the "
+                    },
+                    {
+                        "text": "liberal",
+                        "type": "liberal"
+                    },
+                    {
+                        "text": " role."
+                    }
+                ]
+            },
+            {
+                "timestamp": "2025-08-06T14:59:29.428Z",
+                "gameChat": true,
+                "chat": [
+                    {
+                        "text": "near1337 {5}",
+                        "type": "player"
+                    },
+                    {
+                        "text": " is assigned the "
+                    },
+                    {
+                        "text": "liberal",
+                        "type": "liberal"
+                    },
+                    {
+                        "text": " role."
+                    }
+                ]
+            },
+            {
+                "timestamp": "2025-08-06T14:59:29.428Z",
+                "gameChat": true,
+                "chat": [
+                    {
+                        "text": "Trauler {6}",
+                        "type": "player"
+                    },
+                    {
+                        "text": " is assigned the "
+                    },
+                    {
+                        "text": "fascist",
+                        "type": "fascist"
+                    },
+                    {
+                        "text": " role."
+                    }
+                ]
+            },
+            {
+                "timestamp": "2025-08-06T14:59:29.428Z",
+                "gameChat": true,
+                "chat": [
+                    {
+                        "text": "AIsUnite {7}",
+                        "type": "player"
+                    },
+                    {
+                        "text": " is assigned the "
+                    },
+                    {
+                        "text": "liberal",
+                        "type": "liberal"
+                    },
+                    {
+                        "text": " role."
+                    }
+                ]
+            },
+            {
+                "timestamp": "2025-08-06T14:59:50.704Z",
+                "gameChat": true,
+                "chat": [
+                    {
+                        "text": "President "
+                    },
+                    {
+                        "text": "dwabble {1}",
+                        "type": "player"
+                    },
+                    {
+                        "text": " received "
+                    },
+                    {
+                        "text": "B",
+                        "type": "liberal"
+                    },
+                    {
+                        "text": "B",
+                        "type": "liberal"
+                    },
+                    {
+                        "text": "R",
+                        "type": "fascist"
+                    },
+                    {
+                        "text": "."
+                    }
+                ]
+            },
+            {
+                "timestamp": "2025-08-06T14:59:52.547Z",
+                "gameChat": true,
+                "chat": [
+                    {
+                        "text": "President "
+                    },
+                    {
+                        "text": "dwabble {1}",
+                        "type": "player"
+                    },
+                    {
+                        "text": " has chosen to discard a "
+                    },
+                    {
+                        "text": "liberal",
+                        "type": "liberal"
+                    },
+                    {
+                        "text": " policy."
+                    }
+                ]
+            },
+            {
+                "timestamp": "2025-08-06T14:59:54.256Z",
+                "gameChat": true,
+                "chat": [
+                    {
+                        "text": "Chancellor "
+                    },
+                    {
+                        "text": "near1337 {5}",
+                        "type": "player"
+                    },
+                    {
+                        "text": " has chosen to play a "
+                    },
+                    {
+                        "text": "liberal",
+                        "type": "liberal"
+                    },
+                    {
+                        "text": " policy."
+                    }
+                ]
+            },
+            {
+                "timestamp": "2025-08-06T15:00:22.307Z",
+                "gameChat": true,
+                "chat": [
+                    {
+                        "text": "President "
+                    },
+                    {
+                        "text": "kbizzle1 {2}",
+                        "type": "player"
+                    },
+                    {
+                        "text": " received "
+                    },
+                    {
+                        "text": "R",
+                        "type": "fascist"
+                    },
+                    {
+                        "text": "R",
+                        "type": "fascist"
+                    },
+                    {
+                        "text": "R",
+                        "type": "fascist"
+                    },
+                    {
+                        "text": "."
+                    }
+                ]
+            },
+            {
+                "timestamp": "2025-08-06T15:00:26.034Z",
+                "gameChat": true,
+                "chat": [
+                    {
+                        "text": "President "
+                    },
+                    {
+                        "text": "kbizzle1 {2}",
+                        "type": "player"
+                    },
+                    {
+                        "text": " has chosen to discard a "
+                    },
+                    {
+                        "text": "fascist",
+                        "type": "fascist"
+                    },
+                    {
+                        "text": " policy."
+                    }
+                ]
+            },
+            {
+                "timestamp": "2025-08-06T15:00:28.062Z",
+                "gameChat": true,
+                "chat": [
+                    {
+                        "text": "Chancellor "
+                    },
+                    {
+                        "text": "Trauler {6}",
+                        "type": "player"
+                    },
+                    {
+                        "text": " has chosen to play a "
+                    },
+                    {
+                        "text": "fascist",
+                        "type": "fascist"
+                    },
+                    {
+                        "text": " policy."
+                    }
+                ]
+            },
+            {
+                "timestamp": "2025-08-06T15:01:49.841Z",
+                "gameChat": true,
+                "chat": [
+                    {
+                        "text": "President "
+                    },
+                    {
+                        "text": "near1337 {5}",
+                        "type": "player"
+                    },
+                    {
+                        "text": " received "
+                    },
+                    {
+                        "text": "R",
+                        "type": "fascist"
+                    },
+                    {
+                        "text": "B",
+                        "type": "liberal"
+                    },
+                    {
+                        "text": "B",
+                        "type": "liberal"
+                    },
+                    {
+                        "text": "."
+                    }
+                ]
+            },
+            {
+                "timestamp": "2025-08-06T15:01:51.999Z",
+                "gameChat": true,
+                "chat": [
+                    {
+                        "text": "President "
+                    },
+                    {
+                        "text": "near1337 {5}",
+                        "type": "player"
+                    },
+                    {
+                        "text": " has chosen to discard a "
+                    },
+                    {
+                        "text": "fascist",
+                        "type": "fascist"
+                    },
+                    {
+                        "text": " policy."
+                    }
+                ]
+            },
+            {
+                "timestamp": "2025-08-06T15:03:16.892Z",
+                "gameChat": true,
+                "chat": [
+                    {
+                        "text": "Chancellor "
+                    },
+                    {
+                        "text": "dwabble {1}",
+                        "type": "player"
+                    },
+                    {
+                        "text": " has chosen to play a "
+                    },
+                    {
+                        "text": "liberal",
+                        "type": "liberal"
+                    },
+                    {
+                        "text": " policy."
+                    }
+                ]
+            },
+            {
+                "timestamp": "2025-08-06T15:04:20.184Z",
+                "gameChat": true,
+                "chat": [
+                    {
+                        "text": "President "
+                    },
+                    {
+                        "text": "dwabble {1}",
+                        "type": "player"
+                    },
+                    {
+                        "text": " received "
+                    },
+                    {
+                        "text": "R",
+                        "type": "fascist"
+                    },
+                    {
+                        "text": "R",
+                        "type": "fascist"
+                    },
+                    {
+                        "text": "R",
+                        "type": "fascist"
+                    },
+                    {
+                        "text": "."
+                    }
+                ]
+            },
+            {
+                "timestamp": "2025-08-06T15:04:22.206Z",
+                "gameChat": true,
+                "chat": [
+                    {
+                        "text": "President "
+                    },
+                    {
+                        "text": "dwabble {1}",
+                        "type": "player"
+                    },
+                    {
+                        "text": " has chosen to discard a "
+                    },
+                    {
+                        "text": "fascist",
+                        "type": "fascist"
+                    },
+                    {
+                        "text": " policy."
+                    }
+                ]
+            },
+            {
+                "timestamp": "2025-08-06T15:04:23.951Z",
+                "gameChat": true,
+                "chat": [
+                    {
+                        "text": "Chancellor "
+                    },
+                    {
+                        "text": "ImAnAnt {3}",
+                        "type": "player"
+                    },
+                    {
+                        "text": " has chosen to play a "
+                    },
+                    {
+                        "text": "fascist",
+                        "type": "fascist"
+                    },
+                    {
+                        "text": " policy."
+                    }
+                ]
+            },
+            {
+                "timestamp": "2025-08-06T15:04:28.312Z",
+                "gameChat": true,
+                "chat": [
+                    {
+                        "text": "President "
+                    },
+                    {
+                        "text": "dwabble {1}",
+                        "type": "player"
+                    },
+                    {
+                        "text": " sees a "
+                    },
+                    {
+                        "text": "liberal",
+                        "type": "liberal"
+                    },
+                    {
+                        "text": " loyalty card."
+                    }
+                ]
+            },
+            {
+                "timestamp": "2025-08-06T15:05:37.403Z",
+                "gameChat": true,
+                "chat": [
+                    {
+                        "text": "President "
+                    },
+                    {
+                        "text": "ImAnAnt {3}",
+                        "type": "player"
+                    },
+                    {
+                        "text": " received "
+                    },
+                    {
+                        "text": "R",
+                        "type": "fascist"
+                    },
+                    {
+                        "text": "R",
+                        "type": "fascist"
+                    },
+                    {
+                        "text": "B",
+                        "type": "liberal"
+                    },
+                    {
+                        "text": "."
+                    }
+                ]
+            },
+            {
+                "timestamp": "2025-08-06T15:05:39.137Z",
+                "gameChat": true,
+                "chat": [
+                    {
+                        "text": "President "
+                    },
+                    {
+                        "text": "ImAnAnt {3}",
+                        "type": "player"
+                    },
+                    {
+                        "text": " has chosen to discard a "
+                    },
+                    {
+                        "text": "liberal",
+                        "type": "liberal"
+                    },
+                    {
+                        "text": " policy."
+                    }
+                ]
+            },
+            {
+                "timestamp": "2025-08-06T15:05:40.791Z",
+                "gameChat": true,
+                "chat": [
+                    {
+                        "text": "Chancellor "
+                    },
+                    {
+                        "text": "Meowlin {4}",
+                        "type": "player"
+                    },
+                    {
+                        "text": " has chosen to play a "
+                    },
+                    {
+                        "text": "fascist",
+                        "type": "fascist"
+                    },
+                    {
+                        "text": " policy."
+                    }
+                ]
+            },
+            {
+                "timestamp": "2025-08-06T15:08:25.806Z",
+                "gameChat": true,
+                "chat": [
+                    {
+                        "text": "The deck has been shuffled: "
+                    },
+                    {
+                        "text": "R",
+                        "type": "fascist"
+                    },
+                    {
+                        "text": "R",
+                        "type": "fascist"
+                    },
+                    {
+                        "text": "R",
+                        "type": "fascist"
+                    },
+                    {
+                        "text": "B",
+                        "type": "liberal"
+                    },
+                    {
+                        "text": "R",
+                        "type": "fascist"
+                    },
+                    {
+                        "text": "B",
+                        "type": "liberal"
+                    },
+                    {
+                        "text": "B",
+                        "type": "liberal"
+                    },
+                    {
+                        "text": "R",
+                        "type": "fascist"
+                    },
+                    {
+                        "text": "B",
+                        "type": "liberal"
+                    },
+                    {
+                        "text": "R",
+                        "type": "fascist"
+                    },
+                    {
+                        "text": "R",
+                        "type": "fascist"
+                    },
+                    {
+                        "text": "R",
+                        "type": "fascist"
+                    }
+                ]
+            },
+            {
+                "timestamp": "2025-08-06T15:09:29.508Z",
+                "gameChat": true,
+                "chat": [
+                    {
+                        "text": "President "
+                    },
+                    {
+                        "text": "near1337 {5}",
+                        "type": "player"
+                    },
+                    {
+                        "text": " received "
+                    },
+                    {
+                        "text": "R",
+                        "type": "fascist"
+                    },
+                    {
+                        "text": "R",
+                        "type": "fascist"
+                    },
+                    {
+                        "text": "R",
+                        "type": "fascist"
+                    },
+                    {
+                        "text": "."
+                    }
+                ]
+            },
+            {
+                "timestamp": "2025-08-06T15:09:31.476Z",
+                "gameChat": true,
+                "chat": [
+                    {
+                        "text": "President "
+                    },
+                    {
+                        "text": "near1337 {5}",
+                        "type": "player"
+                    },
+                    {
+                        "text": " has chosen to discard a "
+                    },
+                    {
+                        "text": "fascist",
+                        "type": "fascist"
+                    },
+                    {
+                        "text": " policy."
+                    }
+                ]
+            },
+            {
+                "timestamp": "2025-08-06T15:09:32.900Z",
+                "gameChat": true,
+                "chat": [
+                    {
+                        "text": "Chancellor "
+                    },
+                    {
+                        "text": "AIsUnite {7}",
+                        "type": "player"
+                    },
+                    {
+                        "text": " has chosen to play a "
+                    },
+                    {
+                        "text": "fascist",
+                        "type": "fascist"
+                    },
+                    {
+                        "text": " policy."
+                    }
+                ]
+            }
+        ],
+        "uid": "RoundUsedAbackMosquitoRemake8",
+        "name": "New Game",
+        "date": "2025-08-06T15:19:09.235Z",
+        "guesses": {},
+        "merlinGuesses": {},
+        "playerChats": "enabled",
+        "isVerifiedOnly": false,
+        "season": 22,
+        "winningTeam": "liberal",
+        "playerCount": 7,
+        "rebalance6p": false,
+        "rebalance7p": false,
+        "rebalance9p2f": false,
+        "casualGame": false,
+        "practiceGame": false,
+        "customGame": false,
+        "unlistedGame": false,
+        "isRainbow": true,
+        "isTournyFirstRound": false,
+        "isTournySecondRound": false,
+        "timedMode": 182,
+        "blindMode": false,
+        "eloMinimum": null,
+        "noTopdecking": 0,
+        "completed": true,
+        "__v": 1
+    }
+]

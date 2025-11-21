@@ -1,0 +1,135 @@
+{
+    "_id": "CurvedBrashIgnorantHorseRemake7",
+    "gameSetting": {
+        "avalonSH": null,
+        "rebalance6p": false,
+        "rebalance7p": false,
+        "rebalance9p": false,
+        "casualGame": false,
+        "practiceGame": false,
+        "unlistedGame": false,
+        "noTopdecking": 0
+    },
+    "customGameSettings": {
+        "deckState": {
+            "lib": 6,
+            "fas": 11
+        },
+        "trackState": {
+            "lib": 0,
+            "fas": 0
+        },
+        "powers": [
+            null,
+            "investigate",
+            "election",
+            "bullet",
+            "bullet"
+        ],
+        "enabled": false,
+        "hitlerZone": 3,
+        "vetoZone": 5,
+        "fascistCount": 2,
+        "hitKnowsFas": false
+    },
+    "date": "2024-09-20T02:04:15.159Z",
+    "players": [
+        {
+            "_id": "66ecd986adad3053f8a1f4c1",
+            "username": "Kanukis",
+            "role": "liberal",
+            "icon": 2
+        },
+        {
+            "_id": "66ecd986adad3053f8a1f4c0",
+            "username": "TBoneNya",
+            "role": "liberal",
+            "icon": 3
+        },
+        {
+            "_id": "66ecd986adad3053f8a1f4bf",
+            "username": "SilentRando",
+            "role": "hitler",
+            "icon": 6
+        },
+        {
+            "_id": "66ecd986adad3053f8a1f4be",
+            "username": "RedBanana",
+            "role": "fascist",
+            "icon": 18
+        },
+        {
+            "_id": "66ecd986adad3053f8a1f4bd",
+            "username": "anon49",
+            "role": "fascist",
+            "icon": 19
+        },
+        {
+            "_id": "66ecd986adad3053f8a1f4bc",
+            "username": "Clancyy",
+            "role": "liberal",
+            "icon": 1
+        },
+        {
+            "_id": "66ecd986adad3053f8a1f4bb",
+            "username": "roger8753",
+            "role": "liberal",
+            "icon": 0
+        }
+    ],
+    "libElo": {
+        "overall": 1636.5139476694374,
+        "season": 1634.6251771227644
+    },
+    "fasElo": {
+        "overall": 1592.2415701316113,
+        "season": 1574.698403612777
+    },
+    "logs": [
+        {
+            "votes": [
+                true,
+                false,
+                false,
+                true,
+                true,
+                true,
+                true
+            ],
+            "presidentHand": [
+                "fascist",
+                "liberal",
+                "fascist"
+            ],
+            "chancellorHand": [],
+            "presidentClaim": [],
+            "chancellorClaim": [],
+            "policyPeek": [],
+            "policyPeekClaim": [],
+            "deckState": [
+                "fascist",
+                "liberal",
+                "fascist",
+                "fascist",
+                "liberal",
+                "liberal",
+                "liberal",
+                "fascist",
+                "fascist",
+                "liberal",
+                "fascist",
+                "fascist",
+                "fascist",
+                "fascist",
+                "fascist",
+                "fascist",
+                "liberal"
+            ],
+            "_id": "66ecd986adad3053f8a1f4c2",
+            "presidentId": 0,
+            "chancellorId": 4,
+            "gameStateScore": -0.22914741966315785
+        }
+    ],
+    "__v": 0
+}

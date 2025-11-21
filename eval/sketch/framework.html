@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Secret Hitler L                 <div class="eval-method performance-eval"><span class="eval-icon">💬</span><span class="eval-title">Communication Strategies</span><p style="font-size:.7rem;margin:0;line-height:1.1;">Persuasion techniques, strategic patterns, reasoning analysis</p></div>M Research Framework</title>
+    <!-- Framework for evaluating LLM capabilities in social deduction games -->
+    <style>
+        /* ----------  GLOBALS & TYPOGRAPHY  ---------- */
+        :root{font-size:10pt;} /* 10pt base */
+        *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+        body{font-family:"Latin Modern Roman","Times New Roman","Times",serif;background:#fff;color:#000;line-height:1.2;padding:.5rem .4rem;}
+
+        /* ----------  GRID LAYOUT  ---------- */
+        .container{--gap:.4rem;display:grid;grid-template-columns:1fr 15rem;grid-template-rows:auto;gap:var(--gap);max-width:55rem;margin:0 auto;}
+
+        /* ----------  UTILITY  ---------- */
+        .panel{background:#fafafa;border:2px solid var(--accent,#ccc);border-radius:.4rem;padding:.5rem;box-shadow:0 2px 6px rgba(0,0,0,.05);}        
+        h1,h2,h3,h4{font-weight:700;}
+
+        /* ----------  MAIN FRAMEWORK  ---------- */
+        .main-framework{--accent:#404040;}
+        .framework-title{display:none;}
+        .framework-subtitle{display:none;}
+        .components-grid{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:var(--gap);height:100%;}        
+        .component-section{position:relative;padding:.5rem .4rem .6rem;border:2px solid var(--accentSection,#3498db);border-radius:.4rem;background:#ffffffee;display:flex;flex-direction:column;justify-content:space-between;}
+        .component-title{text-align:center;font-size:1rem;margin-bottom:.1rem;}
+        .component-subtitle{text-align:center;font-size:.8rem;color:#000;margin-bottom:.3rem;}
+        .component-items{display:flex;flex-wrap:wrap;justify-content:center;gap:.3rem;}
+        .component-item{background:#fff;border-radius:.6rem;font-size:.8rem;padding:.2rem .5rem;box-shadow:0 1px 3px rgba(0,0,0,.05);}        
+        .component-divider{border:0;border-top:1px solid #bbb;margin:.7rem 0;} /* retained for possible reuse */
+        /* colour accents - university color palette */
+        .persona-generator{--accentSection:#153268;background:linear-gradient(135deg,#e6e9f0 0%,#d2d8e8 100%);grid-column:1/3;grid-row:1;} /* GAMMA */
+        .discussion-paradigm{--accentSection:#153268;background:linear-gradient(135deg,#e6e9f0 0%,#d2d8e8 100%);grid-column:1;grid-row:2;} /* ETA */
+        .response-generator{--accentSection:#153268;background:linear-gradient(135deg,#e6e9f0 0%,#d2d8e8 100%);} 
+        .decision-protocol{--accentSection:#153268;background:linear-gradient(135deg,#e6e9f0 0%,#d2d8e8 100%);grid-column:2;grid-row:2;} /* UNIBLAU */ 
+
+        /* ----------  BACKENDS  ---------- */
+        .inference-backends{--accent:#404040;position:relative;grid-column:2/3;grid-row:1;display:flex;flex-direction:column;}
+        .backends-title{text-align:center;font-size:1rem;margin-bottom:.4rem;}
+        .backends-subtitle{display:none;}
+        .backends-grid{display:flex;flex-direction:column;gap:var(--gap);}        
+        .backend-section{padding:.4rem .5rem;border:2px solid var(--accentSub,#3498db);border-radius:.4rem;background:#ffffffee;display:flex;flex-direction:row;align-items:center;gap:.5rem;}
+        .llm-player{--accentSub:#005f9b;background:linear-gradient(135deg,#e6f2fa 0%,#cce5f5 100%);}        
+        .cpu-player{--accentSub:#005f9b;background:linear-gradient(135deg,#e6f2fa 0%,#cce5f5 100%);}
+        .random-player{--accentSub:#005f9b;background:linear-gradient(135deg,#e6f2fa 0%,#cce5f5 100%);}        
+        .rule-player{--accentSub:#005f9b;background:linear-gradient(135deg,#e6f2fa 0%,#cce5f5 100%);}
+        .human-player{--accentSub:#005f9b;background:linear-gradient(135deg,#e6f2fa 0%,#cce5f5 100%);}        
+        .backend-title{font-size:.9rem;margin:0;white-space:nowrap;}
+        .backend-items{display:flex;flex-wrap:wrap;gap:.2rem;}
+        .backend-item{background:#fff;border-radius:.6rem;font-size:.75rem;padding:.15rem .4rem;box-shadow:0 1px 3px rgba(0,0,0,.05);}
+        .model-logo{height:1rem;vertical-align:middle;margin-right:0.2rem;}
+
+        /* ----------  ARROWS  ---------- */
+        .arrow{position:absolute;font-size:1.6rem;color:#9aa3a6;}
+        .arrow-right{right:-1.3rem;top:50%;transform:translateY(-50%);} /* main ▸ backends */
+
+        /* ----------  RESPONSIVE  ---------- */
+        @media(max-width:768px){
+            .container{grid-template-columns:1fr;grid-template-rows:auto auto;}
+            .inference-backends{grid-column:1/2;grid-row:auto;}
+            .arrow-right{display:none;} /* hide arrow when stacked */
+        }
+
+        /* wide dual card layout */
+        .wide-card{grid-column:span 2;flex-direction:row;gap:.5rem;}
+        .wide-card .sub-card{flex:1;display:flex;flex-direction:column;justify-content:space-between;}
+        .vertical-divider{width:1px;background:#bbb;}
+    </style>
+</head>
+<body>
+    <div class="container" style="width: 900px;">
+        <!-- Main Framework -->
+        <section class="main-framework panel">
+            <h1 class="framework-title">Secret Hitler LLM Framework</h1>
+            <h2 class="framework-subtitle">Evaluating LLM Capabilities in Social Deduction Games</h2>
+            <div class="components-grid">
+                <!-- Game Environment & LLM Agents (Wide Card) -->
+                <div class="component-section persona-generator wide-card">
+                    <div class="sub-card">
+                        <h3 class="component-title">Game Environment</h3>
+                        <p class="component-subtitle">Secret Hitler simulation framework</p>
+                        <div class="component-items">
+                            <span class="component-item">Game State</span>
+                            <span class="component-item">Rules Engine</span>
+                            <span class="component-item">JSON Logging</span>
+                        </div>
+                    </div>
+
+                    <div class="vertical-divider"></div>
+
+                    <div class="sub-card">
+                        <h3 class="component-title">LLM Agents</h3>
+                        <p class="component-subtitle">Multi-agent reasoning systems</p>
+                        <div class="component-items">
+                            <span class="component-item">Internal Memory</span>
+                            <span class="component-item">Chain of Thought</span>
+                            <span class="component-item">Strategy Guides</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- Communication Analysis -->
+                <div class="component-section discussion-paradigm">
+                    <h3 class="component-title">Communication Analysis</h3>
+                    <p class="component-subtitle">Persuasion & deception strategies</p>
+                    <div class="component-items">
+                        <span class="component-item">Reciprocity</span>
+                        <span class="component-item">Authority</span>
+                        <span class="component-item">Scarcity</span>
+                        <span class="component-item">Consensus</span>
+                        <span class="component-item">Consistency</span>
+                        <span class="component-item">Liking</span>
+                    </div>
+                </div>
+
+                <!-- Decision Making -->
+                <div class="component-section decision-protocol">
+                    <h3 class="component-title">Metrics</h3>
+                    <p class="component-subtitle">Comprehensive performance indicators</p>
+                    <div class="component-items">
+                        <span class="component-item">Policy Votes</span>
+                        <span class="component-item">Win Rate</span>
+                        <span class="component-item">Gamestate Evaluation</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Player Types -->
+        <aside class="inference-backends panel">
+            <h3 class="backends-title">Player Types</h3>
+            <div class="backends-grid">
+                <div class="backend-section llm-player">
+                    <h4 class="backend-title">LLM</h4>
+                    <div class="backend-items">
+                        <span class="backend-item">Adaptive</span>
+                        <span class="backend-item">Learning</span>
+                    </div>
+                </div>
+                <div class="backend-section cpu-player">
+                    <h4 class="backend-title">CPU</h4>
+                    <div class="backend-items">
+                        <span class="backend-item">Algorithmic</span>
+                    </div>
+                </div>
+                <div class="backend-section random-player">
+                    <h4 class="backend-title">Random</h4>
+                    <div class="backend-items">
+                        <span class="backend-item">Baseline</span>
+                    </div>
+                </div>
+                <div class="backend-section rule-player">
+                    <h4 class="backend-title">Rule-based</h4>
+                    <div class="backend-items">
+                        <span class="backend-item">Deterministic</span>
+                    </div>
+                </div>
+                <div class="backend-section human-player">
+                    <h4 class="backend-title">Human</h4>
+                    <div class="backend-items">
+                        <span class="backend-item">Reference</span>
+                    </div>
+                </div>
+            </div>
+        </aside>
+    </div>
+</body>
+</html>

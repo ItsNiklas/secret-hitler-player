@@ -1,0 +1,171 @@
+{
+    "_id": "GreasyHarshInexpensiveElkRemake3",
+    "gameSetting": {
+        "avalonSH": null,
+        "rebalance6p": false,
+        "rebalance7p": false,
+        "rebalance9p": false,
+        "casualGame": false,
+        "practiceGame": false,
+        "unlistedGame": false,
+        "noTopdecking": 0
+    },
+    "customGameSettings": {
+        "deckState": {
+            "lib": 6,
+            "fas": 11
+        },
+        "trackState": {
+            "lib": 0,
+            "fas": 0
+        },
+        "powers": [
+            null,
+            "investigate",
+            "election",
+            "bullet",
+            "bullet"
+        ],
+        "enabled": false,
+        "hitlerZone": 3,
+        "vetoZone": 5,
+        "fascistCount": 2,
+        "hitKnowsFas": false
+    },
+    "date": "2025-01-17T06:17:43.019Z",
+    "players": [
+        {
+            "_id": "6789f6d46c502b3bd4e0bd7e",
+            "username": "SadNixon",
+            "role": "liberal",
+            "icon": 0
+        },
+        {
+            "_id": "6789f6d46c502b3bd4e0bd7d",
+            "username": "WettyFap",
+            "role": "liberal",
+            "icon": 1
+        },
+        {
+            "_id": "6789f6d46c502b3bd4e0bd7c",
+            "username": "PyDev",
+            "role": "liberal",
+            "icon": 3
+        },
+        {
+            "_id": "6789f6d46c502b3bd4e0bd7b",
+            "username": "ImAnAnt",
+            "role": "fascist",
+            "icon": 19
+        },
+        {
+            "_id": "6789f6d46c502b3bd4e0bd7a",
+            "username": "SaltAndLimes",
+            "role": "hitler",
+            "icon": 6
+        },
+        {
+            "_id": "6789f6d46c502b3bd4e0bd79",
+            "username": "chorkadork",
+            "role": "fascist",
+            "icon": 18
+        },
+        {
+            "_id": "6789f6d46c502b3bd4e0bd78",
+            "username": "kbizzle1",
+            "role": "liberal",
+            "icon": 2
+        }
+    ],
+    "libElo": {
+        "overall": 1747.5284517398854,
+        "season": 1717.689043012084
+    },
+    "fasElo": {
+        "overall": 1697.6614511459875,
+        "season": 1647.3186273146996
+    },
+    "logs": [
+        {
+            "votes": [
+                true,
+                true,
+                true,
+                false,
+                true,
+                true,
+                true
+            ],
+            "presidentHand": [
+                "liberal",
+                "fascist",
+                "liberal"
+            ],
+            "chancellorHand": [
+                "liberal",
+                "liberal"
+            ],
+            "presidentClaim": [
+                "fascist",
+                "liberal",
+                "liberal"
+            ],
+            "chancellorClaim": [],
+            "policyPeek": [],
+            "policyPeekClaim": [],
+            "deckState": [
+                "liberal",
+                "fascist",
+                "liberal",
+                "liberal",
+                "liberal",
+                "fascist",
+                "fascist",
+                "fascist",
+                "fascist",
+                "fascist",
+                "liberal",
+                "fascist",
+                "fascist",
+                "fascist",
+                "liberal",
+                "fascist",
+                "fascist"
+            ],
+            "_id": "6789f6d46c502b3bd4e0bd80",
+            "presidentId": 0,
+            "chancellorId": 4,
+            "enactedPolicy": "liberal",
+            "gameStateScore": -0.22914741966315785
+        },
+        {
+            "votes": [],
+            "presidentHand": [],
+            "chancellorHand": [],
+            "presidentClaim": [],
+            "chancellorClaim": [],
+            "policyPeek": [],
+            "policyPeekClaim": [],
+            "deckState": [
+                "liberal",
+                "liberal",
+                "fascist",
+                "fascist",
+                "fascist",
+                "fascist",
+                "fascist",
+                "liberal",
+                "fascist",
+                "fascist",
+                "fascist",
+                "liberal",
+                "fascist",
+                "fascist"
+            ],
+            "_id": "6789f6d46c502b3bd4e0bd7f",
+            "presidentId": 1,
+            "gameStateScore": 0.0392116278148778
+        }
+    ],
+    "__v": 0
+}

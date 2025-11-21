@@ -1,0 +1,2141 @@
+[
+    "replayGameData",
+    {
+        "avalonSH": null,
+        "winningPlayers": [
+            {
+                "userName": "Gamesolver",
+                "team": "fascist",
+                "role": "fascist"
+            },
+            {
+                "userName": "Bubbles546",
+                "team": "fascist",
+                "role": "fascist"
+            },
+            {
+                "userName": "Jailorr",
+                "team": "fascist",
+                "role": "hitler"
+            }
+        ],
+        "losingPlayers": [
+            {
+                "userName": "AIsUnite",
+                "team": "liberal",
+                "role": "liberal"
+            },
+            {
+                "userName": "cracked",
+                "team": "liberal",
+                "role": "liberal"
+            },
+            {
+                "userName": "nooothitIer",
+                "team": "liberal",
+                "role": "liberal"
+            },
+            {
+                "userName": "HeavyWeightChump",
+                "team": "liberal",
+                "role": "liberal"
+            }
+        ],
+        "chats": [
+            {
+                "chat": [
+                    {
+                        "text": "President "
+                    },
+                    {
+                        "text": "Gamesolver {1} ",
+                        "type": "player"
+                    },
+                    {
+                        "text": "claims "
+                    },
+                    {
+                        "claim": "rbb"
+                    },
+                    {
+                        "text": "."
+                    }
+                ],
+                "isClaim": true,
+                "timestamp": "2025-01-13T15:21:05.967Z",
+                "uid": "TestyNarrowCowardlyNarwhalRemake2",
+                "userName": "Gamesolver",
+                "claim": "wasPresident",
+                "claimState": "rbb"
+            },
+            {
+                "chat": "b",
+                "uid": "TestyNarrowCowardlyNarwhalRemake2",
+                "userName": "Bubbles546",
+                "timestamp": "2025-01-13T15:21:06.045Z",
+                "staffRole": null
+            },
+            {
+                "chat": [
+                    {
+                        "text": "Chancellor "
+                    },
+                    {
+                        "text": "Bubbles546 {5} ",
+                        "type": "player"
+                    },
+                    {
+                        "text": "claims "
+                    },
+                    {
+                        "claim": "bb"
+                    },
+                    {
+                        "text": "."
+                    }
+                ],
+                "isClaim": true,
+                "timestamp": "2025-01-13T15:21:06.796Z",
+                "uid": "TestyNarrowCowardlyNarwhalRemake2",
+                "userName": "Bubbles546",
+                "claim": "wasChancellor",
+                "claimState": "bb"
+            },
+            {
+                "gameChat": true,
+                "timestamp": "2025-01-13T15:21:32.534Z",
+                "chat": [
+                    {
+                        "text": "A staff member has pinged "
+                    },
+                    {
+                        "text": "Bubbles546 {5}",
+                        "type": "player"
+                    },
+                    {
+                        "text": "."
+                    }
+                ]
+            },
+            {
+                "chat": [
+                    {
+                        "text": "President "
+                    },
+                    {
+                        "text": "AIsUnite {2} ",
+                        "type": "player"
+                    },
+                    {
+                        "text": "claims "
+                    },
+                    {
+                        "claim": "rrr"
+                    },
+                    {
+                        "text": "."
+                    }
+                ],
+                "isClaim": true,
+                "timestamp": "2025-01-13T15:21:33.545Z",
+                "uid": "TestyNarrowCowardlyNarwhalRemake2",
+                "userName": "AIsUnite",
+                "claim": "wasPresident",
+                "claimState": "rrr"
+            },
+            {
+                "chat": [
+                    {
+                        "text": "Chancellor "
+                    },
+                    {
+                        "text": "Jailorr {6} ",
+                        "type": "player"
+                    },
+                    {
+                        "text": "claims "
+                    },
+                    {
+                        "claim": "rr"
+                    },
+                    {
+                        "text": "."
+                    }
+                ],
+                "isClaim": true,
+                "timestamp": "2025-01-13T15:21:34.037Z",
+                "uid": "TestyNarrowCowardlyNarwhalRemake2",
+                "userName": "Jailorr",
+                "claim": "wasChancellor",
+                "claimState": "rr"
+            },
+            {
+                "chat": [
+                    {
+                        "text": "President "
+                    },
+                    {
+                        "text": "cracked {3} ",
+                        "type": "player"
+                    },
+                    {
+                        "text": "claims "
+                    },
+                    {
+                        "claim": "rrr"
+                    },
+                    {
+                        "text": "."
+                    }
+                ],
+                "isClaim": true,
+                "timestamp": "2025-01-13T15:21:56.075Z",
+                "uid": "TestyNarrowCowardlyNarwhalRemake2",
+                "userName": "cracked",
+                "claim": "wasPresident",
+                "claimState": "rrr"
+            },
+            {
+                "chat": [
+                    {
+                        "text": "President "
+                    },
+                    {
+                        "text": "cracked {3} ",
+                        "type": "player"
+                    },
+                    {
+                        "text": "sees the party membership of "
+                    },
+                    {
+                        "text": "AIsUnite {2} ",
+                        "type": "player"
+                    },
+                    {
+                        "text": "and claims to see a member of the "
+                    },
+                    {
+                        "text": "liberal ",
+                        "type": "liberal"
+                    },
+                    {
+                        "text": "team."
+                    }
+                ],
+                "isClaim": true,
+                "timestamp": "2025-01-13T15:22:08.597Z",
+                "uid": "TestyNarrowCowardlyNarwhalRemake2",
+                "userName": "cracked",
+                "claim": "didInvestigateLoyalty",
+                "claimState": "liberal"
+            },
+            {
+                "chat": [
+                    {
+                        "text": "Chancellor "
+                    },
+                    {
+                        "text": "Bubbles546 {5} ",
+                        "type": "player"
+                    },
+                    {
+                        "text": "claims "
+                    },
+                    {
+                        "claim": "rr"
+                    },
+                    {
+                        "text": "."
+                    }
+                ],
+                "isClaim": true,
+                "timestamp": "2025-01-13T15:22:40.494Z",
+                "uid": "TestyNarrowCowardlyNarwhalRemake2",
+                "userName": "Bubbles546",
+                "claim": "wasChancellor",
+                "claimState": "rr"
+            },
+            {
+                "chat": [
+                    {
+                        "text": "President "
+                    },
+                    {
+                        "text": "nooothitIer {4} ",
+                        "type": "player"
+                    },
+                    {
+                        "text": "claims "
+                    },
+                    {
+                        "claim": "rbb"
+                    },
+                    {
+                        "text": "."
+                    }
+                ],
+                "isClaim": true,
+                "timestamp": "2025-01-13T15:22:41.138Z",
+                "uid": "TestyNarrowCowardlyNarwhalRemake2",
+                "userName": "nooothitIer",
+                "claim": "wasPresident",
+                "claimState": "rbb"
+            },
+            {
+                "chat": "se 2",
+                "uid": "TestyNarrowCowardlyNarwhalRemake2",
+                "userName": "Jailorr",
+                "timestamp": "2025-01-13T15:23:19.301Z",
+                "staffRole": null
+            },
+            {
+                "chat": ":popcornpanda: ",
+                "uid": "TestyNarrowCowardlyNarwhalRemake2",
+                "userName": "Bubbles546",
+                "timestamp": "2025-01-13T15:23:56.837Z",
+                "staffRole": null
+            },
+            {
+                "chat": "1 is lib",
+                "uid": "TestyNarrowCowardlyNarwhalRemake2",
+                "userName": "Jailorr",
+                "timestamp": "2025-01-13T15:23:58.248Z",
+                "staffRole": null
+            },
+            {
+                "timestamp": "2025-01-13T15:26:28.695Z",
+                "gameChat": true,
+                "chat": [
+                    {
+                        "text": "A player"
+                    },
+                    {
+                        "text": " has voted to remake this game. (1/5)"
+                    }
+                ]
+            },
+            {
+                "timestamp": "2025-01-13T15:26:34.288Z",
+                "gameChat": true,
+                "chat": [
+                    {
+                        "text": "A player"
+                    },
+                    {
+                        "text": " has voted to remake this game. (2/5)"
+                    }
+                ]
+            },
+            {
+                "timestamp": "2025-01-13T15:26:35.571Z",
+                "gameChat": true,
+                "chat": [
+                    {
+                        "text": "A player"
+                    },
+                    {
+                        "text": " has rescinded their vote to remake this game. (1/5)"
+                    }
+                ]
+            },
+            {
+                "chat": [
+                    {
+                        "text": "Chancellor "
+                    },
+                    {
+                        "text": "Gamesolver {1} ",
+                        "type": "player"
+                    },
+                    {
+                        "text": "claims "
+                    },
+                    {
+                        "claim": "rb"
+                    },
+                    {
+                        "text": "."
+                    }
+                ],
+                "isClaim": true,
+                "timestamp": "2025-01-13T15:26:46.531Z",
+                "uid": "TestyNarrowCowardlyNarwhalRemake2",
+                "userName": "Gamesolver",
+                "claim": "wasChancellor",
+                "claimState": "rb"
+            },
+            {
+                "chat": [
+                    {
+                        "text": "President "
+                    },
+                    {
+                        "text": "AIsUnite {2} ",
+                        "type": "player"
+                    },
+                    {
+                        "text": "claims "
+                    },
+                    {
+                        "claim": "rbb"
+                    },
+                    {
+                        "text": "."
+                    }
+                ],
+                "isClaim": true,
+                "timestamp": "2025-01-13T15:26:47.324Z",
+                "uid": "TestyNarrowCowardlyNarwhalRemake2",
+                "userName": "AIsUnite",
+                "claim": "wasPresident",
+                "claimState": "rbb"
+            },
+            {
+                "gameChat": true,
+                "userName": "AIsUnite",
+                "timestamp": "2025-01-13T15:28:17.421Z",
+                "chat": [
+                    {
+                        "text": "AIsUnite has pinged HeavyWeightChump (7)."
+                    }
+                ],
+                "previousSeasonAward": null,
+                "uid": null,
+                "inProgress": true
+            },
+            {
+                "chat": [
+                    {
+                        "text": "President "
+                    },
+                    {
+                        "text": "Gamesolver {1} ",
+                        "type": "player"
+                    },
+                    {
+                        "text": "claims "
+                    },
+                    {
+                        "claim": "rrr"
+                    },
+                    {
+                        "text": "."
+                    }
+                ],
+                "isClaim": true,
+                "timestamp": "2025-01-13T15:28:27.055Z",
+                "uid": "TestyNarrowCowardlyNarwhalRemake2",
+                "userName": "Gamesolver",
+                "claim": "wasPresident",
+                "claimState": "rrr"
+            },
+            {
+                "timestamp": "2025-01-13T15:29:14.677Z",
+                "gameChat": true,
+                "chat": [
+                    {
+                        "text": "A player"
+                    },
+                    {
+                        "text": " has voted to remake this game. (2/5)"
+                    }
+                ]
+            },
+            {
+                "timestamp": "2025-01-13T15:29:15.585Z",
+                "gameChat": true,
+                "chat": [
+                    {
+                        "text": "A player"
+                    },
+                    {
+                        "text": " has voted to remake this game. (3/5)"
+                    }
+                ]
+            },
+            {
+                "timestamp": "2025-01-13T15:29:15.675Z",
+                "gameChat": true,
+                "chat": [
+                    {
+                        "text": "A player"
+                    },
+                    {
+                        "text": " has voted to remake this game. (4/5)"
+                    }
+                ]
+            },
+            {
+                "timestamp": "2025-01-13T15:29:15.909Z",
+                "gameChat": true,
+                "chat": [
+                    {
+                        "text": "A player"
+                    },
+                    {
+                        "text": " has voted to remake this game. (5/5)"
+                    }
+                ]
+            },
+            {
+                "timestamp": "2025-01-13T15:29:18.559Z",
+                "gameChat": true,
+                "chat": [
+                    {
+                        "text": "A player"
+                    },
+                    {
+                        "text": " has voted to remake this game. (6/5)"
+                    }
+                ]
+            },
+            {
+                "gameChat": true,
+                "timestamp": "2025-01-13T15:20:15.386Z",
+                "chat": [
+                    {
+                        "text": "The game begins."
+                    }
+                ]
+            },
+            {
+                "gameChat": true,
+                "timestamp": "2025-01-13T15:20:29.430Z",
+                "chat": [
+                    {
+                        "text": "President "
+                    },
+                    {
+                        "text": "Gamesolver {1}",
+                        "type": "player"
+                    },
+                    {
+                        "text": " nominates "
+                    },
+                    {
+                        "text": "Bubbles546 {5}",
+                        "type": "player"
+                    },
+                    {
+                        "text": " as chancellor."
+                    }
+                ]
+            },
+            {
+                "timestamp": "2025-01-13T15:21:06.016Z",
+                "gameChat": true,
+                "chat": [
+                    {
+                        "text": "A "
+                    },
+                    {
+                        "text": "liberal",
+                        "type": "liberal"
+                    },
+                    {
+                        "text": " policy has been enacted. (1/5)"
+                    }
+                ]
+            },
+            {
+                "gameChat": true,
+                "timestamp": "2025-01-13T15:21:09.264Z",
+                "chat": [
+                    {
+                        "text": "President "
+                    },
+                    {
+                        "text": "AIsUnite {2}",
+                        "type": "player"
+                    },
+                    {
+                        "text": " nominates "
+                    },
+                    {
+                        "text": "Jailorr {6}",
+                        "type": "player"
+                    },
+                    {
+                        "text": " as chancellor."
+                    }
+                ]
+            },
+            {
+                "timestamp": "2025-01-13T15:21:33.705Z",
+                "gameChat": true,
+                "chat": [
+                    {
+                        "text": "A "
+                    },
+                    {
+                        "text": "fascist",
+                        "type": "fascist"
+                    },
+                    {
+                        "text": " policy has been enacted. (1/6)"
+                    }
+                ]
+            },
+            {
+                "gameChat": true,
+                "timestamp": "2025-01-13T15:21:36.725Z",
+                "chat": [
+                    {
+                        "text": "President "
+                    },
+                    {
+                        "text": "cracked {3}",
+                        "type": "player"
+                    },
+                    {
+                        "text": " nominates "
+                    },
+                    {
+                        "text": "HeavyWeightChump {7}",
+                        "type": "player"
+                    },
+                    {
+                        "text": " as chancellor."
+                    }
+                ]
+            },
+            {
+                "timestamp": "2025-01-13T15:21:55.673Z",
+                "gameChat": true,
+                "chat": [
+                    {
+                        "text": "A "
+                    },
+                    {
+                        "text": "fascist",
+                        "type": "fascist"
+                    },
+                    {
+                        "text": " policy has been enacted. (2/6)"
+                    }
+                ]
+            },
+            {
+                "timestamp": "2025-01-13T15:21:55.673Z",
+                "gameChat": true,
+                "chat": [
+                    {
+                        "text": "The president must investigate the party membership of another player."
+                    }
+                ]
+            },
+            {
+                "timestamp": "2025-01-13T15:22:03.650Z",
+                "gameChat": true,
+                "chat": [
+                    {
+                        "text": "President "
+                    },
+                    {
+                        "text": "cracked {3}",
+                        "type": "player"
+                    },
+                    {
+                        "text": " investigates the party membership of "
+                    },
+                    {
+                        "text": "AIsUnite {2}",
+                        "type": "player"
+                    },
+                    {
+                        "text": "."
+                    }
+                ]
+            },
+            {
+                "gameChat": true,
+                "timestamp": "2025-01-13T15:22:17.935Z",
+                "chat": [
+                    {
+                        "text": "President "
+                    },
+                    {
+                        "text": "nooothitIer {4}",
+                        "type": "player"
+                    },
+                    {
+                        "text": " nominates "
+                    },
+                    {
+                        "text": "Bubbles546 {5}",
+                        "type": "player"
+                    },
+                    {
+                        "text": " as chancellor."
+                    }
+                ]
+            },
+            {
+                "timestamp": "2025-01-13T15:22:40.103Z",
+                "gameChat": true,
+                "chat": [
+                    {
+                        "text": "A "
+                    },
+                    {
+                        "text": "fascist",
+                        "type": "fascist"
+                    },
+                    {
+                        "text": " policy has been enacted. (3/6)"
+                    }
+                ]
+            },
+            {
+                "timestamp": "2025-01-13T15:22:40.103Z",
+                "gameChat": true,
+                "chat": [
+                    {
+                        "text": "The president must select a player for a special election."
+                    }
+                ]
+            },
+            {
+                "timestamp": "2025-01-13T15:23:30.859Z",
+                "gameChat": true,
+                "chat": [
+                    {
+                        "text": "President "
+                    },
+                    {
+                        "text": "nooothitIer {4}",
+                        "type": "player"
+                    },
+                    {
+                        "text": " has chosen to special elect "
+                    },
+                    {
+                        "text": "AIsUnite {2}",
+                        "type": "player"
+                    },
+                    {
+                        "text": " as president."
+                    }
+                ]
+            },
+            {
+                "gameChat": true,
+                "timestamp": "2025-01-13T15:26:21.395Z",
+                "chat": [
+                    {
+                        "text": "President "
+                    },
+                    {
+                        "text": "AIsUnite {2}",
+                        "type": "player"
+                    },
+                    {
+                        "text": " nominates "
+                    },
+                    {
+                        "text": "Gamesolver {1}",
+                        "type": "player"
+                    },
+                    {
+                        "text": " as chancellor."
+                    }
+                ]
+            },
+            {
+                "timestamp": "2025-01-13T15:26:45.063Z",
+                "gameChat": true,
+                "chat": [
+                    {
+                        "text": "A "
+                    },
+                    {
+                        "text": "liberal",
+                        "type": "liberal"
+                    },
+                    {
+                        "text": " policy has been enacted. (2/5)"
+                    }
+                ]
+            },
+            {
+                "timestamp": "2025-01-13T15:26:45.075Z",
+                "gameChat": true,
+                "chat": [
+                    {
+                        "text": "Deck shuffled: "
+                    },
+                    {
+                        "text": "4 liberal",
+                        "type": "liberal"
+                    },
+                    {
+                        "text": " and "
+                    },
+                    {
+                        "text": "8 fascist",
+                        "type": "fascist"
+                    },
+                    {
+                        "text": " policies."
+                    }
+                ]
+            },
+            {
+                "gameChat": true,
+                "timestamp": "2025-01-13T15:26:48.922Z",
+                "chat": [
+                    {
+                        "text": "President "
+                    },
+                    {
+                        "text": "Bubbles546 {5}",
+                        "type": "player"
+                    },
+                    {
+                        "text": " nominates "
+                    },
+                    {
+                        "text": "HeavyWeightChump {7}",
+                        "type": "player"
+                    },
+                    {
+                        "text": " as chancellor."
+                    }
+                ]
+            },
+            {
+                "timestamp": "2025-01-13T15:26:57.722Z",
+                "gameChat": true,
+                "chat": [
+                    {
+                        "text": "The election fails and the election tracker moves forward. (1/3)"
+                    }
+                ]
+            },
+            {
+                "gameChat": true,
+                "timestamp": "2025-01-13T15:27:00.057Z",
+                "chat": [
+                    {
+                        "text": "President "
+                    },
+                    {
+                        "text": "Jailorr {6}",
+                        "type": "player"
+                    },
+                    {
+                        "text": " nominates "
+                    },
+                    {
+                        "text": "HeavyWeightChump {7}",
+                        "type": "player"
+                    },
+                    {
+                        "text": " as chancellor."
+                    }
+                ]
+            },
+            {
+                "timestamp": "2025-01-13T15:27:12.041Z",
+                "gameChat": true,
+                "chat": [
+                    {
+                        "text": "The election fails and the election tracker moves forward. (2/3)"
+                    }
+                ]
+            },
+            {
+                "gameChat": true,
+                "timestamp": "2025-01-13T15:27:16.575Z",
+                "chat": [
+                    {
+                        "text": "President "
+                    },
+                    {
+                        "text": "HeavyWeightChump {7}",
+                        "type": "player"
+                    },
+                    {
+                        "text": " nominates "
+                    },
+                    {
+                        "text": "Jailorr {6}",
+                        "type": "player"
+                    },
+                    {
+                        "text": " as chancellor."
+                    }
+                ]
+            },
+            {
+                "timestamp": "2025-01-13T15:27:25.451Z",
+                "gameChat": true,
+                "chat": [
+                    {
+                        "text": "The election fails and the election tracker moves forward. (3/3)"
+                    }
+                ]
+            },
+            {
+                "timestamp": "2025-01-13T15:27:25.451Z",
+                "gameChat": true,
+                "chat": [
+                    {
+                        "text": "The third consecutive election has failed and the top policy is enacted."
+                    }
+                ]
+            },
+            {
+                "timestamp": "2025-01-13T15:27:26.975Z",
+                "gameChat": true,
+                "chat": [
+                    {
+                        "text": "A "
+                    },
+                    {
+                        "text": "fascist",
+                        "type": "fascist"
+                    },
+                    {
+                        "text": " policy has been enacted. (4/6)"
+                    }
+                ]
+            },
+            {
+                "gameChat": true,
+                "timestamp": "2025-01-13T15:27:55.025Z",
+                "chat": [
+                    {
+                        "text": "President "
+                    },
+                    {
+                        "text": "Gamesolver {1}",
+                        "type": "player"
+                    },
+                    {
+                        "text": " nominates "
+                    },
+                    {
+                        "text": "AIsUnite {2}",
+                        "type": "player"
+                    },
+                    {
+                        "text": " as chancellor."
+                    }
+                ]
+            },
+            {
+                "timestamp": "2025-01-13T15:28:24.694Z",
+                "gameChat": true,
+                "chat": [
+                    {
+                        "text": "A "
+                    },
+                    {
+                        "text": "fascist",
+                        "type": "fascist"
+                    },
+                    {
+                        "text": " policy has been enacted. (5/6)"
+                    }
+                ]
+            },
+            {
+                "timestamp": "2025-01-13T15:28:24.694Z",
+                "gameChat": true,
+                "chat": [
+                    {
+                        "text": "The president must select a player for execution."
+                    }
+                ]
+            },
+            {
+                "gameChat": true,
+                "timestamp": "2025-01-13T15:28:35.711Z",
+                "chat": [
+                    {
+                        "text": "President "
+                    },
+                    {
+                        "text": "Gamesolver {1}",
+                        "type": "player"
+                    },
+                    {
+                        "text": " selects to execute "
+                    },
+                    {
+                        "text": "cracked {3}",
+                        "type": "player"
+                    },
+                    {
+                        "text": "."
+                    }
+                ]
+            },
+            {
+                "gameChat": true,
+                "timestamp": "2025-01-13T15:28:54.335Z",
+                "chat": [
+                    {
+                        "text": "President "
+                    },
+                    {
+                        "text": "AIsUnite {2}",
+                        "type": "player"
+                    },
+                    {
+                        "text": " nominates "
+                    },
+                    {
+                        "text": "Jailorr {6}",
+                        "type": "player"
+                    },
+                    {
+                        "text": " as chancellor."
+                    }
+                ]
+            },
+            {
+                "timestamp": "2025-01-13T15:29:11.508Z",
+                "gameChat": true,
+                "chat": [
+                    {
+                        "text": "Hitler",
+                        "type": "hitler"
+                    },
+                    {
+                        "text": " has been elected chancellor after the 3rd fascist policy has been enacted."
+                    }
+                ]
+            },
+            {
+                "gameChat": true,
+                "timestamp": "2025-01-13T15:29:13.510Z",
+                "chat": [
+                    {
+                        "text": "Fascists",
+                        "type": "fascist"
+                    },
+                    {
+                        "text": " win the game."
+                    }
+                ]
+            },
+            {
+                "isRemainingPolicies": true,
+                "timestamp": "2025-01-13T15:29:13.510Z",
+                "chat": [
+                    {
+                        "text": "The remaining policies are "
+                    },
+                    {
+                        "policies": [
+                            "r",
+                            "r",
+                            "r",
+                            "b",
+                            "b",
+                            "r",
+                            "b",
+                            "r"
+                        ]
+                    },
+                    {
+                        "text": "."
+                    }
+                ]
+            },
+            {
+                "isRemainingPolicies": true,
+                "timestamp": "2025-01-13T15:29:21.909Z",
+                "chat": [
+                    {
+                        "text": "The remaining policies are "
+                    },
+                    {
+                        "policies": [
+                            "r",
+                            "r",
+                            "r",
+                            "b",
+                            "b",
+                            "r",
+                            "b",
+                            "r"
+                        ]
+                    },
+                    {
+                        "text": "."
+                    }
+                ]
+            },
+            {
+                "gameChat": true,
+                "timestamp": "2025-01-13T15:29:13.767Z",
+                "chat": [
+                    {
+                        "text": "Jailorr",
+                        "type": "hitler"
+                    },
+                    {
+                        "text": "'s Elo: "
+                    },
+                    {
+                        "text": " +"
+                    },
+                    {
+                        "text": "11.4",
+                        "type": "player"
+                    }
+                ]
+            },
+            {
+                "gameChat": true,
+                "timestamp": "2025-01-13T15:29:13.767Z",
+                "chat": [
+                    {
+                        "text": "Jailorr",
+                        "type": "hitler"
+                    },
+                    {
+                        "text": "'s XP: "
+                    },
+                    {
+                        "text": " +"
+                    },
+                    {
+                        "text": "7.6",
+                        "type": "player"
+                    }
+                ]
+            },
+            {
+                "gameChat": true,
+                "timestamp": "2025-01-13T15:29:13.768Z",
+                "chat": [
+                    {
+                        "text": "Bubbles546",
+                        "type": "fascist"
+                    },
+                    {
+                        "text": "'s Elo: "
+                    },
+                    {
+                        "text": " +"
+                    },
+                    {
+                        "text": "11.4",
+                        "type": "player"
+                    }
+                ]
+            },
+            {
+                "gameChat": true,
+                "timestamp": "2025-01-13T15:29:13.768Z",
+                "chat": [
+                    {
+                        "text": "Bubbles546",
+                        "type": "fascist"
+                    },
+                    {
+                        "text": "'s XP: "
+                    },
+                    {
+                        "text": " +"
+                    },
+                    {
+                        "text": "7.6",
+                        "type": "player"
+                    }
+                ]
+            },
+            {
+                "gameChat": true,
+                "timestamp": "2025-01-13T15:29:13.769Z",
+                "chat": [
+                    {
+                        "text": "Gamesolver",
+                        "type": "fascist"
+                    },
+                    {
+                        "text": "'s Elo: "
+                    },
+                    {
+                        "text": " +"
+                    },
+                    {
+                        "text": "11.4",
+                        "type": "player"
+                    }
+                ]
+            },
+            {
+                "gameChat": true,
+                "timestamp": "2025-01-13T15:29:13.769Z",
+                "chat": [
+                    {
+                        "text": "Gamesolver",
+                        "type": "fascist"
+                    },
+                    {
+                        "text": "'s XP: "
+                    },
+                    {
+                        "text": " +"
+                    },
+                    {
+                        "text": "7.6",
+                        "type": "player"
+                    }
+                ]
+            },
+            {
+                "gameChat": true,
+                "timestamp": "2025-01-13T15:29:13.770Z",
+                "chat": [
+                    {
+                        "text": "AIsUnite",
+                        "type": "liberal"
+                    },
+                    {
+                        "text": "'s Elo: "
+                    },
+                    {
+                        "text": " -"
+                    },
+                    {
+                        "text": "8.5",
+                        "type": "player"
+                    }
+                ]
+            },
+            {
+                "gameChat": true,
+                "timestamp": "2025-01-13T15:29:13.770Z",
+                "chat": [
+                    {
+                        "text": "AIsUnite",
+                        "type": "liberal"
+                    },
+                    {
+                        "text": "'s XP: "
+                    },
+                    {
+                        "text": " +"
+                    },
+                    {
+                        "text": "1.0",
+                        "type": "player"
+                    }
+                ]
+            },
+            {
+                "gameChat": true,
+                "timestamp": "2025-01-13T15:29:13.771Z",
+                "chat": [
+                    {
+                        "text": "HeavyWeightChump",
+                        "type": "liberal"
+                    },
+                    {
+                        "text": "'s Elo: "
+                    },
+                    {
+                        "text": " -"
+                    },
+                    {
+                        "text": "8.5",
+                        "type": "player"
+                    }
+                ]
+            },
+            {
+                "gameChat": true,
+                "timestamp": "2025-01-13T15:29:13.771Z",
+                "chat": [
+                    {
+                        "text": "HeavyWeightChump",
+                        "type": "liberal"
+                    },
+                    {
+                        "text": "'s XP: "
+                    },
+                    {
+                        "text": " +"
+                    },
+                    {
+                        "text": "1.0",
+                        "type": "player"
+                    }
+                ]
+            },
+            {
+                "gameChat": true,
+                "timestamp": "2025-01-13T15:29:13.772Z",
+                "chat": [
+                    {
+                        "text": "cracked",
+                        "type": "liberal"
+                    },
+                    {
+                        "text": "'s Elo: "
+                    },
+                    {
+                        "text": " -"
+                    },
+                    {
+                        "text": "8.5",
+                        "type": "player"
+                    }
+                ]
+            },
+            {
+                "gameChat": true,
+                "timestamp": "2025-01-13T15:29:13.772Z",
+                "chat": [
+                    {
+                        "text": "cracked",
+                        "type": "liberal"
+                    },
+                    {
+                        "text": "'s XP: "
+                    },
+                    {
+                        "text": " +"
+                    },
+                    {
+                        "text": "1.0",
+                        "type": "player"
+                    }
+                ]
+            },
+            {
+                "gameChat": true,
+                "timestamp": "2025-01-13T15:29:13.773Z",
+                "chat": [
+                    {
+                        "text": "nooothitIer",
+                        "type": "liberal"
+                    },
+                    {
+                        "text": "'s Elo: "
+                    },
+                    {
+                        "text": " -"
+                    },
+                    {
+                        "text": "8.5",
+                        "type": "player"
+                    }
+                ]
+            },
+            {
+                "gameChat": true,
+                "timestamp": "2025-01-13T15:29:13.773Z",
+                "chat": [
+                    {
+                        "text": "nooothitIer",
+                        "type": "liberal"
+                    },
+                    {
+                        "text": "'s XP: "
+                    },
+                    {
+                        "text": " +"
+                    },
+                    {
+                        "text": "1.0",
+                        "type": "player"
+                    }
+                ]
+            }
+        ],
+        "hiddenInfoChat": [
+            {
+                "timestamp": "2025-01-13T15:20:15.385Z",
+                "gameChat": true,
+                "chat": [
+                    {
+                        "text": "The deck has been shuffled: "
+                    },
+                    {
+                        "text": "R",
+                        "type": "fascist"
+                    },
+                    {
+                        "text": "R",
+                        "type": "fascist"
+                    },
+                    {
+                        "text": "B",
+                        "type": "liberal"
+                    },
+                    {
+                        "text": "R",
+                        "type": "fascist"
+                    },
+                    {
+                        "text": "R",
+                        "type": "fascist"
+                    },
+                    {
+                        "text": "R",
+                        "type": "fascist"
+                    },
+                    {
+                        "text": "R",
+                        "type": "fascist"
+                    },
+                    {
+                        "text": "R",
+                        "type": "fascist"
+                    },
+                    {
+                        "text": "R",
+                        "type": "fascist"
+                    },
+                    {
+                        "text": "B",
+                        "type": "liberal"
+                    },
+                    {
+                        "text": "B",
+                        "type": "liberal"
+                    },
+                    {
+                        "text": "R",
+                        "type": "fascist"
+                    },
+                    {
+                        "text": "B",
+                        "type": "liberal"
+                    },
+                    {
+                        "text": "R",
+                        "type": "fascist"
+                    },
+                    {
+                        "text": "B",
+                        "type": "liberal"
+                    },
+                    {
+                        "text": "R",
+                        "type": "fascist"
+                    },
+                    {
+                        "text": "B",
+                        "type": "liberal"
+                    }
+                ]
+            },
+            {
+                "timestamp": "2025-01-13T15:20:15.385Z",
+                "gameChat": true,
+                "chat": [
+                    {
+                        "text": "Gamesolver {1}",
+                        "type": "player"
+                    },
+                    {
+                        "text": " is assigned the "
+                    },
+                    {
+                        "text": "fascist",
+                        "type": "fascist"
+                    },
+                    {
+                        "text": " role."
+                    }
+                ]
+            },
+            {
+                "timestamp": "2025-01-13T15:20:15.385Z",
+                "gameChat": true,
+                "chat": [
+                    {
+                        "text": "AIsUnite {2}",
+                        "type": "player"
+                    },
+                    {
+                        "text": " is assigned the "
+                    },
+                    {
+                        "text": "liberal",
+                        "type": "liberal"
+                    },
+                    {
+                        "text": " role."
+                    }
+                ]
+            },
+            {
+                "timestamp": "2025-01-13T15:20:15.385Z",
+                "gameChat": true,
+                "chat": [
+                    {
+                        "text": "cracked {3}",
+                        "type": "player"
+                    },
+                    {
+                        "text": " is assigned the "
+                    },
+                    {
+                        "text": "liberal",
+                        "type": "liberal"
+                    },
+                    {
+                        "text": " role."
+                    }
+                ]
+            },
+            {
+                "timestamp": "2025-01-13T15:20:15.385Z",
+                "gameChat": true,
+                "chat": [
+                    {
+                        "text": "nooothitIer {4}",
+                        "type": "player"
+                    },
+                    {
+                        "text": " is assigned the "
+                    },
+                    {
+                        "text": "liberal",
+                        "type": "liberal"
+                    },
+                    {
+                        "text": " role."
+                    }
+                ]
+            },
+            {
+                "timestamp": "2025-01-13T15:20:15.385Z",
+                "gameChat": true,
+                "chat": [
+                    {
+                        "text": "Bubbles546 {5}",
+                        "type": "player"
+                    },
+                    {
+                        "text": " is assigned the "
+                    },
+                    {
+                        "text": "fascist",
+                        "type": "fascist"
+                    },
+                    {
+                        "text": " role."
+                    }
+                ]
+            },
+            {
+                "timestamp": "2025-01-13T15:20:15.385Z",
+                "gameChat": true,
+                "chat": [
+                    {
+                        "text": "Jailorr {6}",
+                        "type": "player"
+                    },
+                    {
+                        "text": " is assigned the "
+                    },
+                    {
+                        "text": "hitler",
+                        "type": "hitler"
+                    },
+                    {
+                        "text": " role."
+                    }
+                ]
+            },
+            {
+                "timestamp": "2025-01-13T15:20:15.385Z",
+                "gameChat": true,
+                "chat": [
+                    {
+                        "text": "HeavyWeightChump {7}",
+                        "type": "player"
+                    },
+                    {
+                        "text": " is assigned the "
+                    },
+                    {
+                        "text": "liberal",
+                        "type": "liberal"
+                    },
+                    {
+                        "text": " role."
+                    }
+                ]
+            },
+            {
+                "timestamp": "2025-01-13T15:20:55.998Z",
+                "gameChat": true,
+                "chat": [
+                    {
+                        "text": "President "
+                    },
+                    {
+                        "text": "Gamesolver {1}",
+                        "type": "player"
+                    },
+                    {
+                        "text": " received "
+                    },
+                    {
+                        "text": "R",
+                        "type": "fascist"
+                    },
+                    {
+                        "text": "R",
+                        "type": "fascist"
+                    },
+                    {
+                        "text": "B",
+                        "type": "liberal"
+                    },
+                    {
+                        "text": "."
+                    }
+                ]
+            },
+            {
+                "timestamp": "2025-01-13T15:20:58.045Z",
+                "gameChat": true,
+                "chat": [
+                    {
+                        "text": "President "
+                    },
+                    {
+                        "text": "Gamesolver {1}",
+                        "type": "player"
+                    },
+                    {
+                        "text": " has chosen to discard a "
+                    },
+                    {
+                        "text": "fascist",
+                        "type": "fascist"
+                    },
+                    {
+                        "text": " policy."
+                    }
+                ]
+            },
+            {
+                "timestamp": "2025-01-13T15:21:04.809Z",
+                "gameChat": true,
+                "chat": [
+                    {
+                        "text": "Chancellor "
+                    },
+                    {
+                        "text": "Bubbles546 {5}",
+                        "type": "player"
+                    },
+                    {
+                        "text": " has chosen to play a "
+                    },
+                    {
+                        "text": "liberal",
+                        "type": "liberal"
+                    },
+                    {
+                        "text": " policy."
+                    }
+                ]
+            },
+            {
+                "timestamp": "2025-01-13T15:21:29.655Z",
+                "gameChat": true,
+                "chat": [
+                    {
+                        "text": "President "
+                    },
+                    {
+                        "text": "AIsUnite {2}",
+                        "type": "player"
+                    },
+                    {
+                        "text": " received "
+                    },
+                    {
+                        "text": "R",
+                        "type": "fascist"
+                    },
+                    {
+                        "text": "R",
+                        "type": "fascist"
+                    },
+                    {
+                        "text": "R",
+                        "type": "fascist"
+                    },
+                    {
+                        "text": "."
+                    }
+                ]
+            },
+            {
+                "timestamp": "2025-01-13T15:21:31.100Z",
+                "gameChat": true,
+                "chat": [
+                    {
+                        "text": "President "
+                    },
+                    {
+                        "text": "AIsUnite {2}",
+                        "type": "player"
+                    },
+                    {
+                        "text": " has chosen to discard a "
+                    },
+                    {
+                        "text": "fascist",
+                        "type": "fascist"
+                    },
+                    {
+                        "text": " policy."
+                    }
+                ]
+            },
+            {
+                "timestamp": "2025-01-13T15:21:32.494Z",
+                "gameChat": true,
+                "chat": [
+                    {
+                        "text": "Chancellor "
+                    },
+                    {
+                        "text": "Jailorr {6}",
+                        "type": "player"
+                    },
+                    {
+                        "text": " has chosen to play a "
+                    },
+                    {
+                        "text": "fascist",
+                        "type": "fascist"
+                    },
+                    {
+                        "text": " policy."
+                    }
+                ]
+            },
+            {
+                "timestamp": "2025-01-13T15:21:49.933Z",
+                "gameChat": true,
+                "chat": [
+                    {
+                        "text": "President "
+                    },
+                    {
+                        "text": "cracked {3}",
+                        "type": "player"
+                    },
+                    {
+                        "text": " received "
+                    },
+                    {
+                        "text": "R",
+                        "type": "fascist"
+                    },
+                    {
+                        "text": "R",
+                        "type": "fascist"
+                    },
+                    {
+                        "text": "R",
+                        "type": "fascist"
+                    },
+                    {
+                        "text": "."
+                    }
+                ]
+            },
+            {
+                "timestamp": "2025-01-13T15:21:51.829Z",
+                "gameChat": true,
+                "chat": [
+                    {
+                        "text": "President "
+                    },
+                    {
+                        "text": "cracked {3}",
+                        "type": "player"
+                    },
+                    {
+                        "text": " has chosen to discard a "
+                    },
+                    {
+                        "text": "fascist",
+                        "type": "fascist"
+                    },
+                    {
+                        "text": " policy."
+                    }
+                ]
+            },
+            {
+                "timestamp": "2025-01-13T15:21:54.457Z",
+                "gameChat": true,
+                "chat": [
+                    {
+                        "text": "Chancellor "
+                    },
+                    {
+                        "text": "HeavyWeightChump {7}",
+                        "type": "player"
+                    },
+                    {
+                        "text": " has chosen to play a "
+                    },
+                    {
+                        "text": "fascist",
+                        "type": "fascist"
+                    },
+                    {
+                        "text": " policy."
+                    }
+                ]
+            },
+            {
+                "timestamp": "2025-01-13T15:22:03.651Z",
+                "gameChat": true,
+                "chat": [
+                    {
+                        "text": "President "
+                    },
+                    {
+                        "text": "cracked {3}",
+                        "type": "player"
+                    },
+                    {
+                        "text": " sees a "
+                    },
+                    {
+                        "text": "liberal",
+                        "type": "liberal"
+                    },
+                    {
+                        "text": " loyalty card."
+                    }
+                ]
+            },
+            {
+                "timestamp": "2025-01-13T15:22:34.799Z",
+                "gameChat": true,
+                "chat": [
+                    {
+                        "text": "President "
+                    },
+                    {
+                        "text": "nooothitIer {4}",
+                        "type": "player"
+                    },
+                    {
+                        "text": " received "
+                    },
+                    {
+                        "text": "B",
+                        "type": "liberal"
+                    },
+                    {
+                        "text": "B",
+                        "type": "liberal"
+                    },
+                    {
+                        "text": "R",
+                        "type": "fascist"
+                    },
+                    {
+                        "text": "."
+                    }
+                ]
+            },
+            {
+                "timestamp": "2025-01-13T15:22:37.181Z",
+                "gameChat": true,
+                "chat": [
+                    {
+                        "text": "President "
+                    },
+                    {
+                        "text": "nooothitIer {4}",
+                        "type": "player"
+                    },
+                    {
+                        "text": " has chosen to discard a "
+                    },
+                    {
+                        "text": "liberal",
+                        "type": "liberal"
+                    },
+                    {
+                        "text": " policy."
+                    }
+                ]
+            },
+            {
+                "timestamp": "2025-01-13T15:22:38.890Z",
+                "gameChat": true,
+                "chat": [
+                    {
+                        "text": "Chancellor "
+                    },
+                    {
+                        "text": "Bubbles546 {5}",
+                        "type": "player"
+                    },
+                    {
+                        "text": " has chosen to play a "
+                    },
+                    {
+                        "text": "fascist",
+                        "type": "fascist"
+                    },
+                    {
+                        "text": " policy."
+                    }
+                ]
+            },
+            {
+                "timestamp": "2025-01-13T15:26:34.587Z",
+                "gameChat": true,
+                "chat": [
+                    {
+                        "text": "President "
+                    },
+                    {
+                        "text": "AIsUnite {2}",
+                        "type": "player"
+                    },
+                    {
+                        "text": " received "
+                    },
+                    {
+                        "text": "B",
+                        "type": "liberal"
+                    },
+                    {
+                        "text": "R",
+                        "type": "fascist"
+                    },
+                    {
+                        "text": "B",
+                        "type": "liberal"
+                    },
+                    {
+                        "text": "."
+                    }
+                ]
+            },
+            {
+                "timestamp": "2025-01-13T15:26:36.397Z",
+                "gameChat": true,
+                "chat": [
+                    {
+                        "text": "President "
+                    },
+                    {
+                        "text": "AIsUnite {2}",
+                        "type": "player"
+                    },
+                    {
+                        "text": " has chosen to discard a "
+                    },
+                    {
+                        "text": "liberal",
+                        "type": "liberal"
+                    },
+                    {
+                        "text": " policy."
+                    }
+                ]
+            },
+            {
+                "timestamp": "2025-01-13T15:26:43.837Z",
+                "gameChat": true,
+                "chat": [
+                    {
+                        "text": "Chancellor "
+                    },
+                    {
+                        "text": "Gamesolver {1}",
+                        "type": "player"
+                    },
+                    {
+                        "text": " has chosen to play a "
+                    },
+                    {
+                        "text": "liberal",
+                        "type": "liberal"
+                    },
+                    {
+                        "text": " policy."
+                    }
+                ]
+            },
+            {
+                "timestamp": "2025-01-13T15:26:45.075Z",
+                "gameChat": true,
+                "chat": [
+                    {
+                        "text": "The deck has been shuffled: "
+                    },
+                    {
+                        "text": "R",
+                        "type": "fascist"
+                    },
+                    {
+                        "text": "R",
+                        "type": "fascist"
+                    },
+                    {
+                        "text": "R",
+                        "type": "fascist"
+                    },
+                    {
+                        "text": "B",
+                        "type": "liberal"
+                    },
+                    {
+                        "text": "R",
+                        "type": "fascist"
+                    },
+                    {
+                        "text": "R",
+                        "type": "fascist"
+                    },
+                    {
+                        "text": "R",
+                        "type": "fascist"
+                    },
+                    {
+                        "text": "B",
+                        "type": "liberal"
+                    },
+                    {
+                        "text": "B",
+                        "type": "liberal"
+                    },
+                    {
+                        "text": "R",
+                        "type": "fascist"
+                    },
+                    {
+                        "text": "B",
+                        "type": "liberal"
+                    },
+                    {
+                        "text": "R",
+                        "type": "fascist"
+                    }
+                ]
+            },
+            {
+                "timestamp": "2025-01-13T15:28:18.473Z",
+                "gameChat": true,
+                "chat": [
+                    {
+                        "text": "President "
+                    },
+                    {
+                        "text": "Gamesolver {1}",
+                        "type": "player"
+                    },
+                    {
+                        "text": " received "
+                    },
+                    {
+                        "text": "R",
+                        "type": "fascist"
+                    },
+                    {
+                        "text": "R",
+                        "type": "fascist"
+                    },
+                    {
+                        "text": "B",
+                        "type": "liberal"
+                    },
+                    {
+                        "text": "."
+                    }
+                ]
+            },
+            {
+                "timestamp": "2025-01-13T15:28:20.568Z",
+                "gameChat": true,
+                "chat": [
+                    {
+                        "text": "President "
+                    },
+                    {
+                        "text": "Gamesolver {1}",
+                        "type": "player"
+                    },
+                    {
+                        "text": " has chosen to discard a "
+                    },
+                    {
+                        "text": "liberal",
+                        "type": "liberal"
+                    },
+                    {
+                        "text": " policy."
+                    }
+                ]
+            },
+            {
+                "timestamp": "2025-01-13T15:28:23.460Z",
+                "gameChat": true,
+                "chat": [
+                    {
+                        "text": "Chancellor "
+                    },
+                    {
+                        "text": "AIsUnite {2}",
+                        "type": "player"
+                    },
+                    {
+                        "text": " has chosen to play a "
+                    },
+                    {
+                        "text": "fascist",
+                        "type": "fascist"
+                    },
+                    {
+                        "text": " policy."
+                    }
+                ]
+            }
+        ],
+        "uid": "TestyNarrowCowardlyNarwhalRemake2",
+        "name": "vc game ",
+        "date": "2025-01-13T15:31:14.123Z",
+        "guesses": {},
+        "merlinGuesses": {},
+        "playerChats": "enabled",
+        "isVerifiedOnly": false,
+        "season": 22,
+        "winningTeam": "fascist",
+        "playerCount": 7,
+        "rebalance6p": false,
+        "rebalance7p": false,
+        "rebalance9p2f": false,
+        "casualGame": false,
+        "practiceGame": false,
+        "customGame": false,
+        "unlistedGame": false,
+        "isRainbow": true,
+        "isTournyFirstRound": false,
+        "isTournySecondRound": false,
+        "timedMode": 184,
+        "blindMode": false,
+        "eloMinimum": 1650,
+        "noTopdecking": 0,
+        "completed": true,
+        "__v": 1
+    }
+]
