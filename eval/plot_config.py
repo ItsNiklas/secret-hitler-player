@@ -16,17 +16,18 @@ def setup_plot_style(use_latex=True):
     plt.style.use("seaborn-v0_8-muted")
 
     # Font configuration - Latin Modern Roman with LaTeX support
-    plt.rcParams["font.family"] = "serif"
-    plt.rcParams["font.serif"] = ["Latin Modern Roman"]
+    plt.rcParams['font.family'] = 'serif'
+    plt.rcParams['font.serif'] = ['Palatino', 'TeX Gyre Pagella', 'Times']
+
     plt.rcParams["text.usetex"] = use_latex
     plt.rcParams["mathtext.fontset"] = "cm"  # Computer Modern for math
 
     # Size configuration
-    plt.rcParams["axes.titlesize"] = 11
-    plt.rcParams["axes.labelsize"] = 11
-    plt.rcParams["xtick.labelsize"] = 11
-    plt.rcParams["ytick.labelsize"] = 11
-    plt.rcParams["legend.fontsize"] = 11
+    plt.rcParams["axes.titlesize"] = 10
+    plt.rcParams["axes.labelsize"] = 10
+    plt.rcParams["xtick.labelsize"] = 10
+    plt.rcParams["ytick.labelsize"] = 10
+    plt.rcParams["legend.fontsize"] = 10
 
     # Line and marker configuration
     plt.rcParams["lines.linewidth"] = 1.0

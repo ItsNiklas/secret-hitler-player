@@ -79,7 +79,7 @@ def plot_all_models(output="deception_rate_over_rounds.pdf"):
             model_data[model] = calc_deception_rates(json.load(fp).get("games", []))
 
     # Create plot
-    fig, ax = plt.subplots(figsize=(6.46, 3.5))
+    fig, ax = plt.subplots(figsize=(5.50, 3.5))
     lines = []
 
     for model in sorted(model_data.keys()):

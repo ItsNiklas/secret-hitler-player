@@ -205,7 +205,7 @@ def plot_reasoning_over_rounds(stats: Dict[str, Any], eval_dir: str):
             reason_percentages[reason].append(percentage)
     
     # Create the plot
-    plt.figure(figsize=(6.46, 4))
+    plt.figure(figsize=(5.50, 4))
     
     # Plot each reason as a line
     for i, reason in enumerate(predefined_categories):

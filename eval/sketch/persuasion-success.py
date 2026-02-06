@@ -68,7 +68,7 @@ def create_persuasion_scatter_cloud():
     """Create a scatter plot with 200 data points per model showing persuasion effectiveness."""
     data, models = generate_persuasion_data_cloud()
     
-    fig = plt.figure(figsize=(6.46, 4))
+    fig = plt.figure(figsize=(5.50, 4))
     ax = fig.add_subplot(111)
     
     # Plot cloud of points for each model

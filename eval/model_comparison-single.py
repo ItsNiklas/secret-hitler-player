@@ -197,7 +197,7 @@ def create_comparison_chart(df, metric_columns=None, output_path=None, color_mod
     model_names = [extract_model_name(m) for m in models]
     
     # Calculate figure dimensions
-    fig_width = 6.46  # Standard text width
+    fig_width = 5.50  # Standard text width
     fig_height = 1 + n_models * 0.15  # Dynamic height based on number of models
     
     # Create figure with subplots for each metric

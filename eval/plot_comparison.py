@@ -65,7 +65,7 @@ def get_liberal_accuracy_by_round(all_games_data: List[Dict[str, Any]]) -> Dict[
 def plot_comparison():
     """Plot accuracy comparison across multiple evaluation directories."""
     
-    plt.figure(figsize=(6.46, 3.5))
+    plt.figure(figsize=(5.50, 3.5))
     
     # Colors for different models
     

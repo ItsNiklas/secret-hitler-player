@@ -671,7 +671,7 @@ def create_policy_progression_plot(games_data: List[Dict[str, Any]], save_path: 
         print(f"Cutting off plot at round {cutoff_round} (rounds beyond this occur in <10% of games)")
     
     # Create the plot
-    plt.figure(figsize=(6.46, 3))
+    plt.figure(figsize=(5.50, 3))
     
     # Plot liberal policies
     plt.plot(liberal_data['rounds'], liberal_data['means'], '-', marker='o', linewidth=2, markersize=6, 

@@ -75,7 +75,7 @@ def plot_gamestate_evaluations(summaries_folder):
     print(f"Found {len(json_files)} summary files")
     
     # Create the plot
-    plt.figure(figsize=(6.46, 3))
+    plt.figure(figsize=(5.50, 3))
     
     games_by_role = defaultdict(list)
     files_processed = 0

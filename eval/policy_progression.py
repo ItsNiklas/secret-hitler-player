@@ -114,7 +114,7 @@ def load_and_process_data(eval_dir, policy_type):
 def plot_policy_progression_comparison():
     """Plot policy progression comparison with subplots for liberal and fascist policies."""
 
-    fig, (ax_lib, ax_fas) = plt.subplots(2, 1, figsize=(6.46, 4.5), sharex=True)
+    fig, (ax_lib, ax_fas) = plt.subplots(2, 1, figsize=(5.50, 4.5), sharex=True)
 
     all_rounds = set()
     liberal_data = {}

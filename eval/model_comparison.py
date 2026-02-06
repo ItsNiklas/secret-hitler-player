@@ -224,7 +224,7 @@ def create_comparison_chart(df, metric_columns=None, output_path=None, baseline_
     comparison_names = [extract_model_name(m) for m in comparison_models]
     
     # Calculate figure dimensions
-    fig_width = 6.46  # Standard text width
+    fig_width = 5.50  # Standard text width
     fig_height = 2.3 #(1 + n_comparisons) * row_height + 0.8  # rows + spacing
     
     # Create figure with height ratios (1 for baseline, n_comparisons for others)

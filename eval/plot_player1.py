@@ -36,7 +36,7 @@ metrics_to_plot = [
 ]
 
 # Set figure size
-plt.figure(figsize=(6.46, 3.5))
+plt.figure(figsize=(5.50, 3.5))
 
 # Define positions for the bars
 x = np.arange(len(metrics_to_plot))

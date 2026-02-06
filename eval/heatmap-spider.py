@@ -176,7 +176,7 @@ def create_spider_plot():
     angles += angles[:1]
     
     # Create figure
-    fig, ax = plt.subplots(figsize=(6.46, 4), subplot_kw=dict(projection='polar'))
+    fig, ax = plt.subplots(figsize=(5.50, 4), subplot_kw=dict(projection='polar'))
     
     # Get colors for each model using the shared MODEL_COLORS
     colors = get_model_colors(models, warn_on_missing=True)

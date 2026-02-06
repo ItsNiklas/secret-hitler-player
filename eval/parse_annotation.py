@@ -206,7 +206,7 @@ def aggregate_annotations(folder_path):
     top_10_annotations = top_10_df.index.tolist()
 
     # 1. Plot for overall counts (Top 10)
-    fig, ax = plt.subplots(figsize=(6.46, 3))
+    fig, ax = plt.subplots(figsize=(5.50, 3))
     sorted_data = top_10_df['count'].sort_values()
     bars = ax.barh(range(len(sorted_data)), sorted_data.values, height=0.65, color=UNIBLAU, zorder=5)
     ax.set_yticks(range(len(sorted_data)))
@@ -264,7 +264,7 @@ def aggregate_annotations(folder_path):
     sorted_techniques = technique_totals.index.tolist()
     
     # Create the plot
-    fig = plt.figure(figsize=(6.46, 4))
+    fig = plt.figure(figsize=(5.50, 4))
     ax = fig.add_subplot(111)
     
     # Set up bar positions
@@ -332,7 +332,7 @@ def aggregate_annotations(folder_path):
                              losing_df.rename(columns={'normalized_count': 'Losing'})], axis=1).fillna(0)
     combined_df = combined_df.loc[top_10_annotations].sort_values(by='Winning', ascending=True)
 
-    fig, ax = plt.subplots(figsize=(6.46, 3))
+    fig, ax = plt.subplots(figsize=(5.50, 3))
     combined_df[['Losing', 'Winning']].plot(kind='barh', ax=ax, zorder=5, color=[GAMMA, ETA])
     ax.grid(axis='x', zorder=-5, color='0.85')
     # ax.set_title('Normalized Annotation Counts for Winning vs. Losing Players (Top 10 Overall)')
@@ -387,7 +387,7 @@ def aggregate_annotations(folder_path):
                                     low_elo_df.rename(columns={'normalized_count': r'Low ELO ($\leq$1650)'})], axis=1).fillna(0)
         combined_elo_df = combined_elo_df.loc[top_10_annotations].sort_values(by=r'High ELO ($>$1650)', ascending=True)
 
-        fig, ax = plt.subplots(figsize=(6.46, 3))
+        fig, ax = plt.subplots(figsize=(5.50, 3))
         combined_elo_df[[r'High ELO ($>$1650)', r'Low ELO ($\leq$1650)']].plot(kind='barh', ax=ax, zorder=5, color=[GAMMA, ETA])
         ax.grid(axis='x', zorder=-5, color='0.85')
         # ax.set_title('Normalized Annotation Counts for High vs. Low ELO Games (Top 10 Overall)')

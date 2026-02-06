@@ -91,7 +91,7 @@ def create_deception_plot():
     """Create a line plot showing deception consistency over game rounds."""
     rounds, data, models = generate_deception_data()
     
-    fig = plt.figure(figsize=(6.46, 3))
+    fig = plt.figure(figsize=(5.50, 3))
     ax = fig.add_subplot(111)
     
     # Plot lines for each model

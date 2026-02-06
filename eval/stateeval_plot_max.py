@@ -167,7 +167,7 @@ def plot_gamestate_evaluations(folders):
         all_games_by_role.append(games_by_role)
     
     # Create 2x2 subplot
-    fig, axs = plt.subplots(2, 2, figsize=(6.46, 4), sharex=True, sharey=True)
+    fig, axs = plt.subplots(2, 2, figsize=(5.50, 4), sharex=True, sharey=True)
     axs = axs.flatten()
     
     # Plot each folder in a subplot

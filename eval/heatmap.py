@@ -187,7 +187,7 @@ def create_heatmap():
     fig_height = max(6, n_models * spacing)
 
     # Create the plot
-    plt.figure(figsize=(6.46, 3))
+    plt.figure(figsize=(5.50, 3))
 
     # Create custom colormap from 99% light white to UNIBLAU
     colors = ["#f1f1f1", UNIBLAU]  # 99% light white to UNIBLAU
