@@ -1,12 +1,11 @@
-from random import choice, getrandbits
-import random
 import os
-from typing import override, TYPE_CHECKING
+from typing import TYPE_CHECKING
 
 from openai import OpenAI
 
 from HitlerFactory import Ja, Nein, Policy, Role, Vote, logger
 from HitlerLogging import *
+from metric.token_tracker import track_response
 
 if TYPE_CHECKING:
     from HitlerGameState import GameState
@@ -165,23 +164,23 @@ class HitlerPlayer:
         # import json
         # logger.warning(json.dumps(msg, indent=4))
 
-        response = (
-            self.openai_client.chat.completions.create(
-                model=openai_model,
-                messages=msg,
-                temperature=0.6,
-                max_tokens=1000,
-            )
-            .choices[0]
-            .message.content
+        response = self.openai_client.chat.completions.create(
+            model=openai_model,
+            messages=msg,
+            temperature=0.6,
+            max_tokens=1000,
         )
+        
+        # Track token usage (without polluting game state)
+        track_response(response, stage=_stage, player_name=self.name)
 
-        if response is None:
+        content = response.choices[0].message.content
+        if content is None:
             raise ValueError("LLM response is None.")
 
-        self.inspection += f"{response}\n"
+        self.inspection += f"{content}\n"
 
-        return response
+        return content
 
     def get_known_state(self) -> str:
         formatted_players = ", ".join([player.name for player in self.state.players])

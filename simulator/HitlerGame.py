@@ -786,6 +786,15 @@ class HitlerGame:
             logger.warning("Game ended with no clear winner condition")
             result = 0
         
+        # Print token usage summary
+        try:
+            from metric.token_tracker import get_tracker
+            tracker = get_tracker()
+            tracker.print_summary()
+            tracker.save_summary()
+        except Exception as e:
+            logger.warning(f"Could not generate token usage summary: {e}")
+        
         # Generate and write summary JSON file
         self.write_summary_json()
         
