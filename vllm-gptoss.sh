@@ -16,7 +16,7 @@ export MODEL=${MODEL:-meta-llama/Llama-3.3-70B-Instruct}
 export LLM_API_KEY=$LLM_API_KEY
 export LLM_BASE_URL=http://localhost:8080/v1/
 
-export SIF = /scratch-scc/projects/ag_gipp/vllm.sif
+export SIF = /scratch-scc/projects/ag_gipp/vllm-gptoss.sif
 
 # export VLLM_USE_MODELSCOPE=true
 
