@@ -1,0 +1,58 @@
+# Secret Hitler Game Configuration
+# All configuration options for running the game
+
+# ==============================================================================
+# GAME SETTINGS
+# ==============================================================================
+game:
+  players: 5                    # Number of players
+  output: "output.txt"          # Output file path
+  log_level: "INFO"             # Log level: DEBUG, INFO, WARNING, ERROR, CRITICAL
+  summary_path: "./runsTEST"        # Path to write game summary files
+  
+  # Player types for each position (0-indexed)
+  # Options: LLM, CPU, RULE, RANDOM, HUMAN
+  player_types:
+    - "LLM"
+    - "CPU"
+    - "CPU"
+    - "CPU"
+    - "CPU"
+
+# ==============================================================================
+# LLM ENDPOINTS - SIMPLE CONFIGURATION
+# ==============================================================================
+# Uncomment this section for simple single-endpoint setup
+# llm:
+#   default:
+#     api_key: "your-api-key"
+#     base_url: "http://localhost:8080/v1/"
+
+# ==============================================================================
+# LLM ENDPOINTS - ADVANCED CONFIGURATION
+# ==============================================================================
+# Fine-grained control over which player type uses which endpoint
+
+llm:
+  # Default/fallback endpoint (used if specific endpoints not configured)
+  # default:
+  #   api_key: "your-api-key"
+  #   base_url: "http://localhost:8080/v1/"
+  
+  # LLMPlayer endpoint (for complex reasoning and game strategy)
+  llm_player:
+    advanced:
+      api_key: "your-api-key"
+      base_url: "http://localhost:8080/v1/"
+  
+  # CPUPlayer endpoint (for chat/discussion with reputation system)
+  cpu_player:
+    api_key: "your-api-key"
+    base_url: "http://localhost:8081/v1/"
+
+# ==============================================================================
+# PROCESSING OPTIONS
+# ==============================================================================
+processing:
+  enable_parallel: true         # Enable parallel processing for batch games
+  max_parallel_games: 4         # Maximum concurrent games

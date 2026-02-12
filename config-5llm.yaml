@@ -1,0 +1,23 @@
+# Configuration for benchmarking 5 LLM players
+# One advanced model vs four standard models
+game:
+  players: 5
+  log_level: "INFO"
+  summary_path: "./runs-5llm-benchmark"
+  player_types: ["LLM", "LLM", "LLM", "LLM", "LLM"]
+
+llm:
+  llm_player:
+    advanced_player_index: 0  # First player gets premium model
+    
+    advanced:
+      api_key: "premium-key"
+      base_url: "http://localhost:9000/v1/"  # Qwen2.5-72B
+    
+    standard:
+      api_key: "standard-key"
+      base_url: "http://localhost:9001/v1/"  # Qwen2.5-14B
+
+processing:
+  enable_parallel: true
+  max_parallel_games: 4

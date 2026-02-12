@@ -9,8 +9,9 @@ import uuid
 import concurrent.futures
 from random import randint
 
+from config_loader import Config
 from HitlerGameState import GameState
-from players import HitlerPlayer, LLMPlayer, RulePlayer, CPUPlayer
+from players import HitlerPlayer, LLMPlayer, RulePlayer, CPUPlayer, RandomPlayer
 from HitlerFactory import (
     FASCIST_POLICIES_TO_WIN,
     LIBERAL_POLICIES_TO_WIN,
@@ -23,14 +24,24 @@ from HitlerLogging import *
 
 
 class HitlerGame:
-    def __init__(self, args) -> None:
+    def __init__(self, args, config: Config = None) -> None:
         """Initialize the game
 
         Args:
             args: Parsed command line arguments
+            config: Configuration object (optional, loaded from file or env)
         """
-        # Store summary path from args
-        self.summary_path = args.summary_path
+        # Store or create config
+        self.config = config if config else Config()
+        
+        # Store summary path from args or config
+        self.summary_path = args.summary_path if hasattr(args, 'summary_path') else self.config.summary_path
+        
+        # Store player types configuration from args or config
+        if hasattr(args, 'player_types') and args.player_types:
+            self.player_types = args.player_types
+        else:
+            self.player_types = self.config.player_types if self.config.player_types else None
         
         # Handle JSON file if provided
         if hasattr(args, "gamestate_json") and args.gamestate_json:
@@ -195,10 +206,10 @@ class HitlerGame:
         # VOTING ---------------------------------------------------------------------
         voted = self.voting()
 
+        living_players = [p for p in self.state.players if not p.is_dead]
         # 🆕 New reflection step after vote passes
         logger.info("Players privately reflecting")
         display_info_message("Players privately reflecting")
-        living_players = [p for p in self.state.players if not p.is_dead]
         if living_players:
             # Parallel reflection for all living players
             reflections = self._parallel_reflect(living_players)
@@ -309,14 +320,36 @@ class HitlerGame:
 
         for num in range(self.playernum):
             name = PLAYER_NAMES[num]
-            if num == 0:
+            # Determine player type from config or default (first player is LLM)
+            if self.player_types and num < len(self.player_types):
+                player_type = self.player_types[num].upper()
+            else:
+                player_type = "LLM" if num == 0 else "CPU"
+            
+            # Get LLM endpoint for this player type and index
+            api_key, base_url = self.config.get_llm_endpoint(player_type, num)
+            
+            if player_type == "LLM":
                 player = LLMPlayer(
+                    num, name, roles.pop(0), self.state, self.state.game_log, self.state.chat_log, 
+                    player_index=num, api_key=api_key, base_url=base_url
+                )
+            elif player_type == "CPU":
+                player = CPUPlayer(
+                    num, name, roles.pop(0), self.state, self.state.game_log, self.state.chat_log,
+                    api_key=api_key, base_url=base_url
+                )
+            elif player_type == "RULE":
+                player = RulePlayer(
+                    num, name, roles.pop(0), self.state, self.state.game_log, self.state.chat_log,
+                    api_key=api_key, base_url=base_url
+                )
+            elif player_type == "RANDOM":
+                player = RandomPlayer(
                     num, name, roles.pop(0), self.state, self.state.game_log, self.state.chat_log
                 )
             else:
-                player = CPUPlayer(
-                    num, name, roles.pop(0), self.state, self.state.game_log, self.state.chat_log
-                )
+                raise ValueError(f"Unknown player type: {player_type}")
 
             if player.is_hitler:
                 # Keep track of Hitler
@@ -656,7 +689,6 @@ class HitlerGame:
         self.log += f"{str(enact)} policy enacted by President {self.state.president} and Chancellor {self.state.chancellor}\n"
         
         # Update CPU players' reputation after legislation
-        from .players.cpu_player import CPUPlayer
         for player in self.state.players:
             if isinstance(player, CPUPlayer) and not player.is_dead:
                 player.update_after_legislation()
@@ -736,7 +768,6 @@ class HitlerGame:
             display_player_investigated(self.state.president, inspect)
             
             # Update CPU players' knowledge about the investigated player
-            from .players.cpu_player import CPUPlayer
             for player in self.state.players:
                 if isinstance(player, CPUPlayer) and not player.is_dead:
                     # Only the investigating president learns the truth
@@ -888,6 +919,12 @@ if __name__ == "__main__":
     # Set up command line argument parsing
     parser = argparse.ArgumentParser(description="Secret Hitler Game Simulator")
     parser.add_argument(
+        "--config",
+        "-f",
+        type=str,
+        help="Path to YAML configuration file (overrides other arguments and env vars)"
+    )
+    parser.add_argument(
         "--players", "-p", type=int, default=5, help="Number of players (default: 5)"
     )
     parser.add_argument(
@@ -936,9 +973,43 @@ if __name__ == "__main__":
         default="./runs",
         help="Path to write game summary files (default: ./runs)",
     )
+    parser.add_argument(
+        "--player-types",
+        type=lambda s: s.split(','),
+        default=None,
+        help="Comma-separated list of player types (LLM or CPU) for each player (e.g., 'LLM,CPU,CPU,CPU,CPU'). Default: first player is LLM, rest are CPU",
+    )
     args = parser.parse_args()
 
-    # Set the log level based on command line argument
+    # Load configuration - config file is now required
+    if args.config:
+        logger.info(f"Loading configuration from {args.config}")
+        config = Config.from_yaml(args.config)
+    else:
+        logger.info("No config file specified, using default configuration")
+        config = Config()
+    
+    # Override config with command line arguments if provided
+    if args.players != 5:  # 5 is default
+        config.players = args.players
+    if args.summary_path != "./runs":
+        config.summary_path = args.summary_path
+    if args.log_level != "INFO":
+        config.log_level = args.log_level
+    if args.player_types:
+        config.player_types = args.player_types
+    
+    # Update args from config
+    args.players = config.players
+    args.summary_path = config.summary_path
+    args.log_level = config.log_level
+    if not args.player_types:
+        args.player_types = config.player_types
+    
+    # Apply processing config
+    HitlerPlayer.enable_parallel_processing = config.enable_parallel
+
+    # Set the log level based on command line argument or config
     log_level = getattr(logging, args.log_level)
     logger.setLevel(log_level)
 
@@ -949,8 +1020,8 @@ if __name__ == "__main__":
     display_game_start(args.players if not args.gamestate_json else 0)
     logger.info("Starting Hitler Game...")
 
-    # Initialize game with args object
-    game = HitlerGame(args)
+    # Initialize game with args object and config
+    game = HitlerGame(args, config)
     game.play()
 
     sys.stdout = sys.__stdout__

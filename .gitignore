@@ -9,6 +9,9 @@ output.txt
 eval/runs*
 crawl/ann*
 
+# Local configuration files (keep API keys private)
+*-local.yaml
+
 .vscode
 
 # Byte-compiled / optimized / DLL files

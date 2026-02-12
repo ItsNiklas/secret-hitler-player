@@ -111,14 +111,23 @@ This framework supports:
    pip install -e .
    ```
 
-3. **Configure API keys**
+3. **Configure the game**
 
-   Create a `.env` file in the `simulator` directory:
+   Create a YAML config file:
 
-   ```bash
-   LLM_API_KEY="your-key"
-   LLM_BASE_URL="http://localhost:8080/v1/"
+   ```yaml
+   # config.yaml
+   game:
+     players: 5
+     player_types: ["LLM", "CPU", "CPU", "CPU", "CPU"]
+
+   llm:
+     default:
+       api_key: "your-key"
+       base_url: "http://localhost:8080/v1/"
    ```
+
+   See [config.example.yaml](config.example.yaml) for more options.
 
 4. **Verify installation**
 
@@ -133,7 +142,7 @@ This framework supports:
 
 ```bash
 cd simulator
-python HitlerGame.py
+python HitlerGame.py --config ../config.yaml
 ```
 
 This will simulate one game with the default configuration (LLM players vs rule-based players).

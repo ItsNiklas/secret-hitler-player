@@ -1,4 +1,5 @@
 import random
+import os
 from typing import Optional, TYPE_CHECKING, override
 
 from .hitler_player import HitlerPlayer
@@ -24,8 +25,11 @@ class CPUPlayer(HitlerPlayer):
         state: "GameState",
         game_log: list[str],
         chat_log: list[str],
+        api_key: str = None,
+        base_url: str = None,
     ) -> None:
-        super().__init__(id, name, role, state, game_log, chat_log)
+        # Accept API credentials from game config or fall back to env vars
+        super().__init__(id, name, role, state, game_log, chat_log, api_key=api_key, base_url=base_url)
 
         # Tracks reputation of other players from -5 to +5
         # Lower values = more likely fascist/hitler

@@ -1,12 +1,5 @@
 #!/bin/bash
 
-# Set these environment variables or add them to your .env file
-export HF_TOKEN=${HF_TOKEN:-"your-huggingface-token-here"}
-export HF_HOME=/scratch-scc/users/$USER/hf
-export LLM_API_KEY=${LLM_API_KEY:-"your-llm-api-key-here"}
-export LLM_BASE_URL=http://localhost:8080/v1/
-export ENABLE_PARALLEL_PROCESSING=true
-
 source .venv/bin/activate
 
 # Configure parallel processing
@@ -27,7 +20,8 @@ while true; do
     wait_for_slot
     
     echo "Run $i"
-    (python simulator/HitlerGame.py --summary-path runsD1 || echo "Run $i failed, continuing with next run")
+    # Use your config file
+    (python simulator/HitlerGame.py --config config.yaml || echo "Run $i failed, continuing with next run")
 done
 
 # Wait for all background jobs to complete

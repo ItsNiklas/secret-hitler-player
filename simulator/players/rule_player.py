@@ -1,5 +1,6 @@
 from random import choice
 from typing import override
+import os
 
 from .hitler_player import HitlerPlayer
 from HitlerFactory import Ja, Nein, Policy, Vote
@@ -11,6 +12,10 @@ class RulePlayer(HitlerPlayer):
     A rule-based player that follows naive strategies based on the Secret Hitler strategy guide.
     Does not consider dialogue or complex voting patterns - serves as a baseline.
     """
+    
+    def __init__(self, id, name: str, role, state, game_log, chat_log, api_key: str = None, base_url: str = None) -> None:
+        # Accept API credentials from game config or fall back to env vars
+        super(RulePlayer, self).__init__(id, name, role, state, game_log, chat_log, api_key=api_key, base_url=base_url)
     
     def vote_government(self) -> Vote:
         """Vote based on simple rules for each role"""

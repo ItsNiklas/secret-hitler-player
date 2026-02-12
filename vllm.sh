@@ -1,22 +1,15 @@
-##!/bin/bash
-#SBATCH --job-name=vllm-gpu
-#SBATCH -t 48:00:00
-#SBATCH -p scc-gpu
-#SBATCH -c 16
-#SBATCH -G A100:4
-#SBATCH --constraint=80gb
-#SBATCH -N 1
+#!/bin/bash
 
 set -euo pipefail
 echo "[$(date +%F\ %T)] Job starting on $HOSTNAME"
 
 # Set these environment variables or add them to your .env file
 export HF_HOME=/scratch-scc/users/$USER/hf
-export MODEL=${MODEL:-meta-llama/Llama-3.3-70B-Instruct}
+export MODEL=${MODEL:-meta-llama/Llama-3.1-8B-Instruct}
 export LLM_API_KEY=$LLM_API_KEY
-export LLM_BASE_URL=http://localhost:8080/v1/
+export LLM_BASE_URL=http://localhost:8081/v1/
 
-export SIF = /scratch-scc/projects/ag_gipp/vllm.sif
+export SIF=/scratch-scc/projects/ag_gipp/vllm.sif
 
 # export VLLM_USE_MODELSCOPE=true
 
@@ -27,12 +20,16 @@ echo "Starting VLLM server with model $MODEL"
 apptainer exec \
   --nv \
   --cleanenv \
+  --env HF_HOME="$HF_HOME" \
+  --env HF_HUB_OFFLINE=1 \
+  --env CUDA_VISIBLE_DEVICES=2,3 \
   -B "$HF_HOME:$HF_HOME:rw" \
   "$SIF" \
   vllm serve $MODEL \
-    --port 8080 \
-    --tensor-parallel-size 4 \
-    --gpu-memory-utilization 0.8 \
+    --port 8081 \
+    --tensor-parallel-size 2 \
+    --gpu-memory-utilization 0.9 \
     --trust-remote-code \
     --download-dir "$HF_HOME" \
-> "logs/vllm_${SLURM_JOB_ID}.log" 2>&1 &
+    --disable-custom-all-reduce \
+    --default-chat-template-kwargs '{"thinking": true}'

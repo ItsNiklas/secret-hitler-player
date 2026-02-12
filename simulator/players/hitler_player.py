@@ -31,17 +31,8 @@ if TYPE_CHECKING:
 
 
 class HitlerPlayer:
-    # Read API key from file
-    #with open("api-key.txt", "r") as file:
-    #    openai_api_key = file.read().strip()
-
-    openai_api_key = os.environ.get("LLM_API_KEY", "")
-    openai_base_url = os.environ.get("LLM_BASE_URL", "http://localhost:8080/v1/")
-
-    openai_client = OpenAI(api_key=openai_api_key, base_url=openai_base_url)
-
-    # Configuration for batching behavior
-    enable_parallel_processing = os.getenv("ENABLE_PARALLEL_PROCESSING", "true").lower() == "true"
+    # Configuration for batching behavior (class-level setting)
+    enable_parallel_processing = True
 
     def __init__(
         self,
@@ -51,6 +42,8 @@ class HitlerPlayer:
         state: "GameState",
         game_log: list[str],
         chat_log: list[str],
+        api_key: str = "",
+        base_url: str = "http://localhost:8080/v1/",
     ) -> None:
         self.id = id
         self.name = name
@@ -61,6 +54,11 @@ class HitlerPlayer:
         self.is_dead = False
         self.inspected_players = ""
         self.inspection = ""
+        
+        # Instance-level LLM client configuration
+        self.openai_api_key = api_key
+        self.openai_base_url = base_url
+        self.openai_client = OpenAI(api_key=self.openai_api_key, base_url=self.openai_base_url)
 
     def reflect_on_roles(self) -> str:
         prompt = f"""Write a short monologue expressing your opinion about who you think might be Hitler and who you believe could be a fascist, based on your knowledge so far.
@@ -145,8 +143,9 @@ class HitlerPlayer:
 
     As either a liberal or a fascist, you may lie. Telling the truth is usually better as a liberal, though.
 
-    The role you have been chosen for this game is: {self.role} {"(Fascist)" if self.role.role == "hitler" else ""}.
-
+    The role you have been chosen for this game is: {self.role} {"(Fascist)" if self.role.role == "hitler" else ""}."""
+        
+        prompt = f"""
     The previous PUBLIC game log:
     {"\n".join(self.state.game_log[-100:])}
 
@@ -154,21 +153,18 @@ class HitlerPlayer:
     {formatted_recent_chat}
 
     Your previous PRIVATE thoughts and reasoning:
-    {self.inspection[-1000:]}"""
+    {self.inspection[-1000:]}\n""" + prompt
 
         msg = [
             {"role": "system", "content": system_content},
             {"role": "user", "content": prompt},
         ]
 
-        # import json
-        # logger.warning(json.dumps(msg, indent=4))
-
         response = self.openai_client.chat.completions.create(
             model=openai_model,
             messages=msg,
-            temperature=0.6,
-            max_tokens=1000,
+            max_tokens=1024*4,
+            extra_body={"reasoning_effort": "low"}, 
         )
         
         # Track token usage (without polluting game state)
