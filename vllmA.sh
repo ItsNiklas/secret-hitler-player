@@ -23,15 +23,14 @@ apptainer exec \
   --env TIKTOKEN_RS_CACHE_DIR="$HF_HOME" \
   --env HF_HOME="$HF_HOME" \
   --env HF_HUB_OFFLINE=1 \
-  --env CUDA_VISIBLE_DEVICES=0,1 \
+  --env CUDA_VISIBLE_DEVICES=0,1,2 \
   -B "$HF_HOME:$HF_HOME:rw" \
   "$SIF" \
   vllm serve $MODEL \
     --port 8080 \
     --tensor-parallel-size 2 \
-    --gpu-memory-utilization 0.9 \
+    --gpu-memory-utilization 0.85 \
     --trust-remote-code \
     --download-dir "$HF_HOME" \
     --disable-custom-all-reduce \
-    --default-chat-template-kwargs '{"reasoning": low}'
-
+    --enable-prefix-caching

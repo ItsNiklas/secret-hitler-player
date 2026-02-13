@@ -59,6 +59,9 @@ class HitlerPlayer:
         self.openai_api_key = api_key
         self.openai_base_url = base_url
         self.openai_client = OpenAI(api_key=self.openai_api_key, base_url=self.openai_base_url)
+        
+        # Cache the model name for this player
+        self._model_name = None
 
     def reflect_on_roles(self) -> str:
         prompt = f"""Write a short monologue expressing your opinion about who you think might be Hitler and who you believe could be a fascist, based on your knowledge so far.
@@ -94,10 +97,7 @@ class HitlerPlayer:
         for player in other_players:
             format_lines.append(f"{player.name}: [Liberal/Fascist/Hitler/Unknown]")
 
-        prompt = f"""Give an assessment of each other player's role. Be very brief and direct.
-
-        Current game state:
-        {self.get_known_state()}
+        prompt = f"""Give an assessment of each other player's role based on the game state and chat messages. Be very brief and direct.
 
         Respond in this exact format for each player:
         {"\n".join(format_lines)}
@@ -109,27 +109,40 @@ class HitlerPlayer:
         self.inspection += f"\n\n[Rapid Role Assessment]\n{response}\n"
         return response
 
+    def get_model_name(self) -> str:
+        """Get the model name for this player, caching it after first retrieval."""
+        if self._model_name is None:
+            try:
+                self._model_name = self.openai_client.models.list().data[0].id
+            except Exception as e:
+                logger.warning(f"Failed to get model name for {self.name}: {e}")
+                self._model_name = "unknown"
+        return self._model_name
+
     def get_completion(self, prompt: str, _stage: str) -> str:
-         # Pick the first model available
-        openai_model = self.openai_client.models.list().data[0].id
+        openai_model = self.get_model_name()
 
         # Prepare recent chat context (all entries now structured dicts)
         recent_chat_entries = []
-        for entry in self.state.chat_log[-50:]:
+        for entry in self.state.chat_log[-25:]:
             if not isinstance(entry, dict):
                 logger.warning(f"Chat log entry is not a dict: {entry}")
                 continue
             user = entry.get("userName", "")
             msg = entry.get("chat", "")
             stage = entry.get("state")
+            # Strip existing quotes if present to avoid double-quoting
+            msg_stripped = msg.strip()
+            if msg_stripped.startswith('"') and msg_stripped.endswith('"'):
+                msg_stripped = msg_stripped[1:-1]
             if stage:
-                recent_chat_entries.append(f"[{stage}] {user}: {msg}")
+                recent_chat_entries.append(f'[{stage}] {user}: "{msg_stripped}"')
             else:
-                recent_chat_entries.append(f"{user}: {msg}")
+                recent_chat_entries.append(f'{user}: "{msg_stripped}"')
         formatted_recent_chat = "\n".join(recent_chat_entries)
 
         # Merge all system elements into one system content block
-        system_content = f"""You are playing the board game "Secret Hitler." You are playing a game with 5 total players.
+        system_content = f"""You are playing the board game "Secret Hitler." You are playing a game with 5 total players. There are three liberals, one fascist, and one hitler. Fascists win if they enact 6 fascist policies or if Hitler is elected chancellor after 3 fascist policies. Liberals win if they enact 5 liberal policies or if Hitler is killed.
 
     YOUR NAME IS: {self.name}
 
@@ -139,26 +152,32 @@ class HitlerPlayer:
 
     You are to FULLY EMBODY YOUR ROLE as either a Liberal, Fascist, or Hitler. Be as convincing in your character as possible, and keep your responses succinct.
 
-    If you are a fascist, you should act as a liberal, but you still should either try to get Hitler elected (after 3 fascist policies are played) or get all the fascist policies down. Be careful, but don't be too careful (otherwise you will not win and the liberals will beat you.). You should NOT reveal who the other fascists are, though.
+    If you are a fascist, you should act as a liberal, but you still should either try to get Hitler elected (after 3 fascist policies are played) or get all the fascist policies down. Be careful, but don't be too careful. You should NOT reveal who the other fascists are, though.
 
     As either a liberal or a fascist, you may lie. Telling the truth is usually better as a liberal, though.
 
-    The role you have been chosen for this game is: {self.role} {"(Fascist)" if self.role.role == "hitler" else ""}."""
+    The role you have been chosen for this game is: {self.role} {"(Fascist)" if self.role.role == "hitler" else ""}.
+
+    {self.get_known_state()}"""
         
         prompt = f"""
     The previous PUBLIC game log:
-    {"\n".join(self.state.game_log[-100:])}
+    {"\n".join(self.state.game_log[-25:])}
 
     The previous PUBLIC discussions:
     {formatted_recent_chat}
 
     Your previous PRIVATE thoughts and reasoning:
-    {self.inspection[-1000:]}\n""" + prompt
+    {self.inspection[-500:]}\n""" + prompt
 
         msg = [
             {"role": "system", "content": system_content},
             {"role": "user", "content": prompt},
         ]
+
+        # pretty print in debug mode
+        if self.id == 0:
+            logger.debug(f"Prompt for {self.name} at stage {_stage}:\n{system_content}\n\n{prompt}")
 
         response = self.openai_client.chat.completions.create(
             model=openai_model,

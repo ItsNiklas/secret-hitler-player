@@ -43,6 +43,13 @@ class HitlerGame:
         else:
             self.player_types = self.config.player_types if self.config.player_types else None
         
+        # Store player configuration for summary
+        self.player_config = []
+        
+        # Store game end information for summary
+        self.game_end_reason = None
+        self.policy_counts_at_end = {"liberal": 0, "fascist": 0}
+        
         # Handle JSON file if provided
         if hasattr(args, "gamestate_json") and args.gamestate_json:
             logger.info(f"Loading game state from JSON file: {args.gamestate_json}")
@@ -265,18 +272,6 @@ class HitlerGame:
 
             action_enacted = self.vote_passed()
 
-        # 🆕 New reflection step after vote passes
-        logger.info("Players privately reflecting after vote passed.")
-        display_info_message("Players privately reflecting after vote passed.")
-        # Only living players should reflect
-        for player in [p for p in self.state.players if not p.is_dead]:
-            try:
-                monologue = player.reflect_on_roles()
-                display_player_inner_monologue(player, monologue, f"{player}'s inner monologue")
-                logger.info(f"{player.name} reflection:\n{monologue}")
-            except Exception as e:
-                logger.warning(f"{player.name} failed to reflect: {e}")
-
         # Post-policy discussion -----------------------------------------------------
         if action_enacted:
             # DISCUSS HERE
@@ -350,6 +345,15 @@ class HitlerGame:
                 )
             else:
                 raise ValueError(f"Unknown player type: {player_type}")
+
+            # Store player configuration (will get model name later if needed)
+            player_info = {
+                "player_id": num,
+                "name": name,
+                "type": player_type,
+                "base_url": base_url
+            }
+            self.player_config.append(player_info)
 
             if player.is_hitler:
                 # Keep track of Hitler
@@ -796,25 +800,36 @@ class HitlerGame:
     def finish_game(self) -> int:
         logger.info("Game finished, determining winner")
 
+        # Store policy counts at game end
+        self.policy_counts_at_end = {
+            "liberal": self.state.liberal_track,
+            "fascist": self.state.fascist_track
+        }
+
         if self.hitler_chancellor_win():
             display_game_over("hitler_chancellor")
             logger.info("Fascists win by electing Hitler!")
+            self.game_end_reason = "hitler_chancellor"
             result = -2
         elif self.policy_win():
             if self.state.liberal_track == LIBERAL_POLICIES_TO_WIN:
                 display_game_over("liberal_policy")
                 logger.info("Liberals win by policy!")
+                self.game_end_reason = "liberal_policy"
                 result = 1
             else:
                 display_game_over("fascist_policy")
                 logger.info("Fascists win by policy!")
+                self.game_end_reason = "fascist_policy"
                 result = -1
         elif self.state.hitler and self.state.hitler.is_dead:
             display_game_over("hitler_killed")
             logger.info("Liberals win by shooting Hitler!")
+            self.game_end_reason = "hitler_killed"
             result = 2
         else:
             logger.warning("Game ended with no clear winner condition")
+            self.game_end_reason = "no_clear_winner"
             result = 0
         
         # Print token usage summary
@@ -844,6 +859,19 @@ class HitlerGame:
         else:
             game_id = f"Game_{datetime.datetime.now().strftime('%Y%m%d_%H%M%S')}"
         
+        # Collect model names from players
+        player_models = []
+        for player in self.state.players:
+            if hasattr(player, 'get_model_name'):
+                try:
+                    model_name = player.get_model_name()
+                except Exception as e:
+                    logger.warning(f"Failed to get model name for {player.name}: {e}")
+                    model_name = "unknown"
+            else:
+                model_name = "N/A"
+            player_models.append(model_name)
+        
         # Create summary structure
         summary = {
             "_id": game_id,
@@ -858,6 +886,13 @@ class HitlerGame:
                 "noTopdecking": 0
             },
             "date": datetime.datetime.now().isoformat() + "Z",
+            "playerConfiguration": {
+                "player_types": self.player_types,
+                "player_config": self.player_config,
+                "model_names": player_models
+            },
+            "gameEndReason": self.game_end_reason,
+            "policyCountsAtEnd": self.policy_counts_at_end,
             "players": [],
             "libElo": {
                 "overall": 0,
@@ -1011,7 +1046,7 @@ if __name__ == "__main__":
 
     # Set the log level based on command line argument or config
     log_level = getattr(logging, args.log_level)
-    logger.setLevel(log_level)
+    set_log_level(log_level)
 
     # Initialize the file logger with the output path from args
     init_file_logger(args.output)

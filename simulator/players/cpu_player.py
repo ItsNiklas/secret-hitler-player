@@ -471,46 +471,46 @@ class CPUPlayer(HitlerPlayer):
     def reflect_on_roles(self) -> str:
         return ""
 
-    @override
-    def rapid_role_assessment(self) -> str:
-        """Quick assessment of each other player's suspected role based on rep"""
-        other_players = [player for player in self.state.players if player != self and not player.is_dead]
+    # @override
+    # def rapid_role_assessment(self) -> str:
+    #     """Quick assessment of each other player's suspected role based on rep"""
+    #     other_players = [player for player in self.state.players if player != self and not player.is_dead]
 
-        if not other_players:
-            return ""
+    #     if not other_players:
+    #         return ""
 
-        assessments = []
+    #     assessments = []
 
-        for player in other_players:
-            if player.name in self.known_player_roles:
-                # We know their role definitively
-                known_role = self.known_player_roles[player.name]
-                if self.role.party_membership == "liberal":
-                    # Liberals tell the truth about known roles
-                    if known_role == "hitler":
-                        assessments.append(f"{player.name}: Hitler")
-                    elif known_role == "fascist":
-                        assessments.append(f"{player.name}: Fascist")
-                    else:
-                        assessments.append(f"{player.name}: Liberal")
-                else:  # Fascist/Hitler
-                    # Fascists may lie to protect teammates
-                    if known_role in ["fascist", "hitler"]:
-                        # Claim they're liberal to protect them
-                        assessments.append(f"{player.name}: Liberal")
-                    else:
-                        # Tell truth about actual liberals
-                        assessments.append(f"{player.name}: Liberal")
-            else:
-                # Base on reputation
-                rep = self.get_player_reputation_with_identity(player.name)
-                if rep <= -3:
-                    assessments.append(f"{player.name}: Fascist")
-                elif rep <= -1:
-                    assessments.append(f"{player.name}: Unknown")
-                elif rep >= 2:
-                    assessments.append(f"{player.name}: Liberal")
-                else:
-                    assessments.append(f"{player.name}: Unknown")
+    #     for player in other_players:
+    #         if player.name in self.known_player_roles:
+    #             # We know their role definitively
+    #             known_role = self.known_player_roles[player.name]
+    #             if self.role.party_membership == "liberal":
+    #                 # Liberals tell the truth about known roles
+    #                 if known_role == "hitler":
+    #                     assessments.append(f"{player.name}: Hitler")
+    #                 elif known_role == "fascist":
+    #                     assessments.append(f"{player.name}: Fascist")
+    #                 else:
+    #                     assessments.append(f"{player.name}: Liberal")
+    #             else:  # Fascist/Hitler
+    #                 # Fascists may lie to protect teammates
+    #                 if known_role in ["fascist", "hitler"]:
+    #                     # Claim they're liberal to protect them
+    #                     assessments.append(f"{player.name}: Liberal")
+    #                 else:
+    #                     # Tell truth about actual liberals
+    #                     assessments.append(f"{player.name}: Liberal")
+    #         else:
+    #             # Base on reputation
+    #             rep = self.get_player_reputation_with_identity(player.name)
+    #             if rep <= -3:
+    #                 assessments.append(f"{player.name}: Fascist")
+    #             elif rep <= -1:
+    #                 assessments.append(f"{player.name}: Unknown")
+    #             elif rep >= 2:
+    #                 assessments.append(f"{player.name}: Liberal")
+    #             else:
+    #                 assessments.append(f"{player.name}: Unknown")
 
-        return "\n".join(assessments)
+    #     return "\n".join(assessments)

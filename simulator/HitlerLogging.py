@@ -56,6 +56,18 @@ rich_handler.setLevel(logging.WARNING)  # Only show WARNING and above in termina
 # File handler will be initialized later when the log path is known
 file_handler = None
 
+def set_log_level(level):
+    """Set the log level for both logger and console handler.
+    
+    Args:
+        level: logging level (e.g., logging.INFO, logging.DEBUG)
+    """
+    logger.setLevel(level)
+    # Update the rich handler to show messages at the configured level
+    for handler in logger.handlers:
+        if isinstance(handler, RichHandler):
+            handler.setLevel(level)
+
 # Create a clean formatter for file logs without rich markup
 class CleanFormatter(logging.Formatter):
     """Custom formatter that removes rich markup from log messages"""

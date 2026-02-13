@@ -22,14 +22,14 @@ apptainer exec \
   --cleanenv \
   --env HF_HOME="$HF_HOME" \
   --env HF_HUB_OFFLINE=1 \
-  --env CUDA_VISIBLE_DEVICES=2,3 \
+  --env CUDA_VISIBLE_DEVICES=3 \
   -B "$HF_HOME:$HF_HOME:rw" \
   "$SIF" \
   vllm serve $MODEL \
     --port 8081 \
-    --tensor-parallel-size 2 \
+    --tensor-parallel-size 1 \
     --gpu-memory-utilization 0.9 \
     --trust-remote-code \
     --download-dir "$HF_HOME" \
     --disable-custom-all-reduce \
-    --default-chat-template-kwargs '{"thinking": true}'
+    --max-model-len auto
