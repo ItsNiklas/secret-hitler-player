@@ -93,15 +93,16 @@ Respond with ONLY "JA" (yes) or "NEIN" (no)."""
 
     def nominate_chancellor(self) -> "HitlerPlayer":
         """Nominate chancellor without CoT"""
-        eligible = [p for p in self.state.players if p != self and p != self.state.ex_chancellor and not p.is_dead]
+        eligible = [p for p in self.state.players if p != self and not p.is_dead]
         
-        prompt = f"""Nominate a chancellor. Choose one player name from: {[p.name for p in eligible]}
+        prompt = f"""Nominate a chancellor. You cannot pick yourself or the previous chancellor.
+Choose one player name from: {[p.name for p in self.state.players]}
 
 Respond with ONLY the player name."""
 
         response = self.get_basic_completion(prompt, "Nominate Chancellor")
 
-        for player in eligible:
+        for player in self.state.players:
             if player.name.upper() in response.upper():
                 return player
 

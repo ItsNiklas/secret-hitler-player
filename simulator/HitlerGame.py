@@ -37,6 +37,9 @@ class HitlerGame:
         # Store summary path from args or config
         self.summary_path = args.summary_path if hasattr(args, 'summary_path') else self.config.summary_path
         
+        # Store forced player 1 role if provided
+        self.role = args.role if hasattr(args, 'role') else None
+        
         # Store player types configuration from args or config
         if hasattr(args, 'player_types') and args.player_types:
             self.player_types = args.player_types
@@ -310,6 +313,24 @@ class HitlerGame:
             return
         logger.debug(f"Assigning roles to {self.playernum} players")
         roles = self.state.shuffle_roles()
+        
+        # If forcing player 1 role, swap the first role with the requested one
+        if self.role:
+            from HitlerFactory import LiberalRole, FascistRole, HitlerRole
+            forced_role_map = {
+                'liberal': LiberalRole,
+                'fascist': FascistRole,
+                'hitler': HitlerRole
+            }
+            if self.role.lower() in forced_role_map:
+                forced_role_class = forced_role_map[self.role.lower()]
+                # Find the first instance of the forced role in the list
+                for i, role in enumerate(roles):
+                    if isinstance(role, forced_role_class):
+                        # Swap with position 0
+                        roles[0], roles[i] = roles[i], roles[0]
+                        logger.info(f"Forced player 1 (Alice) to be {self.role}")
+                        break
 
         display_info_message("[yellow]Assigning player roles...")
 
@@ -1018,6 +1039,13 @@ if __name__ == "__main__":
         type=lambda s: s.split(','),
         default=None,
         help="Comma-separated list of player types (LLM or CPU) for each player (e.g., 'LLM,CPU,CPU,CPU,CPU'). Default: first player is LLM, rest are CPU",
+    )
+    parser.add_argument(
+        "--role",
+        type=str,
+        choices=["liberal", "fascist", "hitler"],
+        default=None,
+        help="Force player 1 (Alice) to have a specific role: liberal, fascist, or hitler",
     )
     args = parser.parse_args()
 

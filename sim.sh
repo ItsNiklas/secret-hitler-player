@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Parse command-line arguments
+CONFIG_FILE=${1:-config-local.yaml}
+
 source .venv/bin/activate
 
 # Configure parallel processing
@@ -15,14 +18,28 @@ wait_for_slot() {
 
 start_time=$(date)
 echo "Running 100 games with up to $MAX_PARALLEL_GAMES parallel processes at $(date)..."
+echo "Using config: $CONFIG_FILE"
+echo "Alice (Player 1) role distribution: 60x Liberal, 20x Fascist, 20x Hitler"
 
 for i in {1..100}; do
     # Wait for a free slot before starting new game
     wait_for_slot
     
-    echo "Run $i"
-    # Use your config file
-    (python simulator/HitlerGame.py --config config-local.yaml || echo "Run $i failed, continuing with next run") &
+    # Determine Alice's role based on game number
+    # Games 1-60: Liberal
+    # Games 61-80: Fascist
+    # Games 81-100: Hitler
+    if [ $i -le 60 ]; then
+        ROLE="hitler"
+    elif [ $i -le 80 ]; then
+        ROLE="fascist"
+    else
+        ROLE="hitler"
+    fi
+    
+    echo "Run $i (Alice: $ROLE)"
+    # Use your config file and force Alice's role
+    (python simulator/HitlerGame.py --config $CONFIG_FILE --role $ROLE || echo "Run $i failed, continuing with next run") &
 done
 
 # Wait for all background jobs to complete

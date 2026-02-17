@@ -1,7 +1,7 @@
 #!/bin/bash
 
 set -euo pipefail
-echo "[$(date +%F\ %T)] Job starting on $HOSTNAME"
+echo "[$(date +%F\ %T)] Job starting on $(hostname)"
 
 # Set these environment variables or add them to your .env file
 export HF_HOME=/scratch-scc/users/$USER/hf
@@ -27,9 +27,10 @@ apptainer exec \
   -B "$HF_HOME:$HF_HOME:rw" \
   "$SIF" \
   vllm serve $MODEL \
+    --host 0.0.0.0 \
     --port 8080 \
     --tensor-parallel-size 4 \
-    --gpu-memory-utilization 0.67 \
+    --gpu-memory-utilization 0.9 \
     --trust-remote-code \
     --download-dir "$HF_HOME" \
     --disable-custom-all-reduce \

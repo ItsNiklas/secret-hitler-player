@@ -1,4 +1,6 @@
 """Configuration loader for Secret Hitler game."""
+import os
+import re
 import yaml
 from typing import Tuple
 
@@ -27,6 +29,26 @@ class Config:
         # Processing
         self.enable_parallel = True
         self.max_parallel_games = 4
+    
+    @staticmethod
+    def _expand_env_vars(value):
+        """Expand environment variables in string values with support for ${VAR:-default} syntax."""
+        if not isinstance(value, str):
+            return value
+        
+        # Handle ${VAR:-default} syntax
+        def replace_with_default(match):
+            var_name = match.group(1)
+            default_value = match.group(2)
+            return os.environ.get(var_name, default_value)
+        
+        # Replace ${VAR:-default} patterns
+        value = re.sub(r'\$\{([^}:]+):-([^}]*)\}', replace_with_default, value)
+        
+        # Handle remaining $VAR or ${VAR} patterns
+        value = os.path.expandvars(value)
+        
+        return value
 
     @classmethod
     def from_yaml(cls, path: str) -> "Config":
@@ -53,14 +75,14 @@ class Config:
             
             if 'default' in llm:
                 config.llm['default'] = {
-                    'api_key': llm['default'].get('api_key', ''),
-                    'base_url': llm['default'].get('base_url', 'http://localhost:8080/v1/')
+                    'api_key': config._expand_env_vars(llm['default'].get('api_key', '')),
+                    'base_url': config._expand_env_vars(llm['default'].get('base_url', 'http://localhost:8080/v1/'))
                 }
             
             if 'llm_player' in llm:
                 config.llm['llm_player'] = {
-                    'api_key': llm['llm_player'].get('api_key'),
-                    'base_url': llm['llm_player'].get('base_url'),
+                    'api_key': config._expand_env_vars(llm['llm_player'].get('api_key')),
+                    'base_url': config._expand_env_vars(llm['llm_player'].get('base_url')),
                     'advanced_player_index': llm['llm_player'].get('advanced_player_index', 0),
                     'advanced': llm['llm_player'].get('advanced'),
                     'standard': llm['llm_player'].get('standard'),
@@ -68,20 +90,20 @@ class Config:
             
             if 'basic_llm_player' in llm:
                 config.llm['basic_llm_player'] = {
-                    'api_key': llm['basic_llm_player'].get('api_key', ''),
-                    'base_url': llm['basic_llm_player'].get('base_url', 'http://localhost:8080/v1/')
+                    'api_key': config._expand_env_vars(llm['basic_llm_player'].get('api_key', '')),
+                    'base_url': config._expand_env_vars(llm['basic_llm_player'].get('base_url', 'http://localhost:8080/v1/'))
                 }
             
             if 'cpu_player' in llm:
                 config.llm['cpu_player'] = {
-                    'api_key': llm['cpu_player'].get('api_key', ''),
-                    'base_url': llm['cpu_player'].get('base_url', 'http://localhost:8080/v1/')
+                    'api_key': config._expand_env_vars(llm['cpu_player'].get('api_key', '')),
+                    'base_url': config._expand_env_vars(llm['cpu_player'].get('base_url', 'http://localhost:8080/v1/'))
                 }
             
             if 'rule_player' in llm:
                 config.llm['rule_player'] = {
-                    'api_key': llm['rule_player'].get('api_key', ''),
-                    'base_url': llm['rule_player'].get('base_url', 'http://localhost:8080/v1/')
+                    'api_key': config._expand_env_vars(llm['rule_player'].get('api_key', '')),
+                    'base_url': config._expand_env_vars(llm['rule_player'].get('base_url', 'http://localhost:8080/v1/'))
                 }
         
         # Load processing settings
