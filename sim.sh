@@ -22,7 +22,7 @@ for i in {1..100}; do
     
     echo "Run $i"
     # Use your config file
-    (python simulator/HitlerGame.py --config configQ-local.yaml || echo "Run $i failed, continuing with next run") &
+    (python simulator/HitlerGame.py --config config-local.yaml || echo "Run $i failed, continuing with next run") &
 done
 
 # Wait for all background jobs to complete

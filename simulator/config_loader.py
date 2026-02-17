@@ -19,6 +19,7 @@ class Config:
         self.llm = {
             "default": {"api_key": "", "base_url": "http://localhost:8080/v1/"},
             "llm_player": None,
+            "basic_llm_player": None,
             "cpu_player": None,
             "rule_player": None,
         }
@@ -65,6 +66,12 @@ class Config:
                     'standard': llm['llm_player'].get('standard'),
                 }
             
+            if 'basic_llm_player' in llm:
+                config.llm['basic_llm_player'] = {
+                    'api_key': llm['basic_llm_player'].get('api_key', ''),
+                    'base_url': llm['basic_llm_player'].get('base_url', 'http://localhost:8080/v1/')
+                }
+            
             if 'cpu_player' in llm:
                 config.llm['cpu_player'] = {
                     'api_key': llm['cpu_player'].get('api_key', ''),
@@ -100,6 +107,9 @@ class Config:
             # Fallback to llm_player base config
             elif lp.get('api_key'):
                 return (lp['api_key'], lp.get('base_url') or self.llm['default']['base_url'])
+        
+        elif player_type == "BASICLLM" and self.llm['basic_llm_player']:
+            return (self.llm['basic_llm_player']['api_key'], self.llm['basic_llm_player']['base_url'])
         
         elif player_type == "CPU" and self.llm['cpu_player']:
             return (self.llm['cpu_player']['api_key'], self.llm['cpu_player']['base_url'])

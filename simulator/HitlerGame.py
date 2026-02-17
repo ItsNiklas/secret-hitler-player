@@ -11,7 +11,7 @@ from random import randint
 
 from config_loader import Config
 from HitlerGameState import GameState
-from players import HitlerPlayer, LLMPlayer, RulePlayer, CPUPlayer, RandomPlayer
+from players import HitlerPlayer, LLMPlayer, BasicLLMPlayer, RulePlayer, CPUPlayer, RandomPlayer
 from HitlerFactory import (
     FASCIST_POLICIES_TO_WIN,
     LIBERAL_POLICIES_TO_WIN,
@@ -327,6 +327,11 @@ class HitlerGame:
             if player_type == "LLM":
                 player = LLMPlayer(
                     num, name, roles.pop(0), self.state, self.state.game_log, self.state.chat_log, 
+                    player_index=num, api_key=api_key, base_url=base_url
+                )
+            elif player_type == "BASICLLM":
+                player = BasicLLMPlayer(
+                    num, name, roles.pop(0), self.state, self.state.game_log, self.state.chat_log,
                     player_index=num, api_key=api_key, base_url=base_url
                 )
             elif player_type == "CPU":
