@@ -55,16 +55,30 @@ class LLMPlayer(HitlerPlayer):
         :return: HitlerPlayer
         one of self.state.players
         """
+        # Get eligible players (not self, not current chancellor, not dead)
+        eligible_players = [
+            player for player in self.state.players 
+            if player != self 
+            and player != self.state.chancellor
+            and not player.is_dead
+        ]
+        # Also exclude ex-president in larger games
+        if len(self.state.players) > 6 and self.state.ex_president:
+            eligible_players = [p for p in eligible_players if p != self.state.ex_president]
 
         prompt = f"""
         It is now your turn to nominate a chancellor.
 
-        Here is the state of the board. You may pick any one of the players, EXCEPT yourself and the previous chancellor (labeled as chancellor).
+        Here is the state of the board:
 
         {self.get_known_state()}
 
-        You will first explain your inner thoughts and reasoning (which are private to you), then you will vote and respond EXACTLY and ONLY with one of the following options:
-            {["FINAL SELECTION: " + player.name for player in self.state.players]} 
+        VALID OPTIONS (you MUST choose one of these):
+            {["FINAL SELECTION: " + player.name for player in eligible_players]}
+        
+        Do NOT nominate yourself, the current chancellor, dead players, or the previous president (in games with 7+ players).
+
+        You will first explain your inner thoughts and reasoning (which are private to you), then you will nominate EXACTLY and ONLY with one of the VALID OPTIONS above.
         """
 
         response = self.get_completion(prompt, "Nominate Chancellor")
@@ -73,17 +87,19 @@ class LLMPlayer(HitlerPlayer):
             self, response, f"{self.name}'s Chancellor Nomination", "cyan"
         )
 
-        # logger.debug("----------------------------")
-        # logger.debug("NOMINATING CHANCELLOR")
-        # logger.debug(f"Player: {self.name}")
-        # logger.debug("----------------------------")
-
-        for player in self.state.players:
+        # Parse response - try both exact match and partial match
+        for player in eligible_players:
             if f"FINAL SELECTION: {player.name.upper()}" in response.upper():
                 return player
+        
+        # Fallback: check if player name appears anywhere in response
+        for player in eligible_players:
+            if player.name.upper() in response.upper():
+                logger.debug(f"Found player name {player.name} in response (partial match)")
+                return player
 
-        logger.debug("No player nominated, returning random player.")
-        return choice(self.state.players)
+        logger.debug("No player nominated, returning random eligible player.")
+        return choice(eligible_players) if eligible_players else choice(self.state.players)
 
     def view_policies(self, policies: list[Policy]) -> None:
         """
@@ -129,16 +145,24 @@ class LLMPlayer(HitlerPlayer):
         # Get eligible players (alive and not self)
         eligible_players = [player for player in self.state.players 
                           if player != self and not player.is_dead]
+        
+        if not eligible_players:
+            logger.error("No eligible players to execute!")
+            return choice(self.state.players)
 
         prompt = f"""
         It is now your turn to execute a player using your presidential power.
         
-        Here is the state of the board. You may pick any one of the players, EXCEPT yourself.
+        Here is the state of the board:
 
         {self.get_known_state()}
 
-        You will first explain your inner thoughts and reasoning (which are private to you), then you will execute and respond EXACTLY and ONLY with one of the following options:
+        VALID OPTIONS (you MUST choose one of these):
             {["FINAL EXECUTION: " + player.name for player in eligible_players]}
+        
+        You may pick any living player EXCEPT yourself.
+
+        You will first explain your inner thoughts and reasoning (which are private to you), then you will execute and respond EXACTLY and ONLY with one of the VALID OPTIONS above.
         """
 
         response = self.get_completion(prompt, "Kill a Player")
@@ -153,9 +177,15 @@ class LLMPlayer(HitlerPlayer):
         for player in eligible_players:
             if f"FINAL EXECUTION: {player.name.upper()}" in response.upper():
                 return player
+        
+        # Fallback: check if player name appears anywhere
+        for player in eligible_players:
+            if player.name.upper() in response.upper():
+                logger.debug(f"Found player name {player.name} in response (partial match)")
+                return player
 
         logger.debug("No player selected for execution, returning random eligible player.")
-        return choice(eligible_players) if eligible_players else choice(self.state.players)
+        return choice(eligible_players)
 
     def inspect_player(self) -> "HitlerPlayer":
         """
@@ -166,6 +196,10 @@ class LLMPlayer(HitlerPlayer):
         # Get eligible players (alive and not self)
         eligible_players = [player for player in self.state.players 
                           if player != self and not player.is_dead]
+        
+        if not eligible_players:
+            logger.error("No eligible players to inspect!")
+            return choice(self.state.players)
 
         prompt = f"""It is now your turn. You must use your executive power to inspect someone's party membership. You should note that the player you inspect and their party membership will be revealed to you and only you. It is up to you to share this information with the other players.
 
@@ -173,11 +207,13 @@ class LLMPlayer(HitlerPlayer):
 
         {self.get_known_state()}
 
-        First, please describe what your inner thoughts and strategies are for this current move (they are private to you). Your future self will reference this strategy on the next turn when deciding what to do.
-        Then you will investigate and respond EXACTLY and ONLY with one of the following options:
+        VALID OPTIONS (you MUST choose one of these):
             {["FINAL INVESTIGATION: " + player.name for player in eligible_players]}
+        
+        You should NOT inspect yourself (you already know your role) or dead players.
 
-        You should NOT inspect yourself, as you already know your own party membership.
+        First, please describe what your inner thoughts and strategies are for this current move (they are private to you). Your future self will reference this strategy on the next turn when deciding what to do.
+        Then you will investigate and respond EXACTLY and ONLY with one of the VALID OPTIONS above.
         """
 
         response = self.get_completion(prompt, "Inspect Player")
@@ -192,9 +228,15 @@ class LLMPlayer(HitlerPlayer):
         for player in eligible_players:
             if f"FINAL INVESTIGATION: {player.name.upper()}" in response.upper():
                 return player
+        
+        # Fallback: check if player name appears anywhere
+        for player in eligible_players:
+            if player.name.upper() in response.upper():
+                logger.debug(f"Found player name {player.name} in response (partial match)")
+                return player
 
         logger.debug("No player selected for inspection, returning random eligible player.")
-        return choice(eligible_players) if eligible_players else choice(self.state.players)
+        return choice(eligible_players)
 
     def choose_next(self) -> "HitlerPlayer":
         """
@@ -205,16 +247,22 @@ class LLMPlayer(HitlerPlayer):
         # Get eligible players (alive and not self)
         eligible_players = [player for player in self.state.players 
                           if player != self and not player.is_dead]
+        
+        if not eligible_players:
+            logger.error("No eligible players to choose as next president!")
+            return choice(self.state.players)
 
         prompt = f"""It is now your turn. You must use your executive power to choose the next president. The current state of the game is as follows:
 
         {self.get_known_state()}
 
-        First, please describe what your inner thoughts and strategy are for this current move (they are private to you). Your future self will reference this strategy on the next turn when deciding what to do. Consider this like a monologue.
-        Then you will choose the next president and respond EXACTLY and ONLY with one of the following options:
+        VALID OPTIONS (you MUST choose one of these):
             {["FINAL CHOICE: " + player.name for player in eligible_players]}
+        
+        You must NOT choose yourself or dead players.
 
-        You must NOT choose yourself, as this is not allowed.
+        First, please describe what your inner thoughts and strategy are for this current move (they are private to you). Your future self will reference this strategy on the next turn when deciding what to do. Consider this like a monologue.
+        Then you will choose the next president and respond EXACTLY and ONLY with one of the VALID OPTIONS above.
         """
 
         response = self.get_completion(prompt, "Choose the next president")
@@ -229,9 +277,15 @@ class LLMPlayer(HitlerPlayer):
         for player in eligible_players:
             if f"FINAL CHOICE: {player.name.upper()}" in response.upper():
                 return player
+        
+        # Fallback: check if player name appears anywhere
+        for player in eligible_players:
+            if player.name.upper() in response.upper():
+                logger.debug(f"Found player name {player.name} in response (partial match)")
+                return player
 
         logger.debug("No player selected for next president, returning random eligible player.")
-        return choice(eligible_players) if eligible_players else choice(self.state.players)
+        return choice(eligible_players)
 
     def enact_policy(self, policies: list[Policy]) -> tuple[Policy, Policy]:
         prompt = f"""

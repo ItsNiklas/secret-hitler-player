@@ -445,15 +445,37 @@ class HitlerGame:
             logger.error("No president for chancellor nomination!")
             raise ValueError("No president!")
 
+        # Get valid chancellor candidates
+        valid_chancellors = [
+            p for p in self.state.players
+            if p != self.state.chancellor
+            and p != self.state.president
+            and not (self.playernum > 6 and p == self.state.ex_president)
+            and not p.is_dead
+        ]
+        
+        if not valid_chancellors:
+            logger.error("No valid chancellors available!")
+            raise ValueError("No valid chancellors!")
+
         chancellor = self.state.chancellor
+        max_retries = 5
+        retry_count = 0
+        
         while (
             chancellor == self.state.chancellor
             or chancellor == self.state.president
             or (self.playernum > 6 and chancellor == self.state.ex_president)
             or (chancellor and chancellor.is_dead)
         ):
-            logger.debug("Getting chancellor nomination from president...")
+            if retry_count >= max_retries:
+                logger.warning(f"President {self.state.president.name} failed to nominate valid chancellor after {max_retries} attempts. Selecting randomly from valid options: {[p.name for p in valid_chancellors]}")
+                chancellor = random.choice(valid_chancellors)
+                break
+            
+            logger.debug(f"Getting chancellor nomination from president (attempt {retry_count + 1}/{max_retries})...")
             chancellor = self.state.president.nominate_chancellor()
+            retry_count += 1
 
         assert chancellor is not None
         display_chancellor_nomination(self.state.president, chancellor)
@@ -775,10 +797,29 @@ class HitlerGame:
             display_info_message(
                 "[bold red]President choosing player to execute...[/bold red]"
             )
+            # Get valid execution targets
+            valid_targets = [
+                p for p in self.state.players
+                if not p.is_dead and p != self.state.president
+            ]
+            
+            if not valid_targets:
+                logger.warning("No valid execution targets available!")
+                return
+            
             killed_player = self.state.president.kill()
             logger.debug(f"Initial kill target: {killed_player}")
+            
+            max_retries = 5
+            retry_count = 0
             while killed_player.is_dead or killed_player == self.state.president:
+                if retry_count >= max_retries:
+                    logger.warning(f"President {self.state.president.name} failed to select valid execution target after {max_retries} attempts. Selecting randomly from: {[p.name for p in valid_targets]}")
+                    killed_player = random.choice(valid_targets)
+                    break
                 killed_player = self.state.president.kill()
+                retry_count += 1
+                
             killed_player.is_dead = True
             self.log += f"Player {killed_player} has been killed by President {self.state.president}\n"
             logger.info(f"Player {killed_player} has been killed")
@@ -788,10 +829,29 @@ class HitlerGame:
             display_info_message(
                 "[bold yellow]President investigating a player...[/bold yellow]"
             )
+            # Get valid inspection targets
+            valid_targets = [
+                p for p in self.state.players
+                if not p.is_dead and p != self.state.president
+            ]
+            
+            if not valid_targets:
+                logger.warning("No valid inspection targets available!")
+                return
+            
             inspect = self.state.president.inspect_player()
             logger.debug(f"Initial inspect target: {inspect}")
+            
+            max_retries = 5
+            retry_count = 0
             while inspect.is_dead or inspect == self.state.president:
+                if retry_count >= max_retries:
+                    logger.warning(f"President {self.state.president.name} failed to select valid inspection target after {max_retries} attempts. Selecting randomly from: {[p.name for p in valid_targets]}")
+                    inspect = random.choice(valid_targets)
+                    break
                 inspect = self.state.president.inspect_player()
+                retry_count += 1
+                
             self.state.president.inspected_players = (
                 f"{inspect.name} is a {inspect.role.party_membership}"
             )
@@ -809,11 +869,29 @@ class HitlerGame:
             display_info_message(
                 "[bold cyan]President choosing next president...[/bold cyan]"
             )
+            # Get valid next president candidates
+            valid_candidates = [
+                p for p in self.state.players
+                if not p.is_dead and p != self.state.president
+            ]
+            
+            if not valid_candidates:
+                logger.warning("No valid presidential candidates available!")
+                return
+            
             current_president = self.state.president
             chosen = self.state.president
             logger.debug("President choosing next president")
+            
+            max_retries = 5
+            retry_count = 0
             while chosen == self.state.president or chosen.is_dead:
+                if retry_count >= max_retries:
+                    logger.warning(f"President {self.state.president.name} failed to select valid next president after {max_retries} attempts. Selecting randomly from: {[p.name for p in valid_candidates]}")
+                    chosen = random.choice(valid_candidates)
+                    break
                 chosen = self.state.president.choose_next()
+                retry_count += 1
 
             self.state.president = chosen
             logger.info(f"President selected {chosen} as next president")

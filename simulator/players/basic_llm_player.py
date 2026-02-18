@@ -93,21 +93,39 @@ Respond with ONLY "JA" (yes) or "NEIN" (no)."""
 
     def nominate_chancellor(self) -> "HitlerPlayer":
         """Nominate chancellor without CoT"""
-        eligible = [p for p in self.state.players if p != self and not p.is_dead]
+        # Get eligible players (not self, not current chancellor, not dead)
+        eligible = [
+            p for p in self.state.players 
+            if p != self 
+            and p != self.state.chancellor
+            and not p.is_dead
+        ]
+        # Also exclude ex-president in larger games
+        if len(self.state.players) > 6 and self.state.ex_president:
+            eligible = [p for p in eligible if p != self.state.ex_president]
         
-        prompt = f"""Nominate a chancellor. You cannot pick yourself or the previous chancellor.
-Choose one player name from: {[p.name for p in self.state.players]}
+        if not eligible:
+            logger.error("No eligible chancellors!")
+            return choice(self.state.players)
+        
+        prompt = f"""Nominate a chancellor.
+        
+VALID OPTIONS (choose one of these names EXACTLY):
+{', '.join([p.name for p in eligible])}
 
-Respond with ONLY the player name."""
+You cannot pick yourself, the current chancellor, dead players, or the previous president (in 7+ player games).
+
+Respond with ONLY the player name from the valid options."""
 
         response = self.get_basic_completion(prompt, "Nominate Chancellor")
 
-        for player in self.state.players:
+        # Try exact name match first
+        for player in eligible:
             if player.name.upper() in response.upper():
                 return player
 
-        logger.debug(f"{self.name}: No clear nomination, returning random.")
-        return choice(eligible) if eligible else choice(self.state.players)
+        logger.debug(f"{self.name}: No clear nomination, returning random from eligible: {[p.name for p in eligible]}")
+        return choice(eligible)
 
     def view_policies(self, policies: list[Policy]) -> None:
         """View policies without analysis"""
@@ -117,10 +135,19 @@ Respond with ONLY the player name."""
     def kill(self) -> "HitlerPlayer":
         """Execute a player without CoT"""
         eligible = [p for p in self.state.players if p != self and not p.is_dead]
+        
+        if not eligible:
+            logger.error("No eligible players to execute!")
+            return choice(self.state.players)
 
-        prompt = f"""Execute a player. Choose one from: {[p.name for p in eligible]}
+        prompt = f"""Execute a player.
+        
+VALID OPTIONS (choose one of these names EXACTLY):
+{', '.join([p.name for p in eligible])}
 
-Respond with ONLY the player name."""
+You cannot execute yourself or dead players.
+
+Respond with ONLY the player name from the valid options."""
 
         response = self.get_basic_completion(prompt, "Kill")
 
@@ -128,16 +155,25 @@ Respond with ONLY the player name."""
             if player.name.upper() in response.upper():
                 return player
 
-        logger.debug(f"{self.name}: No clear execution choice, returning random.")
-        return choice(eligible) if eligible else choice(self.state.players)
+        logger.debug(f"{self.name}: No clear execution choice, returning random from eligible: {[p.name for p in eligible]}")
+        return choice(eligible)
 
     def inspect_player(self) -> "HitlerPlayer":
         """Inspect a player without CoT"""
         eligible = [p for p in self.state.players if p != self and not p.is_dead]
+        
+        if not eligible:
+            logger.error("No eligible players to inspect!")
+            return choice(self.state.players)
 
-        prompt = f"""Inspect a player's party membership. Choose one from: {[p.name for p in eligible]}
+        prompt = f"""Inspect a player's party membership.
+        
+VALID OPTIONS (choose one of these names EXACTLY):
+{', '.join([p.name for p in eligible])}
 
-Respond with ONLY the player name."""
+You cannot inspect yourself or dead players.
+
+Respond with ONLY the player name from the valid options."""
 
         response = self.get_basic_completion(prompt, "Inspect")
 
@@ -145,16 +181,25 @@ Respond with ONLY the player name."""
             if player.name.upper() in response.upper():
                 return player
 
-        logger.debug(f"{self.name}: No clear inspection choice, returning random.")
-        return choice(eligible) if eligible else choice(self.state.players)
+        logger.debug(f"{self.name}: No clear inspection choice, returning random from eligible: {[p.name for p in eligible]}")
+        return choice(eligible)
 
     def choose_next(self) -> "HitlerPlayer":
         """Choose next president without CoT"""
         eligible = [p for p in self.state.players if p != self and not p.is_dead]
+        
+        if not eligible:
+            logger.error("No eligible players to choose as next president!")
+            return choice(self.state.players)
 
-        prompt = f"""Choose the next president. Choose one from: {[p.name for p in eligible]}
+        prompt = f"""Choose the next president.
+        
+VALID OPTIONS (choose one of these names EXACTLY):
+{', '.join([p.name for p in eligible])}
 
-Respond with ONLY the player name."""
+You cannot choose yourself or dead players.
+
+Respond with ONLY the player name from the valid options."""
 
         response = self.get_basic_completion(prompt, "Choose President")
 
@@ -162,8 +207,8 @@ Respond with ONLY the player name."""
             if player.name.upper() in response.upper():
                 return player
 
-        logger.debug(f"{self.name}: No clear president choice, returning random.")
-        return choice(eligible) if eligible else choice(self.state.players)
+        logger.debug(f"{self.name}: No clear president choice, returning random from eligible: {[p.name for p in eligible]}")
+        return choice(eligible)
 
     def enact_policy(self, policies: list[Policy]) -> tuple[Policy, Policy]:
         """Chancellor policy choice without CoT"""
