@@ -367,7 +367,8 @@ class HitlerGame:
                 )
             elif player_type == "RANDOM":
                 player = RandomPlayer(
-                    num, name, roles.pop(0), self.state, self.state.game_log, self.state.chat_log
+                    num, name, roles.pop(0), self.state, self.state.game_log, self.state.chat_log,
+                    api_key=api_key, base_url=base_url
                 )
             else:
                 raise ValueError(f"Unknown player type: {player_type}")

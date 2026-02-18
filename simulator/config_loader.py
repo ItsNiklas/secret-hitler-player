@@ -24,6 +24,7 @@ class Config:
             "basic_llm_player": None,
             "cpu_player": None,
             "rule_player": None,
+            "random_player": None,
         }
         
         # Processing
@@ -105,6 +106,12 @@ class Config:
                     'api_key': config._expand_env_vars(llm['rule_player'].get('api_key', '')),
                     'base_url': config._expand_env_vars(llm['rule_player'].get('base_url', 'http://localhost:8080/v1/'))
                 }
+            
+            if 'random_player' in llm:
+                config.llm['random_player'] = {
+                    'api_key': config._expand_env_vars(llm['random_player'].get('api_key', '')),
+                    'base_url': config._expand_env_vars(llm['random_player'].get('base_url', 'http://localhost:8080/v1/'))
+                }
         
         # Load processing settings
         if 'processing' in data:
@@ -139,6 +146,13 @@ class Config:
         elif player_type == "RULE":
             if self.llm['rule_player']:
                 return (self.llm['rule_player']['api_key'], self.llm['rule_player']['base_url'])
+            # Fallback to CPU config
+            elif self.llm['cpu_player']:
+                return (self.llm['cpu_player']['api_key'], self.llm['cpu_player']['base_url'])
+        
+        elif player_type == "RANDOM":
+            if self.llm['random_player']:
+                return (self.llm['random_player']['api_key'], self.llm['random_player']['base_url'])
             # Fallback to CPU config
             elif self.llm['cpu_player']:
                 return (self.llm['cpu_player']['api_key'], self.llm['cpu_player']['base_url'])

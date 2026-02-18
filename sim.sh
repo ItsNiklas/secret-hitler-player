@@ -30,7 +30,7 @@ for i in {1..100}; do
     # Games 61-80: Fascist
     # Games 81-100: Hitler
     if [ $i -le 60 ]; then
-        ROLE="hitler"
+        ROLE="liberal"
     elif [ $i -le 80 ]; then
         ROLE="fascist"
     else
