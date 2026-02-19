@@ -30,6 +30,13 @@ class Config:
         # Processing
         self.enable_parallel = True
         self.max_parallel_games = 4
+
+        # Human experiment settings
+        self.human_experiment = False
+        self.manual_deck = False
+        self.manual_roles = False
+        self.first_president = None
+        self.player_names = None
     
     @staticmethod
     def _expand_env_vars(value):
@@ -69,6 +76,11 @@ class Config:
             config.simple_mode = g.get('simple_mode', config.simple_mode)
             config.cutoff_rounds = g.get('cutoff_rounds', config.cutoff_rounds)
             config.player_types = g.get('player_types', config.player_types)
+            config.human_experiment = g.get('human_experiment', config.human_experiment)
+            config.manual_deck = g.get('manual_deck', config.manual_deck)
+            config.manual_roles = g.get('manual_roles', config.manual_roles)
+            config.first_president = g.get('first_president', config.first_president)
+            config.player_names = g.get('player_names', config.player_names)
         
         # Load LLM settings
         if 'llm' in data:

@@ -11,11 +11,12 @@ from random import randint
 
 from config_loader import Config
 from HitlerGameState import GameState
-from players import HitlerPlayer, LLMPlayer, BasicLLMPlayer, RulePlayer, CPUPlayer, RandomPlayer
+from players import HitlerPlayer, LLMPlayer, BasicLLMPlayer, RulePlayer, CPUPlayer, RandomPlayer, HumanPlayer
 from HitlerFactory import (
     FASCIST_POLICIES_TO_WIN,
     LIBERAL_POLICIES_TO_WIN,
     PLAYER_NAMES,
+    PLAYERS,
     Ja,
     Nein,
     logger,
@@ -79,6 +80,19 @@ class HitlerGame:
             self.playernum = args.players
             self.state = GameState(args.players)
         
+        # Human experiment settings
+        self.human_experiment = getattr(args, 'human_experiment', False)
+        self.manual_deck = getattr(args, 'manual_deck', False) or self.human_experiment
+        self.manual_roles = getattr(args, 'manual_roles', False) or self.human_experiment
+        self.first_president = getattr(args, 'first_president', None)
+        self.player_names = getattr(args, 'player_names', None)
+
+        # Apply manual deck mode to state
+        self.state.manual_deck = self.manual_deck
+        if self.manual_deck:
+            self.state.policies = []
+            self.state.discards = []
+
         # Load chat data from JSON file if provided
         if hasattr(args, "chat_json") and args.chat_json:
             logger.info(f"Loading chat data from JSON file: {args.chat_json}")
@@ -127,6 +141,14 @@ class HitlerGame:
         """Main game loop"""
         display_game_header()
         logger.info("Starting game")
+
+        if self.human_experiment:
+            print("\n" + "=" * 60, flush=True)
+            print("  HUMAN EXPERIMENT MODE ACTIVE", flush=True)
+            print("  Manual deck: ON   Manual roles: ON", flush=True)
+            print("  You are the middleman between LLM and website.", flush=True)
+            print("=" * 60, flush=True)
+
         self.assign_players()
         self.inform_fascists()
         # self.choose_first_president()
@@ -175,6 +197,10 @@ class HitlerGame:
         self.state.ex_president = self.state.president
         self.set_next_president()
 
+        # In human experiment mode, let operator confirm/override president
+        if self.human_experiment:
+            self._confirm_president()
+
         # Initialize a log entry for this turn
         self.current_log_entry = {
             "_id": str(uuid.uuid4())[:24],
@@ -201,7 +227,11 @@ class HitlerGame:
         chat = "Discussion Before Voting:\n"
         # Only living players should participate in discussion
         living_discussants = [p for p in self.state.players if not p.is_dead]
-        random.shuffle(living_discussants)
+        if self.human_experiment:
+            # Humans discuss first so LLM sees all messages before responding
+            living_discussants.sort(key=lambda p: not isinstance(p, HumanPlayer))
+        else:
+            random.shuffle(living_discussants)
         logger.info("[bold green]Players discussing before vote...[/bold green]")
         for player in living_discussants:
             response = player.discuss(chat, "discussion_on_potential_government")
@@ -281,7 +311,10 @@ class HitlerGame:
             logger.debug("Starting post-policy discussion")
             chat = "Discussion After Policy Enactment:\n"
             living_discussants = [p for p in self.state.players if not p.is_dead]
-            random.shuffle(living_discussants)
+            if self.human_experiment:
+                living_discussants.sort(key=lambda p: not isinstance(p, HumanPlayer))
+            else:
+                random.shuffle(living_discussants)
             logger.info("[bold green]Players discussing after policy...[/bold green]")
             for player in living_discussants:
                 response = player.discuss(chat, "after_policy")
@@ -307,35 +340,111 @@ class HitlerGame:
 
         return False
 
+    def _get_player_names(self) -> list[str]:
+        """Get player names, using custom names if provided."""
+        names = []
+        for num in range(self.playernum):
+            if self.player_names and num < len(self.player_names):
+                names.append(self.player_names[num])
+            else:
+                names.append(PLAYER_NAMES[num])
+        return names
+
+    def _prompt_roles(self, names: list[str]) -> list:
+        """Prompt operator to input roles matching the website game."""
+        from HitlerFactory import LiberalRole, FascistRole, HitlerRole
+
+        num_libs, num_fas, _ = PLAYERS[self.playernum]
+        expected = {"L": num_libs, "F": num_fas, "H": 1}
+
+        print("\n" + "=" * 60, flush=True)
+        print("  MANUAL ROLE ASSIGNMENT", flush=True)
+        print(f"  Match roles from the website ({self.playernum} players).", flush=True)
+        print(f"  Expected: {expected['L']}× Liberal, {expected['F']}× Fascist, 1× Hitler", flush=True)
+        print("=" * 60, flush=True)
+
+        roles = []
+        counts = {"L": 0, "F": 0, "H": 0}
+        role_map = {"L": LiberalRole, "F": FascistRole, "H": HitlerRole}
+
+        for num in range(self.playernum):
+            player_type = "?"
+            if self.player_types and num < len(self.player_types):
+                player_type = self.player_types[num]
+            while True:
+                remaining = {k: expected[k] - counts[k] for k in expected}
+                print(f"\n  Remaining: {remaining['L']}L {remaining['F']}F {remaining['H']}H", flush=True)
+                try:
+                    r = input(f"  {names[num]} ({player_type}): role? [L/F/H]: ").strip().upper()
+                except (EOFError, KeyboardInterrupt):
+                    raise
+                if r in ('L', 'F', 'H') and counts[r] < expected[r]:
+                    counts[r] += 1
+                    roles.append(role_map[r]())
+                    break
+                elif r in ('L', 'F', 'H'):
+                    print(f"    All {r} roles already assigned.", flush=True)
+                else:
+                    print("    Enter L (Liberal), F (Fascist), or H (Hitler).", flush=True)
+
+        print(f"\n  Roles assigned: {[str(r) for r in roles]}", flush=True)
+        return roles
+
+    def _prompt_first_president(self) -> int:
+        """Prompt operator to select starting president matching the website."""
+        print("\n" + "=" * 60, flush=True)
+        print("  STARTING PRESIDENT", flush=True)
+        print("  Who is the starting president on the website?", flush=True)
+        print("=" * 60, flush=True)
+        for i, player in enumerate(self.state.players):
+            print(f"    {i}) {player.name}", flush=True)
+        while True:
+            try:
+                r = input("  Enter player number or name: ").strip()
+            except (EOFError, KeyboardInterrupt):
+                raise
+            if r.isdigit() and 0 <= int(r) < len(self.state.players):
+                return int(r)
+            for i, player in enumerate(self.state.players):
+                if r.lower() == player.name.lower():
+                    return i
+            print("  Invalid. Enter a player number or name.", flush=True)
+
     def assign_players(self) -> None:
         if self.state.players:
             logger.debug("Players already have roles assigned, skipping assignment")
             return
         logger.debug(f"Assigning roles to {self.playernum} players")
-        roles = self.state.shuffle_roles()
-        
-        # If forcing player 1 role, swap the first role with the requested one
-        if self.role:
-            from HitlerFactory import LiberalRole, FascistRole, HitlerRole
-            forced_role_map = {
-                'liberal': LiberalRole,
-                'fascist': FascistRole,
-                'hitler': HitlerRole
-            }
-            if self.role.lower() in forced_role_map:
-                forced_role_class = forced_role_map[self.role.lower()]
-                # Find the first instance of the forced role in the list
-                for i, role in enumerate(roles):
-                    if isinstance(role, forced_role_class):
-                        # Swap with position 0
-                        roles[0], roles[i] = roles[i], roles[0]
-                        logger.info(f"Forced player 1 (Alice) to be {self.role}")
-                        break
+
+        # Determine player names (custom or default)
+        names = self._get_player_names()
+
+        # Get roles: manual input or shuffled
+        if self.manual_roles:
+            roles = self._prompt_roles(names)
+        else:
+            roles = self.state.shuffle_roles()
+
+            # If forcing player 1 role, swap the first role with the requested one
+            if self.role:
+                from HitlerFactory import LiberalRole, FascistRole, HitlerRole
+                forced_role_map = {
+                    'liberal': LiberalRole,
+                    'fascist': FascistRole,
+                    'hitler': HitlerRole
+                }
+                if self.role.lower() in forced_role_map:
+                    forced_role_class = forced_role_map[self.role.lower()]
+                    for i, role in enumerate(roles):
+                        if isinstance(role, forced_role_class):
+                            roles[0], roles[i] = roles[i], roles[0]
+                            logger.info(f"Forced player 1 ({names[0]}) to be {self.role}")
+                            break
 
         display_info_message("[yellow]Assigning player roles...")
 
         for num in range(self.playernum):
-            name = PLAYER_NAMES[num]
+            name = names[num]
             # Determine player type from config or default (first player is LLM)
             if self.player_types and num < len(self.player_types):
                 player_type = self.player_types[num].upper()
@@ -370,6 +479,10 @@ class HitlerGame:
                     num, name, roles.pop(0), self.state, self.state.game_log, self.state.chat_log,
                     api_key=api_key, base_url=base_url
                 )
+            elif player_type == "HUMAN":
+                player = HumanPlayer(
+                    num, name, roles.pop(0), self.state, self.state.game_log, self.state.chat_log
+                )
             else:
                 raise ValueError(f"Unknown player type: {player_type}")
 
@@ -378,7 +491,7 @@ class HitlerGame:
                 "player_id": num,
                 "name": name,
                 "type": player_type,
-                "base_url": base_url
+                "base_url": base_url if player_type != "HUMAN" else "N/A"
             }
             self.player_config.append(player_info)
 
@@ -419,9 +532,16 @@ class HitlerGame:
 
     def choose_first_president(self) -> None:
         """
-        Choose a random player to be the first president.
+        Choose a random player to be the first president,
+        or prompt the operator in human experiment mode.
         """
-        first_pres = self.state.players[randint(0, len(self.state.players) - 1)]
+        if self.first_president is not None:
+            first_pres = self.state.players[self.first_president]
+        elif self.human_experiment or self.manual_roles:
+            first_pres_id = self._prompt_first_president()
+            first_pres = self.state.players[first_pres_id]
+        else:
+            first_pres = self.state.players[randint(0, len(self.state.players) - 1)]
         self.state.president = first_pres
         logger.info(f"First president chosen: {first_pres}")
 
@@ -659,6 +779,242 @@ class HitlerGame:
             self.state.game_data_logs.append(self.current_log_entry)
             return False
 
+    # ------------------------------------------------------------------
+    # Human experiment helpers
+    # ------------------------------------------------------------------
+
+    def _confirm_president(self) -> None:
+        """Let the operator confirm or override the current president to match the website."""
+        print(f"\n{'=' * 55}", flush=True)
+        print(f"  TURN {self.state.turn_count + 1} — PRESIDENT CHECK", flush=True)
+        print(f"  Framework expects president: {self.state.president.name}", flush=True)
+        print(f"  Press Enter to confirm, or type name/number to override", flush=True)
+        print(f"{'=' * 55}", flush=True)
+        for i, p in enumerate(self.state.players):
+            dead = " (DEAD)" if p.is_dead else ""
+            marker = " <<<" if p == self.state.president else ""
+            print(f"    {i}) {p.name}{dead}{marker}", flush=True)
+
+        try:
+            response = input("  > ").strip()
+        except (EOFError, KeyboardInterrupt):
+            raise
+
+        if not response:
+            print(f"  -> Confirmed: {self.state.president.name}", flush=True)
+            return
+
+        # Try to match by number or name
+        for i, p in enumerate(self.state.players):
+            if response == str(i) or response.lower() == p.name.lower():
+                if not p.is_dead:
+                    self.state.president = p
+                    print(f"  -> President overridden to: {p.name}", flush=True)
+                    return
+                else:
+                    print(f"  -> {p.name} is dead! Keeping {self.state.president.name}", flush=True)
+                    return
+        print(f"  -> Not recognised, keeping {self.state.president.name}", flush=True)
+
+    def _prompt_enacted_policy(self) -> "Policy":
+        """Ask operator what policy was enacted on the website."""
+        from HitlerFactory import LiberalPolicy, FascistPolicy
+        while True:
+            print(f"\n  What policy was enacted on the website?", flush=True)
+            print(f"    L = Liberal,  F = Fascist", flush=True)
+            try:
+                r = input("  > ").strip().upper()
+            except (EOFError, KeyboardInterrupt):
+                raise
+            if r in ('L', 'LIBERAL'):
+                return LiberalPolicy()
+            elif r in ('F', 'FASCIST'):
+                return FascistPolicy()
+            print("  Enter L or F.", flush=True)
+
+    def _prompt_chancellor_pick(self, policies: list["Policy"]) -> "Policy":
+        """Ask operator which of the given policies the human chancellor enacted."""
+        from HitlerFactory import LiberalPolicy, FascistPolicy
+        labels = [str(p) for p in policies]
+        while True:
+            print(f"\n  Policies passed to chancellor: {labels}", flush=True)
+            print(f"  Which did the chancellor enact on the website?", flush=True)
+            print(f"    L = Liberal,  F = Fascist", flush=True)
+            try:
+                r = input("  > ").strip().upper()
+            except (EOFError, KeyboardInterrupt):
+                raise
+            if r in ('L', 'LIBERAL'):
+                # Find a matching policy
+                for p in policies:
+                    if isinstance(p, LiberalPolicy):
+                        return p
+                print("  No Liberal policy in the list!", flush=True)
+            elif r in ('F', 'FASCIST'):
+                for p in policies:
+                    if isinstance(p, FascistPolicy):
+                        return p
+                print("  No Fascist policy in the list!", flush=True)
+            else:
+                print("  Enter L or F.", flush=True)
+
+    def _prompt_policies_for_chancellor(self) -> list["Policy"]:
+        """Ask operator to input the 2 policies passed to the LLM chancellor."""
+        from HitlerFactory import LiberalPolicy, FascistPolicy
+        while True:
+            print(f"\n{'=' * 50}", flush=True)
+            print(f"  CHANCELLOR HAND INPUT", flush=True)
+            print(f"  What 2 policies were passed to the LLM chancellor?", flush=True)
+            print(f"  L = Liberal, F = Fascist  (e.g. 'LF')", flush=True)
+            print(f"{'=' * 50}", flush=True)
+            try:
+                r = input("  > ").strip().upper()
+            except (EOFError, KeyboardInterrupt):
+                raise
+            if len(r) == 2 and all(c in ('L', 'F') for c in r):
+                policies = [LiberalPolicy() if c == 'L' else FascistPolicy() for c in r]
+                print(f"  -> Chancellor receives: {[str(p) for p in policies]}", flush=True)
+                return policies
+            print("  Enter exactly 2 characters, each L or F.", flush=True)
+
+    def _prompt_veto_outcome(self) -> bool:
+        """Ask operator whether the agenda was vetoed on the website."""
+        while True:
+            print(f"\n  VETO POWER is available. Was the agenda vetoed on the website?", flush=True)
+            print(f"    Y = Yes (vetoed),  N = No (policy enacted)", flush=True)
+            try:
+                r = input("  > ").strip().upper()
+            except (EOFError, KeyboardInterrupt):
+                raise
+            if r in ('Y', 'YES'):
+                return True
+            elif r in ('N', 'NO'):
+                return False
+            print("  Enter Y or N.", flush=True)
+
+    def _human_experiment_legislation(self) -> bool:
+        """
+        Handle legislation in human experiment mode.
+        Adapts the flow based on which players are LLM vs human.
+        """
+        president = self.state.president
+        chancellor = self.state.chancellor
+        pres_is_human = isinstance(president, HumanPlayer)
+        chan_is_human = isinstance(chancellor, HumanPlayer)
+
+        enacted = None
+        discarded = None
+
+        if not pres_is_human and not chan_is_human:
+            # ── Both LLM (rare in 1-LLM setup but handle it) ──
+            # Full standard flow with manual deck
+            drawn_policies = self.state.draw_policy(3)
+            self.current_log_entry["presidentHand"] = [p.type for p in drawn_policies]
+            display_info_message(f"[bold green]President selecting policies...[/bold green] ({[p.type[0] for p in drawn_policies]})")
+            (take, disc) = president.filter_policies(drawn_policies)
+            self.state.discard([disc])
+            self.current_log_entry["chancellorHand"] = [p.type for p in take]
+            display_info_message(f"[bold green]Chancellor selecting policy...[/bold green] ({[p.type[0] for p in take]})")
+            (enacted, discarded) = chancellor.enact_policy(take)
+
+        elif not pres_is_human and chan_is_human:
+            # ── LLM president, human chancellor ──
+            # Operator can see drawn cards (they control LLM seat on website)
+            drawn_policies = self.state.draw_policy(3)
+            self.current_log_entry["presidentHand"] = [p.type for p in drawn_policies]
+            display_info_message(f"[bold green]LLM President selecting policies...[/bold green] ({[p.type[0] for p in drawn_policies]})")
+            (take, disc) = president.filter_policies(drawn_policies)
+            self.state.discard([disc])
+            self.current_log_entry["chancellorHand"] = [p.type for p in take]
+
+            print(f"\n{'=' * 50}", flush=True)
+            print(f"  LLM President ({president.name}) passes to Chancellor:", flush=True)
+            print(f"    {[str(p) for p in take]}", flush=True)
+            print(f"  -> Apply this on the website, then input result", flush=True)
+            print(f"{'=' * 50}", flush=True)
+
+            # Handle veto if available (for mixed LLM-president/human-chancellor)
+            if self.state.fascist_track >= 5:
+                vetoed = self._prompt_veto_outcome()
+                if vetoed:
+                    return self._process_veto(president, chancellor)
+
+            enacted = self._prompt_chancellor_pick(take)
+            discarded_list = [p for p in take if p is not enacted]
+            discarded = discarded_list[0] if discarded_list else None
+
+        elif pres_is_human and not chan_is_human:
+            # ── Human president, LLM chancellor ──
+            # Operator sees the 2 policies passed to LLM's seat on website
+            self.current_log_entry["presidentHand"] = []  # unknown
+            take = self._prompt_policies_for_chancellor()
+            self.current_log_entry["chancellorHand"] = [p.type for p in take]
+
+            display_info_message(f"[bold green]LLM Chancellor selecting policy...[/bold green] ({[p.type[0] for p in take]})")
+            (enacted, discarded) = chancellor.enact_policy(take)
+
+            # Handle veto if available
+            if self.state.fascist_track >= 5:
+                chan_wants_veto = chancellor.veto([enacted, discarded])
+                if chan_wants_veto:
+                    print(f"\n  LLM Chancellor ({chancellor.name}) PROPOSES VETO.", flush=True)
+                    print(f"  -> Relay this to the website.", flush=True)
+                    vetoed = self._prompt_veto_outcome()
+                    if vetoed:
+                        return self._process_veto(president, chancellor)
+                    else:
+                        print(f"  -> President rejected veto; enacting {enacted}.", flush=True)
+
+        else:
+            # ── Both human ──
+            # Operator only sees the final enacted policy on the website
+            self.current_log_entry["presidentHand"] = []
+            self.current_log_entry["chancellorHand"] = []
+
+            # Handle veto if available
+            if self.state.fascist_track >= 5:
+                vetoed = self._prompt_veto_outcome()
+                if vetoed:
+                    return self._process_veto(president, chancellor)
+
+            enacted = self._prompt_enacted_policy()
+
+        # ── Enact the policy ──
+        if discarded is not None:
+            self.state.discard([discarded])
+
+        display_policy_enacted(enacted)
+        self.current_log_entry["enactedPolicy"] = enacted.type
+        self.state.game_data_logs.append(self.current_log_entry)
+        self.log += f"{str(enacted)} policy enacted by President {president} and Chancellor {chancellor}\n"
+
+        # Update CPU players' reputation after legislation
+        for player in self.state.players:
+            if isinstance(player, CPUPlayer) and not player.is_dead:
+                player.update_after_legislation()
+
+        return self.state.enact_policy(enacted)
+
+    def _process_veto(self, president, chancellor) -> bool:
+        """Process a vetoed agenda in human experiment mode."""
+        logger.info("Veto enacted (from website)")
+        display_veto()
+        self.log += f"Veto enacted by President {president} and Chancellor {chancellor}\n"
+        self.current_log_entry["enactedPolicy"] = "veto"
+        self.current_log_entry["vetoUsed"] = True
+
+        self.state.failed_votes += 1
+        logger.info(f"Election tracker advanced to {self.state.failed_votes}")
+
+        if self.state.failed_votes == 3:
+            return self._handle_three_failed_votes()
+        else:
+            display_failed_votes(self.state.failed_votes)
+            self.state.game_data_logs.append(self.current_log_entry)
+            return False
+
+    # ------------------------------------------------------------------
+
     def vote_passed(self) -> bool:
         """
         The vote has passed! Get the president and chancellor to do their thing.
@@ -667,6 +1023,10 @@ class HitlerGame:
         if self.state.president is None or self.state.chancellor is None:
             logger.error("Missing president/chancellor!")
             raise ValueError()
+
+        # In human experiment mode, use the adapted legislation flow
+        if self.human_experiment:
+            return self._human_experiment_legislation()
 
         drawn_policies = self.state.draw_policy(3)
         logger.debug(f"Drew policies: {drawn_policies}")
@@ -784,14 +1144,19 @@ class HitlerGame:
         display_special_action(action)
 
         if action == "policy":
-            top_three = self.state.draw_policy(3)
-            logger.debug(f"President viewing policies: {top_three}")
-            display_info_message(
-                "[bold blue]President examining top policies...[/bold blue]"
-            )
-            self.state.president.view_policies(top_three)
-            display_policy_view(self.state.president)
-            self.state.return_policy(top_three)
+            if self.human_experiment and isinstance(self.state.president, HumanPlayer):
+                # Human president peeked on website — we don't know the cards
+                print(f"\n  [Human president {self.state.president.name} peeked at top 3 policies on website]", flush=True)
+                display_policy_view(self.state.president)
+            else:
+                top_three = self.state.draw_policy(3)
+                logger.debug(f"President viewing policies: {top_three}")
+                display_info_message(
+                    "[bold blue]President examining top policies...[/bold blue]"
+                )
+                self.state.president.view_policies(top_three)
+                display_policy_view(self.state.president)
+                self.state.return_policy(top_three)
 
         elif action == "kill":
             display_info_message(
@@ -1126,6 +1491,36 @@ if __name__ == "__main__":
         default=None,
         help="Force player 1 (Alice) to have a specific role: liberal, fascist, or hitler",
     )
+    parser.add_argument(
+        "--human-experiment",
+        action="store_true",
+        default=False,
+        help="Enable human experiment mode (implies --manual-deck and --manual-roles, sets HUMAN player types)",
+    )
+    parser.add_argument(
+        "--manual-deck",
+        action="store_true",
+        default=False,
+        help="Override policy deck draws with manual input from an external game",
+    )
+    parser.add_argument(
+        "--manual-roles",
+        action="store_true",
+        default=False,
+        help="Manually assign roles to match an external game",
+    )
+    parser.add_argument(
+        "--first-president",
+        type=int,
+        default=None,
+        help="Set the starting president by player index (0-based)",
+    )
+    parser.add_argument(
+        "--player-names",
+        type=lambda s: s.split(','),
+        default=None,
+        help="Comma-separated custom player names (e.g., 'LLMBot,John,Jane,Mike,Sarah')",
+    )
     args = parser.parse_args()
 
     # Load configuration - config file is now required
@@ -1152,7 +1547,29 @@ if __name__ == "__main__":
     args.log_level = config.log_level
     if not args.player_types:
         args.player_types = config.player_types
-    
+
+    # Human experiment settings from config (CLI flags override)
+    if not args.human_experiment:
+        args.human_experiment = getattr(config, 'human_experiment', False)
+    if not args.manual_deck:
+        args.manual_deck = getattr(config, 'manual_deck', False)
+    if not args.manual_roles:
+        args.manual_roles = getattr(config, 'manual_roles', False)
+    if args.first_president is None:
+        args.first_president = getattr(config, 'first_president', None)
+    if args.player_names is None:
+        args.player_names = getattr(config, 'player_names', None)
+
+    # Human experiment mode implies manual deck + manual roles
+    if args.human_experiment:
+        args.manual_deck = True
+        args.manual_roles = True
+        # Default player types for human experiment: 1 LLM + 4 HUMAN
+        if not args.player_types or args.player_types == config.player_types:
+            has_human = any(t.upper() == "HUMAN" for t in (args.player_types or []))
+            if not has_human:
+                args.player_types = ["LLM"] + ["HUMAN"] * (args.players - 1)
+
     # Apply processing config
     HitlerPlayer.enable_parallel_processing = config.enable_parallel
 

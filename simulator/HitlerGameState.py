@@ -47,6 +47,10 @@ class GameState:
         self.hitler: Optional["HitlerPlayer"] = None  # Added hitler from HitlerGame
         self.game_data_logs: list[dict] = []  # Added structured logs for JSON summary
 
+        # Manual deck mode: when True, policy draws are input by the user
+        # (for syncing with an external game, e.g. website)
+        self.manual_deck = False
+
         # Former HitlerBoard attributes
         self.num_players = playercount
         if playercount > 0:
@@ -258,6 +262,9 @@ class GameState:
         return roles
 
     def draw_policy(self, num: int) -> list[Policy]:
+        if self.manual_deck:
+            return self._manual_draw(num)
+
         if len(self.policies) < num:
             # Shuffle the discards and add them to the remaining policies
             shuffle(self.discards)
@@ -271,10 +278,36 @@ class GameState:
         self.policies = self.policies[num:]
         return drawn
 
+    def _manual_draw(self, num: int) -> list[Policy]:
+        """Prompt the operator to input drawn policies from the external game."""
+        import sys
+        while True:
+            print(f"\n{'=' * 50}", flush=True)
+            print(f"  MANUAL DECK INPUT", flush=True)
+            print(f"  Enter {num} drawn polic{'y' if num == 1 else 'ies'} from the website", flush=True)
+            print(f"  L = Liberal, F = Fascist  (e.g. 'FFL')", flush=True)
+            print(f"{'=' * 50}", flush=True)
+            try:
+                response = input("  > ").strip().upper()
+            except (EOFError, KeyboardInterrupt):
+                print("", file=sys.stderr)
+                raise
+            if len(response) == num and all(c in ('L', 'F') for c in response):
+                policies = []
+                for c in response:
+                    policies.append(LiberalPolicy() if c == 'L' else FascistPolicy())
+                print(f"  -> Drew: {[str(p) for p in policies]}", flush=True)
+                return policies
+            print(f"  Invalid. Enter exactly {num} character(s), each L or F.", flush=True)
+
     def discard(self, cards: list[Policy]) -> None:
+        if self.manual_deck:
+            return  # External game manages its own deck
         self.discards.extend(cards)
 
     def return_policy(self, policies: list[Policy]) -> None:
+        if self.manual_deck:
+            return  # External game manages its own deck
         self.policies.extend(policies)
         shuffle(self.policies)
 

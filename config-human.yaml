@@ -1,0 +1,41 @@
+# Secret Hitler – Human Experiment Configuration
+# 1 LLM player vs 4 human players on an external website.
+# The operator acts as middleman, copying messages and inputting choices.
+
+game:
+  players: 5
+  output: "output.txt"
+  log_level: "INFO"
+  summary_path: "./runs-human"
+
+  # Enable human experiment mode:
+  #   - manual_deck: policy draws are input from the website instead of RNG
+  #   - manual_roles: roles are input to match the website assignment
+  #   - first president is prompted at startup
+  human_experiment: true
+
+  # Player types: first is the LLM, rest are human proxies
+  player_types:
+    - "LLM"
+    - "HUMAN"
+    - "HUMAN"
+    - "HUMAN"
+    - "HUMAN"
+
+  # Optional: custom player names to match website usernames
+  # Uncomment and edit to reduce confusion when relaying actions:
+  player_names:
+    - "Alice2"
+    - "Bob2"
+    - "Charlie4"
+    - "David5"
+    - "Eve1"
+
+llm:
+  llm_player:
+    advanced:
+      api_key: "your-api-key"
+      base_url: "http://localhost:8080/v1/"
+
+processing:
+  enable_parallel: false # Must be false with human players
