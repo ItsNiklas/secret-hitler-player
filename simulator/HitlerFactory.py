@@ -64,6 +64,14 @@ class HitlerRole(Role):
         self.role = "hitler"
 
 
+class UnknownRole(Role):
+    """Placeholder role for players whose role is not known to the operator."""
+    def __init__(self) -> None:
+        super(UnknownRole, self).__init__()
+        self.party_membership = "unknown"
+        self.role = "unknown"
+
+
 class Policy(object):
     def __init__(self, type: str) -> None:
         self.type = type

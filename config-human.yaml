@@ -5,7 +5,7 @@
 game:
   players: 5
   output: "output.txt"
-  log_level: "INFO"
+  log_level: "DEBUG"
   summary_path: "./runs-human"
 
   # Enable human experiment mode:
@@ -26,7 +26,7 @@ game:
   # Uncomment and edit to reduce confusion when relaying actions:
   player_names:
     - "Alice2"
-    - "Bob2"
+    - "Bob3"
     - "Charlie4"
     - "David5"
     - "Eve1"
@@ -34,7 +34,7 @@ game:
 llm:
   llm_player:
     advanced:
-      api_key: "your-api-key"
+      api_key: "9c89c616-649e-4d77-a6ad-1b1e525f94b5"
       base_url: "http://localhost:8080/v1/"
 
 processing:

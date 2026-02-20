@@ -150,6 +150,12 @@ class HitlerGame:
             print("=" * 60, flush=True)
 
         self.assign_players()
+
+        # In human experiment mode, let operator set the seat order
+        # to match the website's rotation
+        if self.human_experiment:
+            self._prompt_seat_order()
+
         self.inform_fascists()
         # self.choose_first_president()
 
@@ -227,11 +233,7 @@ class HitlerGame:
         chat = "Discussion Before Voting:\n"
         # Only living players should participate in discussion
         living_discussants = [p for p in self.state.players if not p.is_dead]
-        if self.human_experiment:
-            # Humans discuss first so LLM sees all messages before responding
-            living_discussants.sort(key=lambda p: not isinstance(p, HumanPlayer))
-        else:
-            random.shuffle(living_discussants)
+        random.shuffle(living_discussants)
         logger.info("[bold green]Players discussing before vote...[/bold green]")
         for player in living_discussants:
             response = player.discuss(chat, "discussion_on_potential_government")
@@ -298,7 +300,11 @@ class HitlerGame:
             self.log += f"Vote passed: {self.vote_count[0]} voted JA to {self.vote_count[1]} voted NEIN\n"
 
             # Possibility to win if Hitler is chancellor and more than 2 fascist policies enacted.
-            if self.hitler_chancellor_win():
+            if self.human_experiment:
+                if self._human_experiment_check_hitler_chancellor():
+                    self.state.game_data_logs.append(self.current_log_entry)
+                    return True
+            elif self.hitler_chancellor_win():
                 self.state.game_data_logs.append(self.current_log_entry)
                 logger.info("Hitler chancellor win condition met.")
                 return True
@@ -306,15 +312,17 @@ class HitlerGame:
             action_enacted = self.vote_passed()
 
         # Post-policy discussion -----------------------------------------------------
-        if action_enacted:
+        # In human experiment mode, always discuss after a successful vote
+        # (action_enacted is only True when a fascist track action fires,
+        #  so without this guard liberal policies and early fascist policies
+        #  would skip the after_policy discussion entirely.)
+        should_discuss = action_enacted if not self.human_experiment else voted
+        if should_discuss:
             # DISCUSS HERE
             logger.debug("Starting post-policy discussion")
             chat = "Discussion After Policy Enactment:\n"
             living_discussants = [p for p in self.state.players if not p.is_dead]
-            if self.human_experiment:
-                living_discussants.sort(key=lambda p: not isinstance(p, HumanPlayer))
-            else:
-                random.shuffle(living_discussants)
+            random.shuffle(living_discussants)
             logger.info("[bold green]Players discussing after policy...[/bold green]")
             for player in living_discussants:
                 response = player.discuss(chat, "after_policy")
@@ -328,6 +336,10 @@ class HitlerGame:
                     f"Player {player.name} has provided their post-policy input"
                 )
 
+            if action_enacted:
+                self.perform_vote_action()
+        elif action_enacted:
+            # Non-experiment mode: action without discussion (shouldn't happen, but safe)
             self.perform_vote_action()
 
         if self.policy_win():
@@ -336,6 +348,9 @@ class HitlerGame:
 
         if self.state.hitler and self.state.hitler.is_dead:
             logger.info("Hitler is dead - liberals win")
+            return True
+
+        if getattr(self, '_human_game_over', False):
             return True
 
         return False
@@ -351,41 +366,62 @@ class HitlerGame:
         return names
 
     def _prompt_roles(self, names: list[str]) -> list:
-        """Prompt operator to input roles matching the website game."""
-        from HitlerFactory import LiberalRole, FascistRole, HitlerRole
+        """Prompt operator to input roles matching the website game.
+        
+        - LLM player (player 0) always gets asked.
+        - If LLM is Liberal: all others are automatically Unknown (you can't see them).
+        - If LLM is Fascist/Hitler: ask for known teammates, rest Unknown.
+        """
+        from HitlerFactory import LiberalRole, FascistRole, HitlerRole, UnknownRole
 
         num_libs, num_fas, _ = PLAYERS[self.playernum]
-        expected = {"L": num_libs, "F": num_fas, "H": 1}
 
         print("\n" + "=" * 60, flush=True)
         print("  MANUAL ROLE ASSIGNMENT", flush=True)
-        print(f"  Match roles from the website ({self.playernum} players).", flush=True)
-        print(f"  Expected: {expected['L']}× Liberal, {expected['F']}× Fascist, 1× Hitler", flush=True)
+        print(f"  {self.playernum} players: {num_libs}× Liberal, {num_fas}× Fascist, 1× Hitler", flush=True)
         print("=" * 60, flush=True)
 
-        roles = []
-        counts = {"L": 0, "F": 0, "H": 0}
         role_map = {"L": LiberalRole, "F": FascistRole, "H": HitlerRole}
 
-        for num in range(self.playernum):
-            player_type = "?"
-            if self.player_types and num < len(self.player_types):
-                player_type = self.player_types[num]
-            while True:
-                remaining = {k: expected[k] - counts[k] for k in expected}
-                print(f"\n  Remaining: {remaining['L']}L {remaining['F']}F {remaining['H']}H", flush=True)
-                try:
-                    r = input(f"  {names[num]} ({player_type}): role? [L/F/H]: ").strip().upper()
-                except (EOFError, KeyboardInterrupt):
-                    raise
-                if r in ('L', 'F', 'H') and counts[r] < expected[r]:
-                    counts[r] += 1
-                    roles.append(role_map[r]())
-                    break
-                elif r in ('L', 'F', 'H'):
-                    print(f"    All {r} roles already assigned.", flush=True)
-                else:
-                    print("    Enter L (Liberal), F (Fascist), or H (Hitler).", flush=True)
+        # --- Ask for LLM player (player 0) first ---
+        llm_type = self.player_types[0] if self.player_types else "LLM"
+        while True:
+            try:
+                r = input(f"  {names[0]} ({llm_type}): role? [L/F/H]: ").strip().upper()
+            except (EOFError, KeyboardInterrupt):
+                raise
+            if r in ('L', 'F', 'H'):
+                llm_role = role_map[r]()
+                break
+            print("    Enter L (Liberal), F (Fascist), or H (Hitler).", flush=True)
+
+        roles = [llm_role]
+
+        if llm_role.role == "liberal":
+            # Liberal doesn't know anyone else's role → all Unknown
+            print(f"  {names[0]} is Liberal — all other roles set to Unknown.", flush=True)
+            for num in range(1, self.playernum):
+                roles.append(UnknownRole())
+        else:
+            # Fascist/Hitler knows teammates → ask for those you know
+            print(f"  {names[0]} is {llm_role} — enter known teammates, U for unknown.", flush=True)
+            for num in range(1, self.playernum):
+                player_type = "?"
+                if self.player_types and num < len(self.player_types):
+                    player_type = self.player_types[num]
+                while True:
+                    try:
+                        r = input(f"  {names[num]} ({player_type}): role? [L/F/H/U]: ").strip().upper()
+                    except (EOFError, KeyboardInterrupt):
+                        raise
+                    if r in ('U', 'UNKNOWN'):
+                        roles.append(UnknownRole())
+                        break
+                    elif r in ('L', 'F', 'H'):
+                        roles.append(role_map[r]())
+                        break
+                    else:
+                        print("    Enter L, F, H, or U.", flush=True)
 
         print(f"\n  Roles assigned: {[str(r) for r in roles]}", flush=True)
         return roles
@@ -782,6 +818,123 @@ class HitlerGame:
     # ------------------------------------------------------------------
     # Human experiment helpers
     # ------------------------------------------------------------------
+
+    def _human_experiment_check_hitler_chancellor(self) -> bool:
+        """After a successful vote with ≥3 fascist policies, ask if Hitler was just elected chancellor."""
+        if self.state.fascist_track < 3:
+            return False
+        print(f"\n{'=' * 55}", flush=True)
+        print(f"  ⚠  {self.state.fascist_track} FASCIST POLICIES ENACTED", flush=True)
+        print(f"  Was the elected chancellor Hitler?  (game over if yes)", flush=True)
+        print(f"{'=' * 55}", flush=True)
+        while True:
+            try:
+                r = input("  [Y/N]: ").strip().upper()
+            except (EOFError, KeyboardInterrupt):
+                raise
+            if r in ('Y', 'YES'):
+                self.game_end_reason = "hitler_chancellor"
+                logger.info("Operator confirmed: Hitler elected as chancellor — fascists win!")
+                display_game_over("hitler_chancellor")
+                return True
+            elif r in ('N', 'NO'):
+                return False
+            print("  Enter Y or N.", flush=True)
+
+    def _human_experiment_check_game_over(self) -> bool:
+        """Generic game-over check — ask after kills or any uncertain moment."""
+        print(f"\n{'=' * 55}", flush=True)
+        print(f"  Did the game end on the website?", flush=True)
+        print(f"  (e.g. Hitler was killed, or another end condition)", flush=True)
+        print(f"{'=' * 55}", flush=True)
+        while True:
+            try:
+                r = input("  [Y/N]: ").strip().upper()
+            except (EOFError, KeyboardInterrupt):
+                raise
+            if r in ('Y', 'YES'):
+                print("  Who won?", flush=True)
+                print("    1) Liberals (Hitler killed)", flush=True)
+                print("    2) Fascists", flush=True)
+                print("    3) Other / unsure", flush=True)
+                try:
+                    w = input("  > ").strip()
+                except (EOFError, KeyboardInterrupt):
+                    raise
+                if w == "1":
+                    self.game_end_reason = "hitler_killed"
+                    display_game_over("hitler_killed")
+                elif w == "2":
+                    self.game_end_reason = "fascist_policy"
+                    display_game_over("fascist_policy")
+                else:
+                    self.game_end_reason = "unknown"
+                return True
+            elif r in ('N', 'NO'):
+                return False
+            print("  Enter Y or N.", flush=True)
+
+    def _prompt_seat_order(self) -> None:
+        """
+        Prompt the operator to enter the website's seat order.
+        This determines the president rotation and speaking order.
+        Players are reordered and their IDs updated to match.
+        Press Enter to keep the default (config) order.
+        """
+        print(f"\n{'=' * 55}", flush=True)
+        print(f"  SEAT ORDER (determines president rotation)", flush=True)
+        print(f"  Current order:", flush=True)
+        for i, p in enumerate(self.state.players):
+            ptype = "LLM" if isinstance(p, LLMPlayer) else "HUMAN"
+            print(f"    {i}) {p.name}  [{ptype}]", flush=True)
+        print(f"\n  Enter names in the website's clockwise seat order,", flush=True)
+        print(f"  separated by commas. Or press Enter to keep this order.", flush=True)
+        print(f"{'=' * 55}", flush=True)
+
+        try:
+            response = input("  > ").strip()
+        except (EOFError, KeyboardInterrupt):
+            raise
+
+        if not response:
+            print(f"  -> Keeping current order.", flush=True)
+            return
+
+        # Parse the entered names
+        entered_names = [n.strip() for n in response.split(",") if n.strip()]
+
+        if len(entered_names) != len(self.state.players):
+            print(f"  Expected {len(self.state.players)} names, got {len(entered_names)}. Keeping current order.", flush=True)
+            return
+
+        # Match entered names to existing players
+        name_to_player = {p.name.lower(): p for p in self.state.players}
+        reordered = []
+        for name in entered_names:
+            matched = name_to_player.get(name.lower())
+            if matched is None:
+                print(f"  Name '{name}' not recognised. Keeping current order.", flush=True)
+                return
+            if matched in reordered:
+                print(f"  Name '{name}' appears twice. Keeping current order.", flush=True)
+                return
+            reordered.append(matched)
+
+        # Apply the new order: update IDs and the player list
+        for new_id, player in enumerate(reordered):
+            player.id = new_id
+        self.state.players = reordered
+
+        # Update hitler reference (object identity unchanged, just confirm)
+        for p in self.state.players:
+            if p.is_hitler:
+                self.state.hitler = p
+                break
+
+        print(f"  -> Seat order set:", flush=True)
+        for i, p in enumerate(reordered):
+            ptype = "LLM" if isinstance(p, LLMPlayer) else "HUMAN"
+            print(f"    {i}) {p.name}  [{ptype}]", flush=True)
 
     def _confirm_president(self) -> None:
         """Let the operator confirm or override the current president to match the website."""
@@ -1189,6 +1342,12 @@ class HitlerGame:
             self.log += f"Player {killed_player} has been killed by President {self.state.president}\n"
             logger.info(f"Player {killed_player} has been killed")
             display_player_executed(killed_player, self.state.president)
+
+            # In human experiment mode, we may not know if the killed player was Hitler
+            if self.human_experiment and killed_player.role.role == "unknown":
+                if self._human_experiment_check_game_over():
+                    self._human_game_over = True
+                    return
 
         elif action == "inspect":
             display_info_message(

@@ -175,9 +175,11 @@ class HitlerPlayer:
             {"role": "user", "content": prompt},
         ]
 
-        # pretty print in debug mode
-        if self.id == 0:
-            logger.debug(f"Prompt for {self.name} at stage {_stage}:\n{system_content}\n\n{prompt}")
+        # Log the full prompt/message JSON sent to the model
+        import json as _json
+        logger.info(f"[LLM REQUEST] {self.name} | stage={_stage} | model={openai_model}")
+        logger.info(f"[LLM MSG JSON] {_json.dumps(msg, ensure_ascii=False)}")
+        logger.debug(f"Prompt for {self.name} at stage {_stage}:\n--- SYSTEM ---\n{system_content}\n--- USER ---\n{prompt}")
 
         response = self.openai_client.chat.completions.create(
             model=openai_model,

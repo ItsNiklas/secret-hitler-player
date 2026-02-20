@@ -436,7 +436,7 @@ class LLMPlayer(HitlerPlayer):
 
         It is currently time to discuss. The current stage is {stage}. This refers to whether you are discussing the policy that was just enacted, or if you are discussing whether to vote on a government.
 
-        You MUST DIRECTLY RESPOND with what you are saying to the rest of the players.
+        You MUST DIRECTLY RESPOND with what you are saying to the rest of the players. Focus on fitting in with your style of message and try to copy the linguistic style of previous public discussions.
         """
 
         if stage == "discussion_on_potential_government":
