@@ -1,3 +1,14 @@
+"""
+Game statistics for Secret Hitler evaluation runs.
+
+Computes win rates (overall, by role, by win condition), game length
+distributions, Elo progressions, and role-specific performance metrics.
+
+Usage: python gamestats.py <eval_dir> [player_id]
+  eval_dir    Directory containing game JSON files (e.g. runsF1-Qwen3)
+  player_id   Player index to analyse (default: 0 = Alice)
+"""
+
 import os
 import glob
 import json
@@ -9,19 +20,13 @@ import numpy as np
 from matplotlib.lines import Line2D
 from matplotlib.offsetbox import AnnotationBbox
 from scipy.stats import mannwhitneyu
-from plot_config import setup_plot_style, ROLE_COLORS, extract_model_name, get_model_imagebox
+from plot_config import setup_plot_style, ROLE_COLORS, extract_model_name, get_model_imagebox, get_plot_path
 
 # Apply shared plotting configuration
 setup_plot_style()
 
 EVAL_DIR = sys.argv[1] if len(sys.argv) > 1 else None
 ALICE_ID = int(sys.argv[2]) if len(sys.argv) > 2 else 0  # Player ID to analyze (default 0 for Alice)
-
-def print_usage():
-    print("Usage: python gamestats.py <EVAL_DIR>")
-    print("  EVAL_DIR: Directory name containing evaluation JSON files (e.g., 'runs1-Qwen3')")
-    print(f"  Note: Analyzing player {ALICE_ID} (Alice). To analyze a different player, modify ALICE_ID variable.")
-    sys.exit(1)
 
 
 def load_eval_run_filenames() -> List[str]:
@@ -366,32 +371,6 @@ def calculate_policy_counts_by_round(games_data: List[Dict[str, Any]], policy_ty
     }
 
 
-def analyze_game_length_distribution(games_data: List[Dict[str, Any]]) -> Dict[str, Any]:
-    """Analyze the distribution of game lengths (number of rounds)."""
-    
-    game_lengths = [game['total_rounds'] for game in games_data]
-    
-    if not game_lengths:
-        return {'lengths': [], 'distribution': {}}
-    
-    # Create distribution histogram data
-    min_length = min(game_lengths)
-    max_length = max(game_lengths)
-    distribution = defaultdict(int)
-    
-    for length in game_lengths:
-        distribution[length] += 1
-    
-    return {
-        'lengths': game_lengths,
-        'distribution': dict(distribution),
-        'min_length': min_length,
-        'max_length': max_length,
-        'mean_length': sum(game_lengths) / len(game_lengths),
-        'total_games': len(game_lengths)
-    }
-
-
 def analyze_alice_game_state_impact(games_data: List[Dict[str, Any]]) -> Dict[str, Any]:
     """Analyze Alice's impact on game state score when she's president or chancellor."""
     
@@ -656,7 +635,7 @@ def print_game_length_histogram(analysis: Dict[str, Any]):
     print("-" * 65)
 
 
-def create_policy_progression_plot(games_data: List[Dict[str, Any]], save_path: str = None):
+def create_policy_progression_plot(games_data: List[Dict[str, Any]]):
     """Create a plot showing liberal and fascist policies by round."""
     
     # Calculate liberal and fascist policy progression using the refactored function
@@ -721,13 +700,14 @@ def create_policy_progression_plot(games_data: List[Dict[str, Any]], save_path: 
     plt.tight_layout()
     
     try:
-        plt.savefig(save_path + '.pdf', dpi=300, bbox_inches='tight')
-        print(f"Plot saved to: {save_path + '.pdf'}")
+        model_slug = extract_model_name(EVAL_DIR).replace(' ', '_').lower()
+        out_path = get_plot_path(f'gamestats_{model_slug}.pdf')
+        plt.savefig(out_path, dpi=300, bbox_inches='tight')
+        plt.close()
+        print(f"Plot saved to: {out_path}")
     except Exception as e:
         print(f"Could not save plot: {e}")
         print("Continuing without saving...")
-
-    # plt.show()
     
     # Return means for backward compatibility
     return liberal_data['means'], fascist_data['means']
@@ -744,7 +724,8 @@ def enhanced_parse_game_data(game_data: Dict[str, Any]) -> Dict[str, Any]:
 
 if __name__ == "__main__":
     if EVAL_DIR is None:
-        print_usage()
+        print("Usage: python gamestats.py <EVAL_DIR> [PLAYER_ID]")
+        sys.exit(1)
     
     eval_files = load_eval_run_filenames()
     print(f"Found {len(eval_files)} files in eval/{EVAL_DIR}")
@@ -810,7 +791,4 @@ if __name__ == "__main__":
     print_game_length_histogram(length_analysis)
     
     # Create policy progression plot
-    # Clean up EVAL_DIR for filename use
-    safe_eval_dir = EVAL_DIR.replace('/', '_').replace('\\', '_') if EVAL_DIR else "unknown"
-    plot_filename = f"policy_progression_{safe_eval_dir}"
-    create_policy_progression_plot(all_games_data, plot_filename)
+    create_policy_progression_plot(all_games_data)

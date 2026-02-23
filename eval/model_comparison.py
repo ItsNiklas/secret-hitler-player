@@ -1,7 +1,17 @@
 #!/usr/bin/env python3
 """
-Visualization script for model comparison from LaTeX table.
-Creates a chart showing base model metrics and other models' relative differences with horizontal bars.
+Model comparison chart from a LaTeX results table.
+
+Reads a LaTeX table, picks a baseline model, and draws horizontal bars
+showing each model's relative difference to the baseline.
+
+Usage: python model_comparison.py <latex_file> [options]
+  latex_file      Path to the LaTeX table file
+  --metrics       Metric columns to plot (default: all)
+  --baseline      Row index of baseline model (default: auto-detect Human)
+  --baseline-name Name to match for baseline (default: Human)
+  --color-mode    'model' or 'metric' colouring (default: model)
+  -o, --output    Output PDF path (default: plots/model_comparison.pdf)
 """
 
 import pandas as pd
@@ -16,6 +26,7 @@ from plot_config import (
     extract_model_name,
     get_model_imagebox,
     get_metric_color,
+    get_plot_path,
 )
 
 BAR_HEIGHT = 0.45
@@ -471,8 +482,11 @@ def create_comparison_chart(df, metric_columns=None, output_path=None, baseline_
         plt.savefig(output_path, dpi=300, bbox_inches='tight')
         print(f"Chart saved to: {output_path}")
     else:
-        plt.show()
+        default_path = get_plot_path("model_comparison.pdf")
+        plt.savefig(default_path, dpi=300, bbox_inches='tight')
+        print(f"Chart saved to: {default_path}")
     
+    plt.close()
     return fig
 
 
@@ -491,7 +505,7 @@ def main():
                        help='Name to match for baseline model (default: Human)')
     parser.add_argument('--color-mode', type=str, default='model', choices=['model', 'metric'],
                        help='Color mode: "model" for model-based colors, "metric" for column-based colors (default: model)')
-    parser.add_argument('--output', '-o', help='Output file path (default: show plot)')
+    parser.add_argument('--output', '-o', help='Output file path (default: plots/model_comparison.pdf)')
     
     args = parser.parse_args()
     

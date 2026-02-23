@@ -1,8 +1,12 @@
 #!/usr/bin/env python3
 """
-Gamestate Evaluation Plotter for Secret Hitler Game Summaries
+Multi-folder gamestate evaluation comparison (2x2 grid).
+
+Compares Alice's per-round gamestate evaluation scores across four
+evaluation runs in a 2x2 subplot layout.
 
 Usage: python stateeval_plot_max.py <folder1> <folder2> <folder3> <folder4>
+  folder1..4  Paths to folders with *_summary.json files
 """
 
 import json
@@ -15,8 +19,8 @@ from matplotlib.ticker import FuncFormatter
 import matplotlib.pyplot as plt
 import numpy as np
 from scipy.interpolate import make_interp_spline, Akima1DInterpolator, PchipInterpolator
-from plot_config import extract_model_name, get_model_imagebox, setup_plot_style, ROLE_COLORS
-from stateeval_plot import load_summary_file, get_alice_role, extract_gamestate_scores
+from plot_config import extract_model_name, get_model_imagebox, setup_plot_style, load_summary_file, ROLE_COLORS, get_plot_path
+from stateeval_plot import get_alice_role, extract_gamestate_scores
 
 # Apply shared plotting configuration
 setup_plot_style()
@@ -183,9 +187,10 @@ def plot_gamestate_evaluations(folders):
     plt.tight_layout(rect=[0.05, 0.05, 1, 1])
     
     # Save the plot as PDF
-    output_filename = "gamestate_evaluation_comparison.pdf"
-    plt.savefig(output_filename)
-    print(f"Plot saved as {output_filename}")
+    out_path = get_plot_path("stateeval_plot_max.pdf")
+    plt.savefig(out_path, dpi=300, bbox_inches='tight')
+    plt.close()
+    print(f"Plot saved to: {out_path}")
 
 
 def main():

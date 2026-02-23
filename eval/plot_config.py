@@ -1,3 +1,11 @@
+"""
+Shared plot configuration for all eval scripts.
+
+Provides consistent styling (setup_plot_style), color palettes, model name
+extraction, logo imagebox helpers, chi-square tests, and plot path utilities.
+Imported by every other script in eval/.
+"""
+
 import matplotlib.pyplot as plt
 from pathlib import Path
 import numpy as np
@@ -98,31 +106,6 @@ MODEL_COLORS = {
     # Human players
     "Human": "#6B5E62",  # Dark Navy
 }
-# MODEL_COLORS = {
-#     # Gemma models
-#     "Gemma 3 27B": "#FF615C",  #
-#     "Gemma 3 12B": "#FF8985",  #
-#     # Qwen models
-#     "Qwen 3 32B": "#A47AFF",  #
-#     "Qwen 2.5 72B": "#C7ADFF",  #
-#     "Qwen 2.5 32B": "#C7ADFF",  #
-#     "Qwen 2.5 14B": "#C7ADFF",  #
-#     "Qwen 2.5 7B": "#C7ADFF",  #
-#     # Llama models
-#     "Llama 3.3 70B": "#69A9ED",  #
-#     "Llama 3.1 70B": "#91C0F2",  #
-#     "Llama 3.1 8B": "#A4CBF4",  #
-#     # DeepSeek/R1 models
-#     "R1 Llama Distill 70B": "#61DB7E",  #
-#     "R1 Distill 70B": "#61DB7E",  # Alternate name
-#     # Rule-based agents
-#     "Rule Agent": "#707070",  # Gray
-#     "Random Agent": "#A0A0A0",  # Light Gray
-#     # Human players
-#     "Human": "#6B5E62",  # Dark Navy
-# }
-
-
 
 # Fallback color for undefined models - VERY OBVIOUS!
 MODEL_COLOR_FALLBACK = "#FF00FF"  # Bright Magenta - impossible to miss!
@@ -165,28 +148,6 @@ def get_markerdata_for_model(model_name):
 
 def get_metric_color(metric_name):
     return METRIC_COLORS.get(metric_name, MODEL_COLOR_FALLBACK)
-
-
-def load_techniques(jsonl_path="persuasion_sh.jsonl"):
-    """
-    Load persuasion techniques from JSONL file.
-    """
-    techniques = []
-    
-    # Try to find the file in the current directory or parent directory
-    if not os.path.exists(jsonl_path):
-        parent_path = os.path.join("..", jsonl_path)
-        if os.path.exists(parent_path):
-            jsonl_path = parent_path
-        else:
-            raise FileNotFoundError(f"Could not find {jsonl_path} in current or parent directory")
-    
-    with open(jsonl_path, 'r', encoding='utf-8') as file:
-        for line in file:
-            data = json.loads(line.strip())
-            techniques.append(data['ss_technique'])
-    
-    return techniques
 
 
 def extract_model_name(folder_name_or_path):
@@ -363,8 +324,27 @@ def perform_chi_square_test(contingency_table, test_name, group1_name, group2_na
     return {"chi2_stat": chi2_stat, "p_value": p_value, "dof": dof, "cramers_v": cramers_v, "significant": significant}
 
 
-# Additional color palettes can be added here in the future
-# For example:
-# PLAYER_COLORS = [...]
-# TECHNIQUE_COLORS = {...}
-# etc.
+PLOTS_DIR = Path(__file__).parent / "plots"
+
+
+def get_plot_path(filename):
+    """Get the full path for saving a plot to the plots/ directory.
+    
+    Ensures the plots/ directory exists and returns the full path.
+    All plotting scripts should use this to save their output.
+    """
+    PLOTS_DIR.mkdir(exist_ok=True)
+    return PLOTS_DIR / filename
+
+
+def load_summary_file(file_path):
+    """Load and parse a JSON summary file.
+    
+    Returns the parsed JSON dict, or None on failure.
+    """
+    try:
+        with open(file_path, 'r', encoding='utf-8') as f:
+            return json.load(f)
+    except (json.JSONDecodeError, IOError) as e:
+        print(f"Warning: Could not load {file_path}: {e}")
+        return None

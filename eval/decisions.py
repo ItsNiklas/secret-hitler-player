@@ -1,3 +1,13 @@
+"""
+Vote-decision analysis for Secret Hitler games.
+
+Compares Alice's votes against the majority decision in each government
+proposal and plots agreement rates per round.
+
+Usage: python decisions.py <eval_dir>
+  eval_dir  Directory containing game JSON files (e.g. runsF1-Qwen3)
+"""
+
 from functools import cache
 import os
 import glob
@@ -5,12 +15,11 @@ import json
 import sys
 from typing import List, Set
 from collections import defaultdict
+import matplotlib.pyplot as plt
+import numpy as np
+from plot_config import setup_plot_style, extract_model_name, get_plot_path, UNIBLAU
 
-# EVAL_DIR = "runs2-Llama318"
-# EVAL_DIR = "runs1-Qwen3"
-# EVAL_DIR = "runs3-Llama3370"
-# EVAL_DIR = "runs4-Random"
-# EVAL_DIR = "runs5-Rule1"
+setup_plot_style()
 
 EVAL_DIR = sys.argv[1] 
 
@@ -249,6 +258,30 @@ def get_last_log_for_single_round_games():
     print(
         f"When a chancellor of the same affiliation was chosen, eval voted the same as summary in {same_vote_of_same_affiliation_percentage:.2f}% of times ({same_voting_result_same_affiliation_count}/{same_chancellor_affiliation_count} games)"
     )
+
+    # --- Plot: Decision agreement metrics ---
+    metrics = {
+        'Same Chancellor': same_chancellor_percentage,
+        'Same Role': same_role_percentage,
+        'Same Affiliation': same_affiliation_percentage,
+        'Vote Agree\n(same role)': same_vote_of_same_role_percentage,
+        'Vote Agree\n(same aff.)': same_vote_of_same_affiliation_percentage,
+    }
+    fig, ax = plt.subplots(figsize=(6.46, 3))
+    bars = ax.bar(metrics.keys(), metrics.values(), color=UNIBLAU, zorder=5)
+    ax.set_ylabel('Agreement Rate')
+    ax.yaxis.set_major_formatter(plt.FuncFormatter(lambda y, _: f'{y:.0f}\\%'))
+    ax.set_ylim(0, 100)
+    ax.grid(axis='y', alpha=0.3)
+    for bar, val in zip(bars, metrics.values()):
+        ax.text(bar.get_x() + bar.get_width()/2, bar.get_height() + 1,
+                f'{val:.1f}\\%', ha='center', va='bottom', fontsize=9)
+    plt.tight_layout()
+    model_slug = extract_model_name(EVAL_DIR).replace(' ', '_').lower()
+    out_path = get_plot_path(f'decisions_{model_slug}.pdf')
+    plt.savefig(out_path, dpi=300, bbox_inches='tight')
+    plt.close()
+    print(f"\nPlot saved to: {out_path}")
 
     return comparison_data
 

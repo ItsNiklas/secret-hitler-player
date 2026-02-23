@@ -1,3 +1,12 @@
+"""
+Multi-model belief-accuracy comparison plot.
+
+Loads game data from several evaluation directories (configured in
+EVAL_DIRS) and plots liberal-player role-identification accuracy per round,
+comparing across models. Uses functions from questionaire.py.
+No CLI arguments; edit EVAL_DIRS and ALICE_ONLY in-source.
+"""
+
 import os
 import glob
 import json
@@ -7,9 +16,8 @@ from matplotlib.offsetbox import AnnotationBbox
 import matplotlib.pyplot as plt
 import numpy as np
 
-# Import functions from questionaire.py
 from questionaire import parse_game_data, calculate_belief_accuracy
-from plot_config import get_model_imagebox, setup_plot_style, extract_model_name, get_model_color, get_markerdata_for_model
+from plot_config import get_model_imagebox, setup_plot_style, extract_model_name, get_model_color, get_markerdata_for_model, get_plot_path
 
 # Apply shared plotting configuration
 setup_plot_style()
@@ -199,10 +207,11 @@ def plot_comparison():
     
     # Save the plot
     mode_suffix = "_alice" if ALICE_ONLY else "_all"
-    dirs_suffix = "_".join([d.replace("/", "_").replace("\\", "_") for d in EVAL_DIRS])
-    output_filename = f"liberal_accuracy_comparison_{dirs_suffix}{mode_suffix}.pdf"
-    plt.savefig(output_filename, dpi=300, bbox_inches="tight")
-    print(f"\nComparison plot saved as: {output_filename}")
+    output_filename = f"plot_comparison{mode_suffix}.pdf"
+    out_path = get_plot_path(output_filename)
+    plt.savefig(out_path, dpi=300, bbox_inches="tight")
+    plt.close()
+    print(f"\nComparison plot saved to: {out_path}")
     
     # Print summary statistics
     print(f"\nComparison Summary (filtered data):")

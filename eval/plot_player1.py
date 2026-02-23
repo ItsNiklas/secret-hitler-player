@@ -1,8 +1,16 @@
+"""
+Player-1 performance overview plot.
+
+Visualises key metrics (win rate, liberal/fascist win rate, Hitler
+identification) for each model as a grouped bar chart with model logos.
+Data is hardcoded; no CLI arguments.
+"""
+
 from matplotlib.offsetbox import AnnotationBbox
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
-from plot_config import get_model_imagebox, setup_plot_style, get_model_color
+from plot_config import get_model_imagebox, setup_plot_style, get_model_color, get_plot_path
 
 # Apply shared plotting configuration
 setup_plot_style()
@@ -34,6 +42,16 @@ metrics_to_plot = [
     "Voting agreement same-role govt.",
     "Voting agreement same-aff. govt.",
 ]
+
+# Print numerical stats
+print("="*60)
+print("PLAYER 1 EVALUATION METRICS")
+print("="*60)
+for _, row in df.iterrows():
+    print(f"\n{row['Model']}:")
+    for metric in metrics_to_plot:
+        val = row[metric]
+        print(f"  {metric}: {val if val is not None else 'N/A'}%")
 
 # Set figure size
 plt.figure(figsize=(5.50, 3.5))
@@ -102,5 +120,8 @@ for model, legend_handle in zip(df["Model"], legend.legend_handles):
                         zorder=10)  # High zorder to appear in front
     plt.gcf().add_artist(ab)
 
-# Show the plot
-plt.savefig("eval1.pdf", bbox_inches="tight", dpi=300)
+# Save the plot
+out_path = get_plot_path("plot_player1.pdf")
+plt.savefig(out_path, bbox_inches="tight", dpi=300)
+plt.close()
+print(f"\nPlot saved to: {out_path}")

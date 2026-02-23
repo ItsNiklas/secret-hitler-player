@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
 """
-Vote Analyzer for Secret Hitler Game Summaries
+Vote analysis for Secret Hitler game summaries.
 
-This script analyzes yes/no votes from JSON summary files in a given folder.
-It aggregates vote statistics across all files and rounds, and provides 
-detailed statistics including per-round analysis.
+Aggregates yes/no vote statistics, per-round voting patterns, and Elo
+ratings from JSON summary files.
 
 Usage: python vote_analyzer.py <summaries_folder>
+  summaries_folder  Path to folder with *_summary.json files
 """
 
 import json
@@ -14,17 +14,12 @@ from collections import defaultdict
 from pathlib import Path
 import argparse
 import numpy as np
+import matplotlib.pyplot as plt
 from scipy.stats import chi2_contingency
+from plot_config import setup_plot_style, extract_model_name, get_plot_path, load_summary_file, UNIBLAU, GAMMA, ETA
 
-
-def load_summary_file(file_path):
-    """Load and parse a JSON summary file."""
-    try:
-        with open(file_path, 'r', encoding='utf-8') as f:
-            return json.load(f)
-    except (json.JSONDecodeError, IOError) as e:
-        print(f"Warning: Could not load {file_path}: {e}")
-        return None
+# Apply shared plotting configuration
+setup_plot_style()
 
 
 def get_combined_elo(summary):
@@ -408,6 +403,40 @@ def analyze_votes(summaries_folder, player_position=None):
     
     # ELO-based analysis
     if games_with_elo > 0:
+
+        # --- Plot: Yes vote % by round, high vs low ELO ---
+        high_rounds = sorted(high_elo_stats['round_stats'].keys())
+        low_rounds = sorted(low_elo_stats['round_stats'].keys())
+        all_plot_rounds = sorted(set(high_rounds) | set(low_rounds))
+
+        if all_plot_rounds:
+            high_pcts = []
+            low_pcts = []
+            for r in all_plot_rounds:
+                hs = high_elo_stats['round_stats'].get(r, {'yes': 0, 'total': 0})
+                ls = low_elo_stats['round_stats'].get(r, {'yes': 0, 'total': 0})
+                high_pcts.append(hs['yes'] / hs['total'] * 100 if hs['total'] > 0 else 0)
+                low_pcts.append(ls['yes'] / ls['total'] * 100 if ls['total'] > 0 else 0)
+
+            fig, ax = plt.subplots(figsize=(6.46, 3))
+            x = np.arange(len(all_plot_rounds))
+            width = 0.35
+            ax.bar(x - width/2, high_pcts, width, label=f'High ELO (>{elo_threshold})', color=GAMMA, zorder=5)
+            ax.bar(x + width/2, low_pcts, width, label=f'Low ELO ($\\leq${elo_threshold})', color=ETA, zorder=5)
+            ax.set_xlabel('Round')
+            ax.set_ylabel('Yes Vote Rate')
+            ax.yaxis.set_major_formatter(plt.FuncFormatter(lambda y, _: f'{y:.0f}\\%'))
+            ax.set_xticks(x)
+            ax.set_xticklabels(all_plot_rounds)
+            ax.grid(axis='y', alpha=0.3)
+            ax.legend(framealpha=1)
+            plt.tight_layout()
+            model_slug = extract_model_name(summaries_folder).replace(' ', '_').lower()
+            out_path = get_plot_path(f'vote_analyzer_{model_slug}.pdf')
+            plt.savefig(out_path, dpi=300, bbox_inches='tight')
+            plt.close()
+            print(f"\nPlot saved to: {out_path}")
+
         print("\n" + "=" * 60)
         print(f"ELO-BASED ANALYSIS ({games_with_elo} games with ELO data)")
         print("=" * 60)

@@ -1,9 +1,9 @@
 """
-Policy Progression Comparison Tool
+Policy progression comparison across models.
 
-Compares liberal policy progression across multiple runsF1 models and Human data.
-Similar to plot_comparison.py but focused on liberal policies over rounds.
-Imports and reuses functions from gamestats.py.
+Plots the cumulative number of liberal (and fascist) policies enacted per
+round for multiple evaluation runs and human replay data side by side.
+No CLI arguments; edit EVAL_DIRS in-source.
 """
 
 import os
@@ -15,7 +15,7 @@ from matplotlib.offsetbox import AnnotationBbox
 
 # Import functions from gamestats.py
 from gamestats import enhanced_parse_game_data, calculate_policy_counts_by_round
-from plot_config import setup_plot_style, ROLE_COLORS, extract_model_name, get_model_imagebox, get_model_color, get_markerdata_for_model
+from plot_config import setup_plot_style, ROLE_COLORS, extract_model_name, get_model_imagebox, get_model_color, get_markerdata_for_model, get_plot_path
 
 # Apply shared plotting configuration
 setup_plot_style()
@@ -232,10 +232,10 @@ def plot_policy_progression_comparison():
     plt.subplots_adjust(bottom=0.2)
 
     # Save the plot
-    dirs_suffix = "_".join([d.replace("/", "_").replace("\\", "_").split("/")[-1] for d in EVAL_DIRS])
-    output_filename = f"policy_progression_comparison_{dirs_suffix}.pdf"
-    plt.savefig(output_filename, dpi=300, bbox_inches="tight")
-    print(f"\nComparison plot saved as: {output_filename}")
+    out_path = get_plot_path("policy_progression_all.pdf")
+    plt.savefig(out_path, dpi=300, bbox_inches="tight")
+    plt.close()
+    print(f"\nComparison plot saved to: {out_path}")
 
     # Print summary statistics
     print("\nLiberal Policy Progression Summary:")

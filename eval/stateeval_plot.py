@@ -1,8 +1,12 @@
 #!/usr/bin/env python3
 """
-Gamestate Evaluation Plotter for Secret Hitler Game Summaries
+Gamestate evaluation plotter.
+
+Plots Alice's per-round gamestate evaluation scores (split by role) from
+JSON summary files, with smoothed trend lines.
 
 Usage: python stateeval_plot.py <summaries_folder>
+  summaries_folder  Path to folder with *_summary.json files
 """
 
 import json
@@ -15,20 +19,10 @@ from matplotlib.ticker import FuncFormatter
 import matplotlib.pyplot as plt
 import numpy as np
 from scipy.interpolate import make_interp_spline, Akima1DInterpolator, PchipInterpolator
-from plot_config import extract_model_name, get_model_imagebox, setup_plot_style, ROLE_COLORS
+from plot_config import extract_model_name, get_model_imagebox, setup_plot_style, load_summary_file, ROLE_COLORS, get_plot_path
 
 # Apply shared plotting configuration
 setup_plot_style()
-
-
-def load_summary_file(file_path):
-    """Load and parse a JSON summary file."""
-    try:
-        with open(file_path, 'r', encoding='utf-8') as f:
-            return json.load(f)
-    except (json.JSONDecodeError, IOError) as e:
-        print(f"Warning: Could not load {file_path}: {e}")
-        return None
 
 
 def get_alice_role(summary):
@@ -184,9 +178,12 @@ def plot_gamestate_evaluations(summaries_folder):
     plt.tight_layout()
     
     # Save the plot as PDF
-    output_filename = f"gamestate_evaluation_{folder_path.name}.pdf"
-    plt.savefig(output_filename)
-    print(f"Plot saved as {output_filename}")
+    model_slug = extract_model_name(folder_path).replace(' ', '_').lower()
+    output_filename = f"stateeval_plot_{model_slug}.pdf"
+    out_path = get_plot_path(output_filename)
+    plt.savefig(out_path, dpi=300, bbox_inches='tight')
+    plt.close()
+    print(f"Plot saved to: {out_path}")
 
 
 def main():

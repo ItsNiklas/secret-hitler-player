@@ -1,3 +1,14 @@
+"""
+Reasoning extraction and categorisation.
+
+Parses Alice's chat messages for final-round reasoning statements and maps
+them to predefined categories (e.g. VOTING_RECORD, POLICY_OUTCOMES).
+Plots category distributions across games.
+
+Usage: python reasoning.py <eval_dir>
+  eval_dir  Directory containing game JSON files (e.g. runsF1-Qwen3)
+"""
+
 from functools import cache
 import os
 import glob
@@ -8,12 +19,6 @@ from typing import List, Dict, Any, Optional
 from collections import defaultdict, Counter
 import matplotlib.pyplot as plt
 import numpy as np
-
-# EVAL_DIR = "runs2-Llama318"
-# EVAL_DIR = "runs1-Qwen3"
-# EVAL_DIR = "runs3-Llama3370"
-# EVAL_DIR = "runs4-Random"
-# EVAL_DIR = "runs5-Rule1"
 
 EVAL_DIR = sys.argv[1] if len(sys.argv) > 1 else None
 
@@ -35,7 +40,7 @@ REASONING_LABELS = {
     "NONE": "Other / Doesn't fit"
 }
 
-from plot_config import setup_plot_style
+from plot_config import setup_plot_style, get_plot_path
 
 # Apply shared plotting configuration
 setup_plot_style()
@@ -80,36 +85,6 @@ def extract_final_reason(reflection_text: str) -> Optional[str]:
     
     return None
 
-
-def extract_final_reason(reflection_text: str) -> Optional[str]:
-    """Extract the final reason from a reflection text that ends with 'Reason: X'"""
-    if not reflection_text:
-        return None
-    
-    # Look for patterns like "Reason: X" at the end of the text
-    match = re.search(r'Reasoning Category:\s*([^.\n]+)', reflection_text, re.IGNORECASE)
-    if match:
-        reason = match.group(1).strip()
-        
-        # Clean up the reason text
-        # Remove trailing quotes
-        reason = re.sub(r'["\'`”]+$', '', reason)
-
-        # Remove trailing stars
-        reason = re.sub(r'\*+$', '', reason)
-
-        # Remove prefix stars
-        reason = re.sub(r'^\*+', '', reason)
-        
-        # Remove content in parentheses that appears to be cut off (ends with single letter)
-        reason = re.sub(r'\s*\([a-zA-Z]\s*$', '', reason)
-        
-        # Remove any trailing whitespace again after cleanup
-        reason = reason.strip()
-        
-        return reason if reason else None
-    
-    return None
 
 
 def analyze_reflections(game_data: Dict[str, Any]) -> List[Dict[str, Any]]:
@@ -232,12 +207,11 @@ def plot_reasoning_over_rounds(stats: Dict[str, Any], eval_dir: str):
     
     # Save the plot with sanitized filename
     sanitized_eval_dir = eval_dir.replace('/', '_').replace('\\', '_')
-    output_filename = f"liberal_reasoning_over_rounds_{sanitized_eval_dir}.pdf"
-    plt.savefig(output_filename, dpi=300, bbox_inches='tight')
-    print(f"\nPlot saved as: {output_filename}")
-    
-    # Show the plot
-    plt.show()
+    output_filename = f"reasoning_{sanitized_eval_dir}.pdf"
+    out_path = get_plot_path(output_filename)
+    plt.savefig(out_path, dpi=300, bbox_inches='tight')
+    plt.close()
+    print(f"\nPlot saved to: {out_path}")
 
 
 def print_statistics(stats: Dict[str, Any]):

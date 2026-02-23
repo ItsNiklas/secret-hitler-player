@@ -1,22 +1,28 @@
+"""
+Belief-accuracy questionnaire evaluation.
+
+Assesses how accurately players (or Alice alone) identify other players'
+roles based on in-game beliefs logged per round.
+
+Usage: python questionaire.py <eval_dir> [alice]
+  eval_dir  Directory containing game JSON files (e.g. runsF1-Qwen3)
+  alice     Optional flag to evaluate only Alice, excluding bots
+"""
+
 import os
 import glob
 import json
 import sys
 from typing import List, Dict, Any
 from collections import defaultdict
+import matplotlib.pyplot as plt
+import numpy as np
+from plot_config import setup_plot_style, extract_model_name, get_plot_path, ROLE_COLORS
+
+setup_plot_style()
 
 EVAL_DIR = sys.argv[1] if len(sys.argv) > 1 else None
 ALICE_ONLY = len(sys.argv) > 2 and sys.argv[2].lower() == "alice"
-
-
-def print_usage():
-    print("Usage: python questionaire.py <EVAL_DIR> [alice]")
-    print("  EVAL_DIR: Directory name containing evaluation JSON files (e.g., 'runs1-Qwen3')")
-    print("  alice: Optional flag to evaluate only Alice (player 0), excluding bots")
-    print("\nExamples:")
-    print("  python questionaire.py runs1-Qwen3        # Evaluate all players")
-    print("  python questionaire.py runs1-Qwen3 alice  # Evaluate only Alice")
-    sys.exit(1)
 
 
 def load_eval_run_filenames() -> List[str]:
@@ -353,7 +359,8 @@ def print_accuracy_statistics(all_games_data: List[Dict[str, Any]]):
 
 if __name__ == "__main__":
     if EVAL_DIR is None:
-        print_usage()
+        print("Usage: python questionaire.py <EVAL_DIR> [alice]")
+        sys.exit(1)
 
     eval_files = load_eval_run_filenames()
     print(f"Found {len(eval_files)} files in eval/{EVAL_DIR}")
@@ -379,3 +386,40 @@ if __name__ == "__main__":
 
     # Print accuracy statistics across all games
     print_accuracy_statistics(all_games_data)
+
+    # --- Plot: Belief accuracy by own role ---
+    # Aggregate accuracy by role across all games
+    role_acc = defaultdict(lambda: {'correct': 0, 'total': 0})
+    for game_data in all_games_data:
+        game_stats = calculate_belief_accuracy(game_data)
+        true_roles = game_data['true_roles']
+        for player, stats in game_stats.items():
+            if ALICE_ONLY and player != 'Alice':
+                continue
+            if stats['total_beliefs'] == 0:
+                continue
+            own_role = true_roles.get(player, 'unknown')
+            role_acc[own_role]['correct'] += stats['correct_beliefs']
+            role_acc[own_role]['total'] += stats['total_beliefs']
+
+    if role_acc:
+        roles_to_plot = [r for r in ['liberal', 'fascist', 'hitler'] if role_acc[r]['total'] > 0]
+        accuracies = [role_acc[r]['correct'] / role_acc[r]['total'] * 100 for r in roles_to_plot]
+        colors = [ROLE_COLORS.get(r, '#999999') for r in roles_to_plot]
+
+        fig, ax = plt.subplots(figsize=(6.46, 3))
+        bars = ax.bar([r.capitalize() for r in roles_to_plot], accuracies, color=colors, zorder=5)
+        ax.set_ylabel('Belief Accuracy')
+        ax.yaxis.set_major_formatter(plt.FuncFormatter(lambda y, _: f'{y:.0f}\\%'))
+        ax.set_ylim(0, 100)
+        ax.grid(axis='y', alpha=0.3)
+        for bar, val in zip(bars, accuracies):
+            ax.text(bar.get_x() + bar.get_width()/2, bar.get_height() + 1,
+                    f'{val:.1f}\\%', ha='center', va='bottom', fontsize=9)
+        plt.tight_layout()
+        model_slug = extract_model_name(EVAL_DIR).replace(' ', '_').lower()
+        mode_suffix = '_alice' if ALICE_ONLY else '_all'
+        out_path = get_plot_path(f'questionaire_{model_slug}{mode_suffix}.pdf')
+        plt.savefig(out_path, dpi=300, bbox_inches='tight')
+        plt.close()
+        print(f"\nPlot saved to: {out_path}")

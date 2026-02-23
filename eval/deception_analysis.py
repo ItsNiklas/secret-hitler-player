@@ -1,4 +1,14 @@
 #!/usr/bin/env python3
+"""
+Fascist deception-rate analysis.
+
+Measures how often fascist players successfully hide their role by
+receiving low suspicion scores, and plots rates across models.
+
+Usage: python deception_analysis.py [results_file] [--plot-all]
+  results_file  Optional JSON with pre-computed deception results
+  --plot-all    Plot all models from deception-rate/results/
+"""
 
 import json
 import argparse
@@ -9,6 +19,8 @@ from matplotlib.offsetbox import AnnotationBbox
 import plot_config
 
 plot_config.setup_plot_style()
+
+PLOTS_DIR = plot_config.PLOTS_DIR
 
 
 def deception_result(perceived: str, actual: str) -> str:
@@ -65,8 +77,8 @@ def calc_deception_rates(games, max_rounds=10):
     return deception_rates
 
 
-def plot_all_models(output="deception_rate_over_rounds.pdf"):
-    """Plot deception rates for all models"""
+def plot_all_models():
+    """Plot deception rates for all models with numerical summary."""
     results_folder = Path(__file__).parent.parent / "deception-rate" / "results"
     files = list(results_folder.glob("*_deception_analysis.json"))
 
@@ -77,6 +89,17 @@ def plot_all_models(output="deception_rate_over_rounds.pdf"):
         print(f"Processing {model}...")
         with open(f) as fp:
             model_data[model] = calc_deception_rates(json.load(fp).get("games", []))
+
+    # Print numerical summary
+    print("\n" + "="*60)
+    print("DECEPTION RETENTION RATE SUMMARY")
+    print("="*60)
+    for model in sorted(model_data.keys()):
+        rates = model_data[model]
+        if rates:
+            avg_rate = sum(rates.values()) / len(rates)
+            print(f"  {model}: avg={avg_rate:.1f}%, rounds={len(rates)}, "
+                  f"R1={rates.get(1, 0):.1f}%, last={list(rates.values())[-1]:.1f}%")
 
     # Create plot
     fig, ax = plt.subplots(figsize=(5.50, 3.5))
@@ -121,11 +144,10 @@ def plot_all_models(output="deception_rate_over_rounds.pdf"):
             fig.add_artist(ab)
 
     plt.tight_layout()
-    out_path = Path(__file__).parent / output
+    out_path = plot_config.get_plot_path("deception_analysis_all.pdf")
     plt.savefig(out_path, dpi=300, bbox_inches="tight")
+    plt.close()
     print(f"\nPlot saved to: {out_path}")
-
-    return fig, ax
 
 
 def main():

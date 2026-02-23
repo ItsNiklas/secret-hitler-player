@@ -1,13 +1,20 @@
 #!/usr/bin/env python3
 """
-Visualization script for model comparison from LaTeX table.
-Creates a chart showing base model metrics and other models' relative differences with horizontal bars.
+Single-model comparison chart from a LaTeX results table.
+
+Like model_comparison.py but uses absolute values instead of relative
+differences; suited for comparing a single model's metrics.
+
+Usage: python model_comparison-single.py <latex_file> [options]
+  latex_file    Path to the LaTeX table file
+  --metrics     Metric columns to plot (default: all)
+  --color-mode  'model' or 'metric' colouring (default: model)
+  -o, --output  Output PDF path (default: plots/model_comparison_single.pdf)
 """
 
 import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
-import re
 from matplotlib.offsetbox import AnnotationBbox
 from plot_config import (
     setup_plot_style,
@@ -15,154 +22,11 @@ from plot_config import (
     extract_model_name,
     get_model_imagebox,
     get_metric_color,
+    get_plot_path,
 )
+from model_comparison import clean_latex_text, parse_latex_table
 
 BAR_HEIGHT = 0.45
-
-
-def clean_latex_text(text):
-    """
-    Remove LaTeX formatting commands from text.
-    
-    Args:
-        text: String with LaTeX commands
-        
-    Returns:
-        Cleaned string with LaTeX commands removed
-    """
-    # Remove complete \makebox construct: \makebox[...]{...}
-    # This handles cases like: \makebox[1em][c]{\includegraphics[...]{...}}
-    # We need to match the whole construct including nested braces
-    while r'\makebox' in text:
-        # Find \makebox
-        start = text.find(r'\makebox')
-        if start == -1:
-            break
-        
-        # Skip past the optional arguments [...][...]
-        pos = start + len(r'\makebox')
-        while pos < len(text) and text[pos:pos+1] == '[':
-            # Find matching ]
-            depth = 1
-            pos += 1
-            while pos < len(text) and depth > 0:
-                if text[pos] == '[':
-                    depth += 1
-                elif text[pos] == ']':
-                    depth -= 1
-                pos += 1
-        
-        # Now we should be at the {content} part
-        if pos < len(text) and text[pos] == '{':
-            # Find matching closing brace
-            depth = 1
-            pos += 1
-            brace_start = pos - 1
-            while pos < len(text) and depth > 0:
-                if text[pos] == '{':
-                    depth += 1
-                elif text[pos] == '}':
-                    depth -= 1
-                pos += 1
-            
-            # Remove the entire \makebox[...][...]{...} construct
-            text = text[:start] + text[pos:]
-        else:
-            # Malformed, just remove "\makebox"
-            text = text[:start] + text[start + len(r'\makebox'):]
-    
-    # Remove \includegraphics commands (should be gone with makebox, but just in case)
-    text = re.sub(r'\\includegraphics\[.*?\]\{.*?\}', '', text)
-    
-    # Remove \textbf{...} but keep content, preserving any nested commands like \textsubscript
-    # Use a more sophisticated regex that captures everything including nested commands
-    max_iterations = 10
-    iteration = 0
-    while r'\textbf{' in text and iteration < max_iterations:
-        # Match \textbf{...} where ... can contain other LaTeX commands
-        # Use a non-greedy match to handle nested braces properly
-        new_text = re.sub(r'\\textbf\{((?:[^{}]|(?:\{[^{}]*\}))*)\}', r'\1', text)
-        if new_text == text:  # No change, avoid infinite loop
-            break
-        text = new_text
-        iteration += 1
-    
-    # Remove other common formatting commands while keeping content
-    text = re.sub(r'\\text(it|tt|sf|rm)\{(.*?)\}', r'\2', text)
-    text = re.sub(r'\\emph\{(.*?)\}', r'\1', text)
-    
-    # Remove percentage backslash escape
-    text = text.replace(r'\%', '%')
-    
-    # Clean up whitespace
-    text = ' '.join(text.split())
-    
-    return text.strip()
-
-
-def parse_latex_table(latex_file):
-    """
-    Parse a LaTeX table to extract model data.
-    
-    Expected format:
-    - First data row is the baseline model
-    - Subsequent rows are comparison models
-    - Columns contain various metrics
-    
-    Returns:
-        pd.DataFrame: Table with model names and metrics
-    """
-    with open(latex_file, 'r') as f:
-        content = f.read()
-    
-    # Extract table rows (between \begin{tabular} and \end{tabular})
-    table_match = re.search(r'\\begin\{tabular\}.*?\n(.*?)\\end\{tabular\}', content, re.DOTALL)
-    if not table_match:
-        raise ValueError("Could not find tabular environment in LaTeX file")
-    
-    table_content = table_match.group(1)
-    
-    # Split into rows and parse
-    rows = []
-    for line in table_content.split('\n'):
-        line = line.strip()
-        if not line or line.startswith('%') or '\\hline' in line or '\\toprule' in line or '\\midrule' in line or '\\bottomrule' in line:
-            continue
-        
-        # Remove trailing \\ and split by &
-        if '\\\\' in line:
-            line = line.replace('\\\\', '')
-        
-        # Remove LaTeX comments (% and everything after)
-        if ' %' in line:
-            line = line.split(' %')[0]
-        
-        cells = [cell.strip() for cell in line.split('&')]
-        
-        # Clean LaTeX formatting from each cell
-        cells = [clean_latex_text(cell) for cell in cells]
-
-        print(cells)
-        
-        if len(cells) > 1 and any(cells):  # Valid data row with content
-            rows.append(cells)
-    
-    if not rows:
-        raise ValueError("No data rows found in LaTeX table")
-    
-    # First row is header, rest are data
-    headers = rows[0]
-    data = rows[1:]
-    
-    # Create DataFrame
-    df = pd.DataFrame(data, columns=headers)
-    
-    # Convert numeric columns
-    for col in df.columns[1:]:  # Skip model name column
-        # Remove % signs and convert to numeric
-        df[col] = pd.to_numeric(df[col].str.replace('%', '').str.replace('\\%', ''), errors='coerce')
-    
-    return df
 
 
 def create_comparison_chart(df, metric_columns=None, output_path=None, color_mode='model'):
@@ -323,8 +187,11 @@ def create_comparison_chart(df, metric_columns=None, output_path=None, color_mod
         plt.savefig(output_path, dpi=300, bbox_inches='tight')
         print(f"Chart saved to: {output_path}")
     else:
-        plt.show()
+        default_path = get_plot_path("model_comparison_single.pdf")
+        plt.savefig(default_path, dpi=300, bbox_inches='tight')
+        print(f"Chart saved to: {default_path}")
     
+    plt.close()
     return fig
 
 
@@ -339,7 +206,7 @@ def main():
     parser.add_argument('--metrics', nargs='+', help='Metric columns to plot (default: all)')
     parser.add_argument('--color-mode', type=str, default='model', choices=['model', 'metric'],
                        help='Color mode: "model" for model-based colors, "metric" for column-based colors (default: model)')
-    parser.add_argument('--output', '-o', help='Output file path (default: show plot)')
+    parser.add_argument('--output', '-o', help='Output file path (default: plots/model_comparison_single.pdf)')
     
     args = parser.parse_args()
     
