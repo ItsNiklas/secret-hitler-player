@@ -16,7 +16,6 @@ import sys
 from typing import List, Set
 from collections import defaultdict
 import matplotlib.pyplot as plt
-import numpy as np
 from plot_config import setup_plot_style, extract_model_name, get_plot_path, UNIBLAU
 
 setup_plot_style()

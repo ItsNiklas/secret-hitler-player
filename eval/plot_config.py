@@ -10,7 +10,6 @@ import matplotlib.pyplot as plt
 from pathlib import Path
 import numpy as np
 import json
-import os
 from scipy.stats import chi2_contingency
 from matplotlib.offsetbox import OffsetImage
 from PIL import Image

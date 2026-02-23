@@ -18,7 +18,7 @@ from matplotlib.offsetbox import AnnotationBbox
 from matplotlib.ticker import FuncFormatter
 import matplotlib.pyplot as plt
 import numpy as np
-from scipy.interpolate import make_interp_spline, Akima1DInterpolator, PchipInterpolator
+from scipy.interpolate import PchipInterpolator
 from plot_config import extract_model_name, get_model_imagebox, setup_plot_style, load_summary_file, ROLE_COLORS, get_plot_path
 from stateeval_plot import get_alice_role, extract_gamestate_scores
 
