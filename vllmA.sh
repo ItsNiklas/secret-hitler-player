@@ -29,9 +29,10 @@ apptainer exec \
   vllm serve $MODEL \
     --host 0.0.0.0 \
     --port 8080 \
+    --language-model-only \
     --tensor-parallel-size 4 \
     --gpu-memory-utilization 0.9 \
+    --enable-prefix-caching \
     --trust-remote-code \
     --download-dir "$HF_HOME" \
-    --disable-custom-all-reduce \
-    --limit-mm-per-prompt.image 0 \
+    --disable-custom-all-reduce

@@ -29,7 +29,8 @@ apptainer exec \
     --host 0.0.0.0 \
     --port 8081 \
     --tensor-parallel-size 4 \
-    --gpu-memory-utilization 0.8 \
+    --gpu-memory-utilization 0.9 \
+    --enable-prefix-caching \
     --trust-remote-code \
     --download-dir "$HF_HOME" \
     --disable-custom-all-reduce
