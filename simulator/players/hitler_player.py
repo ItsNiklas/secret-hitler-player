@@ -185,7 +185,7 @@ class HitlerPlayer:
                 model=openai_model,
                 messages=msg,
                 max_tokens=1024*4,
-                extra_body={"reasoning_effort": "low"}, 
+                extra_body = {"chat_template_kwargs": {"thinking": True}}, 
             )
             
             # Track token usage (without polluting game state)

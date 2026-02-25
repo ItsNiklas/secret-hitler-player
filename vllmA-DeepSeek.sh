@@ -18,7 +18,7 @@ fi
 
 # Set these environment variables or add them to your .env file
 export HF_HOME=/scratch-scc/users/$USER/hf
-export MODEL=Qwen/Qwen3.5-397B-A17B
+export MODEL=deepseek-ai/DeepSeek-V3.2
 export LLM_API_KEY=$LLM_API_KEY
 export LLM_BASE_URL=http://localhost:8080/v1/
 
@@ -36,6 +36,7 @@ apptainer exec \
   --env TIKTOKEN_RS_CACHE_DIR="$HF_HOME" \
   --env HF_HOME="$HF_HOME" \
   --env HF_HUB_OFFLINE=1 \
+  --env VLLM_USE_DEEP_GEMM=0 \
   -B "$HF_HOME:$HF_HOME:rw" \
   "$SIF" \
   vllm serve $MODEL \
@@ -53,5 +54,6 @@ apptainer exec \
     --disable-custom-all-reduce \
     --async-scheduling \
     --language-model-only \
-    --reasoning-parser qwen3 \
+    --tokenizer-mode deepseek_v32 \
+    --reasoning-parser deepseek_v3
     ${HEADLESS}
