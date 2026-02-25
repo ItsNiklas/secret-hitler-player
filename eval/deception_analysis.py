@@ -102,7 +102,7 @@ def plot_all_models():
                   f"R1={rates.get(1, 0):.1f}%, last={list(rates.values())[-1]:.1f}%")
 
     # Create plot
-    fig, ax = plt.subplots(figsize=(5.50, 3.5))
+    fig, ax = plt.subplots(figsize=(plot_config.FIG_WIDTH, 3.5))
     lines = []
 
     for model in sorted(model_data.keys()):

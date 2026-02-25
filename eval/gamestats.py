@@ -2,11 +2,10 @@
 Game statistics for Secret Hitler evaluation runs.
 
 Computes win rates (overall, by role, by win condition), game length
-distributions, Elo progressions, and role-specific performance metrics.
+distributions, and role-specific performance metrics.
 
-Usage: python gamestats.py <eval_dir> [player_id]
+Usage: python gamestats.py <eval_dir>
   eval_dir    Directory containing game JSON files (e.g. runsF1-Qwen3)
-  player_id   Player index to analyse (default: 0 = Alice)
 """
 
 import os
@@ -19,14 +18,13 @@ import matplotlib.pyplot as plt
 import numpy as np
 from matplotlib.lines import Line2D
 from matplotlib.offsetbox import AnnotationBbox
-from scipy.stats import mannwhitneyu
-from plot_config import setup_plot_style, ROLE_COLORS, extract_model_name, get_model_imagebox, get_plot_path
+from plot_config import FIG_WIDTH, setup_plot_style, ROLE_COLORS, extract_model_name, get_model_imagebox, get_plot_path
 
 # Apply shared plotting configuration
 setup_plot_style()
 
 EVAL_DIR = sys.argv[1] if len(sys.argv) > 1 else None
-ALICE_ID = int(sys.argv[2]) if len(sys.argv) > 2 else 0  # Player ID to analyze (default 0 for Alice)
+ALICE_ID = 0  # Alice is always Player 0
 
 
 def load_eval_run_filenames() -> List[str]:
@@ -435,133 +433,6 @@ def analyze_alice_game_state_impact(games_data: List[Dict[str, Any]]) -> Dict[st
         'all_score_changes': score_changes
     }
 
-def analyze_alice_game_state_impact_by_elo(games_data: List[Dict[str, Any]], elo_threshold: float = 1650) -> Dict[str, Any]:
-    """Analyze Alice's impact on game state score by ELO (high vs low)."""
-    
-    high_elo_changes = []
-    low_elo_changes = []
-    
-    for game in games_data:
-        alice_role = game.get('alice_role')
-        if alice_role is None:
-            continue
-        
-        # Get ELO data for this game
-        lib_elo = game.get('libElo', {}).get('overall')
-        fas_elo = game.get('fasElo', {}).get('overall')
-        
-        # Skip if no ELO data
-        if lib_elo is None or fas_elo is None:
-            continue
-        
-        # Determine which ELO to use based on Alice's role
-        if alice_role == 'liberal':
-            game_elo = lib_elo
-        else:  # fascist or hitler
-            game_elo = fas_elo
-        
-        logs = game.get('logs', [])
-        if len(logs) < 2:
-            continue
-        
-        # Check each log where Alice is president or chancellor
-        for i, log in enumerate(logs[:-1]):
-            president_id = log.get('presidentId')
-            chancellor_id = log.get('chancellorId')
-            
-            if president_id == ALICE_ID or chancellor_id == ALICE_ID:
-                current_score = log.get('gameStateScore', 0)
-                next_score = logs[i + 1].get('gameStateScore', 0)
-                
-                score_change = next_score - current_score
-                
-                # If Alice is not liberal, negate the score change
-                if alice_role != 'liberal':
-                    score_change = -score_change
-                
-                # Categorize by ELO
-                if game_elo >= elo_threshold:
-                    high_elo_changes.append(score_change)
-                else:
-                    low_elo_changes.append(score_change)
-    
-    # Calculate statistics
-    high_elo_avg = np.mean(high_elo_changes) if high_elo_changes else 0.0
-    low_elo_avg = np.mean(low_elo_changes) if low_elo_changes else 0.0
-    
-    # Perform Mann-Whitney U test
-    p_value = None
-    u_statistic = None
-    if len(high_elo_changes) > 0 and len(low_elo_changes) > 0:
-        u_statistic, p_value = mannwhitneyu(high_elo_changes, low_elo_changes, alternative='two-sided')
-    
-    return {
-        'elo_threshold': elo_threshold,
-        'high_elo': {
-            'n_actions': len(high_elo_changes),
-            'average_impact': high_elo_avg,
-            'std': np.std(high_elo_changes) if high_elo_changes else 0.0,
-            'changes': high_elo_changes
-        },
-        'low_elo': {
-            'n_actions': len(low_elo_changes),
-            'average_impact': low_elo_avg,
-            'std': np.std(low_elo_changes) if low_elo_changes else 0.0,
-            'changes': low_elo_changes
-        },
-        'statistical_test': {
-            'u_statistic': u_statistic,
-            'p_value': p_value,
-            'significant': p_value < 0.05 if p_value is not None else False
-        }
-    }
-
-
-def print_alice_game_state_impact_by_elo(analysis: Dict[str, Any]):
-    """Print Alice's game state impact analysis by ELO."""
-    print("\n" + "="*60)
-    print("ALICE GAME STATE IMPACT BY ELO")
-    print("="*60)
-    
-    threshold = analysis['elo_threshold']
-    high = analysis['high_elo']
-    low = analysis['low_elo']
-    stats = analysis['statistical_test']
-    
-    print(f"ELO Threshold: {threshold}")
-    print(f"\nHigh ELO (>= {threshold}):")
-    print(f"  Number of actions: {high['n_actions']}")
-    if high['n_actions'] > 0:
-        print(f"  Average Game State Score Impact: {high['average_impact']:.4f}")
-        print(f"  Standard Deviation: {high['std']:.4f}")
-    else:
-        print(f"  No actions found")
-    
-    print(f"\nLow ELO (< {threshold}):")
-    print(f"  Number of actions: {low['n_actions']}")
-    if low['n_actions'] > 0:
-        print(f"  Average Game State Score Impact: {low['average_impact']:.4f}")
-        print(f"  Standard Deviation: {low['std']:.4f}")
-    else:
-        print(f"  No actions found")
-    
-    if stats['p_value'] is not None:
-        print(f"\nMann-Whitney U Test:")
-        print(f"  U-statistic: {stats['u_statistic']:.2f}")
-        print(f"  P-value: {stats['p_value']:.6f}")
-        alpha = 0.05
-        if stats['significant']:
-            print(f"  Result: SIGNIFICANT (p < {alpha})")
-            if high['average_impact'] > low['average_impact']:
-                print(f"  Interpretation: High ELO games show significantly HIGHER impact")
-            else:
-                print(f"  Interpretation: Low ELO games show significantly HIGHER impact")
-        else:
-            print(f"  Result: NOT SIGNIFICANT (p >= {alpha})")
-            print(f"  Interpretation: No significant difference between ELO groups")
-    else:
-        print(f"\nStatistical test not performed (insufficient data)")
-
 
 def print_alice_game_state_impact(analysis: Dict[str, Any]):
     """Print Alice's game state impact analysis."""
@@ -650,7 +521,7 @@ def create_policy_progression_plot(games_data: List[Dict[str, Any]]):
         print(f"Cutting off plot at round {cutoff_round} (rounds beyond this occur in <10% of games)")
     
     # Create the plot
-    plt.figure(figsize=(5.50, 3))
+    plt.figure(figsize=(FIG_WIDTH, 3))
     
     # Plot liberal policies
     plt.plot(liberal_data['rounds'], liberal_data['means'], '-', marker='o', linewidth=2, markersize=6, 
@@ -714,17 +585,15 @@ def create_policy_progression_plot(games_data: List[Dict[str, Any]]):
 
 
 def enhanced_parse_game_data(game_data: Dict[str, Any]) -> Dict[str, Any]:
-    """Enhanced version that also stores the original logs and ELO data for plotting."""
+    """Enhanced version that also stores the original logs for plotting."""
     result = parse_game_data(game_data)
     result['logs'] = game_data.get('logs', [])
-    result['libElo'] = game_data.get('libElo', {})
-    result['fasElo'] = game_data.get('fasElo', {})
     return result
 
 
 if __name__ == "__main__":
     if EVAL_DIR is None:
-        print("Usage: python gamestats.py <EVAL_DIR> [PLAYER_ID]")
+        print("Usage: python gamestats.py <EVAL_DIR>")
         sys.exit(1)
     
     eval_files = load_eval_run_filenames()
@@ -780,14 +649,10 @@ if __name__ == "__main__":
     # Analyze Alice's game state impact
     alice_impact_analysis = analyze_alice_game_state_impact(all_games_data)
     
-    # Analyze Alice's game state impact by ELO (if ELO data exists)
-    alice_impact_by_elo_analysis = analyze_alice_game_state_impact_by_elo(all_games_data)
-    
     # Print results
     print_win_analysis(analysis)
     print_alice_analysis(alice_analysis)
     print_alice_game_state_impact(alice_impact_analysis)
-    print_alice_game_state_impact_by_elo(alice_impact_by_elo_analysis)
     print_game_length_histogram(length_analysis)
     
     # Create policy progression plot

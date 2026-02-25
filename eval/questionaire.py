@@ -4,9 +4,8 @@ Belief-accuracy questionnaire evaluation.
 Assesses how accurately players (or Alice alone) identify other players'
 roles based on in-game beliefs logged per round.
 
-Usage: python questionaire.py <eval_dir> [alice]
+Usage: python questionaire.py <eval_dir>
   eval_dir  Directory containing game JSON files (e.g. runsF1-Qwen3)
-  alice     Optional flag to evaluate only Alice, excluding bots
 """
 
 import os
@@ -17,12 +16,12 @@ from typing import List, Dict, Any
 from collections import defaultdict
 import matplotlib.pyplot as plt
 import numpy as np
-from plot_config import setup_plot_style, extract_model_name, get_plot_path, ROLE_COLORS
+from plot_config import FIG_WIDTH, setup_plot_style, extract_model_name, get_plot_path, ROLE_COLORS
 
 setup_plot_style()
 
 EVAL_DIR = sys.argv[1] if len(sys.argv) > 1 else None
-ALICE_ONLY = len(sys.argv) > 2 and sys.argv[2].lower() == "alice"
+ALICE_ONLY = True  # Always evaluate Alice (Player 0) only
 
 
 def load_eval_run_filenames() -> List[str]:
@@ -407,7 +406,7 @@ if __name__ == "__main__":
         accuracies = [role_acc[r]['correct'] / role_acc[r]['total'] * 100 for r in roles_to_plot]
         colors = [ROLE_COLORS.get(r, '#999999') for r in roles_to_plot]
 
-        fig, ax = plt.subplots(figsize=(6.46, 3))
+        fig, ax = plt.subplots(figsize=(FIG_WIDTH, 3))
         bars = ax.bar([r.capitalize() for r in roles_to_plot], accuracies, color=colors, zorder=5)
         ax.set_ylabel('Belief Accuracy')
         ax.yaxis.set_major_formatter(plt.FuncFormatter(lambda y, _: f'{y:.0f}\\%'))
@@ -415,7 +414,7 @@ if __name__ == "__main__":
         ax.grid(axis='y', alpha=0.3)
         for bar, val in zip(bars, accuracies):
             ax.text(bar.get_x() + bar.get_width()/2, bar.get_height() + 1,
-                    f'{val:.1f}\\%', ha='center', va='bottom', fontsize=9)
+                    f'{val:.1f}\\%', ha='center', va='bottom')
         plt.tight_layout()
         model_slug = extract_model_name(EVAL_DIR).replace(' ', '_').lower()
         mode_suffix = '_alice' if ALICE_ONLY else '_all'

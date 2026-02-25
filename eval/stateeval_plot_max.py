@@ -19,7 +19,7 @@ from matplotlib.ticker import FuncFormatter
 import matplotlib.pyplot as plt
 import numpy as np
 from scipy.interpolate import PchipInterpolator
-from plot_config import extract_model_name, get_model_imagebox, setup_plot_style, load_summary_file, ROLE_COLORS, get_plot_path
+from plot_config import FIG_WIDTH, extract_model_name, get_model_imagebox, setup_plot_style, load_summary_file, ROLE_COLORS, get_plot_path
 from stateeval_plot import get_alice_role, extract_gamestate_scores
 
 # Apply shared plotting configuration
@@ -171,7 +171,7 @@ def plot_gamestate_evaluations(folders):
         all_games_by_role.append(games_by_role)
     
     # Create 2x2 subplot
-    fig, axs = plt.subplots(2, 2, figsize=(5.50, 4), sharex=True, sharey=True)
+    fig, axs = plt.subplots(2, 2, figsize=(FIG_WIDTH, 4), sharex=True, sharey=True)
     axs = axs.flatten()
     
     # Plot each folder in a subplot
@@ -181,8 +181,8 @@ def plot_gamestate_evaluations(folders):
         plot_single_subplot(ax, games_by_role, folder_path, show_legend=show_legend)
     
     # Add common labels
-    fig.text(0.5, 0.04, 'Round', ha='center', fontsize=12)
-    fig.text(0.04, 0.5, 'Game State Evaluation Score', va='center', rotation='vertical', fontsize=12)
+    fig.text(0.5, 0.04, 'Round', ha='center', fontsize=10)
+    fig.text(0.04, 0.5, 'Game State Evaluation Score', va='center', rotation='vertical', fontsize=10)
     
     plt.tight_layout(rect=[0.05, 0.05, 1, 1])
     

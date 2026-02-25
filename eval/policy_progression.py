@@ -15,7 +15,7 @@ from matplotlib.offsetbox import AnnotationBbox
 
 # Import functions from gamestats.py
 from gamestats import enhanced_parse_game_data, calculate_policy_counts_by_round
-from plot_config import setup_plot_style, ROLE_COLORS, extract_model_name, get_model_imagebox, get_model_color, get_markerdata_for_model, get_plot_path
+from plot_config import FIG_WIDTH, setup_plot_style, ROLE_COLORS, extract_model_name, get_model_imagebox, get_model_color, get_markerdata_for_model, get_plot_path
 
 # Apply shared plotting configuration
 setup_plot_style()
@@ -114,7 +114,7 @@ def load_and_process_data(eval_dir, policy_type):
 def plot_policy_progression_comparison():
     """Plot policy progression comparison with subplots for liberal and fascist policies."""
 
-    fig, (ax_lib, ax_fas) = plt.subplots(2, 1, figsize=(5.50, 4.5), sharex=True)
+    fig, (ax_lib, ax_fas) = plt.subplots(2, 1, figsize=(FIG_WIDTH, 4.5), sharex=True)
 
     all_rounds = set()
     liberal_data = {}

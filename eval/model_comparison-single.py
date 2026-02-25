@@ -17,6 +17,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 from matplotlib.offsetbox import AnnotationBbox
 from plot_config import (
+    FIG_WIDTH,
     setup_plot_style,
     get_model_color,
     extract_model_name,
@@ -61,11 +62,10 @@ def create_comparison_chart(df, metric_columns=None, output_path=None, color_mod
     model_names = [extract_model_name(m) for m in models]
     
     # Calculate figure dimensions
-    fig_width = 5.50  # Standard text width
     fig_height = 1 + n_models * 0.15  # Dynamic height based on number of models
     
     # Create figure with subplots for each metric
-    fig, axes = plt.subplots(1, n_metrics, figsize=(fig_width, fig_height), sharey=True)
+    fig, axes = plt.subplots(1, n_metrics, figsize=(FIG_WIDTH, fig_height), sharey=True)
     
     # Ensure axes is always an array
     if n_metrics == 1:

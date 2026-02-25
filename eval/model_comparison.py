@@ -21,6 +21,7 @@ import matplotlib.ticker as mticker
 import re
 from matplotlib.offsetbox import AnnotationBbox
 from plot_config import (
+    FIG_WIDTH,
     setup_plot_style,
     get_model_color,
     extract_model_name,
@@ -235,11 +236,10 @@ def create_comparison_chart(df, metric_columns=None, output_path=None, baseline_
     comparison_names = [extract_model_name(m) for m in comparison_models]
     
     # Calculate figure dimensions
-    fig_width = 5.50  # Standard text width
     fig_height = 2.3 #(1 + n_comparisons) * row_height + 0.8  # rows + spacing
     
     # Create figure with height ratios (1 for baseline, n_comparisons for others)
-    fig = plt.figure(figsize=(fig_width, fig_height))
+    fig = plt.figure(figsize=(FIG_WIDTH, fig_height))
     gs = fig.add_gridspec(2, n_metrics, height_ratios=[1, n_comparisons], 
                          hspace=0.55)
     axes = np.array([[fig.add_subplot(gs[i, j]) for j in range(n_metrics)] for i in range(2)])

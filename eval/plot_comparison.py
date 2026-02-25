@@ -17,7 +17,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 from questionaire import parse_game_data, calculate_belief_accuracy
-from plot_config import get_model_imagebox, setup_plot_style, extract_model_name, get_model_color, get_markerdata_for_model, get_plot_path
+from plot_config import FIG_WIDTH, get_model_imagebox, setup_plot_style, extract_model_name, get_model_color, get_markerdata_for_model, get_plot_path
 
 # Apply shared plotting configuration
 setup_plot_style()
@@ -32,8 +32,7 @@ EVAL_DIRS = [
     # Add more directories here as needed
 ]
 
-# Set to True to analyze only Alice, False for all players
-ALICE_ONLY = True
+ALICE_ONLY = True  # Always evaluate Alice (Player 0) only
 
 
 def load_eval_run_filenames(eval_dir: str) -> List[str]:
@@ -73,7 +72,7 @@ def get_liberal_accuracy_by_round(all_games_data: List[Dict[str, Any]]) -> Dict[
 def plot_comparison():
     """Plot accuracy comparison across multiple evaluation directories."""
     
-    plt.figure(figsize=(5.50, 3.5))
+    plt.figure(figsize=(FIG_WIDTH, 3.5))
     
     # Colors for different models
     

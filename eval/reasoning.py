@@ -40,7 +40,7 @@ REASONING_LABELS = {
     "NONE": "Other / Doesn't fit"
 }
 
-from plot_config import setup_plot_style, get_plot_path
+from plot_config import FIG_WIDTH, setup_plot_style, get_plot_path
 
 # Apply shared plotting configuration
 setup_plot_style()
@@ -88,36 +88,34 @@ def extract_final_reason(reflection_text: str) -> Optional[str]:
 
 
 def analyze_reflections(game_data: Dict[str, Any]) -> List[Dict[str, Any]]:
-    """Extract and analyze reflections from a game's logs, filtering for Liberal players only"""
+    """Extract and analyze reflections from Alice (Player 0), filtering for Liberal games only."""
     reflections_data = []
     
-    # Create mapping from player index to role
-    player_roles = {}
-    for index, player in enumerate(game_data.get('players', [])):
-        player_roles[str(index)] = player['role']
+    # Check Alice's role — only analyze when she is Liberal
+    players = game_data.get('players', [])
+    if not players or players[0].get('role') != 'liberal':
+        return reflections_data
     
     logs = game_data.get('logs', [])
     total_rounds = len(logs)
     
     for round_num, log_entry in enumerate(logs):
         reflections = log_entry.get('reflections', {})
+        reflection_text = reflections.get('0')  # Alice is always Player 0
         
-        for player_id, reflection_text in reflections.items():
-            # Only process reflections from Liberal players
-            if player_id in player_roles and player_roles[player_id] == 'liberal':
-                if reflection_text:  # Only process non-empty reflections
-                    final_reason = extract_final_reason(reflection_text)
-                    
-                    reflections_data.append({
-                        'player_id': player_id,
-                        'reflection_text': reflection_text,
-                        'final_reason': final_reason,
-                        'president_id': log_entry.get('presidentId'),
-                        'chancellor_id': log_entry.get('chancellorId'),
-                        'enacted_policy': log_entry.get('enactedPolicy'),
-                        'round_number': round_num + 1,  # 1-indexed
-                        'total_rounds': total_rounds,
-                    })
+        if reflection_text:  # Only process non-empty reflections
+            final_reason = extract_final_reason(reflection_text)
+            
+            reflections_data.append({
+                'player_id': '0',
+                'reflection_text': reflection_text,
+                'final_reason': final_reason,
+                'president_id': log_entry.get('presidentId'),
+                'chancellor_id': log_entry.get('chancellorId'),
+                'enacted_policy': log_entry.get('enactedPolicy'),
+                'round_number': round_num + 1,  # 1-indexed
+                'total_rounds': total_rounds,
+            })
     
     return reflections_data
 
@@ -180,7 +178,7 @@ def plot_reasoning_over_rounds(stats: Dict[str, Any], eval_dir: str):
             reason_percentages[reason].append(percentage)
     
     # Create the plot
-    plt.figure(figsize=(5.50, 4))
+    plt.figure(figsize=(FIG_WIDTH, 4))
     
     # Plot each reason as a line
     for i, reason in enumerate(predefined_categories):

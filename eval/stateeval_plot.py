@@ -19,7 +19,7 @@ from matplotlib.ticker import FuncFormatter
 import matplotlib.pyplot as plt
 import numpy as np
 from scipy.interpolate import make_interp_spline, Akima1DInterpolator, PchipInterpolator
-from plot_config import extract_model_name, get_model_imagebox, setup_plot_style, load_summary_file, ROLE_COLORS, get_plot_path
+from plot_config import FIG_WIDTH, extract_model_name, get_model_imagebox, setup_plot_style, load_summary_file, ROLE_COLORS, get_plot_path
 
 # Apply shared plotting configuration
 setup_plot_style()
@@ -69,7 +69,7 @@ def plot_gamestate_evaluations(summaries_folder):
     print(f"Found {len(json_files)} summary files")
     
     # Create the plot
-    plt.figure(figsize=(5.50, 3))
+    plt.figure(figsize=(FIG_WIDTH, 3))
     
     games_by_role = defaultdict(list)
     files_processed = 0

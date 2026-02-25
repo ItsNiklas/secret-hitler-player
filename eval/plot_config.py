@@ -23,8 +23,8 @@ def setup_plot_style(use_latex=True):
     plt.style.use("seaborn-v0_8-muted")
 
     # Font configuration - Latin Modern Roman with LaTeX support
-    plt.rcParams['font.family'] = 'serif'
-    plt.rcParams['font.serif'] = ['Palatino', 'TeX Gyre Pagella', 'Times']
+    plt.rcParams["font.family"] = "serif"
+    plt.rcParams["font.serif"] = ["Palatino", "TeX Gyre Pagella", "Times"]
 
     plt.rcParams["text.usetex"] = use_latex
     plt.rcParams["mathtext.fontset"] = "cm"  # Computer Modern for math
@@ -52,7 +52,7 @@ def setup_plot_style(use_latex=True):
     plt.rcParams["axes.spines.left"] = True
     plt.rcParams["axes.edgecolor"] = "0.85"  # Light gray
     plt.rcParams["axes.linewidth"] = 0.8
-    
+
     # Remove ticks
     plt.rcParams["xtick.top"] = False
     plt.rcParams["xtick.bottom"] = False
@@ -79,45 +79,107 @@ LOGOHELLBLAU30 = "#d2e6fa"
 GAMMA = LOGOBLAU
 ETA = LOGOHELLBLAU
 
-# Categorical colormap for models
-# Each model gets a unique, distinguishable color
-# Colors based on Pastel6 from seaborn
-MODEL_COLORS = {
-    # Gemma models
-    "Gemma 3 27B": "#e41a1c",  # Set 2
-    "Gemma 3 12B": "#ED6668",  #
-    # Qwen models
-    "Qwen 3 32B": "#984ea3",  # Set2
-    "Qwen 2.5 72B": "#BA89C2",  #
-    "Qwen 2.5 32B": "#BA89C2",  #
-    "Qwen 2.5 14B": "#BA89C2",  #
-    "Qwen 2.5 7B": "#BA89C2",  #
-    # Llama models
-    "Llama 3.3 70B": "#377eb8",  # Set2
-    "Llama 3.1 70B": "#7AA9D0",  #
-    "Llama 3.1 8B": "#7AA9D0",  #
-    # DeepSeek/R1 models
-    "R1 Llama Distill 70B": "#4daf4a",  #
-    "R1 Distill 70B": "#4daf4a",  # Alternate name
-    # Rule-based agents
-    "Rule Agent": "#A0A0A0",  # Gray
-    "Random Agent": "#CFCFCF",  # Light Gray
-    # Human players
-    "Human": "#6B5E62",  # Dark Navy
+FIG_WIDTH = 5.50
+
+# =============================================================================
+# MODEL REGISTRY — single source of truth for every model / baseline
+# =============================================================================
+# Keys   : folder names exactly as they appear in eval/
+# Values : dict with display "name", hex "color", "logo" filename (in
+#          eval/logos/, PNG – create manually), and "marker" (style, size).
+#
+# To add a new model run, just add one row here.  All helper functions
+# (extract_model_name, get_model_color, get_model_imagebox, …) read from
+# this dict automatically.
+# =============================================================================
+MODEL_REGISTRY = {
+    # ---- LLM models ----
+    "runsF2-GEMMA": {
+        "name": "Gemma 3 27B",
+        "color": "#e41a1c",
+        "logo": "gemma.png",
+        "marker": ("v", 8),
+    },
+    "runsF2-AMORALGEMMA": {
+        "name": "Amoral Gemma",
+        "color": "#ED6668",
+        "logo": "huggingface.png",
+        "marker": ("^", 8),
+    },
+    "runsF2-GPTOSS120B": {
+        "name": "GPT-OSS 120B",
+        "color": "#ff7f00",
+        "logo": "openai.png",
+        "marker": ("p", 7),
+    },
+    "runsF2-GPTOSS120B-DERESTRICTED": {
+        "name": "GPT-OSS 120B Derest.",
+        "color": "#fdbf6f",
+        "logo": "huggingface.png",
+        "marker": ("P", 7),
+    },
+    "runsF2-GPTOSS20B": {
+        "name": "GPT-OSS 20B",
+        "color": "#d48a00",
+        "logo": "openai.png",
+        "marker": ("h", 7),
+    },
+    "runsF2-KIMIK25": {
+        "name": "Kimi K2.5",
+        "color": "#984ea3",
+        "logo": "moonshot.png",
+        "marker": ("s", 6),
+    },
+    "runsF2-LLAMA3170B": {
+        "name": "Llama 3.1 70B",
+        "color": "#7AA9D0",
+        "logo": "llama.png",
+        "marker": ("D", 6),
+    },
+    "runsF2-MISTRALSMALL": {
+        "name": "Mistral Small 24B",
+        "color": "#a65628",
+        "logo": "mistral.png",
+        "marker": ("d", 7),
+    },
+    "runsF2-NOUSHERMES4": {
+        "name": "Nous Hermes 4",
+        "color": "#4daf4a",
+        "logo": "nous.png",
+        "marker": ("o", 7),
+    },
+    "runsF2-DOLPHINVENICE": {
+        "name": "Dolphin Mistral Venice",
+        "color": "#17becf",
+        "logo": "dolphin.png",
+        "marker": ("8", 7),
+    },
+    "runsF2-OLMO": {
+        "name": "OLMo 3.1 32B",
+        "color": "#377eb8",
+        "logo": "allen.png",
+        "marker": ("H", 7),
+    },
+    # ---- Baselines ----
+    "runsF2Base-Cpu": {
+        "name": "CPU Baseline",
+        "color": "#A0A0A0",
+        "logo": "robot.png",
+        "marker": ("X", 7),
+    },
+    "runsF2Base-Random": {
+        "name": "Random Agent",
+        "color": "#CFCFCF",
+        "logo": "robot.png",
+        "marker": ("*", 7),
+    },
+    # ---- Special / non-folder entries ----
+    "crawl": {"name": "Human", "color": "#6B5E62", "logo": "human.png", "marker": ("h", 7)},
 }
 
-# Fallback color for undefined models - VERY OBVIOUS!
-MODEL_COLOR_FALLBACK = "#FF00FF"  # Bright Magenta - impossible to miss!
-
-# Define markers for different model families based on keywords
-FAMILY_MARKERS = {
-    'Human': ('h', 7),      # Circle
-    'Gemma 3 12': ('^', 8),      # Square
-    'Gemma 3 27': ('v', 8),      # Square
-    'Qwen': ('s', 6),       # Pentagon
-    'R1': ('o', 7),          # Plus (filled)
-    'Llama': ('D', 6),      # Diamond
-}
+# Derived lookups (auto-generated from MODEL_REGISTRY)
+MODEL_COLORS = {v["name"]: v["color"] for v in MODEL_REGISTRY.values()}
+MODEL_COLOR_FALLBACK = "#FF00FF"  # Bright Magenta – impossible to miss!
 
 # Metric-based colors (for column-wise coloring)
 METRIC_COLORS = {
@@ -135,67 +197,75 @@ METRIC_COLORS = {
     r"GSIR\textsubscript{hitler}": ROLE_COLORS["hitler"],
 }
 
+
 def get_markerdata_for_model(model_name):
     """
-    Get marker style based on model family keywords.
+    Get (marker_style, marker_size) for *model_name* (display name).
+    Looks up the MODEL_REGISTRY by display name.
     """
-    for keyword, marker_data in FAMILY_MARKERS.items():
-        if keyword in model_name:
-            return marker_data
-    return "X"  # Default marker (circle) if no keyword matches
+    for entry in MODEL_REGISTRY.values():
+        if entry["name"] == model_name:
+            return entry.get("marker", ("X", 7))
+    return ("X", 7)  # Default marker if no match
 
 
 def get_metric_color(metric_name):
     return METRIC_COLORS.get(metric_name, MODEL_COLOR_FALLBACK)
 
 
+def _resolve_folder_key(folder_name_or_path):
+    """
+    Resolve a folder name or path to a MODEL_REGISTRY key.
+    Returns the key string (e.g. 'runsF2-GEMMA') or the raw folder name
+    if no registry entry matches.
+    """
+    raw = str(folder_name_or_path)
+
+    # If it looks like a path, walk parts to find a 'runs*' or 'crawl' folder
+    if "/" in raw or "\\" in raw:
+        path = Path(raw)
+        for part in reversed(path.parts):
+            if part.startswith("runs") or part == "crawl":
+                raw = part
+                break
+        else:
+            raw = path.name
+    # Strip trailing slash
+    raw = raw.rstrip("/")
+
+    # Also check for 'crawl' anywhere in the original string
+    if "crawl" in str(folder_name_or_path):
+        raw = "crawl"
+
+    return raw
+
+
 def extract_model_name(folder_name_or_path):
     """
-    Extract a clean model name from folder name or path.
+    Extract a clean display name from a folder name or path.
+
+    Looks up MODEL_REGISTRY first; falls back to a simple split-on-dash
+    heuristic so new folders still produce *something* readable.
     """
-    # Convert to Path if it's a string
-    if isinstance(folder_name_or_path, str):
-        # Check if it looks like a path
-        if "/" in folder_name_or_path or "\\" in folder_name_or_path:
-            path = Path(folder_name_or_path)
-            # Look for folder names that start with 'runs'
-            for part in reversed(path.parts):
-                if part.startswith("runs"):
-                    folder_name = part
-                    break
-            else:
-                # Fallback to using the name directly
-                folder_name = path.name
-        else:
-            folder_name = folder_name_or_path
-    else:
-        folder_name = str(folder_name_or_path)
+    key = _resolve_folder_key(folder_name_or_path)
 
-    # Remove "runsF1-" or "runs" prefix
-    name = folder_name
-    if "crawl" in str(folder_name_or_path):
-        return "Human"
-    if "runs13" in str(folder_name_or_path):
-        return "Llama 3.3 70B"
-    if name.startswith("runsF1-"):
-        name = name.replace("runsF1-", "")
-    elif name.startswith("runs"):
-        # Extract part after 'runs' prefix (e.g., 'runs1-Qwen3' -> '1-Qwen3')
-        name = name.split("-", 1)[-1] if "-" in name else name.replace("runs", "")
+    # Registry lookup (exact match)
+    if key in MODEL_REGISTRY:
+        return MODEL_REGISTRY[key]["name"]
 
-    # Clean up the name - apply replacements
-    name = name.replace("F1", "").strip("-")
-    name = name.replace("G3", "Gemma 3")
-    name = name.replace("Q3", "Qwen 3 32B")
-    name = name.replace("Llama33", "Llama 3.3")
-    name = name.replace("R1Distill", "R1 Llama Distill")
-    name = name.replace("-", " ")
+    # Fallback: strip common prefixes and replace dashes with spaces
+    name = key
+    for prefix in ("runsF2-", "runsF1-", "runsF2Base-", "runs"):
+        if name.startswith(prefix):
+            name = name[len(prefix) :]
+            break
+    return name.replace("-", " ").strip()
 
-    return name
 
 def get_model_color(model_name, warn_on_missing=True):
     """
-    Get the color for a specific model from the MODEL_COLORS dict.
+    Get the color for a model display name.
+    Checks the derived MODEL_COLORS dict (built from MODEL_REGISTRY).
     """
     if model_name in MODEL_COLORS:
         return MODEL_COLORS[model_name]
@@ -203,7 +273,7 @@ def get_model_color(model_name, warn_on_missing=True):
     if warn_on_missing:
         print(f"⚠️  WARNING: No color defined for model '{model_name}'!")
         print(f"   Using fallback color {MODEL_COLOR_FALLBACK} (bright magenta)")
-        print(f"   Please add '{model_name}' to MODEL_COLORS in plot_config.py")
+        print(f"   Add an entry to MODEL_REGISTRY in plot_config.py")
 
     return MODEL_COLOR_FALLBACK
 
@@ -218,48 +288,44 @@ def get_model_colors(model_names, warn_on_missing=True):
 def get_model_imagebox(model_name):
     """
     Get an OffsetImage (imagebox) for a model's logo.
+
+    Resolves the logo filename from MODEL_REGISTRY (by display name).
     """
-    # Internal mapping for logo files - tuples of (width, height, zoom)
-    # Some logos are taller, some are wider, adjust dimensions and zoom as needed
+    # Per-file sizing overrides  (width, height, zoom)
     LOGO_CONFIG = {
-        "gemma.png": (64, 64, 1/7),
-        "qwen.png": (64, 64, 1/7.5),
-        "deepseek.png": (64, 64, 1/6),
-        "llama.png": (64, 64, 1/6),
-        "human.png": (64, 64, 1/8),
+        "gemma.png": (64, 64, 1 / 7),
+        "qwen.png": (64, 64, 1 / 7.5),
+        "deepseek.png": (64, 64, 1 / 6),
+        "llama.png": (64, 64, 1 / 6),
+        "human.png": (64, 64, 1 / 8),
     }
+    LOGO_DEFAULT = (64, 64, 1 / 7)  # sensible default for new logos
 
-    LOGO_MAPPING = {
-        "Human": "human.png",
-        "Gemma": "gemma.png",
-        "Qwen": "qwen.png",
-        "R1": "deepseek.png",
-        "Llama": "llama.png",
-    }
+    # Find the logo filename from MODEL_REGISTRY by display name
+    logo_file = None
+    for entry in MODEL_REGISTRY.values():
+        if entry["name"] == model_name:
+            logo_file = entry.get("logo")
+            break
 
-    logo_path = None
-    for keyword, logo in LOGO_MAPPING.items():
-        if keyword in model_name:
-            logo_path = Path(__file__).parent / "logos" / logo
-            if logo_path.exists():
-                break
-    
-    if not logo_path:
+    if not logo_file:
         return None
-    
+
+    logo_path = Path(__file__).parent / "logos" / logo_file
+    if not logo_path.exists():
+        return None
+
     # Load the logo with PIL
-    img_pil = Image.open(str(logo_path)).convert('RGBA')
-    
+    img_pil = Image.open(str(logo_path)).convert("RGBA")
+
     # Get configuration (size and zoom) based on logo filename
-    width, height, zoom = LOGO_CONFIG.get(logo_path.name)  # Default config
-    
+    width, height, zoom = LOGO_CONFIG.get(logo_path.name, LOGO_DEFAULT)
+
     # Resize to thumbnail size while maintaining aspect ratio
     img_pil.thumbnail((width, height), Image.Resampling.LANCZOS)
-    
+
     # Create and return OffsetImage with specified zoom
-    imagebox = OffsetImage(np.array(img_pil), zoom=zoom)
-    
-    return imagebox
+    return OffsetImage(np.array(img_pil), zoom=zoom)
 
 
 def perform_chi_square_test(contingency_table, test_name, group1_name, group2_name, alpha=0.05, remove_zero_columns=True, show_effect_size_interpretation=False):
@@ -328,7 +394,7 @@ PLOTS_DIR = Path(__file__).parent / "plots"
 
 def get_plot_path(filename):
     """Get the full path for saving a plot to the plots/ directory.
-    
+
     Ensures the plots/ directory exists and returns the full path.
     All plotting scripts should use this to save their output.
     """
@@ -338,11 +404,11 @@ def get_plot_path(filename):
 
 def load_summary_file(file_path):
     """Load and parse a JSON summary file.
-    
+
     Returns the parsed JSON dict, or None on failure.
     """
     try:
-        with open(file_path, 'r', encoding='utf-8') as f:
+        with open(file_path, "r", encoding="utf-8") as f:
             return json.load(f)
     except (json.JSONDecodeError, IOError) as e:
         print(f"Warning: Could not load {file_path}: {e}")
