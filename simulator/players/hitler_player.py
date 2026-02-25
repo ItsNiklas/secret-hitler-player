@@ -179,19 +179,26 @@ class HitlerPlayer:
         if self.id == 0:
             logger.debug(f"Prompt for {self.name} at stage {_stage}:\n{system_content}\n\n{prompt}")
 
-        response = self.openai_client.chat.completions.create(
-            model=openai_model,
-            messages=msg,
-            max_tokens=1024*4,
-            extra_body={"reasoning_effort": "low"}, 
-        )
-        
-        # Track token usage (without polluting game state)
-        track_response(response, stage=_stage, player_name=self.name)
+        content = None
+        for attempt in range(3):
+            response = self.openai_client.chat.completions.create(
+                model=openai_model,
+                messages=msg,
+                max_tokens=1024*4,
+                extra_body={"reasoning_effort": "low"}, 
+            )
+            
+            # Track token usage (without polluting game state)
+            track_response(response, stage=_stage, player_name=self.name)
 
-        content = response.choices[0].message.content
+            content = response.choices[0].message.content
+            if content is not None:
+                break
+            logger.warning(f"LLM response is None for {self.name} at stage {_stage} (attempt {attempt + 1}/3)")
+
         if content is None:
-            raise ValueError("LLM response is None.")
+            logger.error(f"LLM response is None after 3 attempts for {self.name} at stage {_stage}, returning empty string.")
+            content = ""
 
         self.inspection += f"{content}\n"
 
