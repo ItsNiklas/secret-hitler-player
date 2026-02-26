@@ -282,17 +282,32 @@ def main():
 Examples:
   python vote_analyzer.py ../crawl/summaries/
   python vote_analyzer.py /path/to/summaries/folder/
+  python vote_analyzer.py                          # runs all runsF2* folders
         """
     )
     
     parser.add_argument(
         'summaries_folder',
-        help='Path to the folder containing *_summary.json files'
+        nargs='?',
+        default=None,
+        help='Path to the folder containing *_summary.json files (default: all runsF2* folders)'
     )
     
     args = parser.parse_args()
     
-    analyze_votes(args.summaries_folder)
+    if args.summaries_folder:
+        analyze_votes(args.summaries_folder)
+    else:
+        script_dir = Path(__file__).resolve().parent
+        runs_folders = sorted(script_dir.glob("runsF2*"))
+        if not runs_folders:
+            print("No runsF2* folders found in", script_dir)
+            return
+        for folder in runs_folders:
+            print(f"\n{'#' * 60}")
+            print(f"# {folder.name}")
+            print(f"{'#' * 60}")
+            analyze_votes(str(folder))
 
 
 if __name__ == "__main__":

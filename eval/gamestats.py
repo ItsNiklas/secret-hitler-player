@@ -576,9 +576,8 @@ def create_policy_progression_plot(games_data: List[Dict[str, Any]]):
         plt.savefig(out_path, dpi=300, bbox_inches='tight')
         plt.close()
         print(f"Plot saved to: {out_path}")
-    except Exception as e:
-        print(f"Could not save plot: {e}")
-        print("Continuing without saving...")
+    except Exception:
+        plt.close()
     
     # Return means for backward compatibility
     return liberal_data['means'], fascist_data['means']
@@ -591,69 +590,89 @@ def enhanced_parse_game_data(game_data: Dict[str, Any]) -> Dict[str, Any]:
     return result
 
 
-if __name__ == "__main__":
-    if EVAL_DIR is None:
-        print("Usage: python gamestats.py <EVAL_DIR>")
-        sys.exit(1)
-    
+def run_for_eval_dir(eval_dir: str):
+    """Run all analyses for a single eval directory."""
+    global EVAL_DIR
+    EVAL_DIR = eval_dir
+
     eval_files = load_eval_run_filenames()
     print(f"Found {len(eval_files)} files in eval/{EVAL_DIR}")
-    
+
     # Load and parse each game file
     all_games_data = []
     skipped_avalon_games = 0
-    
+
     for file_path in eval_files:
         if 'annotat' in file_path.lower():
             continue
         try:
             with open(file_path, 'r') as f:
                 game_data = json.load(f)
-            
+
             # Skip games if gameSetting exists AND avalonSH is NOT NULL
             game_setting = game_data.get('gameSetting')
             if game_setting is not None and game_setting.get('avalonSH') is not None:
                 skipped_avalon_games += 1
                 continue
-            
+
             parsed_data = enhanced_parse_game_data(game_data)
             all_games_data.append(parsed_data)
         except Exception as e:
             print(f"Error processing {file_path}: {e}")
             continue
-   
+
     # Filter out games with fewer than 4 rounds
     games_before_filter = len(all_games_data)
     all_games_data = [game for game in all_games_data if game['total_rounds'] >= 4]
     games_filtered_out = games_before_filter - len(all_games_data)
-    
+
     print(f"\nTotal games processed: {len(all_games_data)}")
     if skipped_avalon_games > 0:
         print(f"Skipped {skipped_avalon_games} Avalon games (avalonSH setting not null)")
     if games_filtered_out > 0:
         print(f"Filtered out {games_filtered_out} games with fewer than 4 rounds")
-    
+
     if len(all_games_data) == 0:
         print("No games found or processed successfully.")
-        sys.exit(1)
-    
+        return
+
     # Analyze win conditions
     analysis = analyze_win_conditions(all_games_data)
-    
+
     # Analyze Alice's performance
     alice_analysis = analyze_alice_performance(all_games_data)
-    
+
     # Analyze game length distribution
     length_analysis = analyze_game_length_distribution(all_games_data)
-    
+
     # Analyze Alice's game state impact
     alice_impact_analysis = analyze_alice_game_state_impact(all_games_data)
-    
+
     # Print results
     print_win_analysis(analysis)
     print_alice_analysis(alice_analysis)
     print_alice_game_state_impact(alice_impact_analysis)
     print_game_length_histogram(length_analysis)
-    
+
     # Create policy progression plot
     create_policy_progression_plot(all_games_data)
+
+
+if __name__ == "__main__":
+    if EVAL_DIR is not None:
+        run_for_eval_dir(EVAL_DIR)
+    else:
+        # No argument given — run for all runsF2* directories
+        current_dir = os.path.dirname(os.path.abspath(__file__))
+        eval_dirs = sorted(
+            d for d in os.listdir(current_dir)
+            if d.startswith('runsF2') and os.path.isdir(os.path.join(current_dir, d))
+        )
+        if not eval_dirs:
+            print("No runsF2* directories found.")
+            sys.exit(1)
+        for eval_dir in eval_dirs:
+            print("\n" + "#" * 70)
+            print(f"# Processing: {eval_dir}")
+            print("#" * 70)
+            run_for_eval_dir(eval_dir)

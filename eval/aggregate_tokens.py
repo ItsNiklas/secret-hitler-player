@@ -221,8 +221,6 @@ def print_report(result):
 def plot_completion_tokens(results: dict):
     """Vertical bar chart of avg completion tokens/game across all models, sorted."""
     setup_plot_style(use_latex=True)
-    plt.rcParams["xtick.bottom"] = True
-    plt.rcParams["ytick.left"] = True
 
     # Collect entries that exist in both results and MODEL_REGISTRY
     entries = []
@@ -265,7 +263,7 @@ def plot_completion_tokens(results: dict):
     ax.tick_params(axis="x", color="0.85", labelcolor="0", pad=0)
     ax.tick_params(axis="y", color="0.85", labelcolor="0")
 
-    ax.grid(True, axis="y", alpha=0.3, linestyle="--", zorder=0)
+    ax.grid(True, alpha=0.3, zorder=0)
 
     plt.tight_layout()
 

@@ -96,68 +96,78 @@ MODEL_REGISTRY = {
     # ---- LLM models ----
     "runsF2-GEMMA": {
         "name": "Gemma 3 27B",
-        "color": "#e41a1c",
+        "color": "#2E96FF",
         "logo": "gemma.png",
         "marker": ("v", 8),
     },
     "runsF2-AMORALGEMMA": {
-        "name": "Amoral Gemma",
-        "color": "#ED6668",
+        "name": "Amoral Gemma 3 27B",
+        "color": "#2E96FF",
         "logo": "huggingface.png",
         "marker": ("^", 8),
+        "abliterated": True,
     },
     "runsF2-GPTOSS120B": {
         "name": "GPT-OSS 120B",
-        "color": "#ff7f00",
+        "color": "#000000",
         "logo": "openai.png",
         "marker": ("p", 7),
     },
     "runsF2-GPTOSS120B-DERESTRICTED": {
-        "name": "GPT-OSS 120B Derest.",
-        "color": "#fdbf6f",
+        "name": "GPT-OSS 120B Derestricted",
+        "color": "#000000",
         "logo": "huggingface.png",
         "marker": ("P", 7),
+        "abliterated": True,
     },
     "runsF2-GPTOSS20B": {
         "name": "GPT-OSS 20B",
-        "color": "#d48a00",
+        "color": "#000000",
         "logo": "openai.png",
         "marker": ("h", 7),
     },
     "runsF2-KIMIK25": {
         "name": "Kimi K2.5",
-        "color": "#984ea3",
+        "color": "#16191E",
         "logo": "moonshot.png",
         "marker": ("s", 6),
     },
     "runsF2-LLAMA3170B": {
         "name": "Llama 3.1 70B",
-        "color": "#7AA9D0",
+        "color": "#1D65C1",
         "logo": "llama.png",
         "marker": ("D", 6),
     },
     "runsF2-MISTRALSMALL": {
         "name": "Mistral Small 24B",
-        "color": "#a65628",
+        "color": "#FA520F",
         "logo": "mistral.png",
         "marker": ("d", 7),
     },
     "runsF2-NOUSHERMES4": {
-        "name": "Nous Hermes 4",
-        "color": "#4daf4a",
+        "name": "Nous Hermes 4 70B",
+        "color": "#2D6376",
         "logo": "nous.png",
         "marker": ("o", 7),
+        "abliterated": True,
     },
     "runsF2-DOLPHINVENICE": {
-        "name": "Dolphin Mistral Venice",
-        "color": "#17becf",
+        "name": "Dolphin Mistral 24B Venice",
+        "color": "#6186DB",
         "logo": "dolphin.png",
         "marker": ("8", 7),
+        "abliterated": True,
     },
     "runsF2-OLMO": {
         "name": "OLMo 3.1 32B",
-        "color": "#377eb8",
+        "color": "#F0529C",
         "logo": "allen.png",
+        "marker": ("H", 7),
+    },
+    "runsF2-QWEN35": {
+        "name": "Qwen 3.5 397B A17B",
+        "color": "#615CED",
+        "logo": "qwen.png",
         "marker": ("H", 7),
     },
     # ---- Baselines ----
@@ -294,7 +304,7 @@ def get_model_imagebox(model_name):
     # Per-file sizing overrides  (width, height, zoom)
     LOGO_CONFIG = {
         "gemma.png": (64, 64, 1 / 7),
-        "qwen.png": (64, 64, 1 / 7.5),
+        "qwen.png": (64, 64, 1 / 8),
         "deepseek.png": (64, 64, 1 / 6),
         "llama.png": (64, 64, 1 / 7),
         "human.png": (64, 64, 1 / 8),
@@ -303,6 +313,7 @@ def get_model_imagebox(model_name):
         "huggingface.png": (64, 64, 1 / 8),
         "nous.png": (64, 64, 1 / 7.5),
         "gemma.png": (64, 64, 1 / 6.5),
+        "olmo.png": (64, 64, 1 / 7.5),
     }
     LOGO_DEFAULT = (64, 64, 1 / 7)  # sensible default for new logos
 
