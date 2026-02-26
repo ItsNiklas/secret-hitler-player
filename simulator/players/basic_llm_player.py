@@ -16,8 +16,8 @@ class BasicLLMPlayer(HitlerPlayer):
     - Simpler prompts focused on direct decisions
     """
     
-    def __init__(self, id, name: str, role, state, game_log, chat_log, player_index: int = 0, api_key: str = None, base_url: str = None) -> None:
-        super(BasicLLMPlayer, self).__init__(id, name, role, state, game_log, chat_log, api_key=api_key, base_url=base_url)
+    def __init__(self, id, name: str, role, state, game_log, chat_log, player_index: int = 0, api_key: str = None, base_url: str = None, model: str = None) -> None:
+        super(BasicLLMPlayer, self).__init__(id, name, role, state, game_log, chat_log, api_key=api_key, base_url=base_url, model=model)
         # Override to disable memory tracking
         self.use_memory = False
 

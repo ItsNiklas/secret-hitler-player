@@ -8,9 +8,9 @@ from HitlerLogging import display_player_reasoning, display_policy_table, displa
 
 
 class LLMPlayer(HitlerPlayer):
-    def __init__(self, id, name: str, role, state, game_log, chat_log, player_index: int = 0, api_key: str = None, base_url: str = None) -> None:
+    def __init__(self, id, name: str, role, state, game_log, chat_log, player_index: int = 0, api_key: str = None, base_url: str = None, model: str = None) -> None:
         # Accept API credentials from game config or fall back to env vars
-        super(LLMPlayer, self).__init__(id, name, role, state, game_log, chat_log, api_key=api_key, base_url=base_url)
+        super(LLMPlayer, self).__init__(id, name, role, state, game_log, chat_log, api_key=api_key, base_url=base_url, model=model)
 
     def vote_government(self) -> Vote:
         """

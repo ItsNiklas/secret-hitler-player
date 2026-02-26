@@ -343,32 +343,32 @@ class HitlerGame:
                 player_type = "LLM" if num == 0 else "CPU"
             
             # Get LLM endpoint for this player type and index
-            api_key, base_url = self.config.get_llm_endpoint(player_type, num)
+            api_key, base_url, model = self.config.get_llm_endpoint(player_type, num)
             
             if player_type == "LLM":
                 player = LLMPlayer(
                     num, name, roles.pop(0), self.state, self.state.game_log, self.state.chat_log, 
-                    player_index=num, api_key=api_key, base_url=base_url
+                    player_index=num, api_key=api_key, base_url=base_url, model=model
                 )
             elif player_type == "BASICLLM":
                 player = BasicLLMPlayer(
                     num, name, roles.pop(0), self.state, self.state.game_log, self.state.chat_log,
-                    player_index=num, api_key=api_key, base_url=base_url
+                    player_index=num, api_key=api_key, base_url=base_url, model=model
                 )
             elif player_type == "CPU":
                 player = CPUPlayer(
                     num, name, roles.pop(0), self.state, self.state.game_log, self.state.chat_log,
-                    api_key=api_key, base_url=base_url
+                    api_key=api_key, base_url=base_url, model=model
                 )
             elif player_type == "RULE":
                 player = RulePlayer(
                     num, name, roles.pop(0), self.state, self.state.game_log, self.state.chat_log,
-                    api_key=api_key, base_url=base_url
+                    api_key=api_key, base_url=base_url, model=model
                 )
             elif player_type == "RANDOM":
                 player = RandomPlayer(
                     num, name, roles.pop(0), self.state, self.state.game_log, self.state.chat_log,
-                    api_key=api_key, base_url=base_url
+                    api_key=api_key, base_url=base_url, model=model
                 )
             else:
                 raise ValueError(f"Unknown player type: {player_type}")

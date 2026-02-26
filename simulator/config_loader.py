@@ -77,13 +77,15 @@ class Config:
             if 'default' in llm:
                 config.llm['default'] = {
                     'api_key': config._expand_env_vars(llm['default'].get('api_key', '')),
-                    'base_url': config._expand_env_vars(llm['default'].get('base_url', 'http://localhost:8080/v1/'))
+                    'base_url': config._expand_env_vars(llm['default'].get('base_url', 'http://localhost:8080/v1/')),
+                    'model': llm['default'].get('model'),
                 }
             
             if 'llm_player' in llm:
                 config.llm['llm_player'] = {
                     'api_key': config._expand_env_vars(llm['llm_player'].get('api_key')),
                     'base_url': config._expand_env_vars(llm['llm_player'].get('base_url')),
+                    'model': llm['llm_player'].get('model'),
                     'advanced_player_index': llm['llm_player'].get('advanced_player_index', 0),
                     'advanced': llm['llm_player'].get('advanced'),
                     'standard': llm['llm_player'].get('standard'),
@@ -92,25 +94,29 @@ class Config:
             if 'basic_llm_player' in llm:
                 config.llm['basic_llm_player'] = {
                     'api_key': config._expand_env_vars(llm['basic_llm_player'].get('api_key', '')),
-                    'base_url': config._expand_env_vars(llm['basic_llm_player'].get('base_url', 'http://localhost:8080/v1/'))
+                    'base_url': config._expand_env_vars(llm['basic_llm_player'].get('base_url', 'http://localhost:8080/v1/')),
+                    'model': llm['basic_llm_player'].get('model'),
                 }
             
             if 'cpu_player' in llm:
                 config.llm['cpu_player'] = {
                     'api_key': config._expand_env_vars(llm['cpu_player'].get('api_key', '')),
-                    'base_url': config._expand_env_vars(llm['cpu_player'].get('base_url', 'http://localhost:8080/v1/'))
+                    'base_url': config._expand_env_vars(llm['cpu_player'].get('base_url', 'http://localhost:8080/v1/')),
+                    'model': llm['cpu_player'].get('model'),
                 }
             
             if 'rule_player' in llm:
                 config.llm['rule_player'] = {
                     'api_key': config._expand_env_vars(llm['rule_player'].get('api_key', '')),
-                    'base_url': config._expand_env_vars(llm['rule_player'].get('base_url', 'http://localhost:8080/v1/'))
+                    'base_url': config._expand_env_vars(llm['rule_player'].get('base_url', 'http://localhost:8080/v1/')),
+                    'model': llm['rule_player'].get('model'),
                 }
             
             if 'random_player' in llm:
                 config.llm['random_player'] = {
                     'api_key': config._expand_env_vars(llm['random_player'].get('api_key', '')),
-                    'base_url': config._expand_env_vars(llm['random_player'].get('base_url', 'http://localhost:8080/v1/'))
+                    'base_url': config._expand_env_vars(llm['random_player'].get('base_url', 'http://localhost:8080/v1/')),
+                    'model': llm['random_player'].get('model'),
                 }
         
         # Load processing settings
@@ -121,42 +127,46 @@ class Config:
         
         return config
     
-    def get_llm_endpoint(self, player_type: str, player_index: int = 0) -> Tuple[str, str]:
-        """Get API key and base URL for a specific player type and index."""
+    def get_llm_endpoint(self, player_type: str, player_index: int = 0) -> Tuple[str, str, str]:
+        """Get API key, base URL, and model override for a specific player type and index.
+        
+        Returns:
+            Tuple of (api_key, base_url, model) where model may be None if not overridden.
+        """
         player_type = player_type.upper()
         
         if player_type == "LLM" and self.llm['llm_player']:
             lp = self.llm['llm_player']
             # Check if this is the advanced player
             if player_index == lp.get('advanced_player_index', 0) and lp.get('advanced'):
-                return (lp['advanced']['api_key'], lp['advanced']['base_url'])
+                return (lp['advanced']['api_key'], lp['advanced']['base_url'], lp['advanced'].get('model'))
             # Standard LLM player
             elif lp.get('standard'):
-                return (lp['standard']['api_key'], lp['standard']['base_url'])
+                return (lp['standard']['api_key'], lp['standard']['base_url'], lp['standard'].get('model'))
             # Fallback to llm_player base config
             elif lp.get('api_key'):
-                return (lp['api_key'], lp.get('base_url') or self.llm['default']['base_url'])
+                return (lp['api_key'], lp.get('base_url') or self.llm['default']['base_url'], lp.get('model'))
         
         elif player_type == "BASICLLM" and self.llm['basic_llm_player']:
-            return (self.llm['basic_llm_player']['api_key'], self.llm['basic_llm_player']['base_url'])
+            return (self.llm['basic_llm_player']['api_key'], self.llm['basic_llm_player']['base_url'], self.llm['basic_llm_player'].get('model'))
         
         elif player_type == "CPU" and self.llm['cpu_player']:
-            return (self.llm['cpu_player']['api_key'], self.llm['cpu_player']['base_url'])
+            return (self.llm['cpu_player']['api_key'], self.llm['cpu_player']['base_url'], self.llm['cpu_player'].get('model'))
         
         elif player_type == "RULE":
             if self.llm['rule_player']:
-                return (self.llm['rule_player']['api_key'], self.llm['rule_player']['base_url'])
+                return (self.llm['rule_player']['api_key'], self.llm['rule_player']['base_url'], self.llm['rule_player'].get('model'))
             # Fallback to CPU config
             elif self.llm['cpu_player']:
-                return (self.llm['cpu_player']['api_key'], self.llm['cpu_player']['base_url'])
+                return (self.llm['cpu_player']['api_key'], self.llm['cpu_player']['base_url'], self.llm['cpu_player'].get('model'))
         
         elif player_type == "RANDOM":
             if self.llm['random_player']:
-                return (self.llm['random_player']['api_key'], self.llm['random_player']['base_url'])
+                return (self.llm['random_player']['api_key'], self.llm['random_player']['base_url'], self.llm['random_player'].get('model'))
             # Fallback to CPU config
             elif self.llm['cpu_player']:
-                return (self.llm['cpu_player']['api_key'], self.llm['cpu_player']['base_url'])
+                return (self.llm['cpu_player']['api_key'], self.llm['cpu_player']['base_url'], self.llm['cpu_player'].get('model'))
         
         # Default fallback
-        return (self.llm['default']['api_key'], self.llm['default']['base_url'])
+        return (self.llm['default']['api_key'], self.llm['default']['base_url'], self.llm['default'].get('model'))
 
