@@ -168,7 +168,7 @@ class HitlerPlayer:
     {formatted_recent_chat}
 
     Your previous PRIVATE thoughts and reasoning:
-    {self.inspection[-500:]}\n""" + prompt
+    {self.inspection[-1000:]}\n""" + prompt
 
         msg = [
             {"role": "system", "content": system_content},
@@ -177,8 +177,6 @@ class HitlerPlayer:
 
         # Log the full prompt/message JSON sent to the model
         import json as _json
-        logger.info(f"[LLM REQUEST] {self.name} | stage={_stage} | model={openai_model}")
-        logger.info(f"[LLM MSG JSON] {_json.dumps(msg, ensure_ascii=False)}")
         logger.debug(f"Prompt for {self.name} at stage {_stage}:\n--- SYSTEM ---\n{system_content}\n--- USER ---\n{prompt}")
 
         content = None

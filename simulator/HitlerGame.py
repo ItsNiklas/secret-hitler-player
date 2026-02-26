@@ -6,6 +6,7 @@ import logging
 import json
 import datetime
 import uuid
+import signal
 import concurrent.futures
 from random import randint
 
@@ -234,6 +235,8 @@ class HitlerGame:
         # Only living players should participate in discussion
         living_discussants = [p for p in self.state.players if not p.is_dead]
         random.shuffle(living_discussants)
+        order_str = " -> ".join(str(p) for p in living_discussants)
+        logger.info(f"[bold green]Discussion order: {order_str}[/bold green]")
         logger.info("[bold green]Players discussing before vote...[/bold green]")
         for player in living_discussants:
             response = player.discuss(chat, "discussion_on_potential_government")
@@ -323,6 +326,8 @@ class HitlerGame:
             chat = "Discussion After Policy Enactment:\n"
             living_discussants = [p for p in self.state.players if not p.is_dead]
             random.shuffle(living_discussants)
+            order_str = " -> ".join(str(p) for p in living_discussants)
+            logger.info(f"[bold green]Discussion order: {order_str}[/bold green]")
             logger.info("[bold green]Players discussing after policy...[/bold green]")
             for player in living_discussants:
                 response = player.discuss(chat, "after_policy")
@@ -1745,6 +1750,25 @@ if __name__ == "__main__":
 
     # Initialize game with args object and config
     game = HitlerGame(args, config)
+
+    # Ctrl+C confirmation handler: first press asks, second press exits
+    _ctrl_c_state = [False]  # mutable container for closure
+
+    def _sigint_handler(signum, frame):
+        if _ctrl_c_state[0]:
+            print("\nForce quitting...")
+            sys.exit(1)
+        _ctrl_c_state[0] = True
+        print("\n\n⚠  Ctrl+C pressed. Press Ctrl+C again to quit, or wait to continue...")
+        # Reset after 3 seconds so a stale press doesn't persist
+        signal.alarm(3)
+
+    def _reset_ctrl_c(signum, frame):
+        _ctrl_c_state[0] = False
+
+    signal.signal(signal.SIGINT, _sigint_handler)
+    signal.signal(signal.SIGALRM, _reset_ctrl_c)
+
     game.play()
 
     sys.stdout = sys.__stdout__

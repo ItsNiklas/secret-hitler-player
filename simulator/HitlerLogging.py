@@ -504,6 +504,21 @@ def display_player_inner_monologue(player, content, title, border_style="blue"):
     logger.info(f"{title} {role_text}:\n{clean_content}")
 
 
+def _split_message_for_copy(text, limit=300):
+    """Split text into chunks of at most `limit` characters, breaking on whitespace."""
+    lines = []
+    while len(text) > limit:
+        # Find the last whitespace at or before the limit
+        split_pos = text.rfind(' ', 0, limit)
+        if split_pos == -1:
+            split_pos = limit  # no whitespace found, hard break
+        lines.append(text[:split_pos])
+        text = text[split_pos:].lstrip()
+    if text:
+        lines.append(text)
+    return lines
+
+
 def display_player_discussion(player, content):
     """Display a player's discussion comments"""
     # Add role-specific color to player name
@@ -523,6 +538,16 @@ def display_player_discussion(player, content):
             border_style="bright_green"
         )
     )
+
+    # For LLM players, print a plain-text copyable version split at 300 chars
+    from players import LLMPlayer
+    if isinstance(player, LLMPlayer):
+        clean = clean_markdown_content(content).strip().strip('"').strip("'")
+        chunks = _split_message_for_copy(clean, 300)
+        print(f"--- COPY {player.name} ---")
+        for chunk in chunks:
+            print(chunk)
+        print(f"--- END ---")
     
     # Clean the content for logging and log the full content
     clean_content = clean_markdown_content(content)
