@@ -13,9 +13,9 @@ class RulePlayer(HitlerPlayer):
     Does not consider dialogue or complex voting patterns - serves as a baseline.
     """
     
-    def __init__(self, id, name: str, role, state, game_log, chat_log, api_key: str = None, base_url: str = None) -> None:
+    def __init__(self, id, name: str, role, state, game_log, chat_log, api_key: str = None, base_url: str = None, model: str = None) -> None:
         # Accept API credentials from game config or fall back to env vars
-        super(RulePlayer, self).__init__(id, name, role, state, game_log, chat_log, api_key=api_key, base_url=base_url)
+        super(RulePlayer, self).__init__(id, name, role, state, game_log, chat_log, api_key=api_key, base_url=base_url, model=model)
     
     def vote_government(self) -> Vote:
         """Vote based on simple rules for each role"""

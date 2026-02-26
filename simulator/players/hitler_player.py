@@ -44,6 +44,7 @@ class HitlerPlayer:
         chat_log: list[str],
         api_key: str = "",
         base_url: str = "http://localhost:8080/v1/",
+        model: str = None,
     ) -> None:
         self.id = id
         self.name = name
@@ -60,8 +61,8 @@ class HitlerPlayer:
         self.openai_base_url = base_url
         self.openai_client = OpenAI(api_key=self.openai_api_key, base_url=self.openai_base_url)
         
-        # Cache the model name for this player
-        self._model_name = None
+        # Cache the model name for this player (use override if provided)
+        self._model_name = model
 
     def reflect_on_roles(self) -> str:
         prompt = f"""Write a short monologue expressing your opinion about who you think might be Hitler and who you believe could be a fascist, based on your knowledge so far.
@@ -110,7 +111,11 @@ class HitlerPlayer:
         return response
 
     def get_model_name(self) -> str:
-        """Get the model name for this player, caching it after first retrieval."""
+        """Get the model name for this player, caching it after first retrieval.
+        
+        If a model override was provided via config, that is used directly.
+        Otherwise, auto-detects by querying the API's models endpoint.
+        """
         if self._model_name is None:
             try:
                 self._model_name = self.openai_client.models.list().data[0].id

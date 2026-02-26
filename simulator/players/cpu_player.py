@@ -27,9 +27,10 @@ class CPUPlayer(HitlerPlayer):
         chat_log: list[str],
         api_key: str = None,
         base_url: str = None,
+        model: str = None,
     ) -> None:
         # Accept API credentials from game config or fall back to env vars
-        super().__init__(id, name, role, state, game_log, chat_log, api_key=api_key, base_url=base_url)
+        super().__init__(id, name, role, state, game_log, chat_log, api_key=api_key, base_url=base_url, model=model)
 
         # Tracks reputation of other players from -5 to +5
         # Lower values = more likely fascist/hitler
