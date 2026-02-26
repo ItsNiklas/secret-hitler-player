@@ -296,8 +296,13 @@ def get_model_imagebox(model_name):
         "gemma.png": (64, 64, 1 / 7),
         "qwen.png": (64, 64, 1 / 7.5),
         "deepseek.png": (64, 64, 1 / 6),
-        "llama.png": (64, 64, 1 / 6),
+        "llama.png": (64, 64, 1 / 7),
         "human.png": (64, 64, 1 / 8),
+        "openai.png": (64, 64, 1 / 8.5),
+        "moonshot.png": (64, 64, 1 / 8),
+        "huggingface.png": (64, 64, 1 / 8),
+        "nous.png": (64, 64, 1 / 7.5),
+        "gemma.png": (64, 64, 1 / 6.5),
     }
     LOGO_DEFAULT = (64, 64, 1 / 7)  # sensible default for new logos
 

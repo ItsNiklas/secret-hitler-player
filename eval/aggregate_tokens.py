@@ -26,6 +26,8 @@ from pathlib import Path
 import matplotlib.pyplot as plt
 import numpy as np
 from matplotlib.offsetbox import AnnotationBbox
+from scipy.ndimage import rotate as rotate_image
+from matplotlib.offsetbox import OffsetImage
 
 from plot_config import (
     FIG_WIDTH,
@@ -250,36 +252,57 @@ def plot_completion_tokens(results: dict):
         ax.text(
             bar.get_x() + bar.get_width() / 2, val + y_max * 0.01,
             f"{val:,.0f}", ha="center", va="bottom",
+            fontsize=9
         )
 
     ax.set_ylim(0, y_max)
     ax.set_xlim(-0.6, len(names) - 0.4)
     ax.set_xticks(x_pos)
-    ax.set_xticklabels(names, rotation=35, ha="right",)
-    ax.set_ylabel("Avg Completion Tokens / Game (Alice only)")
+    ax.set_xticklabels(names, rotation=35, ha="right")
+    ax.set_ylabel("Avg Completion Tokens / Game")
 
     # Model logos above each bar label (below the x-axis)
-    ax.tick_params(axis="x", color="0.85", labelcolor="0", pad=18)
+    ax.tick_params(axis="x", color="0.85", labelcolor="0", pad=0)
     ax.tick_params(axis="y", color="0.85", labelcolor="0")
-
-    for i, name in enumerate(names):
-        imagebox = get_model_imagebox(name)
-        if imagebox is not None:
-            ab = AnnotationBbox(
-                imagebox,
-                xy=(x_pos[i], 0),
-                xycoords=("data", "axes fraction"),
-                xybox=(0, -12),
-                boxcoords="offset points",
-                frameon=False,
-                box_alignment=(0.5, 1.0),
-                zorder=10,
-            )
-            ax.add_artist(ab)
 
     ax.grid(True, axis="y", alpha=0.3, linestyle="--", zorder=0)
 
     plt.tight_layout()
+
+    # Render once so tick-label bounding boxes are available
+    fig.canvas.draw()
+    renderer = fig.canvas.get_renderer()
+    inv_ax = ax.transAxes.inverted()
+
+    for i, name in enumerate(names):
+        imagebox = get_model_imagebox(name)
+        if imagebox is not None:
+            label = ax.get_xticklabels()[i]
+            bbox = label.get_window_extent(renderer)
+
+            # The label is rotated 35° with ha="right", so the text starts
+            # at the lower-left corner of its axis-aligned bounding box.
+            # Convert that point to axes-fraction coords (stable across savefig).
+            end_x, end_y = inv_ax.transform((bbox.x0, bbox.y0))
+
+            # Rotate the image to match the 35° label angle
+            img_data = imagebox.get_data()
+            rotated_data = rotate_image(img_data, 35, reshape=True, order=1,
+                                        mode='constant', cval=255)
+            rotated_imagebox = OffsetImage(rotated_data, zoom=imagebox.get_zoom())
+
+            # Place the icon at the text-start end of the label
+            ab = AnnotationBbox(
+                rotated_imagebox,
+                xy=(end_x, end_y),
+                xycoords="axes fraction",
+                frameon=False,
+                clip_on=False,
+                box_alignment=(0.85, 0.4),
+                zorder=1,
+            )
+            ax.add_artist(ab)
+
     out = get_plot_path("token_completion_comparison.pdf")
     plt.savefig(out)
     print(f"\nPlot saved to: {out}")
