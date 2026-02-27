@@ -252,22 +252,8 @@ class HitlerGame:
         voted = self.voting()
 
         living_players = [p for p in self.state.players if not p.is_dead]
-        # 🆕 New reflection step after vote passes
-        logger.info("Players privately reflecting")
-        display_info_message("Players privately reflecting")
-        if living_players:
-            # Parallel reflection for all living players
-            reflections = self._parallel_reflect(living_players)
-            
-            # Store reflections in log entry
-            reflections_data = {}
-            for i, player in enumerate(living_players):
-                monologue = reflections[i]
-                reflections_data[player.id] = monologue
-                display_player_inner_monologue(player, monologue, f"{player}'s inner monologue")
-                logger.info(f"{player.name} reflection:\n{monologue}")
-            
-            self.current_log_entry["reflections"] = reflections_data
+        # Reflection (inner monologue) skipped for speed
+        self.current_log_entry["reflections"] = {}
         
         # Rapid role assessment for each player
         logger.info("Players making rapid role assessments")
@@ -314,37 +300,9 @@ class HitlerGame:
 
             action_enacted = self.vote_passed()
 
-        # Post-policy discussion -----------------------------------------------------
-        # In human experiment mode, always discuss after a successful vote
-        # (action_enacted is only True when a fascist track action fires,
-        #  so without this guard liberal policies and early fascist policies
-        #  would skip the after_policy discussion entirely.)
-        should_discuss = action_enacted if not self.human_experiment else voted
-        if should_discuss:
-            # DISCUSS HERE
-            logger.debug("Starting post-policy discussion")
-            chat = "Discussion After Policy Enactment:\n"
-            living_discussants = [p for p in self.state.players if not p.is_dead]
-            random.shuffle(living_discussants)
-            order_str = " -> ".join(str(p) for p in living_discussants)
-            logger.info(f"[bold green]Discussion order: {order_str}[/bold green]")
-            logger.info("[bold green]Players discussing after policy...[/bold green]")
-            for player in living_discussants:
-                response = player.discuss(chat, "after_policy")
-                self.state.chat_log.append({
-                    "userName": player.name,
-                    "chat": response,
-                    "state": "after_policy",
-                })
-                chat += f"{str(player)}: {response}\n\n"
-                logger.debug(
-                    f"Player {player.name} has provided their post-policy input"
-                )
-
-            if action_enacted:
-                self.perform_vote_action()
-        elif action_enacted:
-            # Non-experiment mode: action without discussion (shouldn't happen, but safe)
+            # Reset the election tracker after a successful election
+            self.state.failed_votes = 0
+        if action_enacted:
             self.perform_vote_action()
 
         if self.policy_win():
@@ -661,16 +619,64 @@ class HitlerGame:
             # Check if parallel processing is enabled
             from players import HitlerPlayer
             if HitlerPlayer.enable_parallel_processing and len(living_players) > 1:
-                # Parallel voting for all living players
-                votes = self._parallel_vote_government(living_players)
-            else:
-                # Sequential voting (fallback)
+                # LLM players vote first (in parallel) so their results
+                # are visible immediately — the operator can then relay
+                # those votes to the website before entering human votes.
+                from players import LLMPlayer, BasicLLMPlayer
+                llm_players = [p for p in living_players if isinstance(p, (LLMPlayer, BasicLLMPlayer))]
+                non_llm_players = [p for p in living_players if not isinstance(p, (LLMPlayer, BasicLLMPlayer))]
+
+                # Phase 1: LLM players vote in parallel
+                if len(llm_players) > 1:
+                    llm_votes = self._parallel_vote_government(llm_players)
+                elif llm_players:
+                    try:
+                        llm_votes = [llm_players[0].vote_government()]
+                    except Exception as e:
+                        logger.error(f"Error in voting for player {llm_players[0].name}: {e}")
+                        llm_votes = [random.choice([Ja(), Nein()])]
+                else:
+                    llm_votes = []
+
+                # Display LLM votes immediately
+                for player, vote in zip(llm_players, llm_votes):
+                    display_player_vote(player, vote)
+
+                # Phase 2: non-LLM (human/CPU) players vote sequentially
+                non_llm_votes = []
+                for player in non_llm_players:
+                    try:
+                        v = player.vote_government()
+                    except Exception as e:
+                        logger.error(f"Error in voting for player {player.name}: {e}")
+                        v = random.choice([Ja(), Nein()])
+                    non_llm_votes.append(v)
+
+                # Build votes list in original living_players order
+                llm_vote_map = {id(p): v for p, v in zip(llm_players, llm_votes)}
+                non_llm_vote_map = {id(p): v for p, v in zip(non_llm_players, non_llm_votes)}
                 votes = []
-                for player in living_players:
-                    vote = player.vote_government()
-                    votes.append(vote)
+                for p in living_players:
+                    if id(p) in llm_vote_map:
+                        votes.append(llm_vote_map[id(p)])
+                    else:
+                        votes.append(non_llm_vote_map[id(p)])
+            else:
+                # Sequential voting — LLM players first, then others
+                from players import LLMPlayer, BasicLLMPlayer
+                llm_first = [p for p in living_players if isinstance(p, (LLMPlayer, BasicLLMPlayer))]
+                others = [p for p in living_players if not isinstance(p, (LLMPlayer, BasicLLMPlayer))]
+                vote_map = {}
+                for player in llm_first + others:
+                    vote_map[id(player)] = player.vote_government()
+                votes = [vote_map[id(p)] for p in living_players]
             
             # Process results in original player order
+            # Track which players already had their vote displayed (LLM players in parallel mode)
+            already_displayed = set()
+            if HitlerPlayer.enable_parallel_processing and len(living_players) > 1:
+                from players import LLMPlayer, BasicLLMPlayer
+                already_displayed = {id(p) for p in living_players if isinstance(p, (LLMPlayer, BasicLLMPlayer))}
             vote_index = 0
             for player in self.state.players:
                 if not player.is_dead:
@@ -680,7 +686,9 @@ class HitlerGame:
                     vote_data.append((player, vote))
                     vote_record.append(bool(vote))  # Convert Vote object to bool for JSON
                     # Display individual votes with proper formatting
-                    display_player_vote(player, vote)
+                    # (skip LLM players already displayed above)
+                    if id(player) not in already_displayed:
+                        display_player_vote(player, vote)
                 else:
                     # Dead players can't vote
                     vote_record.append(None)
