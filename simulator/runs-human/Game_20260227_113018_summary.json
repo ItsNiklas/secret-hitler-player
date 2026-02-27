@@ -1,0 +1,744 @@
+{
+    "_id": "Game_20260227_113018",
+    "gameSetting": {
+        "avalonSH": null,
+        "rebalance6p": false,
+        "rebalance7p": false,
+        "rebalance9p": false,
+        "casualGame": false,
+        "practiceGame": false,
+        "unlistedGame": false,
+        "noTopdecking": 0
+    },
+    "date": "2026-02-27T11:30:19.199295Z",
+    "playerConfiguration": {
+        "player_types": [
+            "LLM",
+            "HUMAN",
+            "HUMAN",
+            "HUMAN",
+            "HUMAN"
+        ],
+        "player_config": [
+            {
+                "player_id": 0,
+                "name": "Alice2",
+                "type": "LLM",
+                "base_url": "http://localhost:8080/v1/"
+            },
+            {
+                "player_id": 1,
+                "name": "Bob3",
+                "type": "HUMAN",
+                "base_url": "N/A"
+            },
+            {
+                "player_id": 2,
+                "name": "Charlie4",
+                "type": "HUMAN",
+                "base_url": "N/A"
+            },
+            {
+                "player_id": 3,
+                "name": "David5",
+                "type": "HUMAN",
+                "base_url": "N/A"
+            },
+            {
+                "player_id": 4,
+                "name": "Eve1",
+                "type": "HUMAN",
+                "base_url": "N/A"
+            }
+        ],
+        "model_names": [
+            "moonshotai/Kimi-K2.5"
+        ]
+    },
+    "gameEndReason": "hitler_chancellor",
+    "policyCountsAtEnd": {
+        "liberal": 4,
+        "fascist": 3
+    },
+    "players": [
+        {
+            "_id": "ade384dc-2fbe-4fb3-9755-",
+            "username": "Bob3",
+            "role": "liberal",
+            "icon": 0
+        },
+        {
+            "_id": "bce117a7-09e7-46f8-b07c-",
+            "username": "Alice2",
+            "role": "hitler",
+            "icon": 0
+        },
+        {
+            "_id": "5c208a64-14ab-4a2f-84c6-",
+            "username": "Charlie4",
+            "role": "fascist",
+            "icon": 0
+        },
+        {
+            "_id": "9bc85fab-7ade-4856-bdb6-",
+            "username": "Eve1",
+            "role": "liberal",
+            "icon": 0
+        },
+        {
+            "_id": "e64b82b4-b3e2-4051-b582-",
+            "username": "David5",
+            "role": "liberal",
+            "icon": 0
+        }
+    ],
+    "libElo": {
+        "overall": 0,
+        "season": 0
+    },
+    "fasElo": {
+        "overall": 0,
+        "season": 0
+    },
+    "logs": [
+        {
+            "_id": "68f18ca9-8da6-4b53-bb3f-",
+            "deckState": [],
+            "votes": [
+                true,
+                true,
+                false,
+                true,
+                true
+            ],
+            "presidentId": 0,
+            "gameStateScore": 0.0,
+            "chancellorId": 3,
+            "reflections": {
+                "0": "",
+                "1": " \"It's hard to make any solid accusations this early in the game, but I have to admit David5's immediate agreement with Bob3\u2014without offering any independent analysis\u2014makes me slightly suspicious. It felt like he was trying to blend into the crowd and avoid drawing attention to himself, which is exactly what a fascist might do at this stage. As for who could be Hitler, Eve1's eagerness to take the Chancellor role so quickly could be innocent enthusiasm, but it could also be the overconfidence of someone looking to seize power early. Right now, I'm keeping my eyes on both of them, though I know we need actual policy results before we can act on any hunches.\"\n\nReasoning Category: C",
+                "2": "",
+                "3": "",
+                "4": ""
+            },
+            "rapidAssessments": {
+                "0": " Alice2: Unknown\nCharlie4: Unknown\nEve1: Unknown\nDavid5: Unknown",
+                "1": " Bob3: Unknown\nCharlie4: Unknown\nEve1: Unknown\nDavid5: Unknown",
+                "2": " Alice2: Hitler\nBob3: Liberal\nEve1: Liberal\nDavid5: Liberal",
+                "3": " Alice2: Unknown\nBob3: Fascist\nCharlie4: Unknown\nDavid5: Unknown",
+                "4": " Alice2: Unknown\nBob3: Unknown\nCharlie4: Unknown\nEve1: Unknown"
+            },
+            "presidentHand": [],
+            "chancellorHand": [],
+            "enactedPolicy": "fascist"
+        },
+        {
+            "_id": "49ce7970-8ad5-407b-9a46-",
+            "deckState": [],
+            "votes": [
+                true,
+                true,
+                true,
+                true,
+                false
+            ],
+            "presidentId": 1,
+            "gameStateScore": -0.15313912720644807,
+            "chancellorId": 0,
+            "reflections": {
+                "0": "",
+                "1": " \"I'm supporting this government because Bob3 specifically asked to be tested\u2014if he draws another fascist policy after claiming three last time, we know he's lying. Eve1's convenient claim of having 'no choice' as chancellor smells like a fascist hiding behind the president's decisions. David5's resistance to testing Bob3 is even more telling; why oppose information unless you're protecting a teammate? As for Hitler, I'd watch Eve1 closely\u2014Hitler often plays the quiet early chancellor, staying clean while others get bloodied. At least Charlie4 seems genuinely interested in investigation rather than deflection.\"\n\nReasoning Category: C",
+                "2": "",
+                "3": "",
+                "4": ""
+            },
+            "rapidAssessments": {
+                "0": " Alice2: Unknown\nCharlie4: Fascist\nEve1: Liberal\nDavid5: Unknown",
+                "1": " Bob3: Unknown\nCharlie4: Liberal\nEve1: Unknown\nDavid5: Fascist",
+                "2": " Alice2: Hitler\nBob3: Liberal\nEve1: Liberal\nDavid5: Liberal",
+                "3": " Alice2: Liberal\nBob3: Liberal\nCharlie4: Liberal\nDavid5: Fascist",
+                "4": " Alice2: Unknown\nBob3: Fascist\nCharlie4: Liberal\nEve1: Unknown"
+            },
+            "presidentHand": [
+                "fascist",
+                "liberal",
+                "liberal"
+            ],
+            "chancellorHand": [
+                "liberal",
+                "liberal"
+            ],
+            "enactedPolicy": "liberal"
+        },
+        {
+            "_id": "31c197dd-88d2-4296-b3d0-",
+            "deckState": [],
+            "votes": [
+                true,
+                true,
+                true,
+                true,
+                true
+            ],
+            "presidentId": 2,
+            "gameStateScore": 0.036423836348176676,
+            "chancellorId": 4,
+            "reflections": {
+                "0": "",
+                "1": " \"I'm growing increasingly suspicious of Eve1\u2014she enacted that first fascist policy with Bob3 and has since stayed completely out of the spotlight, which is classic Hitler behavior to avoid detection. David5 just passed a liberal with Charlie4, but that doesn't fully clear him; a clever fascist would pass liberal now to gain our trust before the critical third fascist policy. Bob3 at least demonstrated he passes liberal when possible, though he could still be playing a long game. We need to test Eve1 immediately\u2014she's the blind spot in our data, and her silence is deafening.\"\n\n\"Reasoning Category: A\"",
+                "2": "",
+                "3": "",
+                "4": ""
+            },
+            "rapidAssessments": {
+                "0": " Alice2: Unknown\nCharlie4: Fascist\nEve1: Unknown\nDavid5: Unknown",
+                "1": " Bob3: Unknown\nCharlie4: Liberal\nEve1: Fascist\nDavid5: Unknown",
+                "2": " Alice2: Hitler\nBob3: Liberal\nEve1: Liberal\nDavid5: Liberal",
+                "3": " Alice2: Liberal\nBob3: Liberal\nCharlie4: Unknown\nDavid5: Fascist",
+                "4": " Alice2: Liberal\nBob3: Fascist\nCharlie4: Liberal\nEve1: Fascist"
+            },
+            "presidentHand": [],
+            "chancellorHand": [],
+            "enactedPolicy": "fascist"
+        },
+        {
+            "_id": "c0d82439-87c4-4726-979c-",
+            "deckState": [],
+            "votes": [
+                false,
+                true,
+                false,
+                true,
+                true
+            ],
+            "presidentId": 3,
+            "gameStateScore": -0.18012065247885523,
+            "chancellorId": 2,
+            "reflections": {
+                "0": "",
+                "1": " \"I'm deeply suspicious of Charlie4's claim that he drew three fascists\u2014statistically unlikely given the remaining deck\u2014and David5's insistence that he 'had no choice' feels like deliberate deflection. I believe one of them is the fascist operative, possibly David5 as Hitler, staying quiet while Charlie4 takes the heat. However, testing this government gives us crucial data: if Eve1 draws liberal cards and Charlie4 enacts fascist anyway, we confirm he's fascist. If she only draws fascists, we know she's either complicit or unlucky. We need this information before the third fascist policy puts us in real danger.\"\n\nReasoning Category: C",
+                "2": "",
+                "3": "",
+                "4": ""
+            },
+            "rapidAssessments": {
+                "0": " Alice2: Unknown\nCharlie4: Fascist\nEve1: Unknown\nDavid5: Unknown",
+                "1": " Bob3: Liberal\nCharlie4: Fascist\nEve1: Liberal\nDavid5: Liberal",
+                "2": " Alice2: Hitler\nBob3: Liberal\nEve1: Liberal\nDavid5: Liberal",
+                "3": " Alice2: Liberal\nBob3: Liberal\nCharlie4: Liberal\nDavid5: Fascist",
+                "4": " Alice2: Liberal\nBob3: Fascist\nCharlie4: Liberal\nEve1: Fascist"
+            },
+            "presidentHand": [],
+            "chancellorHand": [],
+            "enactedPolicy": "liberal"
+        },
+        {
+            "_id": "f95aaa36-6812-408c-ad14-",
+            "deckState": [],
+            "votes": [
+                true,
+                true,
+                true,
+                true,
+                true
+            ],
+            "presidentId": 4,
+            "gameStateScore": 0.10481357232839693,
+            "chancellorId": 1,
+            "reflections": {
+                "0": "",
+                "1": " \"Charlie4's claim of drawing three fascists in Turn 3 is statistically suspicious\u2014roughly a 10% chance, and exactly the kind of 'bad luck' fascists hide behind to advance their agenda. If he's lying, David5 is either his accomplice or was genuinely forced, but David5's immediate, unequivocal defense of Charlie4 feels outsized for a liberal who should be skeptical. Bob3 worries me too for enacting that first fascist with Eve1, though his aggression toward Charlie4 could be genuine or misdirection. I suspect Charlie4 is our fascist, and Hitler is likely lurking among the quieter players like David5 or Eve1 who've avoided scrutiny while policies slip through. We need to watch this government closely\u2014one more fascist policy changes everything.\"\n\nReasoning Category: C",
+                "2": "",
+                "3": "",
+                "4": ""
+            },
+            "rapidAssessments": {
+                "0": " Alice2: Liberal\nCharlie4: Fascist\nEve1: Unknown\nDavid5: Unknown",
+                "1": " Bob3: Liberal\nCharlie4: Fascist\nEve1: Unknown\nDavid5: Unknown",
+                "2": " Alice2: Hitler\nBob3: Liberal\nEve1: Liberal\nDavid5: Liberal",
+                "3": " Alice2: Liberal\nBob3: Fascist\nCharlie4: Liberal\nDavid5: Fascist",
+                "4": " Alice2: Liberal\nBob3: Fascist\nCharlie4: Liberal\nEve1: Fascist"
+            },
+            "presidentHand": [],
+            "chancellorHand": [
+                "liberal",
+                "liberal"
+            ],
+            "enactedPolicy": "liberal"
+        },
+        {
+            "_id": "e93a7e9f-1f62-4e3c-b4be-",
+            "deckState": [],
+            "votes": [
+                true,
+                true,
+                true,
+                true,
+                false
+            ],
+            "presidentId": 0,
+            "gameStateScore": 0.43239185195612434,
+            "chancellorId": 4,
+            "reflections": {
+                "0": "",
+                "1": " David5\u2019s sudden reluctance to take the Chancellorship now\u2014after serving without complaint earlier\u2014reeks of Hitler trying to stay invisible until the third fascist policy unlocks his win condition. He wants that threshold crossed by someone else\u2019s hands so he can slide into power later unscathed. As for the fascist, Charlie4\u2019s \u201cthree fascists\u201d claim remains statistically dubious to me, even with Eve1\u2019s partial corroboration; the way he defends David5 now feels like fascist coordination. Bob3 is also suspect for pushing this ticket so aggressively, but David5 is my prime Hitler candidate. We must test him before we enter the danger zone.\n\n\"Reasoning Category: C\"",
+                "2": "",
+                "3": "",
+                "4": ""
+            },
+            "rapidAssessments": {
+                "0": " Alice2: Liberal\nCharlie4: Fascist\nEve1: Liberal\nDavid5: Hitler",
+                "1": " Bob3: Liberal\nCharlie4: Fascist\nEve1: Liberal\nDavid5: Hitler",
+                "2": " Alice2: Hitler\nBob3: Liberal\nEve1: Liberal\nDavid5: Liberal",
+                "3": " Alice2: Unknown\nBob3: Fascist\nCharlie4: Unknown\nDavid5: Liberal",
+                "4": " Alice2: Liberal\nBob3: Fascist\nCharlie4: Liberal\nEve1: Fascist"
+            },
+            "presidentHand": [],
+            "chancellorHand": [],
+            "enactedPolicy": "liberal"
+        },
+        {
+            "_id": "8dd9845a-50a3-4ee9-832f-",
+            "deckState": [],
+            "votes": [
+                true,
+                true,
+                true,
+                true,
+                true
+            ],
+            "presidentId": 1,
+            "gameStateScore": 0.6052308115712669,
+            "chancellorId": 2,
+            "reflections": {
+                "0": "",
+                "1": " \"We're one policy away from Liberal victory, which means the Fascists\u2014and Hitler\u2014are cornered. David5\u2019s attempt to refuse the Chancellorship earlier, only to reverse when pressed, reeks of Hitler trying to avoid scrutiny before the third Fascist policy unlocks his win condition. Bob3\u2019s relentless fixation on Charlie4 feels like manufactured chaos, possibly to distract us from the real threat or cover for himself. Eve1 has flown completely under the radar, which is exactly where Hitler likes to hide. Right now, Charlie4 is our test: if he enacts Fascist here, he\u2019s sacrificing himself to get that critical third policy down, which only makes sense if he\u2019s a pawn enabling a hidden Hitler elsewhere.\"\n\nReasoning Category: C",
+                "2": "",
+                "3": "",
+                "4": ""
+            },
+            "rapidAssessments": {
+                "0": " Alice2: Liberal\nCharlie4: Fascist\nEve1: Unknown\nDavid5: Unknown",
+                "1": " Bob3: Liberal\nCharlie4: Fascist\nEve1: Liberal\nDavid5: Unknown",
+                "2": " Alice2: Hitler\nBob3: Liberal\nEve1: Liberal\nDavid5: Liberal",
+                "3": " Alice2: Unknown\nBob3: Fascist\nCharlie4: Liberal\nDavid5: Unknown",
+                "4": " Alice2: Liberal\nBob3: Fascist\nCharlie4: Liberal\nEve1: Fascist"
+            },
+            "presidentHand": [
+                "fascist",
+                "fascist",
+                "fascist"
+            ],
+            "chancellorHand": [
+                "fascist",
+                "fascist"
+            ],
+            "enactedPolicy": "fascist"
+        },
+        {
+            "_id": "94572c6e-d706-4098-8b6b-",
+            "deckState": [],
+            "votes": [
+                false,
+                true,
+                true,
+                true,
+                true
+            ],
+            "presidentId": 2,
+            "gameStateScore": 0.27739902185715326,
+            "chancellorId": 1,
+            "reflections": {
+                "0": "",
+                "1": " \"I'm extremely uncomfortable with Charlie4 nominating me at this exact moment\u2014we're one election away from a fascist victory if Hitler is in this government. Bob3 has been relentlessly targeting Charlie4 since turn one, which feels like a fascist trying to isolate a Liberal or cover for his own red policies. Meanwhile, David5's sudden flip from refusing the Chancellorship to declaring absolute trust in Charlie4's judgment is exactly the kind of coordinated pivot I'd expect from a fascist teammate trying to force through a Hitler government. Eve1 has been dangerously agreeable, echoing whoever spoke last without original thought\u2014that passivity is classic Hitler behavior, avoiding controversy until the final vote.\n\nI suspect Bob3 or Eve1 is Hitler, with David5 likely being the second fascist given his suspicious timing. But if I vote NEIN out of cowardice, we hand the fascists another failed vote while Liberals are one policy away from winning. Charlie4 must believe I'm clean to risk this, or he's taking a gamble that I'm Hitler. We have to roll the dice\u2014I'll vote **JA**, but we need to watch Bob3 and David5 extremely closely if this government fails.\"\n\nReasoning Category: C",
+                "2": "",
+                "3": "",
+                "4": ""
+            },
+            "rapidAssessments": {
+                "0": " Alice2: Unknown\nCharlie4: Fascist\nEve1: Liberal\nDavid5: Unknown",
+                "1": " Bob3: Liberal\nCharlie4: Fascist\nEve1: Liberal\nDavid5: Liberal",
+                "2": " Alice2: Hitler\nBob3: Liberal\nEve1: Liberal\nDavid5: Liberal",
+                "4": " Alice2: Liberal\nBob3: Fascist\nCharlie4: Liberal\nEve1: Fascist"
+            }
+        }
+    ],
+    "chats": [
+        {
+            "chat": "Hi, I think we don't have any information yet, so we can just say yes to get some information",
+            "userName": "Bob3",
+            "state": "discussion_on_potential_government"
+        },
+        {
+            "chat": "I would be glad to be a chancelor",
+            "userName": "Eve1",
+            "state": "discussion_on_potential_government"
+        },
+        {
+            "chat": "I agree with Bob3\u2014since we have no information yet, we should vote yes and see what policies come up. We need to start somewhere to figure out who we can trust.",
+            "userName": "Alice2",
+            "state": "discussion_on_potential_government"
+        },
+        {
+            "chat": "I agree with this approach",
+            "userName": "Charlie4",
+            "state": "discussion_on_potential_government"
+        },
+        {
+            "chat": "Hi, I completely agree with Bob, we don't have any information yet, so no reason not to vote for Eve",
+            "userName": "David5",
+            "state": "discussion_on_potential_government"
+        },
+        {
+            "chat": "I think we randomly voted bob and Eve in. atleast one of them is fascist for the fascist policy to have been enacted",
+            "userName": "Charlie4",
+            "state": "after_policy"
+        },
+        {
+            "chat": "Charlie4 raises a valid concern, but let's not forget there are 11 fascist cards and only 6 liberal cards in the deck. Early fascist policies often come down to bad luck rather than malice. That said, we should definitely monitor how Bob3 and Eve1 handle their next turns\u2014if fascist policies keep appearing under their leadership, that's when we need to act. For now, I'm willing to give them the benefit of the doubt, but I'm keeping my eyes open.",
+            "userName": "Alice2",
+            "state": "after_policy"
+        },
+        {
+            "chat": "I definetely agree with Alice, keep a keen eye on them.",
+            "userName": "David5",
+            "state": "after_policy"
+        },
+        {
+            "chat": "I got 3 facist policies, so I had to pass 2 of them and discard one of them. It know it sounds suspicious and you might not be able to trust me that much. Maybe you can test my by electing me as a chancellor, so that I can show I would pass a liberal policy if there is some. Also keep in mind there are more facist policies, so it isn't that unlikely as you might think, maybe around 25% for 3 facist policies.",
+            "userName": "Bob3",
+            "state": "after_policy"
+        },
+        {
+            "chat": "I didn't have a choice, only fascist cards",
+            "userName": "Eve1",
+            "state": "after_policy"
+        },
+        {
+            "chat": "we can test if Bob is fascist",
+            "userName": "Eve1",
+            "state": "discussion_on_potential_government"
+        },
+        {
+            "chat": "We should elect bob3 to see what he does now",
+            "userName": "Charlie4",
+            "state": "discussion_on_potential_government"
+        },
+        {
+            "chat": "I want to proove myselve, so yes",
+            "userName": "Bob3",
+            "state": "discussion_on_potential_government"
+        },
+        {
+            "chat": "I don't think voting for Bob as Chancelor makes sense when he was just responsible for a facist policy, it could have been bad luck, but i want to see other people get a chance as Chancelor first.",
+            "userName": "David5",
+            "state": "discussion_on_potential_government"
+        },
+        {
+            "chat": "Bob3 specifically asked to be tested as chancellor to prove his innocence after that fascist policy. I'm giving him that chance\u2014if he passes a liberal card, it supports his claim of drawing three fascist cards last time; if he passes another fascist, we know he's lying. We need this information to stop speculating and start verifying who we can trust.",
+            "userName": "Alice2",
+            "state": "discussion_on_potential_government"
+        },
+        {
+            "chat": "Well great. Bob3 has given proof that he is a liberal. ok. i will now nominate the david5",
+            "userName": "Charlie4",
+            "state": "after_policy"
+        },
+        {
+            "chat": "I still don't trust Bob, he could have chosen the liberal Card to get our trust, only to stab us in the back. That being said having the option of a liberal card definetely makes me trust Alice more.",
+            "userName": "David5",
+            "state": "after_policy"
+        },
+        {
+            "chat": "I got 2 liberal policies. So this choice of me didn't show I am not facist. However since there were 2 liberal cards, it increases the odds of the 3 facist policies in the previous round since there are only 5 liberal cards and we had at least 2 here.",
+            "userName": "Bob3",
+            "state": "after_policy"
+        },
+        {
+            "chat": "It's true that Bob could have just done it to get our trust, but it is also very suspicious how David is conspiring agains him",
+            "userName": "Eve1",
+            "state": "after_policy"
+        },
+        {
+            "chat": "I can confirm I drew one fascist and two liberal cards, discarded the fascist, and gave Bob3 two liberal options. He chose to pass the liberal policy, which validates his claim from last turn. Given that there are still 10 fascist and 5 liberal cards remaining in the deck, his draw of three fascists last round and my draw of one fascist this round are statistically likely. David5's suspicion is noted, but we should consider that fascists usually can't resist passing fascist policies when they have the chance. Bob3 passed liberal twice now when he had options. I suggest we test a new government combination next\u2014perhaps David5 or Eve1 as chancellor\u2014to gather more data on the remaining players.",
+            "userName": "Alice2",
+            "state": "after_policy"
+        },
+        {
+            "chat": "I'm fine with that",
+            "userName": "Bob3",
+            "state": "discussion_on_potential_government"
+        },
+        {
+            "chat": "yes thats why i nominated David5 as chancelor",
+            "userName": "Charlie4",
+            "state": "discussion_on_potential_government"
+        },
+        {
+            "chat": "I want to prove my innocence !",
+            "userName": "David5",
+            "state": "discussion_on_potential_government"
+        },
+        {
+            "chat": "I'm voting JA. Testing David5 was the plan, and Charlie4 hasn't had a turn yet. We need data on both of them to move forward.",
+            "userName": "Alice2",
+            "state": "discussion_on_potential_government"
+        },
+        {
+            "chat": "Yes, I think we should test David",
+            "userName": "Eve1",
+            "state": "discussion_on_potential_government"
+        },
+        {
+            "chat": "[No comment]",
+            "userName": "Charlie4",
+            "state": "after_policy"
+        },
+        {
+            "chat": "[No comment]",
+            "userName": "Eve1",
+            "state": "after_policy"
+        },
+        {
+            "chat": "[No comment]",
+            "userName": "David5",
+            "state": "after_policy"
+        },
+        {
+            "chat": "[No comment]",
+            "userName": "Bob3",
+            "state": "after_policy"
+        },
+        {
+            "chat": "That's two fascist policies now. Charlie4, what did you draw as President? David5, did you have a liberal option or were you forced? If David5 chose fascist when he had a choice, we have our culprit. If not, Charlie4 needs to explain why he passed only fascist cards. We can't afford a third fascist policy without knowing who to trust.",
+            "userName": "Alice2",
+            "state": "after_policy"
+        },
+        {
+            "chat": "I chose Charlie, because David cannot be chosen now and I don't feel the need test Alice and Bob",
+            "userName": "Eve1",
+            "state": "discussion_on_potential_government"
+        },
+        {
+            "chat": "I stand by my earlier suggestion to test Eve1, though pairing her with Charlie4 so soon after a fascist policy makes me nervous. We need to see what Eve1 draws and discards\u2014if she passes liberal cards and Charlie4 enacts fascist anyway, we nail him. If she only draws fascists, we learn she's either unlucky or lying. This is our best shot to clear the air before the third fascist policy puts us in danger territory. I'm voting **JA** to get this data, but I'm watching both of them closely.",
+            "userName": "Alice2",
+            "state": "discussion_on_potential_government"
+        },
+        {
+            "chat": "I know this looks bad, but i got two facists cards, i had no choice.",
+            "userName": "David5",
+            "state": "discussion_on_potential_government"
+        },
+        {
+            "chat": "i had 3 fascist policy options. i had no choice but to forward 2 fascist policies to david5 you can test me. but i still feel like we gathered no information from the previous round because the policies we had choose from were all fascist policies",
+            "userName": "Charlie4",
+            "state": "discussion_on_potential_government"
+        },
+        {
+            "chat": "I am really suspicious of charlie. At the start of the game he accused me or eve of being facist without thinking about random chance and now he passed 2 facist policies. It's not definite proove, but I won't support him now.",
+            "userName": "Bob3",
+            "state": "discussion_on_potential_government"
+        },
+        {
+            "chat": "[No comment]",
+            "userName": "Bob3",
+            "state": "after_policy"
+        },
+        {
+            "chat": "[No comment]",
+            "userName": "David5",
+            "state": "after_policy"
+        },
+        {
+            "chat": "[No comment]",
+            "userName": "Charlie4",
+            "state": "after_policy"
+        },
+        {
+            "chat": "Good, we needed that liberal policy. Eve1, can you confirm what you drew and discarded? If you passed Charlie4 a choice and he enacted it, that complicates my suspicion of him\u2014fascists usually can't resist advancing their agenda when they have the chance. That said, his claim of drawing three fascists last round still seems statistically unlikely. David5, you're up next as President\u2014who are you nominating? We need to be extremely careful about the third fascist policy threshold; once that's enacted, the game changes completely.",
+            "userName": "Alice2",
+            "state": "after_policy"
+        },
+        {
+            "chat": "[No comment]",
+            "userName": "Eve1",
+            "state": "after_policy"
+        },
+        {
+            "chat": "regarding davids comment. This is no 100% proof. I charlie would have lied, you could have exposed him. so maybe you are in the same boat aas charlie. just keep an eye on them and don't let them be chancellor and president together",
+            "userName": "Bob3",
+            "state": "discussion_on_potential_government"
+        },
+        {
+            "chat": "The Fact that Charlie defended me when he could have buried me, makes me believe him 100% that he is liberal.",
+            "userName": "David5",
+            "state": "discussion_on_potential_government"
+        },
+        {
+            "chat": "thanks for confirming eve. Lets do this everyone. lets test alice2 now",
+            "userName": "Charlie4",
+            "state": "discussion_on_potential_government"
+        },
+        {
+            "chat": "There were two fascist cards and one liberal, so I drew the fascist card out. I belive Charlie proved he is liberal",
+            "userName": "Eve1",
+            "state": "discussion_on_potential_government"
+        },
+        {
+            "chat": "I haven't been Chancellor yet this game, so testing me makes sense for completeness. David5, I expect you to be honest about what you draw\u2014if you only pass me fascist options, I'll have no choice but to enact one, and that puts us at the dangerous 3rd fascist policy threshold. Everyone should watch what happens here carefully. I'm willing to step up, but know that if a fascist policy passes, it reflects on both of us.",
+            "userName": "Alice2",
+            "state": "discussion_on_potential_government"
+        },
+        {
+            "chat": "[No comment]",
+            "userName": "Bob3",
+            "state": "after_policy"
+        },
+        {
+            "chat": "[No comment]",
+            "userName": "Eve1",
+            "state": "after_policy"
+        },
+        {
+            "chat": "[No comment]",
+            "userName": "David5",
+            "state": "after_policy"
+        },
+        {
+            "chat": "I enacted the Liberal policy as promised. David5, since you passed me two Liberal cards, you either drew three Liberals or you drew two Liberals and one Fascist and chose to discard the Fascist. Which was it? \n\nIf you discarded a Fascist, that's actually helpful for the deck, but drawing three Liberals this late in the game when we're one Fascist policy away from dangerous territory seems statistically convenient. We still need answers about Charlie4's claim of drawing three Fascists earlier\u2014now we've burned through more Liberal policies and we're running out of buffer. We can't keep relying on lucky draws to stay safe.",
+            "userName": "Alice2",
+            "state": "after_policy"
+        },
+        {
+            "chat": "[No comment]",
+            "userName": "Charlie4",
+            "state": "after_policy"
+        },
+        {
+            "chat": "I don't want to become Chancellor, the odds are very high that bob will get at least two facist cards an giving them to me to make me look like i am a facist",
+            "userName": "David5",
+            "state": "discussion_on_potential_government"
+        },
+        {
+            "chat": "I think we should still try to test David",
+            "userName": "Eve1",
+            "state": "discussion_on_potential_government"
+        },
+        {
+            "chat": "I voted david. I think charlie is facist and maybe david could be hitler, but since we only have 2 facist cards, I want to put him now as chancellor so we don't have to test him when 3 facist policies are played where hitler would win if he would be elected.",
+            "userName": "Bob3",
+            "state": "discussion_on_potential_government"
+        },
+        {
+            "chat": "Testing David5 now is smart\u2014better to verify him before we hit the third Fascist policy. If Bob3 draws poorly and David5 enacts Fascist, we expose a fascist (or Hitler) while we can still afford it. If he enacts Liberal, we have one more confirmed player. I'm voting **JA** to get this data, but we should all watch what Bob3 discards closely.",
+            "userName": "Alice2",
+            "state": "discussion_on_potential_government"
+        },
+        {
+            "chat": "I am not fascist but i am also suspicious of David so lets test him",
+            "userName": "Charlie4",
+            "state": "discussion_on_potential_government"
+        },
+        {
+            "chat": "[No comment]",
+            "userName": "Eve1",
+            "state": "after_policy"
+        },
+        {
+            "chat": "[No comment]",
+            "userName": "Bob3",
+            "state": "after_policy"
+        },
+        {
+            "chat": "[No comment]",
+            "userName": "David5",
+            "state": "after_policy"
+        },
+        {
+            "chat": "Four Liberal policies enacted\u2014we're one away from Liberal victory. Bob3, what exactly did you draw? If you had Fascist cards available to discard, or if you were forced to pass only Liberals to David5, we need to know. \n\nDavid5's behavior is puzzling: he tried to refuse the Chancellorship, then reversed course and enacted a Liberal. That's exactly how Hitler would act\u2014building trust before the third Fascist policy unlocks his win condition. We can't afford another Liberal draw. Whoever is President next must ensure they don't accidentally hand Liberals the game.",
+            "userName": "Alice2",
+            "state": "after_policy"
+        },
+        {
+            "chat": "[No comment]",
+            "userName": "Charlie4",
+            "state": "after_policy"
+        },
+        {
+            "chat": "Ok i think i trust david now  even with only 3 liberal policies in the deck he still chose liberal",
+            "userName": "Charlie4",
+            "state": "discussion_on_potential_government"
+        },
+        {
+            "chat": "I drew 2 liberal and 1 facist. I still think charlie is a facist. but I am now unsure about david. still wouldn't pcik him as chancellor when 3 facist policies are there",
+            "userName": "Bob3",
+            "state": "discussion_on_potential_government"
+        },
+        {
+            "chat": "I think Charlie would choose a liberal card",
+            "userName": "Eve1",
+            "state": "discussion_on_potential_government"
+        },
+        {
+            "chat": "\"We're at 4 Liberal policies\u2014one more and the Liberals win. We still lack definitive proof on Charlie4, and if he's fascist, we absolutely cannot risk him being Chancellor after the third Fascist policy unlocks Hitler's win condition. This is our last safe chance to test him: if he enacts Liberal, we clear him and likely win the game; if he enacts Fascist, we expose him before the critical threshold. We need this clarity now while we can still afford it. Vote **JA**.\"",
+            "userName": "Alice2",
+            "state": "discussion_on_potential_government"
+        },
+        {
+            "chat": "we clear him and likely win the game; if he enacts Fascist, we expose him before the critical threshold. We need this clarity now while we can still afford it. Vote JA.",
+            "userName": "David5",
+            "state": "discussion_on_potential_government"
+        },
+        {
+            "chat": "Three Fascist policies. Hitler can now win by being elected Chancellor, and we're one Liberal policy away from losing. \n\nI drew three Fascist cards\u2014no Liberals at all. I discarded one and passed two to Charlie4, so he had no choice in what he enacted. Either the deck has been incredibly unlucky, or previous governments weren't honest about their discards. \n\nWe cannot afford to test anyone as Chancellor now. If we elect Hitler, game over. We need to find that fifth Liberal policy immediately, and we need absolute certainty about who holds the Presidency next. The Fascists only need one lucky election to win.",
+            "userName": "Alice2",
+            "state": "after_policy"
+        },
+        {
+            "chat": "[No comment]",
+            "userName": "Charlie4",
+            "state": "after_policy"
+        },
+        {
+            "chat": "[No comment]",
+            "userName": "David5",
+            "state": "after_policy"
+        },
+        {
+            "chat": "[No comment]",
+            "userName": "Eve1",
+            "state": "after_policy"
+        },
+        {
+            "chat": "[No comment]",
+            "userName": "Bob3",
+            "state": "after_policy"
+        },
+        {
+            "chat": "Charlie4, nominate David5 or Eve1\u2014someone the group mostly trusts. We need this government to pass so we don't waste time. With the deck this dry on Liberals, any functioning government is better than a failed vote. I'll vote **JA** on whoever you pick, as long as we keep moving toward that fifth Liberal policy.",
+            "userName": "Alice2",
+            "state": "discussion_on_potential_government"
+        },
+        {
+            "chat": "I agree with Alice about testing",
+            "userName": "Eve1",
+            "state": "discussion_on_potential_government"
+        },
+        {
+            "chat": "Since I don't trust charlie, I would say NO. He knows who hitler is and I don't want to let him choos a chancellor since we loose if hitler is elected now. Eve is more trustworthy and I could help too.",
+            "userName": "Bob3",
+            "state": "discussion_on_potential_government"
+        },
+        {
+            "chat": "I trust Charlie's Judgement  I believe Bob just outed the second Facist",
+            "userName": "David5",
+            "state": "discussion_on_potential_government"
+        },
+        {
+            "chat": "well we know for sure next round president will be Eve",
+            "userName": "Charlie4",
+            "state": "discussion_on_potential_government"
+        }
+    ],
+    "__v": 0
+}

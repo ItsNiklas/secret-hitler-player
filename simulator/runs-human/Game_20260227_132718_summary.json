@@ -1,0 +1,592 @@
+{
+    "_id": "Game_20260227_132718",
+    "gameSetting": {
+        "avalonSH": null,
+        "rebalance6p": false,
+        "rebalance7p": false,
+        "rebalance9p": false,
+        "casualGame": false,
+        "practiceGame": false,
+        "unlistedGame": false,
+        "noTopdecking": 0
+    },
+    "date": "2026-02-27T13:27:23.548619Z",
+    "playerConfiguration": {
+        "player_types": [
+            "LLM",
+            "HUMAN",
+            "HUMAN",
+            "HUMAN",
+            "HUMAN"
+        ],
+        "player_config": [
+            {
+                "player_id": 0,
+                "name": "Alice2",
+                "type": "LLM",
+                "base_url": "https://openrouter.ai/api/v1/"
+            },
+            {
+                "player_id": 1,
+                "name": "Bob3",
+                "type": "HUMAN",
+                "base_url": "N/A"
+            },
+            {
+                "player_id": 2,
+                "name": "Charlie4",
+                "type": "HUMAN",
+                "base_url": "N/A"
+            },
+            {
+                "player_id": 3,
+                "name": "David5",
+                "type": "HUMAN",
+                "base_url": "N/A"
+            },
+            {
+                "player_id": 4,
+                "name": "Eve1",
+                "type": "HUMAN",
+                "base_url": "N/A"
+            }
+        ],
+        "model_names": [
+            "unknown",
+            "unknown",
+            "unknown",
+            "openai/gpt-5.2:floor",
+            "unknown"
+        ]
+    },
+    "gameEndReason": "liberal_policy",
+    "policyCountsAtEnd": {
+        "liberal": 5,
+        "fascist": 3
+    },
+    "players": [
+        {
+            "_id": "2e55a62a-898d-49eb-9c36-",
+            "username": "Eve1",
+            "role": "liberal",
+            "icon": 0
+        },
+        {
+            "_id": "a509d7ca-bc3d-4c97-a3c0-",
+            "username": "Charlie4",
+            "role": "fascist",
+            "icon": 0
+        },
+        {
+            "_id": "8ef9f900-8bfa-40cf-80aa-",
+            "username": "David5",
+            "role": "liberal",
+            "icon": 0
+        },
+        {
+            "_id": "d4d1829b-1b91-405d-9342-",
+            "username": "Alice2",
+            "role": "hitler",
+            "icon": 0
+        },
+        {
+            "_id": "817cc73f-8be0-4e18-a50a-",
+            "username": "Bob3",
+            "role": "liberal",
+            "icon": 0
+        }
+    ],
+    "libElo": {
+        "overall": 0,
+        "season": 0
+    },
+    "fasElo": {
+        "overall": 0,
+        "season": 0
+    },
+    "logs": [
+        {
+            "_id": "ce18c033-47e2-45c1-bab8-",
+            "deckState": [],
+            "votes": [
+                true,
+                true,
+                true,
+                true,
+                true
+            ],
+            "presidentId": 0,
+            "gameStateScore": 0.0,
+            "chancellorId": 1,
+            "reflections": {},
+            "rapidAssessments": {
+                "3": "Eve1: Unknown  \nCharlie4: Fascist  \nDavid5: Unknown  \nBob3: Unknown"
+            },
+            "presidentHand": [],
+            "chancellorHand": [],
+            "enactedPolicy": "liberal"
+        },
+        {
+            "_id": "aea62385-8fef-4a30-9bc7-",
+            "deckState": [],
+            "votes": [
+                true,
+                true,
+                true,
+                true,
+                true
+            ],
+            "presidentId": 1,
+            "gameStateScore": 0.18958393350379585,
+            "chancellorId": 2,
+            "reflections": {},
+            "rapidAssessments": {
+                "3": "Eve1: Unknown  \nCharlie4: Liberal  \nDavid5: Unknown  \nBob3: Unknown"
+            },
+            "presidentHand": [],
+            "chancellorHand": [],
+            "enactedPolicy": "fascist"
+        },
+        {
+            "_id": "d9c52eef-25aa-4709-b3c0-",
+            "deckState": [],
+            "votes": [
+                true,
+                true,
+                true,
+                true,
+                true
+            ],
+            "presidentId": 2,
+            "gameStateScore": 0.036423836348176676,
+            "chancellorId": 4,
+            "reflections": {},
+            "rapidAssessments": {
+                "3": "Eve1: Unknown  \nCharlie4: Unknown  \nDavid5: Unknown  \nBob3: Unknown"
+            },
+            "presidentHand": [],
+            "chancellorHand": [],
+            "enactedPolicy": "liberal"
+        },
+        {
+            "_id": "553b098c-c9fd-4d94-9d76-",
+            "deckState": [],
+            "votes": [
+                true,
+                true,
+                true,
+                true,
+                true
+            ],
+            "presidentId": 3,
+            "gameStateScore": 0.3142202517013118,
+            "chancellorId": 1,
+            "reflections": {},
+            "rapidAssessments": {
+                "3": "Eve1: Unknown  \nCharlie4: Fascist  \nDavid5: Unknown  \nBob3: Unknown"
+            },
+            "presidentHand": [
+                "fascist",
+                "liberal",
+                "fascist"
+            ],
+            "chancellorHand": [
+                "fascist",
+                "fascist"
+            ],
+            "enactedPolicy": "fascist"
+        },
+        {
+            "_id": "1c0f3a22-f3a7-4e9c-b770-",
+            "deckState": [],
+            "votes": [
+                true,
+                false,
+                true,
+                true,
+                true
+            ],
+            "presidentId": 4,
+            "gameStateScore": 0.10481357232839693,
+            "chancellorId": 3,
+            "reflections": {},
+            "rapidAssessments": {
+                "3": "Eve1: Liberal  \nCharlie4: Fascist  \nDavid5: Liberal  \nBob3: Unknown"
+            },
+            "presidentHand": [],
+            "chancellorHand": [
+                "fascist",
+                "liberal"
+            ],
+            "enactedPolicy": "liberal"
+        },
+        {
+            "_id": "0a900f50-4494-4eae-bd4f-",
+            "deckState": [],
+            "votes": [
+                true,
+                true,
+                true,
+                true,
+                true
+            ],
+            "presidentId": 0,
+            "gameStateScore": 0.43239185195612434,
+            "chancellorId": 1,
+            "reflections": {},
+            "rapidAssessments": {
+                "3": "Eve1: Liberal  \nCharlie4: Fascist  \nDavid5: Liberal  \nBob3: Liberal"
+            },
+            "presidentHand": [],
+            "chancellorHand": [],
+            "enactedPolicy": "fascist"
+        },
+        {
+            "_id": "c7177a2b-72db-4dbb-a418-",
+            "deckState": [],
+            "votes": [
+                false,
+                true,
+                false,
+                true,
+                false
+            ],
+            "presidentId": 1,
+            "gameStateScore": -0.017391290823727205,
+            "chancellorId": 2,
+            "reflections": {},
+            "rapidAssessments": {
+                "3": "Eve1: Unknown  \nCharlie4: Fascist  \nDavid5: Unknown  \nBob3: Unknown"
+            },
+            "presidentHand": [],
+            "chancellorHand": [],
+            "presidentClaim": [],
+            "chancellorClaim": [],
+            "policyPeek": [],
+            "policyPeekClaim": []
+        },
+        {
+            "_id": "5f191293-3822-4c73-a6fb-",
+            "deckState": [],
+            "votes": [
+                true,
+                true,
+                true,
+                true,
+                true
+            ],
+            "presidentId": 2,
+            "gameStateScore": 0.33297659076056324,
+            "chancellorId": 0,
+            "reflections": {},
+            "rapidAssessments": {
+                "3": "Eve1: Unknown  \nCharlie4: Unknown  \nDavid5: Liberal  \nBob3: Liberal"
+            },
+            "presidentHand": [],
+            "chancellorHand": [],
+            "enactedPolicy": "liberal"
+        },
+        {
+            "_id": "116af7dd-1c9a-4a60-beac-",
+            "deckState": [],
+            "votes": [
+                false,
+                true,
+                false,
+                true,
+                false
+            ],
+            "presidentId": 3,
+            "gameStateScore": 0.2805114224577316,
+            "chancellorId": 1,
+            "reflections": {},
+            "rapidAssessments": {
+                "3": "Eve1: Liberal  \nCharlie4: Fascist  \nDavid5: Liberal  \nBob3: Liberal"
+            },
+            "presidentHand": [],
+            "chancellorHand": [],
+            "presidentClaim": [],
+            "chancellorClaim": [],
+            "policyPeek": [],
+            "policyPeekClaim": []
+        },
+        {
+            "_id": "7ea7ab8d-c8fb-497e-bcbd-",
+            "deckState": [],
+            "votes": [
+                true,
+                false,
+                true,
+                false,
+                false
+            ],
+            "presidentId": 4,
+            "gameStateScore": 0.5794818093383269,
+            "chancellorId": 2,
+            "reflections": {},
+            "rapidAssessments": {
+                "3": "Eve1: Fascist  \nCharlie4: Liberal  \nDavid5: Unknown  \nBob3: Unknown"
+            },
+            "presidentHand": [],
+            "chancellorHand": [],
+            "presidentClaim": [],
+            "chancellorClaim": [],
+            "policyPeek": [],
+            "policyPeekClaim": [],
+            "enactedPolicy": "liberal"
+        }
+    ],
+    "chats": [
+        {
+            "chat": "I\u2019m fine with Eve1/Charlie4 for the first government. No info yet, and we need to start getting a policy down to generate real tells. Let\u2019s not stall early\u2014I'm voting **JA** unless someone has a concrete reason not to.",
+            "userName": "Alice2",
+            "state": "discussion_on_potential_government"
+        },
+        {
+            "chat": "we have to begin somewhere so lets start with me  i am ready to prove my innocence",
+            "userName": "Charlie4",
+            "state": "discussion_on_potential_government"
+        },
+        {
+            "chat": "yeah lets just start",
+            "userName": "David5",
+            "state": "discussion_on_potential_government"
+        },
+        {
+            "chat": "yes",
+            "userName": "Bob3",
+            "state": "discussion_on_potential_government"
+        },
+        {
+            "chat": "I also just randomly chose to start from somewhere",
+            "userName": "Eve1",
+            "state": "discussion_on_potential_government"
+        },
+        {
+            "chat": "I don't mind getting chancellor",
+            "userName": "David5",
+            "state": "discussion_on_potential_government"
+        },
+        {
+            "chat": "Eve what did you give charlie last round? I'm ok with voting yes",
+            "userName": "Bob3",
+            "state": "discussion_on_potential_government"
+        },
+        {
+            "chat": "let's",
+            "userName": "Eve1",
+            "state": "discussion_on_potential_government"
+        },
+        {
+            "chat": "I\u2019m good with Charlie4/David5 here. First gov gave us a liberal policy so no red flags yet, and we need more rounds to get real info. I\u2019ll be voting **JA** unless someone has a specific reason to block this lineup.",
+            "userName": "Alice2",
+            "state": "discussion_on_potential_government"
+        },
+        {
+            "chat": "I got a choice between fascist and liberal and i picked liberal  I proved my innocence in the previous round. Now its time to test Eve apologies. Now its time to test David 5* Ok please vote JA everybody Its the start of the game so we need to test everyone quickly to weed out the fascists",
+            "userName": "Charlie4",
+            "state": "discussion_on_potential_government"
+        },
+        {
+            "chat": "I\u2019m still in the \u201cearly game, pass governments to get info\u201d camp. David5/Bob3 is a fine test pairing and we don\u2019t have any real tells yet besides 1 red policy.\n\nI\u2019m voting **JA** here, but if another fascist goes down I want **both** David and Bob to be super clear on what they saw/what got discarded so we can start narrowing suspects.",
+            "userName": "Alice2",
+            "state": "discussion_on_potential_government"
+        },
+        {
+            "chat": "Yes vote for bob as chancelor",
+            "userName": "Charlie4",
+            "state": "discussion_on_potential_government"
+        },
+        {
+            "chat": "charlie what did you draw? david what did you get as cards?",
+            "userName": "Bob3",
+            "state": "discussion_on_potential_government"
+        },
+        {
+            "chat": "Had the choice between two facist cards, i think we get bob the chancellor since he had no role yet",
+            "userName": "David5",
+            "state": "discussion_on_potential_government"
+        },
+        {
+            "chat": "Ok let's test Bob",
+            "userName": "Eve1",
+            "state": "discussion_on_potential_government"
+        },
+        {
+            "chat": "David can you confirm what bob is saying?",
+            "userName": "Charlie4",
+            "state": "discussion_on_potential_government"
+        },
+        {
+            "chat": "I had one of both.",
+            "userName": "Eve1",
+            "state": "discussion_on_potential_government"
+        },
+        {
+            "chat": "I\u2019m putting up **Charlie4** as chancellor.\n\nReasoning: we\u2019ve seen Charlie in 2 governments already and we\u2019ve gotten **1L/1F** out of them, so this is a solid \u201cre-test\u201d to actually lock reads instead of random cycling. Also avoids giving a totally fresh face a free pass.\n\nI\u2019m voting **JA** on my own pick \u2014 if this goes red, I\u2019m happy to take heat and we can start narrowing hard between me/Charlie based on the draw claims.",
+            "userName": "Alice2",
+            "state": "discussion_on_potential_government"
+        },
+        {
+            "chat": "@charlie yes",
+            "userName": "David5",
+            "state": "discussion_on_potential_government"
+        },
+        {
+            "chat": "I had one of both. Keep in mind, charlie gave 2 facist cards, but nothing confirmed",
+            "userName": "Bob3",
+            "state": "discussion_on_potential_government"
+        },
+        {
+            "chat": "I agree",
+            "userName": "David5",
+            "state": "discussion_on_potential_government"
+        },
+        {
+            "chat": "I had no choice. both fascist policies.  I hope you people dont suspect me because I already picked a liberal policy in round 1 when i had a choice.",
+            "userName": "Charlie4",
+            "state": "discussion_on_potential_government"
+        },
+        {
+            "chat": "I think alice is sus as well as charlie. let's test alice now before we have 3 facist cards",
+            "userName": "Bob3",
+            "state": "discussion_on_potential_government"
+        },
+        {
+            "chat": "me too",
+            "userName": "Eve1",
+            "state": "discussion_on_potential_government"
+        },
+        {
+            "chat": "Ok so for my pres round I drew **2F/1L** \u2014 I binned **1F** and sent **F/L** to Charlie, so if a fascist went down there it wasn\u2019t because I handed him **F/F**.\n\nFor next gov: **Bob3**, I\u2019d like to see you pick **Eve1** as chancellor. Eve hasn\u2019t been in a gov since Turn 1 and this is a clean \u201cfresh\u201d test (and keeps me/Charlie out of the seat rotation for a sec). I\u2019m voting **JA** on Bob/Eve.",
+            "userName": "Alice2",
+            "state": "discussion_on_potential_government"
+        },
+        {
+            "chat": "Charlie is a good choice here. thumbs up. he is sus and we don't have 3 facist policies",
+            "userName": "Bob3",
+            "state": "discussion_on_potential_government"
+        },
+        {
+            "chat": "I think Charlie and David need to be tested again",
+            "userName": "Eve1",
+            "state": "discussion_on_potential_government"
+        },
+        {
+            "chat": "How many times will i have to prove my innocence. I am beginning to have serious doubts on Eve's intentions. i think Eve is a fascist  Eve hasnt been tested at all",
+            "userName": "Charlie4",
+            "state": "discussion_on_potential_government"
+        },
+        {
+            "chat": "I\u2019m voting **JA** on **Eve1/Charlie4**.\n\nWe\u2019ve already seen Eve in a **L** gov (Turn 1) and Charlie\u2019s been involved in mixed results \u2014 this is a good \u201cconfirm/deny\u201d pair. If this one goes red again, it gives us a much clearer line to push on instead of just random cycling.",
+            "userName": "Alice2",
+            "state": "discussion_on_potential_government"
+        },
+        {
+            "chat": "I think we test Charlie again, while we still have just two fascist cards",
+            "userName": "David5",
+            "state": "discussion_on_potential_government"
+        },
+        {
+            "chat": "never vote charlie from now on and always choose NO for everyone charlie chooses he passed 2 facist cards and accused eve without argument eve i trust you",
+            "userName": "Bob3",
+            "state": "discussion_on_potential_government"
+        },
+        {
+            "chat": "I\u2019m **JA** on **Charlie4/David5** here.\n\nWe can\u2019t just auto-NEIN every Charlie gov \u2014 we need *clean info*. **David5**, if this passes, be super explicit after the round: how many F/L you saw, and what you got handed. If we get another red with David claiming he had an out, then we hard-focus Charlie. If it\u2019s blue, that also tells us something.",
+            "userName": "Alice2",
+            "state": "discussion_on_potential_government"
+        },
+        {
+            "chat": "I agree no more Chancellor for Charlie for now",
+            "userName": "David5",
+            "state": "discussion_on_potential_government"
+        },
+        {
+            "chat": "Yes, he had a choice between a liebral and a fascist card",
+            "userName": "Eve1",
+            "state": "discussion_on_potential_government"
+        },
+        {
+            "chat": "Eve passed me 2 fascist cards. i had no chouce you guys are clearly colluding Eve and David are definitely the fascists They are clearly colluding and framing me bob you too what the hell",
+            "userName": "Charlie4",
+            "state": "discussion_on_potential_government"
+        },
+        {
+            "chat": "I vote yes since I trust eve",
+            "userName": "Bob3",
+            "state": "discussion_on_potential_government"
+        },
+        {
+            "chat": "David5, for this next pick I\u2019d honestly like you to go **David5 (P) / Alice2 (C)**.\n\nI\u2019ve been pretty consistent, we got a **L** through on my chancellor term (Turn 5), and it cleanly keeps **Charlie4 out of the seat** while we\u2019re at 3F. If it goes red again with me in, you can yeet me from the trusted pool permanently \u2014 if it\u2019s blue we stop wasting turns in this blame-loop.\n\nEveryone should **JA** a David/Alice test government.",
+            "userName": "Alice2",
+            "state": "discussion_on_potential_government"
+        },
+        {
+            "chat": "i am just voting a big no because eve is definitely hitler",
+            "userName": "Charlie4",
+            "state": "discussion_on_potential_government"
+        },
+        {
+            "chat": "I'm scared I will get passed only the fascist cards",
+            "userName": "Eve1",
+            "state": "discussion_on_potential_government"
+        },
+        {
+            "chat": "[No comment]",
+            "userName": "David5",
+            "state": "discussion_on_potential_government"
+        },
+        {
+            "chat": "NO is the best option. He already passed two facist cards",
+            "userName": "Bob3",
+            "state": "discussion_on_potential_government"
+        },
+        {
+            "chat": "I think Alice might be a fascist  If she is the game ends",
+            "userName": "Eve1",
+            "state": "discussion_on_potential_government"
+        },
+        {
+            "chat": "thank god someone accused anyone other than me",
+            "userName": "Charlie4",
+            "state": "discussion_on_potential_government"
+        },
+        {
+            "chat": "I agree with No",
+            "userName": "David5",
+            "state": "discussion_on_potential_government"
+        },
+        {
+            "chat": "Alright we\u2019re at **4L / 3F** \u2014 if we start just auto-NEINing everything we\u2019re basically praying to topdeck and that\u2019s how you lose games.\n\nI\u2019m President and I picked **Charlie4** because at least it\u2019s a *known quantity* pair to read: if a red goes down again, you can basically lock suspicion onto this seat pairing; if a blue goes down, it clears a ton of noise.\n\nI\u2019ll be **100% explicit** after draw about what I saw and what I passed. Everyone should **JA** so we get real info instead of another stalled round.",
+            "userName": "Alice2",
+            "state": "discussion_on_potential_government"
+        },
+        {
+            "chat": "I agree with you, see it the same way",
+            "userName": "David5",
+            "state": "discussion_on_potential_government"
+        },
+        {
+            "chat": "Hold up \u2014 we\u2019re at **4L / 3F**. If we just JA **Bob3/David5** again and it\u2019s another blue, **game\u2019s over**.\n\nI\u2019m voting **NEIN** here, not because I *know* they\u2019re fasc, but because this gov is basically \u201crun it back and pray.\u201d Let\u2019s fail it and have Bob pick a **different chancellor** next (I\u2019d rather see **Eve1** get a real test seat again).",
+            "userName": "Alice2",
+            "state": "discussion_on_potential_government"
+        },
+        {
+            "chat": "I also agree",
+            "userName": "Eve1",
+            "state": "discussion_on_potential_government"
+        },
+        {
+            "chat": "charlie is facist, alice is hitler. Besides Eve, I trust david most",
+            "userName": "Bob3",
+            "state": "discussion_on_potential_government"
+        },
+        {
+            "chat": "[No comment]",
+            "userName": "Charlie4",
+            "state": "discussion_on_potential_government"
+        }
+    ],
+    "__v": 0
+}
