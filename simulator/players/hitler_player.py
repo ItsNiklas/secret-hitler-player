@@ -186,12 +186,18 @@ class HitlerPlayer:
 
         content = None
         for attempt in range(3):
-            response = self.openai_client.chat.completions.create(
-                model=openai_model,
-                messages=msg,
-                max_tokens=1024*4,
-                extra_body={"reasoning_effort": "low"}, 
-            )
+            try:
+                response = self.openai_client.chat.completions.create(
+                    model=openai_model,
+                    messages=msg,
+                    max_tokens=1024*4,
+                    extra_body={"reasoning_effort": "low", "reasoning": {"enabled": True}}, 
+                )
+            except Exception as e:
+                logger.warning(f"API error for {self.name} at stage {_stage} (attempt {attempt + 1}/3): {e}")
+                import time
+                time.sleep(2 ** attempt)  # exponential backoff: 1s, 2s, 4s
+                continue
             
             # Track token usage (without polluting game state)
             track_response(response, stage=_stage, player_name=self.name)
