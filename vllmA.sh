@@ -9,7 +9,7 @@ export MODEL=${MODEL:-openai/gpt-oss-120b}
 export LLM_API_KEY=$LLM_API_KEY
 export LLM_BASE_URL=http://localhost:8080/v1/
 
-export SIF=/scratch-scc/projects/ag_gipp/vllm.sif
+export SIF=/scratch-scc/projects/ag_gipp/vllm-latest.sif
 
 # export VLLM_USE_MODELSCOPE=true
 

@@ -54,6 +54,7 @@ apptainer exec \
     --async-scheduling \
     --limit-mm-per-prompt.image 0 \
     --mm-encoder-tp-mode data \
+    --language-model-only \
     --tool-call-parser kimi_k2 \
     --reasoning-parser kimi_k2 \
     ${HEADLESS}

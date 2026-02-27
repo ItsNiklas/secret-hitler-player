@@ -18,7 +18,7 @@ fi
 
 # Set these environment variables or add them to your .env file
 export HF_HOME=/scratch-scc/users/$USER/hf
-export MODEL=deepseek-ai/DeepSeek-V3.2
+export MODEL=deepseek-ai/DeepSeek-V3.1-Terminus
 export LLM_API_KEY=$LLM_API_KEY
 export LLM_BASE_URL=http://localhost:8080/v1/
 
@@ -29,6 +29,9 @@ export SIF=/scratch-scc/projects/ag_gipp/vllm-latest.sif
 module load gcc cuda apptainer nvhpc openmpi
 mkdir -p $HF_HOME logs
 
+# A100 (SM 8.0) does not support Marlin FP8 kernels (requires SM >= 8.9)
+export VLLM_DISABLED_KERNELS=fp8_marlin
+
 echo "Starting VLLM server with model $MODEL (master=$MASTER_ADDR, rank=$NODE_RANK)"
 apptainer exec \
   --nv \
@@ -37,12 +40,14 @@ apptainer exec \
   --env HF_HOME="$HF_HOME" \
   --env HF_HUB_OFFLINE=1 \
   --env VLLM_USE_DEEP_GEMM=0 \
+  --env VLLM_DISABLED_KERNELS="$VLLM_DISABLED_KERNELS" \
   -B "$HF_HOME:$HF_HOME:rw" \
   "$SIF" \
   vllm serve $MODEL \
     --host 0.0.0.0 \
     --port 8080 \
     --tensor-parallel-size 4 \
+    --dcp 4 \
     --pipeline-parallel-size 3 \
     --nnodes 3 \
     --node-rank $NODE_RANK \
@@ -53,7 +58,7 @@ apptainer exec \
     --download-dir "$HF_HOME" \
     --disable-custom-all-reduce \
     --async-scheduling \
+    --quantization fp8 \
     --language-model-only \
-    --tokenizer-mode deepseek_v32 \
-    --reasoning-parser deepseek_v3
+    --reasoning-parser deepseek_v3 \
     ${HEADLESS}
