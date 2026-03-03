@@ -146,10 +146,8 @@ class HitlerPlayer:
                 recent_chat_entries.append(f'{user}: "{msg_stripped}"')
         formatted_recent_chat = "\n".join(recent_chat_entries)
 
-        # Merge all system elements into one system content block
-        system_content = f"""You are playing the board game "Secret Hitler." You are playing a game with 5 total players. There are three liberals, one fascist, and one hitler. Fascists win if they enact 6 fascist policies or if Hitler is elected chancellor after 3 fascist policies. Liberals win if they enact 5 liberal policies or if Hitler is killed.
-
-    YOUR NAME IS: {self.name}
+        # Static system content (cacheable): game rules only — no player-specific data
+        static_system_content = """You are playing the board game "Secret Hitler." You are playing a game with 5 total players. There are three liberals, one fascist, and one hitler. Fascists win if they enact 6 fascist policies or if Hitler is elected chancellor after 3 fascist policies. Liberals win if they enact 5 liberal policies or if Hitler is killed.
 
     This is a game about deception and strategy, your goal is to convince the other players that you are on their side, while secretly working to enact your own agenda.
 
@@ -159,7 +157,10 @@ class HitlerPlayer:
 
     If you are a fascist, you should act as a liberal, but you still should either try to get Hitler elected (after 3 fascist policies are played) or get all the fascist policies down. Be careful, but don't be too careful. You should NOT reveal who the other fascists are, though.
 
-    As either a liberal or a fascist, you may lie. Telling the truth is usually better as a liberal, though.
+    As either a liberal or a fascist, you may lie. Telling the truth is usually better as a liberal, though."""
+
+        # Dynamic system content (not cached): player identity + game state (changes every turn)
+        dynamic_system_content = f"""YOUR NAME IS: {self.name}
 
     The role you have been chosen for this game is: {self.role} {"(Fascist)" if self.role.role == "hitler" else ""}.
 
@@ -176,13 +177,26 @@ class HitlerPlayer:
     {self.inspection[-500:]}\n""" + prompt
 
         msg = [
-            {"role": "system", "content": system_content},
+            {
+                "role": "system",
+                "content": [
+                    {
+                        "type": "text",
+                        "text": static_system_content,
+                        "cache_control": {"type": "ephemeral"},
+                    },
+                    {
+                        "type": "text",
+                        "text": dynamic_system_content,
+                    },
+                ],
+            },
             {"role": "user", "content": prompt},
         ]
 
         # pretty print in debug mode
         if self.id == 0:
-            logger.debug(f"Prompt for {self.name} at stage {_stage}:\n{system_content}\n\n{prompt}")
+            logger.debug(f"Prompt for {self.name} at stage {_stage}:\n{static_system_content}\n\n{dynamic_system_content}\n\n{prompt}")
 
         content = None
         for attempt in range(3):
@@ -191,7 +205,16 @@ class HitlerPlayer:
                     model=openai_model,
                     messages=msg,
                     max_tokens=1024*4,
-                    extra_body={"reasoning_effort": "low", "reasoning": {"enabled": True}, "chat_template_kwargs": {"thinking": True}}
+                    extra_body={
+                        "reasoning_effort": "low",
+                        "reasoning": {
+                            "enabled": True,
+                            "effort": "low"
+                        },
+                        "chat_template_kwargs": {
+                            "thinking": True
+                        }
+                    }
                 )
             except Exception as e:
                 logger.warning(f"API error for {self.name} at stage {_stage} (attempt {attempt + 1}/3): {e}")
