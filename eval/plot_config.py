@@ -149,7 +149,7 @@ MODEL_REGISTRY = {
         "color": "#2D6376",
         "logo": "nous.png",
         "marker": ("o", 7),
-        "#FFFablitFFFFerated": True,
+        "abliterated": True,
     },
     "runsF2-DOLPHINVENICE": {
         "name": "Dolphin Mistral 24B Venice",

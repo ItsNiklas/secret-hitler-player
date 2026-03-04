@@ -370,11 +370,19 @@ def calculate_policy_counts_by_round(games_data: List[Dict[str, Any]], policy_ty
 
 
 def analyze_alice_game_state_impact(games_data: List[Dict[str, Any]]) -> Dict[str, Any]:
-    """Analyze Alice's impact on game state score when she's president or chancellor."""
+    """Analyze Alice's impact on game state score when she's president or chancellor.
+
+    Per-action impact: average score delta per individual government round Alice participates in.
+    Cumulative per-game impact: sum of all Alice's deltas within each game, then averaged across games.
+    All values are scaled x100 (i.e. in centiscore units) for readability.
+    """
     
     score_changes = []
     total_alice_actions = 0
     actions_by_role = {'liberal': [], 'fascist': [], 'hitler': []}
+    # Per-game cumulative sums
+    cumulative_per_game = []                        # all roles combined
+    cumulative_per_game_by_role = {'liberal': [], 'fascist': [], 'hitler': []}
     
     for game in games_data:
         alice_role = game.get('alice_role')
@@ -385,6 +393,9 @@ def analyze_alice_game_state_impact(games_data: List[Dict[str, Any]]) -> Dict[st
         if len(logs) < 2:  # Need at least 2 logs to calculate change
             continue
         
+        game_cumulative = 0.0
+        game_had_action = False
+
         # Check each log where Alice is president or chancellor
         for i, log in enumerate(logs[:-1]):  # Skip last log since we need next log for comparison
             president_id = log.get('presidentId')
@@ -406,13 +417,22 @@ def analyze_alice_game_state_impact(games_data: List[Dict[str, Any]]) -> Dict[st
                 score_changes.append(score_change)
                 actions_by_role[alice_role].append(score_change)
                 total_alice_actions += 1
+                game_cumulative += score_change
+                game_had_action = True
+
+        if game_had_action:
+            cumulative_per_game.append(game_cumulative)
+            cumulative_per_game_by_role[alice_role].append(game_cumulative)
     
     if not score_changes:
         return {
             'total_actions': 0,
             'average_impact': 0.0,
             'actions_by_role': {},
-            'average_by_role': {}
+            'average_by_role': {},
+            'cumulative_mean': 0.0,
+            'cumulative_mean_by_role': {'liberal': 0.0, 'fascist': 0.0, 'hitler': 0.0},
+            'all_score_changes': []
         }
     
     # Calculate averages
@@ -424,12 +444,20 @@ def analyze_alice_game_state_impact(games_data: List[Dict[str, Any]]) -> Dict[st
             average_by_role[role] = sum(changes) / len(changes)
         else:
             average_by_role[role] = 0.0
+
+    cumulative_mean = sum(cumulative_per_game) / len(cumulative_per_game) if cumulative_per_game else 0.0
+    cumulative_mean_by_role = {}
+    for role, vals in cumulative_per_game_by_role.items():
+        cumulative_mean_by_role[role] = sum(vals) / len(vals) if vals else 0.0
     
     return {
         'total_actions': total_alice_actions,
         'average_impact': average_impact,
         'actions_by_role': {role: len(changes) for role, changes in actions_by_role.items()},
         'average_by_role': average_by_role,
+        'cumulative_mean': cumulative_mean,
+        'cumulative_mean_by_role': cumulative_mean_by_role,
+        'num_games_with_actions': len(cumulative_per_game),
         'all_score_changes': score_changes
     }
 
@@ -445,18 +473,28 @@ def print_alice_game_state_impact(analysis: Dict[str, Any]):
     
     print(f"Total Alice actions (as President or Chancellor): {total_actions}")
     if total_actions > 0:
-        print(f"Average Game State Score Impact: {average_impact:.4f}")
+        # Per-action impact (×100 for readability)
+        print(f"Avg per-action GSIR:        {average_impact*100:+.3f} cs  (centiscore per government round)")
         print(f"  (Positive = beneficial for Alice's team, Negative = harmful)")
+
+        # Cumulative per-game impact
+        cum_mean = analysis.get('cumulative_mean', 0.0)
+        n_games = analysis.get('num_games_with_actions', 0)
+        print(f"Avg cumulative GSIR/game:   {cum_mean*100:+.3f} cs  (sum of all deltas per game, n={n_games})")
         
         print(f"\nImpact by Alice's Role:")
         actions_by_role = analysis['actions_by_role']
         average_by_role = analysis['average_by_role']
+        cum_by_role = analysis.get('cumulative_mean_by_role', {})
         
         for role in ['liberal', 'fascist', 'hitler']:
             actions = actions_by_role.get(role, 0)
             avg_impact = average_by_role.get(role, 0.0)
+            cum = cum_by_role.get(role, 0.0)
             if actions > 0:
-                print(f"  - As {role.capitalize()}: {actions} actions, {avg_impact:.4f} average impact")
+                print(f"  - As {role.capitalize()}: {actions} actions, "
+                      f"per-action {avg_impact*100:+.3f} cs, "
+                      f"cumulative/game {cum*100:+.3f} cs")
             else:
                 print(f"  - As {role.capitalize()}: 0 actions")
     else:
