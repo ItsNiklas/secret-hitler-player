@@ -41,7 +41,6 @@ from plot_config import (
 
 SCRIPT_DIR = Path(__file__).resolve().parent
 TOKEN_STATS_DIR = SCRIPT_DIR / "token_stats"
-TIMESTAMP_TOLERANCE_S = 900          # 15 minutes — covers parallel-game drift
 ALICE_NAME = "Alice"
 
 
@@ -60,43 +59,49 @@ def build_token_stats_index():
     return index
 
 
-def match_games_to_tokens(game_timestamps, index):
-    """Greedy 1-to-1 matching: pair each game with the closest token file.
+TOKEN_MATCH_WINDOW_S = 30 * 60   # token file must be within 30 min of a game
 
-    Pairs are sorted by absolute time delta (smallest first).  Once a token
-    file or game is claimed it cannot be reused, preventing double-counting.
-    Only pairs within TIMESTAMP_TOLERANCE_S are accepted.
 
-    Returns a list of (game_ts, token_path) tuples and the count of unmatched
-    games.
+def find_token_files_for_run(game_timestamps: list, index: dict) -> list:
+    """Return the deduplicated set of token files matched to this run.
+
+    For each game, pick the closest token file within TOKEN_MATCH_WINDOW_S.
+    Multiple games may map to the same file (they share it); the result is
+    deduplicated, so len(result) <= len(game_timestamps).
     """
-    # Build all candidate pairs
-    pairs = []
+    if not game_timestamps:
+        return []
+    tok_items = [(parse_timestamp(ts).timestamp(), path) for ts, path in index.items()]
+    matched = set()
     for game_ts in game_timestamps:
-        game_dt = parse_timestamp(game_ts)
-        for tok_ts, tok_path in index.items():
-            delta = abs((parse_timestamp(tok_ts) - game_dt).total_seconds())
-            if delta <= TIMESTAMP_TOLERANCE_S:
-                pairs.append((delta, game_ts, tok_ts, tok_path))
-
-    # Sort by delta ascending — greedily assign closest first
-    pairs.sort(key=lambda x: x[0])
-    used_games = set()
-    used_tokens = set()
-    matches = []
-    for _delta, game_ts, tok_ts, tok_path in pairs:
-        if game_ts in used_games or tok_ts in used_tokens:
-            continue
-        used_games.add(game_ts)
-        used_tokens.add(tok_ts)
-        matches.append((game_ts, tok_path))
-
-    missing = len(game_timestamps) - len(matches)
-    return matches, missing
+        game_epoch = parse_timestamp(game_ts).timestamp()
+        candidates = [(abs(tok_epoch - game_epoch), path)
+                      for tok_epoch, path in tok_items
+                      if abs(tok_epoch - game_epoch) <= TOKEN_MATCH_WINDOW_S]
+        if candidates:
+            candidates.sort(key=lambda x: x[0])
+            matched.add(candidates[0][1])
+    return list(matched)
 
 
-def load_alice_stats(jsonl_path: Path) -> dict:
-    """Read a JSONL token file and return aggregated stats for Alice only."""
+def _record_near_any_game(record_ts: str, game_epochs: list) -> bool:
+    """Return True if the ISO record timestamp is within TOKEN_MATCH_WINDOW_S of
+    any game, keeping only records that belong to this run."""
+    try:
+        ep = datetime.fromisoformat(record_ts).timestamp()
+    except (ValueError, TypeError):
+        return True   # no timestamp → don't discard
+    return any(abs(ep - ge) <= TOKEN_MATCH_WINDOW_S for ge in game_epochs)
+
+
+def load_alice_stats(jsonl_path: Path, game_epochs: list | None = None) -> dict:
+    """Read a JSONL token file and return aggregated stats for Alice only.
+
+    If *game_epochs* is provided (list of Unix timestamps for each game), only
+    Alice records whose ISO ``timestamp`` is within TOKEN_MATCH_WINDOW_S of at
+    least one game are counted, preventing records from other model runs that
+    share the same file from inflating the stats.
+    """
     total_prompt = 0
     total_completion = 0
     total_requests = 0
@@ -109,6 +114,8 @@ def load_alice_stats(jsonl_path: Path) -> dict:
                 continue
             record = json.loads(line)
             if record.get("player") != ALICE_NAME:
+                continue
+            if game_epochs is not None and not _record_near_any_game(record.get("timestamp", ""), game_epochs):
                 continue
             prompt = record.get("prompt_tokens", 0)
             completion = record.get("completion_tokens", 0)
@@ -150,32 +157,53 @@ def aggregate_folder(eval_dir: Path, index: dict, verbose: bool = True):
         if m:
             game_timestamps.append(m.group(1))
 
-    matches, missing = match_games_to_tokens(game_timestamps, index)
-    summaries = [load_alice_stats(tok_path) for _, tok_path in matches]
+    game_epochs = [parse_timestamp(ts).timestamp() for ts in game_timestamps]
+    token_files = find_token_files_for_run(game_timestamps, index)
 
     if verbose:
-        print(f"Matched {len(summaries)}/{len(game_timestamps)} games "
-              f"to token stats (skipped {missing})")
+        print(f"Found {len(token_files)} token file(s) covering {len(game_timestamps)} games")
         print(f"Showing tokens for: {ALICE_NAME} (Player 0) only\n")
 
-    if not summaries:
+    if not token_files:
         if verbose:
-            print("No token stats found for any game in this folder.")
+            print("No token stats files found for this run's time range.")
         return None
 
-    total_games = len(summaries)
-    total_requests = sum(s["total_requests"] for s in summaries)
-    total_prompt = sum(s["total_prompt_tokens"] for s in summaries)
-    total_completion = sum(s["total_completion_tokens"] for s in summaries)
-    total_tokens = sum(s["total_tokens"] for s in summaries)
+    # Merge all Alice records from every matching file.
+    # Pass game_epochs so load_alice_stats filters out foreign-run records.
+    merged: dict = {
+        "total_requests": 0,
+        "total_prompt_tokens": 0,
+        "total_completion_tokens": 0,
+        "total_tokens": 0,
+        "by_stage": {},
+    }
+    for tok_path in token_files:
+        s = load_alice_stats(tok_path, game_epochs=game_epochs)
+        merged["total_requests"] += s["total_requests"]
+        merged["total_prompt_tokens"] += s["total_prompt_tokens"]
+        merged["total_completion_tokens"] += s["total_completion_tokens"]
+        merged["total_tokens"] += s["total_tokens"]
+        for stage, stats in s["by_stage"].items():
+            if stage not in merged["by_stage"]:
+                merged["by_stage"][stage] = {"prompt_tokens": 0, "completion_tokens": 0, "requests": 0}
+            merged["by_stage"][stage]["prompt_tokens"] += stats["prompt_tokens"]
+            merged["by_stage"][stage]["completion_tokens"] += stats["completion_tokens"]
+            merged["by_stage"][stage]["requests"] += stats["requests"]
 
+    total_games = len(game_files)
+    total_requests = merged["total_requests"]
+    total_prompt = merged["total_prompt_tokens"]
+    total_completion = merged["total_completion_tokens"]
+    total_tokens = merged["total_tokens"]
+
+    # by_stage: treat entire run as one pool; set games=total_games for each stage
     by_stage = defaultdict(lambda: {"prompt": 0, "completion": 0, "requests": 0, "games": 0})
-    for summary in summaries:
-        for stage, stats in summary.get("by_stage", {}).items():
-            by_stage[stage]["prompt"] += stats["prompt_tokens"]
-            by_stage[stage]["completion"] += stats["completion_tokens"]
-            by_stage[stage]["requests"] += stats["requests"]
-            by_stage[stage]["games"] += 1
+    for stage, stats in merged["by_stage"].items():
+        by_stage[stage]["prompt"] += stats["prompt_tokens"]
+        by_stage[stage]["completion"] += stats["completion_tokens"]
+        by_stage[stage]["requests"] += stats["requests"]
+        by_stage[stage]["games"] = total_games
 
     result = {
         "total_games": total_games,
@@ -211,8 +239,7 @@ def print_report(result):
         avg_completion = stats["completion"] / stats["games"]
         avg_requests = stats["requests"] / stats["games"]
         print(
-            f"{stage}: {stats['games']} games, "
-            f"avg {avg_requests:.1f} reqs, "
+            f"{stage}: encountered {stats['requests']}x ({avg_requests:.1f}/game), "
             f"{avg_prompt:,.1f} prompt, "
             f"{avg_completion:,.1f} completion"
         )
@@ -283,10 +310,21 @@ def plot_completion_tokens(results: dict):
             # Convert that point to axes-fraction coords (stable across savefig).
             end_x, end_y = inv_ax.transform((bbox.x0, bbox.y0))
 
-            # Rotate the image to match the 35° label angle
+            # Rotate the image to match the 35° label angle.
+            # Rotate RGB and alpha separately: corners of RGB fill with white
+            # (255) while alpha corners fill with 0 (transparent), avoiding
+            # the opaque-edge artifact that appears when cval=255 is applied
+            # uniformly across all channels.
             img_data = imagebox.get_data()
-            rotated_data = rotate_image(img_data, 35, reshape=True, order=1,
-                                        mode='constant', cval=255)
+            if img_data.ndim == 3 and img_data.shape[2] == 4:
+                rgb = rotate_image(img_data[..., :3], 35, reshape=True, order=1,
+                                   mode='constant', cval=255)
+                alpha = rotate_image(img_data[..., 3], 35, reshape=True, order=1,
+                                     mode='constant', cval=0)
+                rotated_data = np.concatenate([rgb, alpha[..., np.newaxis]], axis=2).astype(img_data.dtype)
+            else:
+                rotated_data = rotate_image(img_data, 35, reshape=True, order=1,
+                                            mode='constant', cval=255)
             rotated_imagebox = OffsetImage(rotated_data, zoom=imagebox.get_zoom())
 
             # Place the icon at the text-start end of the label
@@ -308,11 +346,14 @@ def plot_completion_tokens(results: dict):
 
 
 def main():
+    show_derestricted = "--derestricted" in sys.argv
+    args = [a for a in sys.argv[1:] if not a.startswith("--")]
+
     index = build_token_stats_index()
 
-    if len(sys.argv) >= 2:
+    if args:
         # ── Single-folder mode ──
-        eval_dir = Path(sys.argv[1])
+        eval_dir = Path(args[0])
         if not eval_dir.is_absolute():
             eval_dir = SCRIPT_DIR / eval_dir
         if not eval_dir.is_dir():
@@ -325,7 +366,8 @@ def main():
         # ── All runs* folders → aggregate + plot ──
         run_dirs = sorted(
             d for d in SCRIPT_DIR.iterdir()
-            if d.is_dir() and d.name.startswith("runs")
+            if d.is_dir() and d.name.startswith("runs") and "Base" not in d.name
+            and (show_derestricted or not MODEL_REGISTRY.get(d.name, {}).get("abliterated", False))
         )
         if not run_dirs:
             print("No runs* directories found next to this script.")

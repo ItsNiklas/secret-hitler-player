@@ -149,7 +149,7 @@ MODEL_REGISTRY = {
         "color": "#2D6376",
         "logo": "nous.png",
         "marker": ("o", 7),
-        "abliterated": True,
+        "#FFFablitFFFFerated": True,
     },
     "runsF2-DOLPHINVENICE": {
         "name": "Dolphin Mistral 24B Venice",
@@ -169,6 +169,30 @@ MODEL_REGISTRY = {
         "color": "#615CED",
         "logo": "qwen.png",
         "marker": ("H", 7),
+    },
+    "runsF2-GEMINI31PRO": {
+        "name": "Gemini 3.1 Pro",
+        "color": "#FFFFFF",
+        "logo": "gemini.png",
+        "marker": ("<", 7),
+    },
+    "runsF2-GPT52": {
+        "name": "GPT-5.2",
+        "color": "#000000",
+        "logo": "openai.png",
+        "marker": (">", 7),
+    },
+    "runsF2-GROK41FAST": {
+        "name": "Grok 4.1 Fast",
+        "color": "#000000",
+        "logo": "grok.png",
+        "marker": ("1", 8),
+    },
+    "runsF2-SONNET46": {
+        "name": "Claude Sonnet 4.6",
+        "color": "#D97757",
+        "logo": "claude.png",
+        "marker": ("2", 8),
     },
     # ---- Baselines ----
     "runsF2Base-Cpu": {
@@ -312,8 +336,9 @@ def get_model_imagebox(model_name):
         "moonshot.png": (64, 64, 1 / 8),
         "huggingface.png": (64, 64, 1 / 8),
         "nous.png": (64, 64, 1 / 7.5),
-        "gemma.png": (64, 64, 1 / 6.5),
-        "olmo.png": (64, 64, 1 / 7.5),
+        "allen.png": (64, 64, 1 / 8),
+        "claude.png": (64, 64, 1 / 7.5),
+        "gemini.png": (64, 64, 1 / 8),
     }
     LOGO_DEFAULT = (64, 64, 1 / 7)  # sensible default for new logos
 

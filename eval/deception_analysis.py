@@ -16,7 +16,6 @@ Usage:
     python deception_analysis.py runsF2-GEMMA # single model folder
 """
 
-import json
 import argparse
 import re
 from pathlib import Path
@@ -217,7 +216,7 @@ def plot_all_models(include_abliterated: bool = False):
             print(f"  {model:30s}  n={n:3d}  (no data)")
 
     # ---- Plot ----
-    fig, ax = plt.subplots(figsize=(plot_config.FIG_WIDTH, 3.5))
+    fig, ax = plt.subplots(figsize=(plot_config.FIG_WIDTH, 4.5))
     lines = []
 
     for model in sorted(model_data.keys()):
@@ -246,12 +245,12 @@ def plot_all_models(include_abliterated: bool = False):
     if all_rounds:
         max_round = max(all_rounds)
         ax.set_xticks(range(1, max_round + 1))
-        ax.set_xlim(0.5, max_round - 0.6)
+        ax.set_xlim(0.9, max_round - 0.6)
 
     legend = ax.legend(
         framealpha=0,
         bbox_to_anchor=(0.5, -0.25), loc="upper center",
-        handlelength=2, handletextpad=1.6, ncol=3,
+        handlelength=2, handletextpad=1.6, ncol=2,
     )
 
     # Add model icons to legend
