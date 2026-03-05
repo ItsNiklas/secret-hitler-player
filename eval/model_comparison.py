@@ -314,10 +314,10 @@ def create_comparison_chart(df, metric_columns=None, output_path=None, baseline_
                 label_text = f'{value:{FMT}}{pct_suffix}'
             
             ax.text((value if value > 0 else 0) + label_offset, 0, label_text, ha='left', va='center', 
-                   fontweight='bold', color='black', fontsize=8)
+                   fontweight='bold', color='black', )
         else:
             ax.text((value if value > 0 else 0) + label_offset, 0, f'{value:{FMT}}{pct_suffix}', ha='left', va='center', 
-               fontweight='bold', color='black', fontsize=8)
+               fontweight='bold', color='black',)
         
         # Configure axis - dynamic range based on data
         ax.set_xlim(xlim_min, xlim_max)
@@ -362,7 +362,7 @@ def create_comparison_chart(df, metric_columns=None, output_path=None, baseline_
         ax.tick_params(axis='x', labelsize=8)
         ax.spines['top'].set_visible(False)
         ax.spines['right'].set_visible(False)
-        ax.set_xlabel(metric, fontsize=9)
+        ax.set_xlabel(metric,)
 
     # Bottom rows: Comparison model deltas
     for col_idx, metric in enumerate(metric_columns):
@@ -423,7 +423,7 @@ def create_comparison_chart(df, metric_columns=None, output_path=None, baseline_
                 label_text = f'{delta:{FMT}}{pct_suffix}'
             
             ax.text(label_x, bar.get_y() + bar.get_height()/2, label_text, 
-                   ha=ha, va='center', color='black', fontweight='bold', fontsize=8)
+                   ha=ha, va='center', color='black', fontweight='bold',)
         
         # Configure axis - dynamic range based on deltas
         ax.set_xlim(-delta_lim, delta_lim)
@@ -469,7 +469,7 @@ def create_comparison_chart(df, metric_columns=None, output_path=None, baseline_
             ax.set_yticklabels([])
         
         ax.tick_params(axis='x', labelsize=8)
-        ax.set_xlabel(f'$\\Delta$ {metric}', fontsize=9)
+        ax.set_xlabel(f'$\\Delta$ {metric}',)
         ax.axvline(0, color='0.85', linewidth=0.8, linestyle='-')
         
         # Add light grid with dashed lines

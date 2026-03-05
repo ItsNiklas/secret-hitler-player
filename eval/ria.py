@@ -302,43 +302,30 @@ def plot_ria(results: dict[str, tuple[str, RIAStats]], out_path: Path) -> None:
         print("No data to plot.")
         return
 
-    # Sort by overall RIA descending
-    models.sort(key=lambda x: x[2].ria or 0, reverse=True)
+    # Sort by liberal-own RIA descending
+    models.sort(key=lambda x: x[2].ria_by_own_role("liberal") or 0, reverse=True)
 
     n = len(models)
     x = np.arange(n)
-    bar_w = 0.20
+    bar_w = 0.6
 
-    overall   = [s.ria                          or 0 for _, _, s in models]
-    lib_own   = [s.ria_by_own_role("liberal")   or 0 for _, _, s in models]
-    fas_own   = [s.ria_by_own_role("fascist")   or 0 for _, _, s in models]
-    hit_own   = [s.ria_by_own_role("hitler")    or 0 for _, _, s in models]
+    lib_own = [s.ria_by_own_role("liberal") or 0 for _, _, s in models]
 
     display_names = [dn for _, dn, _ in models]
     model_colors  = [plot_config.get_model_color(dn) for dn in display_names]
 
     fig, ax = plt.subplots(figsize=(plot_config.FIG_WIDTH, 4))
 
-    # Overall bars coloured per model
-    bars_overall = ax.bar(x - 1.5 * bar_w, overall, bar_w,
-                          color=model_colors, label="Overall", zorder=4, alpha=0.95)
-
-    # Role-breakdown bars with role colours
-    ax.bar(x - 0.5 * bar_w, lib_own, bar_w,
-           color=plot_config.ROLE_COLORS["liberal"],  label="Liberal (own)", zorder=4, alpha=0.80)
-    ax.bar(x + 0.5 * bar_w, fas_own, bar_w,
-           color=plot_config.ROLE_COLORS["fascist"],  label="Fascist (own)", zorder=4, alpha=0.80)
-    ax.bar(x + 1.5 * bar_w, hit_own, bar_w,
-           color=plot_config.ROLE_COLORS["hitler"],   label="Hitler (own)",  zorder=4, alpha=0.80)
+    ax.bar(x, lib_own, bar_w, color=model_colors, zorder=4, alpha=0.95)
 
     ax.set_xticks(x)
     ax.set_xticklabels(display_names, rotation=35, ha="right")
     ax.tick_params(axis="x", color="0.85", labelcolor="0", pad=0)
     ax.tick_params(axis="y", color="0.85", labelcolor="0")
-    ax.set_ylabel("RIA")
+    ax.set_ylabel("Role Identification Accuracy")
     ax.yaxis.set_major_formatter(plt.FuncFormatter(lambda y, _: f"{y*100:.0f}\\%"))
     ax.set_ylim(0, 1.05)
-    ax.legend(loc="upper right")
+    ax.set_xlim(-0.6, n - 0.4)
     ax.grid(axis="y", alpha=0.3, zorder=0)
 
     plt.tight_layout()

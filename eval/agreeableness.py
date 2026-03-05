@@ -59,16 +59,21 @@ def compute_endorsement_rate(folder: Path) -> dict | None:
     """
     Compute presidential endorsement rates for all games in *folder*.
 
-    Returns a dict keyed by Alice's role as president
-    ("all", "liberal", "fascist", "hitler"), each value being a dict
-    {"yes": int, "total": int, "rate": float}.
+    Returns a dict with two sub-dicts, each keyed by Alice's role as president
+    ("all", "liberal", "fascist", "hitler"), values being
+    {"yes": int, "total": int, "rate": float}:
+
+      "endorsement"  – yes-vote share from *other* players
+      "self_vote"    – how often Alice herself votes Yes on her own nomination
+
     Returns None if no valid rounds were found.
     """
     json_files = list(folder.glob("*.json"))
     if not json_files:
         return None
 
-    counts = {role: {"yes": 0, "total": 0} for role in ALICE_ROLES}
+    counts      = {role: {"yes": 0, "total": 0} for role in ALICE_ROLES}
+    self_counts = {role: {"yes": 0, "total": 0} for role in ALICE_ROLES}
 
     for fpath in json_files:
         summary = plot_config.load_summary_file(fpath)
@@ -94,7 +99,7 @@ def compute_endorsement_rate(folder: Path) -> dict | None:
             if not votes or not isinstance(votes, list):
                 continue
 
-            # Count yes-votes from every other player
+            # --- endorsement: other players' votes ---
             yes_count = 0
             total_count = 0
             for voter_id in range(n_players):
@@ -104,35 +109,47 @@ def compute_endorsement_rate(folder: Path) -> dict | None:
                     continue
                 vote = votes[voter_id]
                 if vote is None:
-                    continue  # abstain / not voting this round
+                    continue
                 total_count += 1
                 if bool(vote):
                     yes_count += 1
 
-            if total_count == 0:
-                continue
+            if total_count > 0:
+                counts["all"]["total"] += total_count
+                counts["all"]["yes"] += yes_count
+                if alice_role in ("liberal", "fascist", "hitler"):
+                    counts[alice_role]["total"] += total_count
+                    counts[alice_role]["yes"] += yes_count
 
-            # Accumulate into "all" and into Alice's specific role bucket
-            counts["all"]["total"] += total_count
-            counts["all"]["yes"] += yes_count
-            if alice_role in ("liberal", "fascist", "hitler"):
-                counts[alice_role]["total"] += total_count
-                counts[alice_role]["yes"] += yes_count
+            # --- self-vote: Alice's own vote on her nomination ---
+            if ALICE_ID < len(votes) and votes[ALICE_ID] is not None:
+                self_counts["all"]["total"] += 1
+                if bool(votes[ALICE_ID]):
+                    self_counts["all"]["yes"] += 1
+                if alice_role in ("liberal", "fascist", "hitler"):
+                    self_counts[alice_role]["total"] += 1
+                    if bool(votes[ALICE_ID]):
+                        self_counts[alice_role]["yes"] += 1
 
     # Build result only if we have at least some data
     if counts["all"]["total"] == 0:
         return None
 
-    result = {}
-    for role in ALICE_ROLES:
-        total = counts[role]["total"]
-        yes = counts[role]["yes"]
-        result[role] = {
-            "yes": yes,
-            "total": total,
-            "rate": yes / total if total > 0 else float("nan"),
+    def _make_result(src):
+        return {
+            role: {
+                "yes": src[role]["yes"],
+                "total": src[role]["total"],
+                "rate": src[role]["yes"] / src[role]["total"]
+                        if src[role]["total"] > 0 else float("nan"),
+            }
+            for role in ALICE_ROLES
         }
-    return result
+
+    return {
+        "endorsement": _make_result(counts),
+        "self_vote":   _make_result(self_counts),
+    }
 
 
 # ---------------------------------------------------------------------------
@@ -149,30 +166,21 @@ def _bar_x_positions(n_models: int, n_groups: int = 4, gap: float = 0.25):
     return group_centers, offsets, bar_width
 
 
-def plot_comparison(model_data: dict[str, dict]):
-    """
-    Produce a grouped bar chart comparing endorsement rates across models.
-
-    model_data: {model_display_name: {role: {"rate": float, "total": int}}}
-    """
-    models = list(model_data.keys())
+def _draw_grouped_bars(ax, models, model_data, metric_key):
+    """Draw grouped bars for *metric_key* ('endorsement' or 'self_vote') onto *ax*."""
     n_models = len(models)
-    n_groups = len(ALICE_ROLES)   # 4 groups: all, liberal, fascist, hitler
-
+    n_groups = len(ALICE_ROLES)
     group_centers, offsets, bar_width = _bar_x_positions(n_models, n_groups)
 
-    fig, ax = plt.subplots(figsize=(plot_config.FIG_WIDTH, 3.2))
-
     for i, model_name in enumerate(models):
-        data = model_data[model_name]
+        sub = model_data[model_name][metric_key]
         color = plot_config.get_model_color(model_name)
-        rates = [data[role]["rate"] * 100 if not np.isnan(data[role]["rate"]) else 0
-                 for role in ALICE_ROLES]
-        totals = [data[role]["total"] for role in ALICE_ROLES]
-
-        x_positions = group_centers + offsets[i]
-        bars = ax.bar(
-            x_positions,
+        rates = [
+            sub[role]["rate"] * 100 if not np.isnan(sub[role]["rate"]) else 0
+            for role in ALICE_ROLES
+        ]
+        ax.bar(
+            group_centers + offsets[i],
             rates,
             width=bar_width * 0.9,
             color=color,
@@ -181,49 +189,67 @@ def plot_comparison(model_data: dict[str, dict]):
             zorder=3,
         )
 
-
-    # Reference lines
     ax.axhline(50, color="0.6", linewidth=0.8, linestyle="--", zorder=2)
-
-    # Axes decoration
     ax.set_xticks(group_centers)
-    ax.set_xticklabels(
-        [ALICE_ROLE_LABELS[r] for r in ALICE_ROLES],
-    )
-    ax.set_ylabel("Yes-vote rate (\\%)")
+    ax.set_xticklabels([ALICE_ROLE_LABELS[r] for r in ALICE_ROLES])
+    for tick, role in zip(ax.get_xticklabels(), ALICE_ROLES):
+        tick.set_color(ALICE_ROLE_COLORS[role])
     ax.set_ylim(0, 105)
     ax.set_xlim(-0.6, n_groups - 0.4)
     ax.yaxis.grid(True, linestyle=":", alpha=0.5, zorder=1)
     ax.set_axisbelow(True)
 
-    # Colour-coded x-tick labels to match role colours
-    for tick, role in zip(ax.get_xticklabels(), ALICE_ROLES):
-        tick.set_color(ALICE_ROLE_COLORS[role])
 
-    # Legend at the bottom
-    legend = ax.legend(
+def plot_comparison(model_data: dict[str, dict]):
+    """
+    Two-subplot grouped bar chart: endorsement (top) and self-vote (bottom).
+
+    model_data: {model_display_name: {"endorsement": ..., "self_vote": ...}}
+    """
+    models = list(model_data.keys())
+
+    fig, (ax_end, ax_sv) = plt.subplots(
+        2, 1, figsize=(plot_config.FIG_WIDTH, 5.5), sharex=False
+    )
+
+    _draw_grouped_bars(ax_end, models, model_data, "endorsement")
+    ax_end.set_ylabel("Yes-vote rate (\\%)")
+    ax_end.set_title(
+        "Presidential Endorsement Rate"
+        " — yes-vote rate of \\textit{other} players\n"
+        "(columns = Alice's role as president)",
+        pad=4,
+    )
+
+    _draw_grouped_bars(ax_sv, models, model_data, "self_vote")
+    ax_sv.set_ylabel("Yes-vote rate (\\%)")
+    ax_sv.set_title(
+        "Alice's Self-Vote Rate"
+        " — how often Alice votes Yes on \\textit{her own} nomination\n"
+        "(columns = Alice's role as president)",
+        pad=4,
+    )
+
+    # Shared legend at the bottom (drawn on ax_sv so it anchors below it)
+    legend = ax_sv.legend(
         framealpha=0,
-        bbox_to_anchor=(0.5, -0.1),
+        bbox_to_anchor=(0.5, -0.22),
         loc="upper center",
         handlelength=2,
         handletextpad=1.6,
-        ncol=2,
+        ncol=3,
     )
 
-    for model_name, legend_handle in zip(models, legend.legend_handles):
+    # Inject model logo icons into legend handles
+    for model_name, handle in zip(models, legend.legend_handles):
         imagebox = plot_config.get_model_imagebox(model_name)
-        if imagebox is None:
-            continue
-        ab = AnnotationBbox(
-            imagebox,
-            (0.5, 0.5),
-            xycoords=legend_handle,
-            frameon=False,
-            clip_on=False,
-            box_alignment=(-1.5, 0.5),
-            zorder=10,
-        )
-        fig.add_artist(ab)
+        if imagebox:
+            ab = AnnotationBbox(
+                imagebox, (0.5, 0.5), xybox=(19, 0),
+                xycoords=handle, boxcoords="offset points",
+                frameon=False, box_alignment=(0.5, 0.5), zorder=10,
+            )
+            fig.add_artist(ab)
 
     out_path = plot_config.get_plot_path("agreeableness.pdf")
     fig.savefig(out_path, bbox_inches="tight")
@@ -231,45 +257,51 @@ def plot_comparison(model_data: dict[str, dict]):
     plt.close(fig)
 
 
-def plot_single(model_name: str, data: dict):
-    """
-    Simple bar chart for a single model, coloured by voter role.
-    """
-    fig, ax = plt.subplots(figsize=(plot_config.FIG_WIDTH * 0.65, 3.0))
-
+def _draw_single_bars(ax, sub: dict, title: str):
+    """Draw role-coloured bars for one metric sub-dict onto *ax*."""
     x = np.arange(len(ALICE_ROLES))
-    rates = [data[role]["rate"] * 100 if not np.isnan(data[role]["rate"]) else 0
-             for role in ALICE_ROLES]
-    totals = [data[role]["total"] for role in ALICE_ROLES]
+    rates  = [sub[r]["rate"] * 100 if not np.isnan(sub[r]["rate"]) else 0 for r in ALICE_ROLES]
+    totals = [sub[r]["total"] for r in ALICE_ROLES]
     colors = [ALICE_ROLE_COLORS[r] for r in ALICE_ROLES]
 
     bars = ax.bar(x, rates, color=colors, alpha=0.85, zorder=3)
-
     for bar, total, rate in zip(bars, totals, rates):
         if total > 0:
             ax.text(
                 bar.get_x() + bar.get_width() / 2,
                 bar.get_height() + 0.8,
                 f"{rate:.1f}\\%\nn={total}",
-                ha="center",
-                va="bottom",
+                ha="center", va="bottom",
             )
-
     ax.axhline(50, color="0.6", linewidth=0.8, linestyle="--", zorder=2)
-
     ax.set_xticks(x)
     ax.set_xticklabels([ALICE_ROLE_LABELS[r] for r in ALICE_ROLES])
     for tick, role in zip(ax.get_xticklabels(), ALICE_ROLES):
         tick.set_color(ALICE_ROLE_COLORS[role])
-
     ax.set_ylabel("Yes-vote rate (\\%)")
-    ax.set_ylim(0, 110)
+    ax.set_ylim(0, 115)
     ax.yaxis.grid(True, linestyle=":", alpha=0.5, zorder=1)
     ax.set_axisbelow(True)
+    ax.set_title(title,pad=4)
+
+
+def plot_single(model_name: str, data: dict):
+    """Two-subplot bar chart for a single model (endorsement + self-vote)."""
+    fig, (ax_end, ax_sv) = plt.subplots(
+        1, 2, figsize=(plot_config.FIG_WIDTH, 3.0)
+    )
+    _draw_single_bars(
+        ax_end, data["endorsement"],
+        f"{model_name}\nEndorsement by Others",
+    )
+    _draw_single_bars(
+        ax_sv, data["self_vote"],
+        f"{model_name}\nAlice's Self-Vote",
+    )
     fig.tight_layout()
     safe_name = model_name.replace(" ", "_").replace("/", "-")
     out_path = plot_config.get_plot_path(f"agreeableness_{safe_name}.pdf")
-    fig.savefig(out_path)
+    fig.savefig(out_path, bbox_inches="tight")
     print(f"Saved: {out_path}")
     plt.close(fig)
 
@@ -278,27 +310,38 @@ def plot_single(model_name: str, data: dict):
 # Reporting
 # ---------------------------------------------------------------------------
 
-def print_table(model_data: dict[str, dict]):
+def _print_metric_table(title: str, model_data: dict[str, dict], metric_key: str):
     col_w = 12
     header = f"{'Model':<32}" + "".join(f"{ALICE_ROLE_LABELS[r]:>{col_w}}" for r in ALICE_ROLES)
     print()
     print("=" * len(header))
-    print("PRESIDENTIAL ENDORSEMENT RATE  (yes-vote % from other players, by Alice's role)")
+    print(title)
     print("=" * len(header))
     print(header)
     print("-" * len(header))
     for model_name, data in model_data.items():
+        sub = data[metric_key]
         row = f"{model_name:<32}"
         for role in ALICE_ROLES:
-            rate = data[role]["rate"]
-            total = data[role]["total"]
+            rate  = sub[role]["rate"]
+            total = sub[role]["total"]
             if np.isnan(rate) or total == 0:
                 row += f"{'N/A':>{col_w}}"
             else:
-                row += f"{rate*100:>{col_w-4}.1f}% (n={total:{'>'}3})" if False else \
-                       f"{rate*100:>{col_w}.1f}"
+                row += f"{rate*100:>{col_w}.1f}"
         print(row)
     print("=" * len(header))
+
+
+def print_table(model_data: dict[str, dict]):
+    _print_metric_table(
+        "PRESIDENTIAL ENDORSEMENT RATE  (yes-vote % from other players, by Alice's role)",
+        model_data, "endorsement",
+    )
+    _print_metric_table(
+        "ALICE'S SELF-VOTE RATE  (Alice votes Yes on her own nomination, by Alice's role)",
+        model_data, "self_vote",
+    )
 
 
 # ---------------------------------------------------------------------------

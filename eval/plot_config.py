@@ -30,11 +30,12 @@ def setup_plot_style(use_latex=True):
     plt.rcParams["mathtext.fontset"] = "cm"  # Computer Modern for math
 
     # Size configuration
-    plt.rcParams["axes.titlesize"] = 10
-    plt.rcParams["axes.labelsize"] = 10
-    plt.rcParams["xtick.labelsize"] = 10
-    plt.rcParams["ytick.labelsize"] = 10
-    plt.rcParams["legend.fontsize"] = 10
+    # Copy from table font size
+    plt.rcParams["axes.titlesize"] = 9
+    plt.rcParams["axes.labelsize"] = 9
+    plt.rcParams["xtick.labelsize"] = 9
+    plt.rcParams["ytick.labelsize"] = 9
+    plt.rcParams["legend.fontsize"] = 9
 
     # Line and marker configuration
     plt.rcParams["lines.linewidth"] = 1.0

@@ -171,9 +171,9 @@ def plot_gamestate_evaluations(summaries_folder):
     plt.legend(handles=legend_elements, loc='lower right', framealpha=1)
     # Add text annotations explaining the score
     plt.text(0.02, 0.98, r'$\uparrow$ Liberal Advantage', transform=plt.gca().transAxes, 
-             verticalalignment='top', fontsize=9, alpha=0.7)
+             verticalalignment='top', fontsize=8, alpha=0.7)
     plt.text(0.02, 0.02, r'$\downarrow$ Fascist Advantage', transform=plt.gca().transAxes, 
-             verticalalignment='bottom', fontsize=9, alpha=0.7)
+             verticalalignment='bottom', fontsize=8, alpha=0.7)
     
     plt.tight_layout()
     

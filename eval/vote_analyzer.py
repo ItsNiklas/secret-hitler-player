@@ -15,6 +15,12 @@ import json
 from collections import defaultdict
 from pathlib import Path
 import argparse
+
+import matplotlib.pyplot as plt
+import numpy as np
+from matplotlib.offsetbox import AnnotationBbox
+
+import plot_config
 from plot_config import setup_plot_style, load_summary_file
 
 # Apply shared plotting configuration
@@ -274,6 +280,129 @@ def analyze_votes(summaries_folder):
     analyze_vote_accuracy(summaries_folder)
 
 
+# ---------------------------------------------------------------------------
+# Early / Mid / Late phase computation for multi-model comparison
+# ---------------------------------------------------------------------------
+
+PHASES = ("Early", "Mid", "Late")
+
+
+def compute_phase_rates(folder: Path) -> dict | None:
+    """
+    Compute Alice's yes-vote rate split into early / mid / late game thirds.
+
+    Each game's rounds are divided into three equal-ish thirds based on
+    total round count.  Returns {phase: {"yes": int, "total": int,
+    "rate": float}} or None.
+    """
+    json_files = list(folder.glob("*.json"))
+    if not json_files:
+        return None
+
+    counts = {p: {"yes": 0, "total": 0} for p in PHASES}
+
+    for fpath in json_files:
+        summary = load_summary_file(fpath)
+        if summary is None:
+            continue
+
+        logs = summary.get("logs", [])
+        if not logs:
+            continue
+
+        n_rounds = len(logs)
+        t1 = n_rounds // 3
+        t2 = 2 * n_rounds // 3
+
+        for round_idx, round_data in enumerate(logs):
+            votes = round_data.get("votes")
+            if not votes or not isinstance(votes, list):
+                continue
+            if 0 >= len(votes) or votes[0] is None:
+                continue
+
+            if round_idx < t1:
+                phase = "Early"
+            elif round_idx < t2:
+                phase = "Mid"
+            else:
+                phase = "Late"
+
+            counts[phase]["total"] += 1
+            if bool(votes[0]):
+                counts[phase]["yes"] += 1
+
+    if all(counts[p]["total"] == 0 for p in PHASES):
+        return None
+
+    result = {}
+    for p in PHASES:
+        total = counts[p]["total"]
+        yes = counts[p]["yes"]
+        result[p] = {
+            "yes": yes,
+            "total": total,
+            "rate": yes / total if total > 0 else float("nan"),
+        }
+    return result
+
+
+def plot_phase_degradation(phase_data: dict[str, dict]):
+    """
+    Line plot showing Alice's yes-vote rate across game phases (Early/Mid/Late).
+
+    phase_data: {model_display_name: {"Early": {...}, "Mid": {...}, "Late": {...}}}
+    """
+    x = np.arange(len(PHASES))
+
+    fig, ax = plt.subplots(figsize=(plot_config.FIG_WIDTH, 4.5))
+    lines: list[tuple[str, plt.Line2D]] = []
+
+    for model_name, phases in phase_data.items():
+        rates = [
+            phases[p]["rate"] * 100 if not np.isnan(phases[p]["rate"]) else np.nan
+            for p in PHASES
+        ]
+        m, ms = plot_config.get_markerdata_for_model(model_name)
+        (line,) = ax.plot(
+            x, rates,
+            marker=m, color=plot_config.get_model_color(model_name),
+            linewidth=2, markersize=ms, label=model_name,
+            markeredgecolor="white", markeredgewidth=1,
+        )
+        lines.append((model_name, line))
+
+    ax.set_xticks(x)
+    ax.set_xticklabels(PHASES)
+    ax.set_xlabel("Game phase")
+    ax.set_ylabel(r"Alice yes-vote rate")
+    ax.yaxis.set_major_formatter(plt.FuncFormatter(lambda y, _: fr"{int(y)}\%"))
+    ax.set_ylim(0, 100)
+    ax.set_xlim(-0.15, len(PHASES) - 0.85)
+    ax.grid(True, alpha=0.4)
+
+    legend = ax.legend(
+        framealpha=0,
+        bbox_to_anchor=(0.5, -0.25), loc="upper center",
+        handlelength=2, handletextpad=1.6, ncol=2,
+    )
+
+    for model_name, handle in zip([m for m, _ in lines], legend.legend_handles):
+        imagebox = plot_config.get_model_imagebox(model_name)
+        if imagebox:
+            ab = AnnotationBbox(
+                imagebox, (0.5, 0.5), xybox=(19, 0),
+                xycoords=handle, boxcoords="offset points",
+                frameon=False, box_alignment=(0.5, 0.5), zorder=10,
+            )
+            fig.add_artist(ab)
+
+    out_path = plot_config.get_plot_path("vote_phase_degradation.pdf")
+    fig.savefig(out_path, dpi=300, bbox_inches="tight")
+    print(f"Saved: {out_path}")
+    plt.close(fig)
+
+
 def main():
     parser = argparse.ArgumentParser(
         description="Analyze Alice's (Player 0) votes from Secret Hitler game summary files",
@@ -292,6 +421,11 @@ Examples:
         default=None,
         help='Path to the folder containing *_summary.json files (default: all runsF2* folders)'
     )
+    parser.add_argument(
+        '--include-abliterated',
+        action='store_true',
+        help='Include abliterated / derestricted model variants.',
+    )
     
     args = parser.parse_args()
     
@@ -299,15 +433,34 @@ Examples:
         analyze_votes(args.summaries_folder)
     else:
         script_dir = Path(__file__).resolve().parent
-        runs_folders = sorted(script_dir.glob("runsF2*"))
-        if not runs_folders:
-            print("No runsF2* folders found in", script_dir)
-            return
-        for folder in runs_folders:
+
+        # Use MODEL_REGISTRY order for consistent ordering
+        candidate_keys = list(plot_config.MODEL_REGISTRY.keys())
+        candidate_keys = [k for k in candidate_keys if k != "crawl"]
+        if not args.include_abliterated:
+            candidate_keys = [
+                k for k in candidate_keys
+                if not plot_config.MODEL_REGISTRY[k].get("abliterated", False)
+            ]
+
+        phase_data: dict[str, dict] = {}
+
+        for key in candidate_keys:
+            folder = script_dir / key
+            if not folder.is_dir():
+                continue
             print(f"\n{'#' * 60}")
-            print(f"# {folder.name}")
+            print(f"# {key}")
             print(f"{'#' * 60}")
             analyze_votes(str(folder))
+
+            pd = compute_phase_rates(folder)
+            if pd is not None:
+                model_name = plot_config.extract_model_name(key)
+                phase_data[model_name] = pd
+
+        if phase_data:
+            plot_phase_degradation(phase_data)
 
 
 if __name__ == "__main__":

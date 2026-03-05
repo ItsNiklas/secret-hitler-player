@@ -125,7 +125,7 @@ def create_comparison_chart(df, metric_columns=None, output_path=None, color_mod
             # Position label to the right of the bar
             ax.text((value if value > 0 else 0) + label_offset, bar.get_y() + bar.get_height()/2, 
                    label_text, ha='left', va='center', 
-                   fontweight='bold', color='black', fontsize=8)
+                   fontweight='bold', color='black',)
         
         # Configure axis
         ax.set_xlim(xlim_min, xlim_max)

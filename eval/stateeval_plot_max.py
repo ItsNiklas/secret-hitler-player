@@ -149,9 +149,9 @@ def plot_single_subplot(ax, games_by_role, folder_path, show_legend=False):
         
         # Add text annotations explaining the score
         ax.text(0.02, 0.98, r'$\uparrow$ Liberal Advantage', transform=ax.transAxes, 
-                 verticalalignment='top', fontsize=9, alpha=0.7)
+                 verticalalignment='top', fontsize=8, alpha=0.7)
         ax.text(0.02, 0.02, r'$\downarrow$ Fascist Advantage', transform=ax.transAxes, 
-                 verticalalignment='bottom', fontsize=9, alpha=0.7)
+                 verticalalignment='bottom', fontsize=8, alpha=0.7)
 
 
 def plot_gamestate_evaluations(folders):
@@ -181,8 +181,8 @@ def plot_gamestate_evaluations(folders):
         plot_single_subplot(ax, games_by_role, folder_path, show_legend=show_legend)
     
     # Add common labels
-    fig.text(0.5, 0.04, 'Round', ha='center', fontsize=10)
-    fig.text(0.04, 0.5, 'Game State Evaluation Score', va='center', rotation='vertical', fontsize=10)
+    fig.text(0.5, 0.04, 'Round', ha='center',)
+    fig.text(0.04, 0.5, 'Game State Evaluation Score', va='center', rotation='vertical',)
     
     plt.tight_layout(rect=[0.05, 0.05, 1, 1])
     
