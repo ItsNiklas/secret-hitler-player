@@ -59,7 +59,7 @@
             "unknown"
         ]
     },
-    "gameEndReason": "no_clear_winner",
+    "gameEndReason": "liberal_policy",
     "policyCountsAtEnd": {
         "liberal": 3,
         "fascist": 2
@@ -86,13 +86,13 @@
         {
             "_id": "2e6e3f20-ff8e-4d2d-b079-",
             "username": "Bob3",
-            "role": "liberal",
+            "role": "hitler",
             "icon": 0
         },
         {
             "_id": "efd07da5-9b66-4cc4-bf23-",
             "username": "Charlie4",
-            "role": "liberal",
+            "role": "fascist",
             "icon": 0
         }
     ],
@@ -120,7 +120,9 @@
             "chancellorId": 2,
             "reflections": {},
             "rapidAssessments": {
-                "0": " David5: Unknown\nEve1: Unknown\nBob3: Unknown\nCharlie4: Unknown"
+                "0": " David5: Unknown\nEve1: Unknown\nBob3: Unknown\nCharlie4: Unknown",
+                "1": "Bob3: Unknown  \nCharlie4: Unknown  \nEve1: Unknown  \nAlice2: Unknown",
+                "2": "Alice2: Unknown  \nDavid5: Unknown  \nCharlie4: Unknown  \nBob3: Unknown"
             },
             "presidentHand": [
                 "fascist",
@@ -148,7 +150,9 @@
             "chancellorId": 3,
             "reflections": {},
             "rapidAssessments": {
-                "0": " David5: Unknown\nEve1: Liberal\nBob3: Unknown\nCharlie4: Unknown"
+                "0": " David5: Unknown\nEve1: Liberal\nBob3: Unknown\nCharlie4: Unknown",
+                "1": "Bob3: Unknown  \nCharlie4: Unknown  \nEve1: Unknown  \nAlice2: Fascist",
+                "2": "Alice2: Unknown  \nDavid5: Fascist  \nCharlie4: Unknown  \nBob3: Unknown"
             },
             "presidentHand": [],
             "chancellorHand": [],
@@ -169,7 +173,9 @@
             "chancellorId": 4,
             "reflections": {},
             "rapidAssessments": {
-                "0": " David5: Unknown\nEve1: Liberal\nBob3: Unknown\nCharlie4: Unknown"
+                "0": " David5: Unknown\nEve1: Liberal\nBob3: Unknown\nCharlie4: Unknown",
+                "1": "Bob3: Unknown  \nCharlie4: Fascist  \nEve1: Fascist  \nAlice2: Unknown",
+                "2": "Alice2: Unknown  \nDavid5: Fascist  \nCharlie4: Unknown  \nBob3: Unknown"
             },
             "presidentHand": [],
             "chancellorHand": [],
@@ -190,7 +196,9 @@
             "chancellorId": 1,
             "reflections": {},
             "rapidAssessments": {
-                "0": " David5: Unknown\nEve1: Liberal\nBob3: Unknown\nCharlie4: Unknown"
+                "0": " David5: Unknown\nEve1: Liberal\nBob3: Unknown\nCharlie4: Unknown",
+                "1": "Bob3: Fascist  \nCharlie4: Fascist  \nEve1: Liberal  \nAlice2: Liberal",
+                "2": "Alice2: Unknown  \nDavid5: Fascist  \nCharlie4: Unknown  \nBob3: Fascist"
             },
             "presidentHand": [],
             "chancellorHand": [],
@@ -211,7 +219,9 @@
             "chancellorId": 3,
             "reflections": {},
             "rapidAssessments": {
-                "0": " David5: Unknown\nEve1: Liberal\nBob3: Fascist\nCharlie4: Unknown"
+                "0": " David5: Unknown\nEve1: Liberal\nBob3: Fascist\nCharlie4: Unknown",
+                "1": "Bob3: Fascist  \nCharlie4: Fascist  \nEve1: Liberal  \nAlice2: Liberal",
+                "2": "Alice2: Unknown  \nDavid5: Fascist  \nCharlie4: Unknown  \nBob3: Unknown"
             },
             "presidentHand": [],
             "chancellorHand": [],
@@ -231,7 +241,10 @@
             "gameStateScore": 0.31477399013438123,
             "chancellorId": 2,
             "reflections": {},
-            "rapidAssessments": {},
+            "rapidAssessments": {
+                "1": "Bob3: Fascist  \nCharlie4: Fascist  \nEve1: Liberal  \nAlice2: Liberal",
+                "2": "Alice2: Unknown  \nDavid5: Fascist  \nCharlie4: Unknown  \nBob3: Unknown"
+            },
             "presidentHand": [
                 "fascist",
                 "fascist",

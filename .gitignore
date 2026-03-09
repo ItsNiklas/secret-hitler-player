@@ -2,9 +2,7 @@
 
 *.pdf
 *.png
-runs/
-runs*/
-!simulator/runs-human/
+simulator/runs/
 slurm*
 output.txt
 eval/runs*
