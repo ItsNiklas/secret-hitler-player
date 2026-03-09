@@ -2,20 +2,23 @@
 """
 Role Identification Accuracy (RIA) metric computation.
 
-RIA(A) = Σ_t 1[belief_t = true_role_t] / Σ_t 1
+RIA(A) = Σ_t score(belief_t, true_role_t) / Σ_t 1
 
-For each belief the agent A expresses about a target player t, a belief is
-correct when it matches t's true role.  "Unknown" is a valid response but is
-never counted as correct (it goes into the denominator only).
+Scoring:
+  • Exact match   → 1.0
+  • Fascist↔Hitler → 0.5  (same "evil team", wrong specific role)
+  • Wrong          → 0.0
+  • "Unknown"      → excluded from both numerator and denominator
 
-Can be analysed globally or broken down by:
-  • agent's own role   (fascist / liberal / hitler)
-  • target's true role (fascist / liberal / hitler)
+The overall RIA is computed from **liberal Alice only**.  Fas(own) and
+Hit(own) columns are sanity-checks (fascist/Hitler Alice knows teammates).
+Target-role columns (vs Lib / vs Fas / vs Hit) are also liberal-only.
 
 Usage:
     python ria.py                   # all models in MODEL_REGISTRY
     python ria.py runsF2-SONNET46   # single model folder
     python ria.py --no-plot         # skip chart production
+    python ria.py --test            # run built-in sanity tests
 """
 
 import argparse
@@ -90,6 +93,15 @@ def _true_roles(game: dict) -> dict[str, str]:
     return {p["username"]: p["role"].lower() for p in game.get("players", [])}
 
 
+def _belief_score(belief: str, true_role: str) -> float:
+    """Score a single belief: 1.0 exact, 0.5 fascist↔hitler, 0.0 wrong."""
+    if belief == true_role:
+        return 1.0
+    if {belief, true_role} == {"fascist", "hitler"}:
+        return 0.5
+    return 0.0
+
+
 # ---------------------------------------------------------------------------
 # Core RIA computation for a single game / folder
 # ---------------------------------------------------------------------------
@@ -109,16 +121,15 @@ class RIAStats:
         self.belief_dist: dict[str, int] = defaultdict(int)
 
     def add(self, belief: str, true_role: str, agent_own_role: str) -> None:
-        """Record one belief instance.  'unknown' must NOT be passed here."""
+        """Record one belief: 1.0 exact, 0.5 fascist↔hitler, 0.0 wrong."""
+        score = _belief_score(belief, true_role)
         self.total += 1
         self.belief_dist[belief] += 1
         self.by_own_role[agent_own_role]["total"] += 1
         self.by_target_role[true_role]["total"] += 1
-
-        if belief == true_role:
-            self.correct += 1
-            self.by_own_role[agent_own_role]["correct"] += 1
-            self.by_target_role[true_role]["correct"] += 1
+        self.correct += score
+        self.by_own_role[agent_own_role]["correct"] += score
+        self.by_target_role[true_role]["correct"] += score
 
     @property
     def ria(self) -> Optional[float]:
@@ -181,19 +192,33 @@ def compute_ria_for_folder(folder: Path) -> RIAStats:
 
         game_stats = compute_ria_for_game(data, model_name=model_name)
 
+        # Determine Alice's role in this game (needed to gate by_target_role)
+        alice_role = next(
+            (p["role"].lower() for p in data.get("players", []) if p["username"].startswith("Alice")),
+            None,
+        )
+
         for player_name, stats in game_stats.items():
-            if ALICE_ONLY and player_name != "Alice":
+            if ALICE_ONLY and not player_name.startswith("Alice"):
                 continue
             if stats.total == 0:
                 continue
-            combined.correct += stats.correct
-            combined.total += stats.total
+            # Overall RIA: liberal perspective only.
+            # Fas(own) / Hit(own) still accumulated via by_own_role for
+            # sanity-checking (fascist/Hitler Alice knows teammates).
+            if alice_role == "liberal":
+                combined.correct += stats.correct
+                combined.total += stats.total
             for role, d in stats.by_own_role.items():
                 combined.by_own_role[role]["correct"] += d["correct"]
                 combined.by_own_role[role]["total"] += d["total"]
-            for role, d in stats.by_target_role.items():
-                combined.by_target_role[role]["correct"] += d["correct"]
-                combined.by_target_role[role]["total"] += d["total"]
+            # by_target_role only counts when Alice is liberal —
+            # fascists/Hitler know their teammates so their target-role
+            # accuracy is trivially inflated and not meaningful here.
+            if alice_role == "liberal":
+                for role, d in stats.by_target_role.items():
+                    combined.by_target_role[role]["correct"] += d["correct"]
+                    combined.by_target_role[role]["total"] += d["total"]
             for belief, cnt in stats.belief_dist.items():
                 combined.belief_dist[belief] += cnt
 
@@ -276,11 +301,14 @@ def print_ria_table(results: dict[str, tuple[str, RIAStats]]) -> None:
 
     print(sep)
     print()
+    print("  Scoring: 1.0 exact match · 0.5 fascist↔hitler · 0.0 wrong · 'Unknown' excluded")
     print("  Columns:")
-    print("    RIA         – overall Role Identification Accuracy (all targets, all rounds)")
-    print("    N           – total belief instances in denominator")
-    print("    Lib/Fas/Hit (own) – RIA when the agent itself was liberal / fascist / Hitler")
-    print("    vs Lib/Fas/Hit    – RIA when the *target* was liberal / fascist / Hitler")
+    print("    RIA         – liberal-Alice RIA (= Lib(own))")
+    print("    N           – belief instances in denominator (liberal games only)")
+    print("    Lib(own)    – RIA when Alice was liberal            (= RIA column)")
+    print("    Fas(own)    – RIA when Alice was fascist            (sanity check)")
+    print("    Hit(own)    – RIA when Alice was Hitler             (sanity check)")
+    print("    vs Lib/Fas/Hit – RIA broken down by target's true role (liberal games only)")
     print()
 
 
@@ -394,7 +422,15 @@ def main() -> None:
         "--include-abliterated", action="store_true",
         help="Include abliterated / derestricted model variants.",
     )
+    parser.add_argument(
+        "--test", action="store_true",
+        help="Run built-in sanity tests and exit.",
+    )
     args = parser.parse_args()
+
+    if args.test:
+        run_tests()
+        return
 
     if args.folder:
         folders = [EVAL_DIR / args.folder]
@@ -420,6 +456,175 @@ def main() -> None:
     if not args.no_plot:
         out = plot_config.get_plot_path("ria_by_model.pdf")
         plot_ria(results, Path(out))
+
+
+# ---------------------------------------------------------------------------
+# Built-in tests
+# ---------------------------------------------------------------------------
+
+def run_tests() -> None:
+    """Run simple sanity checks, print results, exit non-zero on failure."""
+    import sys
+
+    passed = 0
+    failed = 0
+
+    def check(name: str, got, expected, tol: float = 1e-9):
+        nonlocal passed, failed
+        if isinstance(expected, float) and got is not None:
+            ok = abs(got - expected) < tol
+        else:
+            ok = (got == expected)
+        if ok:
+            passed += 1
+            print(f"  PASS: {name}")
+        else:
+            failed += 1
+            print(f"  FAIL: {name}  (got {got!r}, expected {expected!r})")
+
+    print("=" * 60)
+    print("  RIA built-in tests")
+    print("=" * 60)
+
+    # ── _belief_score ─────────────────────────────────────────────
+    print("\n_belief_score:")
+    check("liberal==liberal",   _belief_score("liberal", "liberal"),   1.0)
+    check("fascist==fascist",   _belief_score("fascist", "fascist"),   1.0)
+    check("hitler==hitler",     _belief_score("hitler", "hitler"),     1.0)
+    check("fascist→hitler",     _belief_score("fascist", "hitler"),    0.5)
+    check("hitler→fascist",     _belief_score("hitler", "fascist"),    0.5)
+    check("liberal!=fascist",   _belief_score("liberal", "fascist"),   0.0)
+    check("fascist!=liberal",   _belief_score("fascist", "liberal"),   0.0)
+    check("liberal!=hitler",    _belief_score("liberal", "hitler"),    0.0)
+    check("hitler!=liberal",    _belief_score("hitler", "liberal"),    0.0)
+
+    # ── _parse_rapid_assessment ───────────────────────────────────
+    print("\n_parse_rapid_assessment:")
+
+    # Simple colon-separated
+    t1 = "Bob: Liberal\nCharlie: Fascist\nDavid: Hitler"
+    r1 = _parse_rapid_assessment(t1, player_names=["Bob", "Charlie", "David"])
+    check("simple Bob",     r1.get("Bob"),     "liberal")
+    check("simple Charlie", r1.get("Charlie"), "fascist")
+    check("simple David",   r1.get("David"),   "hitler")
+
+    # Unknown is excluded entirely
+    t2 = "Bob: Liberal\nCharlie: Unknown\nDavid: Fascist"
+    r2 = _parse_rapid_assessment(t2, player_names=["Bob", "Charlie", "David"])
+    check("unknown excluded",  "Charlie" not in r2, True)
+    check("unknown keeps Bob", r2.get("Bob"), "liberal")
+
+    # Bullet list format
+    t3 = "* Bob - Liberal\n* Charlie - Fascist"
+    r3 = _parse_rapid_assessment(t3, player_names=["Bob", "Charlie"])
+    check("bullet Bob",     r3.get("Bob"),     "liberal")
+    check("bullet Charlie", r3.get("Charlie"), "fascist")
+
+    # Only known players are returned
+    t4 = "Bob: Liberal\nZara: Fascist"
+    r4 = _parse_rapid_assessment(t4, player_names=["Bob"])
+    check("only known players", set(r4.keys()), {"Bob"})
+
+    # Empty / None input
+    check("empty text",  _parse_rapid_assessment("", player_names=["Bob"]), {})
+    check("no players",  _parse_rapid_assessment("Bob: Liberal"), {})
+
+    # ── RIAStats ──────────────────────────────────────────────────
+    print("\nRIAStats:")
+
+    s = RIAStats()
+    s.add("liberal", "liberal", "liberal")   # 1.0  (exact)
+    s.add("fascist", "fascist", "liberal")   # 1.0  (exact)
+    s.add("fascist", "hitler",  "liberal")   # 0.5  (half credit)
+    s.add("liberal", "fascist", "liberal")   # 0.0  (wrong)
+    check("correct=2.5", s.correct, 2.5)
+    check("total=4",     s.total,   4)
+    check("ria=0.625",   s.ria,     2.5 / 4)
+
+    s2 = RIAStats()
+    check("empty ria=None", s2.ria, None)
+
+    # Half credit propagates to by_target_role
+    s3 = RIAStats()
+    s3.add("hitler", "fascist", "liberal")  # half credit vs fascist target
+    check("by_target fascist correct=0.5",
+          s3.by_target_role["fascist"]["correct"], 0.5)
+    check("by_target fascist total=1",
+          s3.by_target_role["fascist"]["total"], 1)
+
+    # ── compute_ria_for_game ──────────────────────────────────────
+    print("\ncompute_ria_for_game:")
+
+    game = {
+        "players": [
+            {"username": "Alice",   "role": "liberal", "_id": "0", "icon": 0},
+            {"username": "Bob",     "role": "liberal", "_id": "1", "icon": 1},
+            {"username": "Charlie", "role": "fascist", "_id": "2", "icon": 2},
+            {"username": "David",   "role": "hitler",  "_id": "3", "icon": 3},
+            {"username": "Eve",     "role": "liberal", "_id": "4", "icon": 4},
+        ],
+        "logs": [
+            {
+                "rapidAssessments": {
+                    "0": "Bob: Liberal\nCharlie: Liberal\nDavid: Fascist\nEve: Liberal",
+                }
+            }
+        ],
+    }
+    gs = compute_ria_for_game(game)
+    a = gs["Alice"]
+    # Bob=liberal→liberal  = 1.0
+    # Charlie=liberal→fascist = 0.0
+    # David=fascist→hitler = 0.5
+    # Eve=liberal→liberal  = 1.0
+    check("game total=4",     a.total,   4)
+    check("game correct=2.5", a.correct, 2.5)
+    check("game ria=0.625",   a.ria,     2.5 / 4)
+
+    # Fascist Alice knows teammates → high accuracy
+    game2 = {
+        "players": [
+            {"username": "Alice",   "role": "fascist", "_id": "0", "icon": 0},
+            {"username": "Bob",     "role": "liberal", "_id": "1", "icon": 1},
+            {"username": "Charlie", "role": "liberal", "_id": "2", "icon": 2},
+            {"username": "David",   "role": "hitler",  "_id": "3", "icon": 3},
+            {"username": "Eve",     "role": "liberal", "_id": "4", "icon": 4},
+        ],
+        "logs": [
+            {
+                "rapidAssessments": {
+                    "0": "Bob: Liberal\nCharlie: Liberal\nDavid: Hitler\nEve: Liberal",
+                }
+            }
+        ],
+    }
+    gs2 = compute_ria_for_game(game2)
+    a2 = gs2["Alice"]
+    # All correct: 4/4 = 1.0
+    check("fascist Alice perfect", a2.ria, 1.0)
+    check("fascist own_role",      a2.by_own_role["fascist"]["total"], 4)
+
+    # ── Overall liberal gating ────────────────────────────────────
+    print("\nOverall liberal gating (conceptual):")
+    # When Alice is fascist, overall RIA should NOT include her stats
+    # (only by_own_role["fascist"] captures it as a sanity check)
+    combined = RIAStats()
+    # simulate: liberal game contributes to overall
+    combined.correct += 2.5
+    combined.total += 4
+    combined.by_own_role["liberal"]["correct"] += 2.5
+    combined.by_own_role["liberal"]["total"] += 4
+    # simulate: fascist game does NOT contribute to overall
+    combined.by_own_role["fascist"]["correct"] += 4.0
+    combined.by_own_role["fascist"]["total"] += 4
+    check("overall = liberal only",  combined.ria, 2.5 / 4)
+    check("fas(own) = sanity 100%",  combined.ria_by_own_role("fascist"), 1.0)
+
+    # ── Summary ───────────────────────────────────────────────────
+    print("\n" + "=" * 60)
+    print(f"  {passed} passed, {failed} failed")
+    print("=" * 60)
+    sys.exit(1 if failed else 0)
 
 
 if __name__ == "__main__":
