@@ -165,10 +165,16 @@ MODEL_REGISTRY = {
         "logo": "allen.png",
         "marker": ("H", 7),
     },
-    "runsF2-QWEN35": {
+    "runsF2-QWEN35-2": {
         "name": "Qwen 3.5 397B A17B",
         "color": "#615CED",
         "logo": "qwen.png",
+        "marker": ("H", 7),
+    },
+    "runsF2-DEEPSEEK31TERMINUS": {
+        "name": "DeepSeek 3.1 Terminus",
+        "color": "#4D6BFE",
+        "logo": "deepseek.png",
         "marker": ("H", 7),
     },
     "runsF2-GEMINI31PRO": {

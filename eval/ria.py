@@ -61,9 +61,6 @@ def _parse_rapid_assessment(
     prefix = f"[{model_name}] " if model_name else ""
     result: dict[str, str] = {}
 
-    if "Qwen" in model_name:
-        return result   # Qwen's rapidAssessments are too unreliable to parse meaningfully
-
     if not player_names:
         return result
 
