@@ -177,33 +177,39 @@ MODEL_REGISTRY = {
         "logo": "deepseek.png",
         "marker": ("H", 7),
     },
-    "runsF2-GEMINI31PRO": {
-        "name": "Gemini 3.1 Pro",
-        "color": "#FFFFFF",
-        "logo": "gemini.png",
-        "marker": ("<", 7),
-    },
-    "runsF2-GPT52": {
-        "name": "GPT-5.2",
+    # "runsF2-GEMINI31PRO": {
+    #     "name": "Gemini 3.1 Pro",
+    #     "color": "#FFFFFF",
+    #     "logo": "gemini.png",
+    #     "marker": ("<", 7),
+    # },
+    "runsF2-GPT54": {
+        "name": "GPT-5.4",
         "color": "#000000",
         "logo": "openai.png",
         "marker": (">", 7),
     },
+    # "runsF2-GPT52": {
+    #     "name": "GPT-5.2",
+    #     "color": "#000000",
+    #     "logo": "openai.png",
+    #     "marker": (">", 7),
+    # },
     "runsF2-GROK41FAST": {
         "name": "Grok 4.1 Fast",
         "color": "#000000",
         "logo": "grok.png",
         "marker": ("1", 8),
     },
-    "runsF2-SONNET46": {
-        "name": "Claude Sonnet 4.6",
-        "color": "#D97757",
-        "logo": "claude.png",
-        "marker": ("2", 8),
-    },
+    # "runsF2-SONNET46": {
+    #     "name": "Claude Sonnet 4.6",
+    #     "color": "#D97757",
+    #     "logo": "claude.png",
+    #     "marker": ("2", 8),
+    # },
     # ---- Baselines ----
     "runsF2Base-Cpu": {
-        "name": "CPU Baseline",
+        "name": "Algorithmic Agent",
         "color": "#A0A0A0",
         "logo": "robot.png",
         "marker": ("X", 7),
@@ -438,6 +444,15 @@ def perform_chi_square_test(contingency_table, test_name, group1_name, group2_na
 
 
 PLOTS_DIR = Path(__file__).parent / "plots"
+MIN_GAMES = 10  # minimum games to include a model in plots
+
+# Baseline folder prefixes (used to add a visual divider)
+_BASELINE_PREFIXES = ("runsF2Base-",)
+
+
+def is_baseline(folder_key: str) -> bool:
+    """Return True if *folder_key* is a baseline (CPU/Random)."""
+    return any(folder_key.startswith(p) for p in _BASELINE_PREFIXES)
 
 
 def get_plot_path(filename):
@@ -461,3 +476,89 @@ def load_summary_file(file_path):
     except (json.JSONDecodeError, IOError) as e:
         print(f"Warning: Could not load {file_path}: {e}")
         return None
+
+
+# ------------------------------------------------------------------
+# Shared data-loading helpers used by multiple plot scripts
+# ------------------------------------------------------------------
+
+def load_games_from_folder(folder):
+    """Load and parse all valid game JSONs from *folder* (Path).
+
+    Skips annotated files, Avalon games, and games with <4 rounds.
+    Returns a list of parsed game dicts (enhanced_parse_game_data format).
+    Requires gamestats to be importable – import is deferred to avoid
+    circular imports at module level.
+    """
+    from gamestats import enhanced_parse_game_data  # deferred
+
+    games = []
+    for fpath in sorted(Path(folder).glob("*.json")):
+        if "annotat" in fpath.name.lower():
+            continue
+        try:
+            with open(fpath) as f:
+                raw = json.load(f)
+            gs = raw.get("gameSetting")
+            if gs is not None and gs.get("avalonSH") is not None:
+                continue
+            parsed = enhanced_parse_game_data(raw)
+            if parsed["total_rounds"] >= 4:
+                games.append(parsed)
+        except Exception:
+            continue
+    return games
+
+
+def compute_win_rate(folder):
+    """Return Alice's overall win-rate (%) for *folder*, or None."""
+    from gamestats import analyze_alice_performance  # deferred
+
+    games = load_games_from_folder(folder)
+    if len(games) < MIN_GAMES:
+        return None
+    perf = analyze_alice_performance(games)
+    if perf["total_games"] == 0:
+        return None
+    return perf["win_rate"]
+
+
+def collect_model_keys(include_abliterated=False, include_baselines=True):
+    """Return the list of MODEL_REGISTRY keys to iterate, in registry order.
+
+    Filters out abliterated models unless *include_abliterated* is True,
+    and baselines unless *include_baselines* is True.
+    """
+    keys = []
+    for k, v in MODEL_REGISTRY.items():
+        if not k.startswith("runsF2"):
+            continue
+        if not include_abliterated and v.get("abliterated", False):
+            continue
+        if not include_baselines and is_baseline(k):
+            continue
+        keys.append(k)
+    return keys
+
+
+def sort_models_by_winrate(name_to_data: dict, win_rates: dict) -> dict:
+    """Re-order *name_to_data* dict: LLMs sorted by win-rate (desc),
+    then baselines (also sorted by win-rate) after a ``None`` sentinel.
+
+    Returns an OrderedDict-style dict and the set of baseline names.
+    """
+    baseline_names = set()
+    for k, v in MODEL_REGISTRY.items():
+        if is_baseline(k):
+            baseline_names.add(v["name"])
+
+    llms = {n: d for n, d in name_to_data.items() if n not in baseline_names}
+    bases = {n: d for n, d in name_to_data.items() if n in baseline_names}
+
+    llm_sorted = dict(sorted(llms.items(), key=lambda x: win_rates.get(x[0], 0), reverse=True))
+    base_sorted = dict(sorted(bases.items(), key=lambda x: win_rates.get(x[0], 0), reverse=True))
+
+    ordered = {}
+    ordered.update(llm_sorted)
+    ordered.update(base_sorted)
+    return ordered, baseline_names
