@@ -551,6 +551,7 @@ def sort_models_by_winrate(name_to_data: dict, win_rates: dict) -> dict:
     for k, v in MODEL_REGISTRY.items():
         if is_baseline(k):
             baseline_names.add(v["name"])
+    baseline_names.add("Human")  # Always
 
     llms = {n: d for n, d in name_to_data.items() if n not in baseline_names}
     bases = {n: d for n, d in name_to_data.items() if n in baseline_names}

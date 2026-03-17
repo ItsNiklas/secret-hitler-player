@@ -41,9 +41,9 @@ from gamestats import analyze_win_conditions
 setup_plot_style()
 
 EVAL_DIR = Path(__file__).parent
-BAR_HEIGHT = 0.50
+BAR_HEIGHT = 0.65
 
-CONDITIONS = ["liberal_policies", "hitler_killed", "hitler_chancellor", "fascist_policies"]
+CONDITIONS = ["liberal_policies", "hitler_killed", "fascist_policies", "hitler_chancellor"]
 COND_LABELS = {
     "liberal_policies":  "Liberal policies (5 enacted)",
     "hitler_killed":     "Hitler killed",
@@ -51,8 +51,8 @@ COND_LABELS = {
     "fascist_policies":  "Fascist policies (6 enacted)",
 }
 COND_COLORS = {
-    "liberal_policies":  ROLE_COLORS["liberal"],
-    "hitler_killed":     "#8FAEC1",
+    "liberal_policies":  "#8FAEC1",
+    "hitler_killed":     ROLE_COLORS["liberal"],
     "hitler_chancellor": ROLE_COLORS["hitler"],
     "fascist_policies":  ROLE_COLORS["fascist"],
 }
@@ -107,7 +107,7 @@ def plot_stacked_endings(model_data: dict, baseline_names: set):
         for i, (w, l) in enumerate(zip(widths, lefts)):
             if w >= 8:
                 ax.text(
-                    l + w / 2, y_pos[i] + 0.04, f"{w:.0f}\\%",
+                    l + w / 2, y_pos[i] + 0.05, f"{w:.0f}\\%",
                     ha="center", va="center", color="white",
                     fontweight="bold", zorder=4, fontsize=7,
                 )
@@ -187,6 +187,23 @@ def main():
         win_rates[name] = wr
         parts = "  ".join(f"{c[:3]}={fracs[c]:.0f}%" for c in CONDITIONS)
         print(f"{name:30s}  {parts}  WR={wr:.0f}%")
+
+    # Human games from dumpGameSummaries/games/
+    human_folder = EVAL_DIR / "dumpGameSummaries" / "games"
+    if human_folder.is_dir():
+        human_games = load_games_from_folder(human_folder)
+        if len(human_games) >= MIN_GAMES:
+            analysis = analyze_win_conditions(human_games)
+            total = analysis["total_games"]
+            fracs = {c: analysis["win_conditions"].get(c, 0) / total * 100 for c in CONDITIONS}
+            liberal_wins = (analysis["win_conditions"].get("liberal_policies", 0)
+                            + analysis["win_conditions"].get("hitler_killed", 0))
+            wr = liberal_wins / total * 100
+            human_name = extract_model_name("crawl")  # "Human"
+            model_data[human_name] = fracs
+            win_rates[human_name] = wr
+            parts = "  ".join(f"{c[:3]}={fracs[c]:.0f}%" for c in CONDITIONS)
+            print(f"{human_name:30s}  {parts}  WR={wr:.0f}%")
 
     if model_data:
         ordered, bl = sort_models_by_winrate(model_data, win_rates)

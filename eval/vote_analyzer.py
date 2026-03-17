@@ -153,14 +153,14 @@ def analyze_vote_accuracy(summaries_folder):
     else:
         print("No qualifying instances found.")
 
-    if round_stats:
-        print()
-        print(f"{'Round':<8} {'Instances':<12} {'Correct':<12} {'Accuracy':<10}")
-        print("-" * 42)
-        for round_num in sorted(round_stats.keys()):
-            s = round_stats[round_num]
-            acc = s['successes'] / s['instances'] * 100 if s['instances'] > 0 else 0
-            print(f"{round_num:<8} {s['instances']:<12} {s['successes']:<12} {acc:<10.1f}")
+    # if round_stats:
+    #     print()
+    #     print(f"{'Round':<8} {'Instances':<12} {'Correct':<12} {'Accuracy':<10}")
+    #     print("-" * 42)
+    #     for round_num in sorted(round_stats.keys()):
+    #         s = round_stats[round_num]
+    #         acc = s['successes'] / s['instances'] * 100 if s['instances'] > 0 else 0
+    #         print(f"{round_num:<8} {s['instances']:<12} {s['successes']:<12} {acc:<10.1f}")
 
 
 def analyze_votes(summaries_folder):

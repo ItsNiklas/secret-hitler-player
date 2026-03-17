@@ -44,9 +44,9 @@ EVAL_DIR = Path(__file__).parent
 
 # Three sub-rows per model, tightly packed
 SUB_ROLES = ["liberal", "fascist", "hitler"]
-SUB_HEIGHT = 0.18  # height of each thin bar
+SUB_HEIGHT = 0.20  # height of each thin bar
 SUB_SPACING = 0.22  # vertical distance between sub-bar centres
-GROUP_GAP = 0.30  # extra gap between model groups
+GROUP_GAP = 0.25  # extra gap between model groups
 
 
 # ------------------------------------------------------------------
@@ -121,7 +121,7 @@ def plot_gsir_diverging(model_data: dict, baseline_names: set):
     def _fmt(x, _):
         if abs(x) < 1e-9:
             return "0"
-        return f"{x:+.1f}"
+        return f"{x:+.0f}"
     ax.xaxis.set_major_formatter(mticker.FuncFormatter(_fmt))
     ax.grid(True, axis="x", alpha=0.25, linestyle="--", zorder=0)
     ax.spines["top"].set_visible(False)
@@ -142,7 +142,7 @@ def plot_gsir_diverging(model_data: dict, baseline_names: set):
             )
             ax.add_artist(ab)
 
-    ax.legend(loc="lower right", framealpha=0.9, ncol=3)
+    ax.legend(loc="lower right", framealpha=0.5, ncol=1)
 
     out = get_plot_path("gsir_diverging.pdf")
     fig.savefig(out, dpi=300, bbox_inches="tight")

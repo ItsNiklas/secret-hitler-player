@@ -218,11 +218,14 @@ def plot_all_models(include_abliterated: bool = False):
     if not folders:
         print("No runsF2-* folders found!")
         return
-
+    
     model_data: dict[str, dict[int, float]] = {}
     model_counts: dict[str, int] = {}
 
     for folder in folders:
+        if "Base" in folder.name:
+            print(f"Skipping base model folder: {folder.name}")
+            continue
         model = plot_config.extract_model_name(folder.name)
         print(f"Loading {model} ({folder.name}) …")
         games = load_games_from_folder(folder)
@@ -248,7 +251,7 @@ def plot_all_models(include_abliterated: bool = False):
             print(f"  {model:30s}  n={n:3d}  (no data)")
 
     # ---- Plot ----
-    fig, ax = plt.subplots(figsize=(plot_config.FIG_WIDTH, 4.5))
+    fig, ax = plt.subplots(figsize=(plot_config.FIG_WIDTH, 3.5))
     lines = []
 
     for model in sorted(model_data.keys()):
@@ -270,19 +273,19 @@ def plot_all_models(include_abliterated: bool = False):
     ax.set_xlabel("Round")
     ax.set_ylabel(r"Deception Retention Rate")
     ax.grid(True, alpha=0.4)
-    ax.set_ylim(0, 100)
+    # ax.set_ylim(0, 100)
     ax.yaxis.set_major_formatter(plt.FuncFormatter(lambda y, _: fr"{int(y)}\%"))
 
     all_rounds = [r for rates in model_data.values() for r in rates]
     if all_rounds:
         max_round = max(all_rounds)
         ax.set_xticks(range(1, max_round + 1))
-        ax.set_xlim(0.9, max_round - 0.6)
+        ax.set_xlim(0.85, max_round - 0.6)
 
     legend = ax.legend(
         framealpha=0,
-        bbox_to_anchor=(0.5, -0.25), loc="upper center",
-        handlelength=2, handletextpad=1.6, ncol=2,
+        bbox_to_anchor=(0.5, -0.18), loc="upper center",
+        handlelength=1, handletextpad=1.6, ncol=3,
     )
 
     # Add model icons to legend
@@ -290,7 +293,7 @@ def plot_all_models(include_abliterated: bool = False):
         imagebox = plot_config.get_model_imagebox(model)
         if imagebox:
             ab = AnnotationBbox(
-                imagebox, (0.5, 0.5), xybox=(19, 0),
+                imagebox, (0.5, 0.5), xybox=(13, 0),
                 xycoords=handle, boxcoords="offset points",
                 frameon=False, box_alignment=(0.5, 0.5), zorder=10,
             )
