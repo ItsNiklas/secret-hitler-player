@@ -44,8 +44,8 @@ EVAL_DIR = Path(__file__).parent
 
 # Three sub-rows per model, tightly packed
 SUB_ROLES = ["liberal", "fascist", "hitler"]
-SUB_HEIGHT = 0.20  # height of each thin bar
-SUB_SPACING = 0.22  # vertical distance between sub-bar centres
+SUB_HEIGHT = 0.15  # height of each thin bar
+SUB_SPACING = 0.18  # vertical distance between sub-bar centres
 GROUP_GAP = 0.25  # extra gap between model groups
 
 
@@ -84,15 +84,13 @@ def plot_gsir_diverging(model_data: dict, baseline_names: set):
     baseline_divider_y = None
     for m in models:
         if m in baseline_names and first_baseline:
-            baseline_divider_y = y_current - GROUP_GAP * 0.5
+            baseline_divider_y = y_current - GROUP_GAP * 0.6
             y_current += GROUP_GAP
             first_baseline = False
         y_positions[m] = y_current
         y_current += SUB_SPACING * (len(SUB_ROLES) - 1) + GROUP_GAP
 
-    total_height = y_current
-    fig_height = max(4, total_height * 0.12 + 0.5)
-    fig, ax = plt.subplots(figsize=(FIG_WIDTH, fig_height))
+    fig, ax = plt.subplots(figsize=(FIG_WIDTH, 3.4))
 
     for model in models:
         vals = model_data[model]
@@ -110,6 +108,12 @@ def plot_gsir_diverging(model_data: dict, baseline_names: set):
     ax.set_yticklabels(models)
     ax.invert_yaxis()
 
+    # Tighten vertical margins so bars sit close to the x-axis edges
+    all_y = [y_positions[m] + (j - 1) * SUB_SPACING
+             for m in models for j in range(len(SUB_ROLES))]
+    margin = SUB_SPACING * 0.8
+    ax.set_ylim(max(all_y) + margin, min(all_y) - margin)
+
     # Horizontal divider before baselines
     if baseline_divider_y is not None:
         ax.axhline(baseline_divider_y, color="0.65", linewidth=0.6,
@@ -124,8 +128,6 @@ def plot_gsir_diverging(model_data: dict, baseline_names: set):
         return f"{x:+.0f}"
     ax.xaxis.set_major_formatter(mticker.FuncFormatter(_fmt))
     ax.grid(True, axis="x", alpha=0.25, linestyle="--", zorder=0)
-    ax.spines["top"].set_visible(False)
-    ax.spines["right"].set_visible(False)
 
     # Logos
     has_icon = any(get_model_imagebox(m) is not None for m in models)
@@ -144,8 +146,9 @@ def plot_gsir_diverging(model_data: dict, baseline_names: set):
 
     ax.legend(loc="lower right", framealpha=0.5, ncol=1)
 
+    fig.tight_layout()
     out = get_plot_path("gsir_diverging.pdf")
-    fig.savefig(out, dpi=300, bbox_inches="tight")
+    fig.savefig(out, dpi=300, bbox_inches="tight", pad_inches=0.01)
     print(f"Saved: {out}")
     plt.close(fig)
 

@@ -35,7 +35,7 @@ def setup_plot_style(use_latex=True):
     plt.rcParams["axes.labelsize"] = 9
     plt.rcParams["xtick.labelsize"] = 9
     plt.rcParams["ytick.labelsize"] = 9
-    plt.rcParams["legend.fontsize"] = 9
+    plt.rcParams["legend.fontsize"] = 8
 
     # Line and marker configuration
     plt.rcParams["lines.linewidth"] = 1.0
@@ -97,83 +97,83 @@ MODEL_REGISTRY = {
     # ---- LLM models ----
     "runsF2-GEMMA": {
         "name": "Gemma 3 27B",
-        "color": "#2E96FF",
+        "color": "#f8f88e",
         "logo": "gemma.png",
-        "marker": ("v", 8),
+        "marker": ("o", 7),
     },
     "runsF2-AMORALGEMMA": {
         "name": "Amoral Gemma 3 27B",
-        "color": "#2E96FF",
+        "color": "#f8f88e",
         "logo": "huggingface.png",
-        "marker": ("^", 8),
+        "marker": ("s", 7),
         "abliterated": True,
     },
     "runsF2-GPTOSS120B": {
         "name": "GPT-OSS 120B",
-        "color": "#000000",
+        "color": "#b3de69",
         "logo": "openai.png",
-        "marker": ("p", 7),
+        "marker": ("D", 6),
     },
     "runsF2-GPTOSS120B-DERESTRICTED": {
         "name": "GPT-OSS 120B Derestricted",
-        "color": "#000000",
+        "color": "#b3de69",
         "logo": "huggingface.png",
-        "marker": ("P", 7),
+        "marker": ("^", 7),
         "abliterated": True,
     },
     "runsF2-GPTOSS20B": {
         "name": "GPT-OSS 20B",
-        "color": "#000000",
+        "color": "#d2ff85",
         "logo": "openai.png",
-        "marker": ("h", 7),
+        "marker": ("v", 7),
     },
     "runsF2-KIMIK25": {
         "name": "Kimi K2.5",
-        "color": "#16191E",
+        "color": "#fb8072",
         "logo": "moonshot.png",
-        "marker": ("s", 6),
+        "marker": ("p", 8),
     },
     "runsF2-LLAMA3170B": {
         "name": "Llama 3.1 70B",
-        "color": "#1D65C1",
+        "color": "#d9d9d9",
         "logo": "llama.png",
-        "marker": ("D", 6),
+        "marker": ("h", 7),
     },
     "runsF2-MISTRALSMALL": {
         "name": "Mistral Small 24B",
-        "color": "#FA520F",
+        "color": "#fdb462",
         "logo": "mistral.png",
         "marker": ("d", 7),
     },
     "runsF2-NOUSHERMES4": {
         "name": "Nous Hermes 4 70B",
-        "color": "#2D6376",
+        "color": "#d9d9d9",
         "logo": "nous.png",
-        "marker": ("o", 7),
+        "marker": ("P", 7),
         "abliterated": True,
     },
     "runsF2-DOLPHINVENICE": {
         "name": "Dolphin Mistral 24B Venice",
-        "color": "#6186DB",
+        "color": "#fdb462",
         "logo": "dolphin.png",
         "marker": ("8", 7),
         "abliterated": True,
     },
     "runsF2-OLMO": {
         "name": "OLMo 3.1 32B",
-        "color": "#F0529C",
+        "color": "#fccde5",
         "logo": "allen.png",
-        "marker": ("H", 7),
+        "marker": ("<", 7),
     },
     "runsF2-QWEN35-2": {
         "name": "Qwen 3.5 397B A17B",
-        "color": "#615CED",
+        "color": "#bc80bd",
         "logo": "qwen.png",
-        "marker": ("H", 7),
+        "marker": (">", 7),
     },
     "runsF2-DEEPSEEK31TERMINUS": {
         "name": "DeepSeek 3.1 Terminus",
-        "color": "#4D6BFE",
+        "color": "#80b1d3",
         "logo": "deepseek.png",
         "marker": ("H", 7),
     },
@@ -185,9 +185,9 @@ MODEL_REGISTRY = {
     # },
     "runsF2-GPT54": {
         "name": "GPT-5.4",
-        "color": "#000000",
+        "color": "#8dd3c7",
         "logo": "openai.png",
-        "marker": (">", 7),
+        "marker": ("*", 10),
     },
     # "runsF2-GPT52": {
     #     "name": "GPT-5.2",
@@ -197,9 +197,9 @@ MODEL_REGISTRY = {
     # },
     "runsF2-GROK41FAST": {
         "name": "Grok 4.1 Fast",
-        "color": "#000000",
+        "color": "#ccebc5",
         "logo": "grok.png",
-        "marker": ("1", 8),
+        "marker": ("X", 7),
     },
     # "runsF2-SONNET46": {
     #     "name": "Claude Sonnet 4.6",
@@ -212,16 +212,16 @@ MODEL_REGISTRY = {
         "name": "Algorithmic Agent",
         "color": "#A0A0A0",
         "logo": "robot.png",
-        "marker": ("X", 7),
+        "marker": ("1", 8),
     },
     "runsF2Base-Random": {
         "name": "Random Agent",
         "color": "#CFCFCF",
         "logo": "robot.png",
-        "marker": ("*", 7),
+        "marker": ("2", 8),
     },
     # ---- Special / non-folder entries ----
-    "crawl": {"name": "Human", "color": "#6B5E62", "logo": "human.png", "marker": ("h", 7)},
+    "crawl": {"name": "Human", "color": "#6B5E62", "logo": "human.png", "marker": ("+", 8)},
 }
 
 # Derived lookups (auto-generated from MODEL_REGISTRY)

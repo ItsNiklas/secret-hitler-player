@@ -266,7 +266,7 @@ def plot_completion_tokens(results: dict):
     colors = [get_model_color(n) for n in names]
 
     BAR_WIDTH = 0.6
-    fig, ax = plt.subplots(figsize=(FIG_WIDTH, 4.0))
+    fig, ax = plt.subplots(figsize=(FIG_WIDTH, 3.0))
 
     x_pos = np.arange(len(names))
     bars = ax.bar(x_pos, values, color=colors, width=BAR_WIDTH, zorder=5)
@@ -325,7 +325,7 @@ def plot_completion_tokens(results: dict):
             else:
                 rotated_data = rotate_image(img_data, 35, reshape=True, order=1,
                                             mode='constant', cval=255)
-            rotated_imagebox = OffsetImage(rotated_data, zoom=imagebox.get_zoom())
+            rotated_imagebox = OffsetImage(rotated_data, zoom=imagebox.get_zoom()/1.1)  # scale down a bit to fit better
 
             # Place the icon at the text-start end of the label
             ab = AnnotationBbox(
@@ -340,7 +340,7 @@ def plot_completion_tokens(results: dict):
             ax.add_artist(ab)
 
     out = get_plot_path("token_completion_comparison.pdf")
-    plt.savefig(out)
+    plt.savefig(out, bbox_inches="tight", pad_inches=0.01)
     print(f"\nPlot saved to: {out}")
     plt.close()
 
@@ -364,11 +364,18 @@ def main():
             sys.exit(1)
     else:
         # ── All runs* folders → aggregate + plot ──
-        run_dirs = sorted(
-            d for d in SCRIPT_DIR.iterdir()
-            if d.is_dir() and d.name.startswith("runs") and "Base" not in d.name
-            and (show_derestricted or not MODEL_REGISTRY.get(d.name, {}).get("abliterated", False))
-        )
+        run_dirs = []
+        for folder_key, meta in MODEL_REGISTRY.items():
+            if not folder_key.startswith("runs"):
+                continue
+            if "Base" in folder_key:
+                continue
+            if not show_derestricted and meta.get("abliterated", False):
+                continue
+            run_dir = SCRIPT_DIR / folder_key
+            if run_dir.is_dir():
+                run_dirs.append(run_dir)
+        run_dirs.sort(key=lambda p: p.name)
         if not run_dirs:
             print("No runs* directories found next to this script.")
             sys.exit(1)

@@ -251,7 +251,7 @@ def plot_all_models(include_abliterated: bool = False):
             print(f"  {model:30s}  n={n:3d}  (no data)")
 
     # ---- Plot ----
-    fig, ax = plt.subplots(figsize=(plot_config.FIG_WIDTH, 3.5))
+    fig, ax = plt.subplots(figsize=(plot_config.FIG_WIDTH, 3))
     lines = []
 
     for model in sorted(model_data.keys()):
@@ -270,7 +270,7 @@ def plot_all_models(include_abliterated: bool = False):
         )
         lines.append((model, line))
 
-    ax.set_xlabel("Round")
+    ax.set_xlabel("")
     ax.set_ylabel(r"Deception Retention Rate")
     ax.grid(True, alpha=0.4)
     # ax.set_ylim(0, 100)
@@ -282,18 +282,24 @@ def plot_all_models(include_abliterated: bool = False):
         ax.set_xticks(range(1, max_round + 1))
         ax.set_xlim(0.85, max_round - 0.6)
 
+    # Place "Round" label to the left of tick "1" to save vertical space
+    ax.annotate("Round", xy=(1, 0), xycoords=("data", "axes fraction"),
+                xytext=(-15, -7), textcoords="offset points",
+                ha="right", va="top", fontsize=plt.rcParams["axes.labelsize"])
+
     legend = ax.legend(
         framealpha=0,
-        bbox_to_anchor=(0.5, -0.18), loc="upper center",
+        bbox_to_anchor=(0.48, -0.10), loc="upper center",
         handlelength=1, handletextpad=1.6, ncol=3,
     )
 
     # Add model icons to legend
     for model, handle in zip([m for m, _ in lines], legend.legend_handles):
         imagebox = plot_config.get_model_imagebox(model)
+        imagebox.set_zoom(imagebox.get_zoom() * 0.8)  # scale down icons if needed
         if imagebox:
             ab = AnnotationBbox(
-                imagebox, (0.5, 0.5), xybox=(13, 0),
+                imagebox, (0.5, 0.5), xybox=(11, 0),
                 xycoords=handle, boxcoords="offset points",
                 frameon=False, box_alignment=(0.5, 0.5), zorder=10,
             )
@@ -301,7 +307,7 @@ def plot_all_models(include_abliterated: bool = False):
 
     plt.tight_layout()
     out_path = plot_config.get_plot_path("deception_analysis_all.pdf")
-    plt.savefig(out_path, dpi=300, bbox_inches="tight")
+    plt.savefig(out_path, dpi=300, bbox_inches="tight", pad_inches=0)
     plt.close()
     print(f"\nPlot saved to: {out_path}")
 
