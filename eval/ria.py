@@ -236,6 +236,8 @@ def _discover_model_folders(include_abliterated: bool = False) -> list[Path]:
     for key, info in plot_config.MODEL_REGISTRY.items():
         if "runsF2" not in key:
             continue
+        if plot_config.is_baseline(key):
+            continue
         if not include_abliterated and info.get("abliterated", False):
             continue
         candidate = EVAL_DIR / key
@@ -252,7 +254,10 @@ def _pct(val: Optional[float]) -> str:
     return f"{val*100:5.1f}%" if val is not None else "  N/A "
 
 
-def print_ria_table(results: dict[str, tuple[str, RIAStats]]) -> None:
+def print_ria_table(
+    results: dict[str, tuple[str, RIAStats]],
+    win_rates: Optional[dict[str, float]] = None,
+) -> None:
     """Print a rich text table of RIA results.
 
     *results* maps folder_key → (display_name, RIAStats).
@@ -281,8 +286,11 @@ def print_ria_table(results: dict[str, tuple[str, RIAStats]]) -> None:
     print(header)
     print(sep)
 
+    if win_rates is None:
+        win_rates = {}
+
     for folder_key, (display_name, stats) in sorted(
-        results.items(), key=lambda x: x[1][1].ria or 0, reverse=True
+        results.items(), key=lambda x: win_rates.get(x[1][0], 0), reverse=True
     ):
         if stats.total == 0:
             continue
@@ -316,7 +324,11 @@ def print_ria_table(results: dict[str, tuple[str, RIAStats]]) -> None:
 # Plotting
 # ---------------------------------------------------------------------------
 
-def plot_ria(results: dict[str, tuple[str, RIAStats]], out_path: Path) -> None:
+def plot_ria(
+    results: dict[str, tuple[str, RIAStats]],
+    out_path: Path,
+    win_rates: Optional[dict[str, float]] = None,
+) -> None:
     """Grouped bar chart: overall RIA + per-own-role breakdown."""
     models = [
         (folder_key, display_name, stats)
@@ -327,8 +339,10 @@ def plot_ria(results: dict[str, tuple[str, RIAStats]], out_path: Path) -> None:
         print("No data to plot.")
         return
 
-    # Sort by liberal-own RIA descending
-    models.sort(key=lambda x: x[2].ria_by_own_role("liberal") or 0, reverse=True)
+    # Sort by overall win rate descending (fallback to 0 if unavailable)
+    if win_rates is None:
+        win_rates = {}
+    models.sort(key=lambda x: win_rates.get(x[1], 0), reverse=True)
 
     n = len(models)
     x = np.arange(n)
@@ -339,21 +353,34 @@ def plot_ria(results: dict[str, tuple[str, RIAStats]], out_path: Path) -> None:
     display_names = [dn for _, dn, _ in models]
     model_colors  = [plot_config.get_model_color(dn) for dn in display_names]
 
-    fig, ax = plt.subplots(figsize=(plot_config.FIG_WIDTH, 4))
+    fig, ax = plt.subplots(figsize=(plot_config.FIG_WIDTH, 2.5))
 
-    ax.bar(x, lib_own, bar_w, color=model_colors, zorder=4, alpha=0.95)
+    bars = ax.bar(x, lib_own, bar_w, color=model_colors, zorder=4, alpha=0.95)
+
+    # Match aggregate_tokens style: integer labels above bars.
+    for bar, val in zip(bars, lib_own):
+        ax.text(
+            bar.get_x() + bar.get_width() / 2,
+            val + 0.01,
+            f"{val * 100:.0f}\\%",
+            ha="center",
+            va="bottom",
+            fontsize=9,
+            zorder=6,
+        )
 
     ax.set_xticks(x)
     ax.set_xticklabels(display_names, rotation=35, ha="right")
     ax.tick_params(axis="x", color="0.85", labelcolor="0", pad=0)
     ax.tick_params(axis="y", color="0.85", labelcolor="0")
-    ax.set_ylabel("Role Identification Accuracy")
+    ax.set_ylabel(r"Role Identification Accuracy")
     ax.yaxis.set_major_formatter(plt.FuncFormatter(lambda y, _: f"{y*100:.0f}\\%"))
     ax.set_ylim(0, 1.05)
-    ax.set_xlim(-0.6, n - 0.4)
-    ax.grid(axis="y", alpha=0.3, zorder=0)
+    ax.set_xlim(-0.5, n - 0.5)
+    ax.margins(x=0, y=0)
+    ax.grid(True, alpha=0.3, zorder=0)
 
-    plt.tight_layout()
+    plt.tight_layout(pad=0.01)
 
     # Render once so tick-label bounding boxes are available
     fig.canvas.draw()
@@ -401,7 +428,8 @@ def plot_ria(results: dict[str, tuple[str, RIAStats]], out_path: Path) -> None:
             ax.add_artist(ab)
 
     out_path.parent.mkdir(parents=True, exist_ok=True)
-    plt.savefig(out_path, dpi=300, bbox_inches="tight")
+
+    plt.savefig(out_path, dpi=300, bbox_inches="tight", pad_inches=0.01)
     plt.close()
     print(f"Plot saved → {out_path}")
 
@@ -442,20 +470,24 @@ def main() -> None:
         return
 
     results: dict[str, tuple[str, RIAStats]] = {}
+    win_rates: dict[str, float] = {}
     for folder in folders:
         key = folder.name
         display = plot_config.extract_model_name(key)
         stats = compute_ria_for_folder(folder)
         results[key] = (display, stats)
+        wr = plot_config.compute_win_rate(folder)
+        if wr is not None:
+            win_rates[display] = wr
         n_json = len(list(folder.glob("*_summary.json")))
         ria_val = f"{stats.ria*100:.1f}%" if stats.ria is not None else "N/A"
         print(f"  {display:<34} — {n_json} games  RIA={ria_val}  (N={stats.total})")
 
-    print_ria_table(results)
+    print_ria_table(results, win_rates=win_rates)
 
     if not args.no_plot:
         out = plot_config.get_plot_path("ria_by_model.pdf")
-        plot_ria(results, Path(out))
+        plot_ria(results, Path(out), win_rates=win_rates)
 
 
 # ---------------------------------------------------------------------------

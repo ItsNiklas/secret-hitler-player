@@ -48,21 +48,26 @@ def compute_gsir_and_winrate(folder: Path):
     impact = analyze_alice_game_state_impact(games)
     if impact["total_actions"] == 0:
         return None
-    overall_gsir = impact["cumulative_mean"] * 100
     perf = analyze_alice_performance(games)
     if perf["total_games"] == 0:
         return None
-    return overall_gsir, perf["win_rate"]
+
+    return {
+        "overall": (impact["cumulative_mean"] * 100, perf["win_rate"]),
+        "liberal": (impact["cumulative_mean_by_role"].get("liberal", 0) * 100, perf.get("win_rate_by_role", {}).get("liberal", 0)),
+        "fascist": (impact["cumulative_mean_by_role"].get("fascist", 0) * 100, perf.get("win_rate_by_role", {}).get("fascist", 0)),
+        "hitler": (impact["cumulative_mean_by_role"].get("hitler", 0) * 100, perf.get("win_rate_by_role", {}).get("hitler", 0))
+    }
 
 
 # ------------------------------------------------------------------
 # Plotting
 # ------------------------------------------------------------------
 
-def plot_scatter(data: dict[str, tuple[float, float]]):
+def plot_scatter(data: dict[str, dict[str, tuple[float, float]]]):
     models = list(data.keys())
-    xs = np.array([data[m][0] for m in models])
-    ys = np.array([data[m][1] for m in models])
+    xs = np.array([data[m]["overall"][0] for m in models])
+    ys = np.array([data[m]["overall"][1] for m in models])
 
     fig, ax = plt.subplots(figsize=(FIG_WIDTH, 2.6))
 
@@ -123,7 +128,7 @@ def main():
         include_baselines=False,
     )
 
-    scatter_data: dict[str, tuple[float, float]] = {}
+    scatter_data: dict[str, dict[str, tuple[float, float]]] = {}
     for key in keys:
         folder = EVAL_DIR / key
         if not folder.is_dir():
@@ -131,12 +136,20 @@ def main():
         name = extract_model_name(key)
         result = compute_gsir_and_winrate(folder)
         if result is not None:
-            gsir, wr = result
-            scatter_data[name] = (gsir, wr)
+            scatter_data[name] = result
+            gsir, wr = result["overall"]
             print(f"{name:30s}  GSIR={gsir:+.2f}  WinRate={wr:.1f}%")
 
     if scatter_data:
         plot_scatter(scatter_data)
+        
+        print("\n--- Correlations ---")
+        for role in ["overall", "liberal", "fascist", "hitler"]:
+            xs = [scatter_data[m][role][0] for m in scatter_data]
+            ys = [scatter_data[m][role][1] for m in scatter_data]
+            if len(xs) >= 2:
+                r = np.corrcoef(xs, ys)[0, 1]
+                print(f"{role.capitalize():10s}: r = {r:+.3f}")
 
 
 if __name__ == "__main__":

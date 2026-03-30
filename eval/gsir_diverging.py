@@ -3,8 +3,8 @@
 Plot 1 – GSIR Horizontal Diverging Bar Chart (Table 2).
 
 For each model, computes the Game-State Impact Rating (GSIR) broken down by
-Alice's role (Liberal, Fascist, Hitler).  Each role gets its own sub-bar so
-that a negative Liberal GSIR is never hidden behind a Fascist bar.
+Alice's role (Liberal, Fascist, Hitler).  Liberal bars are visually
+emphasized (50% relative height) while Fascist and Hitler bars use 25% each.
 
 Models are sorted by overall win rate; baselines appear below a divider.
 Models with fewer than MIN_GAMES games are dropped.
@@ -20,7 +20,6 @@ from pathlib import Path
 
 import matplotlib.pyplot as plt
 import matplotlib.ticker as mticker
-import numpy as np
 from matplotlib.offsetbox import AnnotationBbox
 
 from plot_config import (
@@ -44,9 +43,13 @@ EVAL_DIR = Path(__file__).parent
 
 # Three sub-rows per model, tightly packed
 SUB_ROLES = ["liberal", "fascist", "hitler"]
-SUB_HEIGHT = 0.15  # height of each thin bar
-SUB_SPACING = 0.18  # vertical distance between sub-bar centres
-GROUP_GAP = 0.25  # extra gap between model groups
+SUB_ROLE_HEIGHT_WEIGHTS = {
+    "liberal": 0.50,
+    "fascist": 0.25,
+    "hitler": 0.25,
+}
+BASE_SUB_HEIGHT = 0.30
+BAR_HEIGHTS = {r: BASE_SUB_HEIGHT * SUB_ROLE_HEIGHT_WEIGHTS[r] for r in SUB_ROLES}
 
 
 # ------------------------------------------------------------------
@@ -72,47 +75,66 @@ def compute_gsir_for_folder(folder: Path):
 
 def plot_gsir_diverging(model_data: dict, baseline_names: set):
     models = list(model_data.keys())
-    n = len(models)
-    if n == 0:
+    if not models:
         print("No data to plot.")
         return
 
-    # Build y-positions: 3 sub-rows per model, extra gap before baselines
-    y_positions = {}
-    y_current = 0.0
-    first_baseline = True
-    baseline_divider_y = None
-    for m in models:
-        if m in baseline_names and first_baseline:
-            baseline_divider_y = y_current - GROUP_GAP * 0.6
-            y_current += GROUP_GAP
-            first_baseline = False
-        y_positions[m] = y_current
-        y_current += SUB_SPACING * (len(SUB_ROLES) - 1) + GROUP_GAP
+    # Build bar centers so every adjacent bar touches exactly (no vertical gaps).
+    model_centers = {}
+    bar_centers = {m: {} for m in models}
+    bar_edges = {m: {} for m in models}
 
-    fig, ax = plt.subplots(figsize=(FIG_WIDTH, 3.4))
+    y_cursor = 0.0  # top edge of the next bar in data coordinates
+    for m in models:
+        first_top = None
+        last_bottom = None
+        for role in SUB_ROLES:
+            h = BAR_HEIGHTS[role]
+            top = y_cursor
+            center = top + h / 2
+            bottom = top + h
+            bar_centers[m][role] = center
+            bar_edges[m][role] = (top, bottom)
+            if first_top is None:
+                first_top = top
+            last_bottom = bottom
+            y_cursor = bottom
+        model_centers[m] = (first_top + last_bottom) / 2
+
+        y_cursor += 0.05  # tiny gap between models
+
+    baseline_divider_y = None
+    for i, m in enumerate(models):
+        if m in baseline_names and i > 0:
+            prev = models[i - 1]
+            # Divider at the exact touching boundary between model blocks.
+            baseline_divider_y = bar_edges[prev][SUB_ROLES[-1]][1]
+            break
+
+    fig, ax = plt.subplots(figsize=(FIG_WIDTH + 1.1, 2.8))
 
     for model in models:
         vals = model_data[model]
-        centre = y_positions[model]
-        for j, role in enumerate(SUB_ROLES):
-            y = centre + (j - 1) * SUB_SPACING
+        for role in SUB_ROLES:
+            y = bar_centers[model][role]
             ax.barh(
-                y, vals[role], height=SUB_HEIGHT,
-                color=ROLE_COLORS[role], zorder=3,
+                y,
+                vals[role],
+                height=BAR_HEIGHTS[role],
+                color=ROLE_COLORS[role],
+                zorder=3,
                 label=role.capitalize() if model == models[0] else None,
             )
 
     # y-axis: one tick per model at centre
-    ax.set_yticks([y_positions[m] for m in models])
+    ax.set_yticks([model_centers[m] for m in models])
     ax.set_yticklabels(models)
     ax.invert_yaxis()
 
-    # Tighten vertical margins so bars sit close to the x-axis edges
-    all_y = [y_positions[m] + (j - 1) * SUB_SPACING
-             for m in models for j in range(len(SUB_ROLES))]
-    margin = SUB_SPACING * 0.8
-    ax.set_ylim(max(all_y) + margin, min(all_y) - margin)
+    # Bars are touching; keep only a tiny outer margin.
+    total_height = y_cursor
+    outer_margin = 0.02
+    ax.set_ylim(total_height + outer_margin, -outer_margin)
 
     # Horizontal divider before baselines
     if baseline_divider_y is not None:
@@ -137,7 +159,7 @@ def plot_gsir_diverging(model_data: dict, baseline_names: set):
         ib = get_model_imagebox(m)
         if ib is not None:
             ab = AnnotationBbox(
-                ib, xy=(0, y_positions[m]),
+                ib, xy=(0, model_centers[m]),
                 xycoords=("axes fraction", "data"),
                 xybox=(-8, 0), boxcoords="offset points",
                 frameon=False, box_alignment=(0.5, 0.5), zorder=10,

@@ -32,6 +32,7 @@ from matplotlib.offsetbox import OffsetImage
 from plot_config import (
     FIG_WIDTH,
     MODEL_REGISTRY,
+    compute_win_rate,
     extract_model_name,
     get_model_color,
     get_model_imagebox,
@@ -246,7 +247,7 @@ def print_report(result):
 
 
 def plot_completion_tokens(results: dict):
-    """Vertical bar chart of avg completion tokens/game across all models, sorted."""
+    """Vertical bar chart of avg completion tokens/game across all models."""
     setup_plot_style(use_latex=True)
 
     # Collect entries that exist in both results and MODEL_REGISTRY
@@ -258,15 +259,19 @@ def plot_completion_tokens(results: dict):
         print("Nothing to plot.")
         return
 
-    # Sort by avg_completion descending
-    entries.sort(key=lambda x: x[1]["avg_completion"], reverse=True)
+    # Sort by overall win rate descending (fallback 0 for missing values)
+    win_rates = {}
+    for folder_key, _ in entries:
+        wr = compute_win_rate(SCRIPT_DIR / folder_key)
+        win_rates[folder_key] = wr if wr is not None else 0.0
+    entries.sort(key=lambda x: win_rates.get(x[0], 0.0), reverse=True)
 
     names = [extract_model_name(k) for k, _ in entries]
     values = [r["avg_completion"] for _, r in entries]
     colors = [get_model_color(n) for n in names]
 
     BAR_WIDTH = 0.6
-    fig, ax = plt.subplots(figsize=(FIG_WIDTH, 3.0))
+    fig, ax = plt.subplots(figsize=(FIG_WIDTH, 2.7))
 
     x_pos = np.arange(len(names))
     bars = ax.bar(x_pos, values, color=colors, width=BAR_WIDTH, zorder=5)
@@ -281,7 +286,8 @@ def plot_completion_tokens(results: dict):
         )
 
     ax.set_ylim(0, y_max)
-    ax.set_xlim(-0.6, len(names) - 0.4)
+    ax.set_xlim(-0.5, len(names) - 0.5)
+    ax.margins(x=0, y=0)
     ax.set_xticks(x_pos)
     ax.set_xticklabels(names, rotation=35, ha="right")
     ax.set_ylabel("Avg Completion Tokens / Game")
@@ -292,7 +298,7 @@ def plot_completion_tokens(results: dict):
 
     ax.grid(True, alpha=0.3, zorder=0)
 
-    plt.tight_layout()
+    plt.tight_layout(pad=0.1)
 
     # Render once so tick-label bounding boxes are available
     fig.canvas.draw()

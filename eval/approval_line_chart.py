@@ -19,7 +19,7 @@ from pathlib import Path
 from collections import defaultdict
 
 import matplotlib.pyplot as plt
-import numpy as np
+from matplotlib.offsetbox import AnnotationBbox
 
 import plot_config
 from plot_config import (
@@ -98,52 +98,68 @@ def plot_approval_lines(round_data: dict, baseline_names: set):
     """
     Single-panel line chart: approval rate by round.
     """
-    models = list(round_data.keys())
-    n = len(models)
+    ordered_models = list(round_data.keys())
+    n = len(ordered_models)
     if n == 0:
         print("No data to plot.")
         return
 
     # Determine global max round
-    max_round = max(max(rd.keys()) for rd in round_data.values()) - 5
+    max_round = 10
 
-    fig, ax = plt.subplots(figsize=(FIG_WIDTH, 2.8))
+    fig, ax = plt.subplots(figsize=(FIG_WIDTH, 2.3))
+    lines = []
 
-    for model in models:
+    for model in ordered_models:
         rd = round_data[model]
         rounds = sorted(rd.keys())
         rates = [rd[r]["rate"] * 100 for r in rounds]
-        m_style, ms = get_markerdata_for_model(model)
-        ax.plot(
+        m, ms = get_markerdata_for_model(model)
+        (line,) = ax.plot(
             rounds, rates,
-            marker=m_style, color=get_model_color(model),
-            linewidth=1.0, markersize=ms * 0.65,
-            markeredgecolor="white", markeredgewidth=0.4,
-            label=model, zorder=3,
+            marker=m, color=get_model_color(model),
+            linewidth=2, markersize=ms, label=model,
+            markeredgecolor="white", markeredgewidth=1,
         )
+        lines.append((model, line))
 
-    ax.set_xlabel("Round")
+    ax.set_xlabel("")
     ax.set_ylabel(r"Approval rate (\%)")
-    ax.set_ylim(0, 105)
-    ax.set_xlim(0.5, max_round + 0.5)
+    ax.grid(True, alpha=0.4)
+    ax.set_ylim(None, 100)
+    ax.yaxis.set_major_formatter(plt.FuncFormatter(lambda y, _: fr"{int(y)}\%"))
     ax.set_xticks(range(1, max_round + 1))
-    ax.grid(True, alpha=0.3, linestyle="--", zorder=0)
-    ax.spines["top"].set_visible(False)
-    ax.spines["right"].set_visible(False)
+    ax.set_xlim(0.85, max_round - 0.6)
 
-    # Legend below
-    ax.legend(
-        loc="lower center",
-        bbox_to_anchor=(0.5, -0.6),
-        ncol=3,
+    # Place "Round" label to the left of tick "1" to save vertical space
+    ax.annotate("Round", xy=(1, 0), xycoords=("data", "axes fraction"),
+                xytext=(-15, -7), textcoords="offset points",
+                ha="right", va="top", fontsize=plt.rcParams["axes.labelsize"])
+
+    legend = ax.legend(
         framealpha=0,
-        handlelength=2,
-        handletextpad=0.8,
-        columnspacing=1.0,
+        loc="center left",
+        bbox_to_anchor=(1.01, 0.5),
+        borderaxespad=0.0,
+        handlelength=0,
+        handletextpad=1.9,
+        ncol=1,
     )
 
+    # Add model icons to legend
+    for model, handle in zip([m for m, _ in lines], legend.legend_handles):
+        imagebox = plot_config.get_model_imagebox(model)
+        if imagebox is not None:
+            imagebox.set_zoom(imagebox.get_zoom() * 0.8)
+            ab = AnnotationBbox(
+                imagebox, (0.5, 0.5), xybox=(10, 0),
+                xycoords=handle, boxcoords="offset points",
+                frameon=False, box_alignment=(0.5, 0.5), zorder=10,
+            )
+            fig.add_artist(ab)
+
     out = get_plot_path("approval_rate_line.pdf")
-    fig.savefig(out, dpi=300, bbox_inches="tight")
+    fig.savefig(out, dpi=300, bbox_inches="tight", pad_inches=0.01)
     print(f"Saved: {out}")
     plt.close(fig)
 
@@ -155,7 +171,7 @@ def main():
     parser.add_argument("--include-abliterated", action="store_true")
     args = parser.parse_args()
 
-    keys = collect_model_keys(include_abliterated=args.include_abliterated)
+    keys = collect_model_keys(include_abliterated=args.include_abliterated, include_baselines=False)
 
     round_data = {}
     win_rates = {}

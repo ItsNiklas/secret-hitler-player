@@ -15,6 +15,22 @@ from matplotlib.offsetbox import OffsetImage
 from PIL import Image
 
 
+COLOR_DARKEN_FACTOR = 0.93
+
+
+def _darken_hex_color(hex_color: str, factor: float = COLOR_DARKEN_FACTOR) -> str:
+    """Return *hex_color* darkened by *factor* (0..1)."""
+    color = hex_color.lstrip("#")
+    r = int(color[0:2], 16)
+    g = int(color[2:4], 16)
+    b = int(color[4:6], 16)
+
+    r = max(0, min(255, int(round(r * factor))))
+    g = max(0, min(255, int(round(g * factor))))
+    b = max(0, min(255, int(round(b * factor))))
+    return f"#{r:02x}{g:02x}{b:02x}"
+
+
 def setup_plot_style(use_latex=True):
     """
     Configure matplotlib with consistent style settings.
@@ -224,9 +240,29 @@ MODEL_REGISTRY = {
     "crawl": {"name": "Human", "color": "#6B5E62", "logo": "human.png", "marker": ("+", 8)},
 }
 
+for _entry in MODEL_REGISTRY.values():
+    if "color" in _entry:
+        _entry["color"] = _darken_hex_color(_entry["color"])
+
 # Derived lookups (auto-generated from MODEL_REGISTRY)
 MODEL_COLORS = {v["name"]: v["color"] for v in MODEL_REGISTRY.values()}
 MODEL_COLOR_FALLBACK = "#FF00FF"  # Bright Magenta – impossible to miss!
+
+# Fixed display order used in paper tables/figures.
+PAPER_MODEL_ORDER = [
+    "Kimi K2.5",
+    "GPT-5.4",
+    "Grok 4.1 Fast",
+    "DeepSeek 3.1 Terminus",
+    "Qwen 3.5 397B A17B",
+    "Mistral Small 24B",
+    "GPT-OSS 120B",
+    "OLMo 3.1 32B",
+    "Llama 3.1 70B",
+    "Gemma 3 27B",
+    "GPT-OSS 20B",
+]
+PAPER_MODEL_ORDER_INDEX = {name: i for i, name in enumerate(PAPER_MODEL_ORDER)}
 
 # Metric-based colors (for column-wise coloring)
 METRIC_COLORS = {
@@ -330,6 +366,17 @@ def get_model_colors(model_names, warn_on_missing=True):
     Get colors for multiple models.
     """
     return [get_model_color(name, warn_on_missing) for name in model_names]
+
+
+def get_model_sort_key(model_name):
+    """Sort key for model display names.
+
+    Known paper models follow PAPER_MODEL_ORDER exactly.
+    Unknown models are placed after known ones and sorted alphabetically.
+    """
+    if model_name in PAPER_MODEL_ORDER_INDEX:
+        return (0, PAPER_MODEL_ORDER_INDEX[model_name])
+    return (1, model_name)
 
 
 def get_model_imagebox(model_name):
