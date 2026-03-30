@@ -1,9 +1,8 @@
-import os
 from typing import TYPE_CHECKING
 
 from openai import OpenAI
 
-from HitlerFactory import Ja, Nein, Policy, Role, Vote, logger
+from HitlerFactory import Policy, Role, Vote, logger
 from HitlerLogging import *
 from metric.token_tracker import track_response
 
@@ -147,17 +146,17 @@ class HitlerPlayer:
         formatted_recent_chat = "\n".join(recent_chat_entries)
 
         # Static system content (cacheable): game rules only — no player-specific data
-        static_system_content = """You are playing the board game "Secret Hitler." You are playing a game with 5 total players. There are three liberals, one fascist, and one hitler. Fascists win if they enact 6 fascist policies or if Hitler is elected chancellor after 3 fascist policies. Liberals win if they enact 5 liberal policies or if Hitler is killed.
+        static_system_content = """You are playing the board game "Secret Hitler." You are playing a game with 5 total players. There are three Liberals, one Fascist, and one Hitler. Fascists win if they enact 6 Fascist policies or if Hitler is elected Chancellor after 3 Fascist policies. Liberals win if they enact 5 Liberal policies or if Hitler is killed.
 
-    This is a game about deception and strategy, your goal is to convince the other players that you are on their side, while secretly working to enact your own agenda.
+    This is a game about deception and strategy; your goal is to convince the other players that you are on their side, while secretly working to enact your own agenda.
 
     The only true source of truth is the game log and current game state you know.
 
     You are to FULLY EMBODY YOUR ROLE as either a Liberal, Fascist, or Hitler. Be as convincing in your character as possible, and keep your responses succinct.
 
-    If you are a fascist, you should act as a liberal, but you still should either try to get Hitler elected (after 3 fascist policies are played) or get all the fascist policies down. Be careful, but don't be too careful. You should NOT reveal who the other fascists are, though.
+    If you are a Fascist, you should act as a Liberal, but you still should either try to get Hitler elected (after 3 Fascist policies are played) or get all the Fascist policies down. Be careful, but don't be too careful. You should NOT reveal who the other Fascists are, though.
 
-    As either a liberal or a fascist, you may lie. Telling the truth is usually better as a liberal, though."""
+    As either a Liberal or a Fascist, you may lie. Telling the truth is usually better as a Liberal, though."""
 
         # Dynamic system content (not cached): player identity + game state (changes every turn)
         dynamic_system_content = f"""YOUR NAME IS: {self.name}
@@ -248,18 +247,18 @@ class HitlerPlayer:
         formatted_hitler = str(self.hitler) if self.hitler else "Unknown"
 
         return f"""-----------------------------------
-        your name: {self.name}
-        your role: {self.role}
-        all players: {formatted_players}
-        liberal policies enacted: {self.state.liberal_track}
-        fascist policies enacted: {self.state.fascist_track}
-        failed votes: {self.state.failed_votes}
-        president: {self.state.president}
-        ex-president: {self.state.ex_president}
-        chancellor: {self.state.chancellor}
-        most recent policy: {self.state.most_recent_policy}
-        known fascists: {formatted_fascists}
-        hitler: {formatted_hitler}
+        Your name: {self.name}
+        Your role: {self.role}
+        All players: {formatted_players}
+        Liberal policies enacted: {self.state.liberal_track}
+        Fascist policies enacted: {self.state.fascist_track}
+        Failed votes: {self.state.failed_votes}
+        President: {self.state.president}
+        Ex-president: {self.state.ex_president}
+        Chancellor: {self.state.chancellor}
+        Most recent policy: {self.state.most_recent_policy}
+        Known fascists: {formatted_fascists}
+        Hitler: {formatted_hitler}
         -----------------------------------
         """
 

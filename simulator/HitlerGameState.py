@@ -168,7 +168,7 @@ class GameState:
             state.last_votes = [Ja() if v else Nein() for v in latest_log["votes"]]
 
         # Create players from the players array
-        from players import LLMPlayer, RandomPlayer, RulePlayer
+        from players import RulePlayer
 
         player_data = data["players"]
         game_log = []  # Would normally extract from logs
@@ -513,7 +513,7 @@ class GameState:
                 
                 return chat_messages, game_messages
             else:
-                logger.error(f"Chat JSON has unexpected format")
+                logger.error("Chat JSON has unexpected format")
                 return [], []
         except Exception as e:
             logger.error(f"Error parsing chat JSON: {e}")

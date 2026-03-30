@@ -1,6 +1,5 @@
 from random import choice, getrandbits
 import random
-import os
 
 from .hitler_player import HitlerPlayer
 from HitlerFactory import Ja, Nein, Policy, Vote, logger
@@ -340,7 +339,7 @@ class LLMPlayer(HitlerPlayer):
 
         This is part of the governing process. The president and chancellor are working together to enact a policy. After this, a new government will be formed.
         
-        As president, you have drawn 3 cards secretly. These will correspond to policies that will be enacted. You can secretly discard one card and give the remaining two to the chancellor, and the chancellor will choose one of the two cards to enact. Nobody will know which card you discarded. Only the chancellor will know which cards you passed on.:
+        As president, you have drawn 3 cards secretly. These will correspond to policies that will be enacted. You can secretly discard one card and give the remaining two to the chancellor, and the chancellor will choose one of the two cards to enact. Nobody will know which card you discarded. Only the chancellor will know which cards you passed on:
         
         Card 1: {str(policies[0])},
         Card 2: {str(policies[1])},
@@ -440,7 +439,7 @@ class LLMPlayer(HitlerPlayer):
         """
 
         if stage == "discussion_on_potential_government":
-            prompt += f"""
+            prompt += """
             Your goal is to convince the other players to vote either JA (yes) or NEIN (no), depending on what your strategy is.
             However, you should not actually reveal what your strategy is. You should only try to convince the other players to vote in a certain way. Please keep your response brief and to the point.
 
@@ -450,13 +449,13 @@ class LLMPlayer(HitlerPlayer):
             If you feel that you have specific information that will be good for anyone to know, then tell them. You may lie!
             """
         elif stage == "after_policy":
-            prompt += f"""
+            prompt += """
             Your goal is to analyze the policy that was just enacted, and to see whether any of the players in the government are suspicious. You should especially be looking for any inconsistencies in the story that the president and chancellor are telling.
             If a fascist policy was enacted, take this into account when analyzing the situation. Remember, YOUR ULTIMATE GOAL IS ADVANCING YOUR TEAM'S AGENDA.
 
-            Now, respond to the other players. If you have any new information (for example, if you have insight into the previous voting round as a president or chancellor), then consider sharing this information. If you had previosuly inspected a player and your "known_fascists" list has changed, then consider sharing this information.
+            Now, respond to the other players. If you have any new information (for example, if you have insight into the previous voting round as a president or chancellor), then consider sharing this information. If you had previously inspected a player and your "known_fascists" list has changed, then consider sharing this information.
             
-            Still, be consise."""
+            Still, be concise."""
 
         response = self.get_completion(prompt, "Discuss with other players")
 

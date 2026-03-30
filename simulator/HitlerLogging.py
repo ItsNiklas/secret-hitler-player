@@ -192,9 +192,9 @@ def format_policy(policy):
         
     if hasattr(policy, 'type'):
         if policy.type == "liberal":
-            return f"[policy.liberal]Liberal[/policy.liberal]"
+            return "[policy.liberal]Liberal[/policy.liberal]"
         elif policy.type == "fascist":
-            return f"[policy.fascist]Fascist[/policy.fascist]"
+            return "[policy.fascist]Fascist[/policy.fascist]"
     return str(policy)
 
 
@@ -205,19 +205,19 @@ def format_role(role):
         
     if hasattr(role, 'role'):
         if role.role == "liberal":
-            return f"[liberal]Liberal[/liberal]"
+            return "[liberal]Liberal[/liberal]"
         elif role.role == "fascist":
-            return f"[fascist]Fascist[/fascist]"
+            return "[fascist]Fascist[/fascist]"
         elif role.role == "hitler":
-            return f"[hitler]Hitler[/hitler]"
+            return "[hitler]Hitler[/hitler]"
     return str(role)
 
 
 def format_vote(vote):
     """Format a vote with appropriate styling"""
     if vote:
-        return f"[vote.ja]JA[/vote.ja]"
-    return f"[vote.nein]NEIN[/vote.nein]"
+        return "[vote.ja]JA[/vote.ja]"
+    return "[vote.nein]NEIN[/vote.nein]"
 
 
 def display_game_header():
@@ -315,7 +315,7 @@ def display_failed_votes(failed_votes):
 
 def display_election_tracker_full():
     """Display message when election tracker is full"""
-    console.print(f"[bold red]❗ Election tracker reached 3! Enacting top policy automatically[/bold red]")
+    console.print("[bold red]❗ Election tracker reached 3! Enacting top policy automatically[/bold red]")
     logger.warning("Election tracker reached 3! Enacting top policy automatically")
 
 

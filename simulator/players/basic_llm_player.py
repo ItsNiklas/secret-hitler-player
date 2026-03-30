@@ -1,10 +1,9 @@
 from random import choice, getrandbits
 import random
-import os
 
 from .hitler_player import HitlerPlayer
 from HitlerFactory import Ja, Nein, Policy, Vote, logger
-from HitlerLogging import display_player_reasoning, display_policy_table, display_player_discussion
+from HitlerLogging import display_policy_table, display_player_discussion
 from metric.token_tracker import track_response
 
 
@@ -39,7 +38,7 @@ class BasicLLMPlayer(HitlerPlayer):
         formatted_recent_chat = "\n".join(recent_chat_entries)
 
         # Simple system prompt without complex strategy instructions
-        system_content = f"""You are playing Secret Hitler. 5 players: three liberals, one fascist, one hitler.
+        system_content = f"""You are playing Secret Hitler. 5 players: three Liberals, one Fascist, one Hitler.
 
 YOUR NAME: {self.name}
 YOUR ROLE: {self.role} {"(Fascist)" if self.role.role == "hitler" else ""}
@@ -272,9 +271,9 @@ Respond with ONLY "VETO" or "NO VETO"."""
     def discuss(self, chat: str, stage: str) -> str:
         """Discussion without complex strategy"""
         if stage == "discussion_on_potential_government":
-            prompt = f"""It's discussion time about the proposed government. Say something brief to other players."""
+            prompt = """It's discussion time about the proposed government. Say something brief to other players."""
         else:
-            prompt = f"""The policy was just enacted. Say something brief about it."""
+            prompt = """The policy was just enacted. Say something brief about it."""
 
         response = self.get_basic_completion(prompt, "Discuss")
 

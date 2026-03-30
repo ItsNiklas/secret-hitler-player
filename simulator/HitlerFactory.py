@@ -1,7 +1,4 @@
 from typing import Optional
-import logging
-
-from HitlerLogging import logger
 
 LIBERAL_POLICIES = 6
 FASCIST_POLICIES = 11
